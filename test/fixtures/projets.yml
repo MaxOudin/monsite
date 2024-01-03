@@ -1,0 +1,27 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  titre: MyString
+  type_projet: MyString
+  description: MyText
+  image_url: MyText
+  image_url_alt: MyString
+  date_debut: 2024-01-03
+  date_fin: 2024-01-03
+  client: MyString
+  projet_lien: MyString
+  github_lien: MyString
+  couleur: MyString
+
+two:
+  titre: MyString
+  type_projet: MyString
+  description: MyText
+  image_url: MyText
+  image_url_alt: MyString
+  date_debut: 2024-01-03
+  date_fin: 2024-01-03
+  client: MyString
+  projet_lien: MyString
+  github_lien: MyString
+  couleur: MyString

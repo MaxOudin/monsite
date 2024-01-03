@@ -1,8 +1,11 @@
 # README
 
+Welcome to the professional website of Maxime Oudin, Ruby On Rails fullstack web developer
+
+
 This README would normally document whatever steps are necessary to get the
 application up and running.
-
+z
 Things you may want to cover:
 
 * Ruby version
