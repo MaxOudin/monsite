@@ -1,0 +1,7 @@
+
+<%= @projet.inspect %>
+<% @projet.instance_variables.each do |var| %>
+  <% unless @projet.class.validators_on(var.to_s.gsub("@", "")).any? %>
+    <%= var %>: <%= @projet.instance_variable_get(var) || "cette valeur n'existe pas" %>
+  <% end %>
+<% end %>

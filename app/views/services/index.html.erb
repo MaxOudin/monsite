@@ -1,0 +1,10 @@
+<h2>Bienvenue dans l'index de services qui est aussi root</h2>
+
+  <% @services.each do |service| %>
+    <div class="service">
+      <h3><%= service.nom %></h3>
+      <p><%= service.description %></p>
+      <img src="<%= service.icone_url %>" alt="<%= service.icone_url_alt %>">
+      <p>Couleur : <%= service.couleur %></p>
+    </div>
+  <% end %>
