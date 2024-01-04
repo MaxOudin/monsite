@@ -1,0 +1,13 @@
+<h2>Bienvenue dans le controller projets index</h2>
+
+<% if @projets.last != nil %>
+  <% @projets.each do |projet| %>
+    <div class="projet">
+      <h2><%= projet.title %></h2>
+      <p><%= projet.description %></p>
+      <p><%= projet.date %></p>
+    </div>
+  <% end %>
+  <% else %>
+    <p>Pour l'instant aucun projet n'a été créé</p>
+<% end %>
