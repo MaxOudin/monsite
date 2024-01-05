@@ -7,6 +7,5 @@ pin "@hotwired/stimulus-loading", to: "stimulus-loading.js"
 pin "popper", to: 'popper.js', preload: true
 pin "bootstrap", to: 'bootstrap.min.js', preload: true
 
-
 # Épingle pour les controllers de votre application
 pin_all_from "app/javascript/controllers", under: "controllers"

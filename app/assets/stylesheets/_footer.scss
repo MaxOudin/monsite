@@ -29,20 +29,3 @@
   align-items: center;
 
 }
-
-/* Styles spécifiques pour les écrans de largeur maximale de 600px (petits écrans) */
-@media only screen and (max-width: 600px) {
-  body {
-    font-size: 14px;
-  }
-}
-
-/* Styles spécifiques pour les écrans de largeur minimale de 601px (écrans plus larges) */
-@media only screen and (min-width: 601px) {
-  /* Ajoutez ici des styles spécifiques pour les écrans plus larges */
-}
-
-/* Styles spécifiques pour les écrans de petite taille (mobiles en mode portrait) */
-@media only screen and (min-width: 480px) {
-  /* Ajoutez ici des styles spécifiques pour les mobiles */
-}
