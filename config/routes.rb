@@ -3,4 +3,11 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "services#index"
+
+  # Defines the "services" resources routes
+  resources :services, only: [:index]
+
+  # Defines the "projets" resources routes
+  resources :projets, only: [:index, :show]
+  
 end
