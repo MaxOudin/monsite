@@ -1,2 +1,19 @@
+.navbar-monsite {
+  justify-content: space-between;
+  background: white;
+}
 
+.navbar-monsite .navbar-collapse {
+  flex-grow: 0;
+}
 
+.navbar-monsite .navbar-brand img {
+  width: 100px;
+}
+
+.avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
