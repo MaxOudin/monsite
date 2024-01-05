@@ -1,0 +1,24 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+// Définition des breakpoints
+$grid-breakpoints: (
+  sm: 576px, // Mobile landscape & tablettes
+  lg: 992px, // Ordinateurs
+  xxl: 1400px // Grands écrans
+);
+
+// Media queries avec les breakpoints personnalisés
+@media only screen and (min-width: map-get($grid-breakpoints, sm)) {
+  // Styles pour les écrans à partir de 576px mobiles en mode paysage et tablettes
+}
+
+@media only screen and (min-width: map-get($grid-breakpoints, lg)) {
+  // Styles pour les écrans à partir de 992px ordinateurs
+}
+
+@media only screen and (min-width: map-get($grid-breakpoints, xxl)) {
+  // Styles pour les écrans à partir de 1400px grands écrans
+}

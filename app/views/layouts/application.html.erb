@@ -1,16 +1,25 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Cd</title>
+
+    <title>Maxime Oudin, développeur site internet web à Bordeaux</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <!--load your compiled CSS -->
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+
+
     <%= javascript_importmap_tags %>
   </head>
 
   <body>
-    <%= yield %>
+
+      <%= yield %>
+
+  <%= render 'shared/footer' %>
+
+
   </body>
 </html>

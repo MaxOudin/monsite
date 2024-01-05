@@ -8,5 +8,4 @@ class ProjetsController < ApplicationController
     @projet = Projet.find(params[:id])
   end
 
-
 end

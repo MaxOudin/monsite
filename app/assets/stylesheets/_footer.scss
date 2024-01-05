@@ -1,0 +1,48 @@
+.footer {
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 200px;
+  width: 100vw;
+  color: rgba(0,0,0,0.3);
+  margin-left: 0;
+}
+.footer-links {
+  display: flex;
+  align-items: center;
+}
+.footer-links a {
+  color: #141414;
+  opacity: 0.15;
+  text-decoration: none;
+  font-size: 24px;
+  padding: 0px 10px;
+}
+.footer-links a:hover {
+  opacity: 1;
+}
+
+.footer-copywright {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+
+/* Styles spécifiques pour les écrans de largeur maximale de 600px (petits écrans) */
+@media only screen and (max-width: 600px) {
+  body {
+    font-size: 14px;
+  }
+}
+
+/* Styles spécifiques pour les écrans de largeur minimale de 601px (écrans plus larges) */
+@media only screen and (min-width: 601px) {
+  /* Ajoutez ici des styles spécifiques pour les écrans plus larges */
+}
+
+/* Styles spécifiques pour les écrans de petite taille (mobiles en mode portrait) */
+@media only screen and (min-width: 480px) {
+  /* Ajoutez ici des styles spécifiques pour les mobiles */
+}
