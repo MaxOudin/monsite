@@ -1,29 +1,21 @@
-<div class="navbar navbar-expand-sm navbar-light navbar-monsite">
-  <div class="container-fluid">
-    <%= link_to "/", class: "navbar-brand" do %>
-      <%= image_tag('Logo_olive.png', alt: 'Logo Maxime Oudin Developpeur web couleur olive sur fond blanc') %>
+<div class="navbar">
+    <%= link_to "#", class: "navbar-brand" do %>
+      <%= image_tag('Logo_black.png', alt: 'Logo Maxime Oudin Developpeur web couleur blanc sur fond noir') %>
     <% end %>
 
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+    <div>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto">
-          <li class="nav-item active">
-            <%= link_to "Home", "#", class: "nav-link" %>
-          </li>
-          <li class="nav-item">
-            <%= link_to "Messages", "#", class: "nav-link" %>
-          </li>
-          <li class="nav-item dropdown">
-            <%= image_tag "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "avatar dropdown-toggle", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
-            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-              <%= link_to "Action", "#", class: "dropdown-item" %>
-              <%= link_to "Another action", "#", class: "dropdown-item" %>
-            </div>
-          </li>
+    </div>
+
+    <div class="dropdown-nav">
+      <button class="bouton-dropdown" type="button">
+        Menu
+      </button>
+      <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="#">Accueil</a></li>
+        <li><a class="dropdown-item" href="#">Projets</a></li>
+        <li><a class="dropdown-item" href="#">LinkedIn</a></li>
+        <li><a class="dropdown-item" href="https://linktr.ee/maximeoudin" target="_blank"> Mode de Contact</a></li>
       </ul>
     </div>
-  </div>
 </div>
