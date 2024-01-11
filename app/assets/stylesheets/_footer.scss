@@ -1,5 +1,5 @@
 .footer-section {
-  background: linear-gradient(180deg, rgba(20,20,20,1) 0%, rgba(20,20,20,1) 50%, rgba(0,74,173,1) 100%);
+  background-color: #141414;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -14,14 +14,14 @@
 }
 
 .footer-logo img {
-  width: 80vw;
+  width: 30vw;
   margin-bottom: 3vh;
   height: auto;
   align-items: center;
 }
 
 .footer-text {
-  width: 90%;
+  width: 80%;
   text-align: center;
 }
 
@@ -29,15 +29,12 @@
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  margin-top: 3vh;
-  margin-bottom: 3vh;
-  width: 80vw;
 }
 
 .footer-links a {
   color: white;
   opacity: 0.8;
-  font-size: 2rem;
+  font-size: 2.5rem;
 }
 
 .footer-end {
@@ -45,21 +42,24 @@
   display: flex;
   flex-direction: column;
   padding-top: 3vh;
+  padding-bottom: 3vh;
 }
 
 .footer-copyright {
   display: flex;
   flex-direction: column;
   width: 80vw;
-  margin-bottom: 3vh;
   padding-right: 7vw;
   color: white;
+  opacity: 0.8;
+  font-size: 14px;
 }
 
 .nav-link-mentions {
   text-decoration: none;
   color: white;
   opacity: 0.8;
+  font-size: 14px !important;
 }
 
 // Small devices (landscape phones, 576px and up)

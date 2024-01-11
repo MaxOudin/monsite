@@ -12,7 +12,6 @@ module Cd
     config.load_defaults 7.0
     config.importmap.enabled = true
 
-
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files
@@ -22,4 +21,3 @@ module Cd
     # config.eager_load_paths << Rails.root.join("extras")
   end
 end
-

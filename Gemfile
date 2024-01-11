@@ -47,14 +47,14 @@ gem "sassc-rails"
 
 # Librairy for pagination
 
-# # Boostrap
-# gem "bootstrap", "~> 5.3.2"
+# Boostrap
+gem "bootstrap", "~> 5.3.2"
 
-# # Popper JS
-# gem 'popper_js', '~> 2.11.8'
+# Popper JS
+gem 'popper_js', '~> 2.11.8'
 
-# # Simple form
-# gem "simple_form", "~> 5.1"
+# Simple form
+gem "simple_form", "~> 5.1"
 
 
 

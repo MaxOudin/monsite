@@ -1,36 +1,20 @@
-.navbar {
-  width: 100%;
+.navbar-custom {
   display: flex;
-  flex-direction: row;
   background-color: #141414;
   justify-content: space-between;
   align-items: center;
+  padding: 0 2rem 0 2rem !important;
 }
 
-.navbar .navbar-collapse {
-  flex-grow: 0;
+.navbar-brand img {
+  width: 70px;
 }
 
-.navbar .navbar-brand img {
-  width: 100px;
-}
+// // Small devices (landscape phones, 576px and up)
+// @media (min-width: 576px) {
 
-.dropdown-menu {
-  display: none;
-}
+// }
 
-.bouton-dropdown {
-  /* Styles pour le bouton dropdown */
-  /* Ajoutez d'autres styles personnalisés au besoin */
-}
-
-
-// Small devices (landscape phones, 576px and up)
-@media (min-width: 576px) {
-
-}
-
-// Large devices (desktops, 992px and up)
-@media (min-width: 700px) {
-
-}
+// // Large devices (desktops, 992px and up)
+// @media (min-width: 700px) {
+// }
