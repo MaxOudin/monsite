@@ -9,5 +9,5 @@ Rails.application.routes.draw do
 
   # Defines the "projets" resources routes
   resources :projets, only: [:index, :show]
-  
+
 end
