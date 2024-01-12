@@ -11,37 +11,19 @@
 body {
   background-color: #141414;
   font-family: 'Montserrat', sans-serif;
+  color: white;
 }
 
-h3, h4, h5, h6 {
-  font-family: 'Montserrat', sans-serif;
+body {
+    h1, h2 {
+    font-family: 'Playfair Display SC', serif;
+  }
 }
 
-h1, h2 {
-  font-family: 'Playfair Display SC', serif;
-}
-
-/* Définir des tailles de police spécifiques si nécessaire */
-h1 {
-  font-size: 48px;
-}
-
-h2 {
-  font-size: 32px;
-}
-
-h3 {
-  font-size: 24px;
-}
-
-p {
-  font-size: 14px;
-}
-
-.container-fluid {
+.container-application {
   background-color: #141414;
-  padding: 0;
-  margin: 0;
-  padding-top: 5rem;
-  padding-bottom: 5rem;
+  color: white;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
 }
