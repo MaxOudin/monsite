@@ -142,6 +142,8 @@ GEM
     nio4r (2.7.0)
     nokogiri (1.16.0-arm64-darwin)
       racc (~> 1.4)
+    nokogiri (1.16.0-x86_64-linux)
+      racc (~> 1.4)
     pg (1.5.4)
     popper_js (2.11.8)
     psych (5.1.2)
@@ -239,6 +241,7 @@ GEM
 
 PLATFORMS
   arm64-darwin-22
+  x86_64-linux
 
 DEPENDENCIES
   bootsnap
