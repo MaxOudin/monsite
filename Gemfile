@@ -51,7 +51,7 @@ gem "sassc-rails"
 gem "bootstrap", "~> 5.3.2"
 
 # Popper JS
-# gem 'popper_js', '~> 2.11.8'
+gem 'popper_js', '~> 2.11.8'
 
 # Simple form
 # gem "simple_form", "~> 5.1"
