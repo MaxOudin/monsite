@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  nom: MyString
+  description: MyText
+  icone_url: MyString
+  icone_url_alt: MyString
+  projet: one
+
+two:
+  nom: MyString
+  description: MyText
+  icone_url: MyString
+  icone_url_alt: MyString
+  projet: two
