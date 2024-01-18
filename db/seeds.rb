@@ -41,6 +41,15 @@ surviv = Projet.create(
 
 puts "Projet surviv créé"
 
+# Create outils
+# t.string :nom
+#       t.text :description
+#       t.string :icone_url
+#       t.string :icone_url_alt
+#       t.references :projet, foreign_key: true
+
+
+
 ## Create services
 
 #   create_table "services", force: :cascade do |t|

@@ -2,20 +2,22 @@
 
   <h2>Bienvenue dans le controller projets index</h2>
 
-  <% if @projets.last != nil %>
-    <% @projets.each do |projet| %>
-      <div class="card" style="width: 18rem; border: 1px solid <%= projet.couleur %>; box-shadow: outer-shadow()">
-        <img class="card-img-top" src=<%= projet.image_url%> alt=<%= projet.image_url_alt %>>
-        <div class="card-body">
-          <h4 style="opacity:0,8;"><%= projet.type_projet %></h4>
-          <h3 class="card-title"><%= projet.titre %></h3>
-          <p class="card-text"><%= projet.description %></p>
-          <a href="<%= projet.github_lien %>" class="btn btn-primary" target="_blank">Lien Github</a>
+  <div class="cards-container" style="display: flex; flex-direction:column; align-items: center; justify-content: center;">
+    <% if @projets.last != nil %>
+      <% @projets.each do |projet| %>
+        <div class="card" style="width: 18rem; margin-top:2vh; margin-bottom:1vh; border: 1px solid <%= projet.couleur %>; box-shadow: outer-shadow()">
+          <img class="card-img-top" src=<%= projet.image_url%> alt=<%= projet.image_url_alt %>>
+          <div class="card-body">
+            <h4 style="opacity:0,8;"><%= projet.type_projet %></h4>
+            <h3 class="card-title"><%= projet.titre %></h3>
+            <p class="card-text"><%= projet.description %></p>
+            <a href="<%= projet.github_lien %>" class="btn btn-primary" target="_blank">Lien Github</a>
+          </div>
         </div>
-      </div>
+      <% end %>
+      <% else %>
+        <p>Pour l'instant aucun projet n'a été créé</p>
     <% end %>
-    <% else %>
-      <p>Pour l'instant aucun projet n'a été créé</p>
-  <% end %>
 
+  </div>
 </div>
