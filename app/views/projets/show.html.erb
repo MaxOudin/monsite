@@ -1,7 +1,11 @@
 
-<%= @projet.inspect %>
-<% @projet.instance_variables.each do |var| %>
-  <% unless @projet.class.validators_on(var.to_s.gsub("@", "")).any? %>
-    <%= var %>: <%= @projet.instance_variable_get(var) || "cette valeur n'existe pas" %>
-  <% end %>
-<% end %>
+<div style="background: <%= @projet.couleur %>; opacity:0.2;">
+
+  <h2 style="text-align: center">Bienvenue dans le projet: <%= @projet.titre %></h2>
+
+  <img src=<%= @projet.image_url %> alt=<%= @projet.image_url_alt %> style="width: 300px; height:auto;">
+  <p><%= @projet.type_projet %></p>
+  <p><%= @projet.description %></p>
+
+
+</div>
