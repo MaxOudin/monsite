@@ -6,9 +6,21 @@
 # --------------------- RESET -------------------------------
 
 # Reset database
-Outil.destroy_all
-Projet.destroy_all
+if Outil.last != nil
+  Outil.destroy_all
+  puts "Reset outils"
+end
+
+if Projet.last != nil
+  Projet.destroy_all
+  puts "Reset projets"
+end
+
 puts "Reset database"
+
+# ---------------------NEW PROJET -------------------------------
+# ---------------------NEW PROJET -------------------------------
+# ---------------------NEW PROJET -------------------------------
 
 # Create project
 surf = Projet.create(
