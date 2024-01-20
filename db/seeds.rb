@@ -268,9 +268,80 @@ puts "Outils surviv créés"
 # ---------------------NEW PROJET -------------------------------
 # ---------------------NEW PROJET -------------------------------
 
+# Create project
+
+music = Projet.create(
+  titre: 'MaxMusic - Shazam API',
+  type_projet: "application web",
+  description: "Voici MaxMusic, outil de recherches de Music par mots clés.
+  Vous pouvez utiliser le formulaire de recherche pour retrouver des mots à partir du titre d'une chanson.
+  Ma mémoire me fait parfois défaut, et je connais approximativement le titre de la musique...
+  J'ai pensé qu'il serait agréable de trouver directement la pochette de l'album, l'artiste et d'avoir la possibilité d'écouter la musique pour être sûr de la chanson que je recherche, sans avoir à naviguer uniquement en tapant une fois les mots-clés.",
+  image_url: "https://res.cloudinary.com/dyleaesxc/image/upload/v1697205527/home_g3tvhj.png",
+  image_url_alt: "Capture ecran du projet MaxMusic, outil de recherche de musiques via API Shazam",
+  date_debut: "2023-09-24",
+  date_fin: "2023-10-08",
+  client: "Projet personnel",
+  github_lien: 'https://github.com/MaxOudin/Maxmusic#readme',
+  couleur: "#6AE2C6"
+  )
+
+  puts "Projet music créé"
+
+# --------------------- OUTILS pour projet -------------------------------
+# --------------------- OUTILS pour projet -------------------------------
+# --------------------- OUTILS pour projet -------------------------------
+
+ruby_music = Outil.create(
+  nom: "Ruby On Rails",
+  description: "Ruby on Rails est un framework libre écrit en Ruby.
+  Il suit le motif d'architecture logicielle Modèle Vue Controleur.
+  Le langage de programmation Ruby et le framework Rails sont au cœur du développement de MaxMusic,
+  assurant une base solide et une gestion efficace des données",
+  projet: music
+)
+
+js_stimulus_music = Outil.create(
+  nom: "JavaScript et Stimulus",
+  description: "L'utilisation de JavaScript, combinée au framework Stimulus,
+  permet une interface utilisateur interactive et réactive,
+  améliorant ainsi l'expérience utilisateur.",
+  projet: music
+)
+
+shazam_music = Outil.create(
+  nom: "Shazam API",
+  description: "L'API Shazam est utilisée pour la recherche de musiques,
+  optimisant ainsi le processus de recherche de musiques.",
+  projet: music
+)
+
+bootstrap_music = Outil.create(
+  nom: "Bootstrap",
+  description: "Le framework Bootstrap garantit un design réactif et esthétiquement plaisant,
+  contribuant à une interface utilisateur moderne.",
+  projet: music
+)
+
+postman = Outil.create(
+  nom: "Postman & API REST",
+  description: "Postman est utilisé pour tester les API REST,
+  assurant la stabilité et la fiabilité du système.",
+  projet: music
+)
+
+github_music = Outil.create(
+  nom: "GitHub",
+  description: "La plateforme GitHub est utilisée pour le suivi et la gestion du code source,
+  favorisant la collaboration au sein de l'équipe de développement.",
+  projet: music
+)
+
+puts "Outils music créés"
 
 
-## Create services
+
+  ## Create services
 
 #   create_table "services", force: :cascade do |t|
 #     t.string "nom"
