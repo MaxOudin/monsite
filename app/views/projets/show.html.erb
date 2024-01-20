@@ -4,7 +4,7 @@
   <h2 style="text-align: center; font-weight: bold; padding-top:4vh;">
       Projet: <%= @projet.titre %></h2>
   <p style="text-align: center; color: <%= @projet.couleur %>; text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
-      padding-top:2vh; padding-bottom:1vh;"><%= @projet.type_projet.upcase %></p>
+      padding-top:2vh; padding-bottom:1vh; font-size: 24px"><%= @projet.type_projet.upcase %></p>
 
   <div style="display:flex; justify-content: center; align-items: center; margin-top: 2vh; margin-bottom: 2vh;">
     <img src=<%= @projet.image_url %> alt=<%= @projet.image_url_alt %> style="width: 50%; height: auto; border: 2px solid <%= @projet.couleur %>; border-radius:3px;">
@@ -25,13 +25,13 @@
                 Github</a>
     </div>
 
-    <h3 style="font-weight: bold; text-align: left; margin-bottom: 2vh;">Avec quels outils a été conçu <%= @projet.titre %> ?</h3>
+    <h3 style="font-size: 20px; text-align: left; margin-bottom: 1vh;">Avec quels outils a été conçu <%= @projet.titre %> ?</h3>
     <%  @projet.outils.each do |outil| %>
     <div style= "margin-bottom: 1vh;"
                 data-controller="outil"
                 data-action="click->outil#toggleDescription">
       <div style= "font-weight: bold; cursor: pointer;" ><%= outil.nom %> <i class="fas fa-chevron-down" style="color: <%= @projet.couleur %>"></i></div>
-      <p data-outil-target="description" style="opacity: 0.9; display:none;" ><%= outil.description %></p>
+      <p data-outil-target="description" style="opacity: 0.9; display:none; padding-left: 2vw;" ><%= outil.description %></p>
     </div>
     <% end %>
 
@@ -40,7 +40,7 @@
     <div style="display: flex; justify-content: flex-end; margin-top: 2vh; margin-bottom: 2vh;">
       <a href="/projets" class="btn btn-primary" style="background: linear-gradient(90deg, rgba(93,224,230,1) 0%, rgba(0,74,173,1) 100%); border: 0px; color: black; font-weight: bold; font-size: 18px;
               display: flex;
-              justify-content: center;
+              justify-content: flex-end;
               align-items: center;">
               Retour à l'accueil</a>
     </div>

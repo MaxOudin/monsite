@@ -7,6 +7,8 @@ export default class extends Controller {
   connect() {
   }
 
+  // Lorsque l'utilisateur clique sur la flèche, bascule entre display: none et display: block
+
   toggleDescription() {
     this.descriptionTargets.forEach((descriptionTarget) => {
       if (descriptionTarget === this.descriptionTarget) {
@@ -15,6 +17,7 @@ export default class extends Controller {
       } else {
         // Pour tous les autres éléments, assurez-vous qu'ils sont masqués
         descriptionTarget.style.display = 'none';
+        console.log(descriptionTarget);
       }
     });
   }
