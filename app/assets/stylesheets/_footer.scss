@@ -9,13 +9,13 @@
 }
 
 .footer-logo-container {
-  margin-top: 6vh;
-  margin-bottom: 3vh;
+  margin-top: 3vh;
+  margin-bottom: 2vh;
 }
 
 .footer-logo img {
   width: 30vw;
-  margin-bottom: 3vh;
+  margin-bottom: 1vh;
   height: auto;
   align-items: center;
 }
@@ -77,7 +77,7 @@
 @media (min-width: 700px) {
   .footer-logo img {
     width: 30vw;
-    padding-top: 2vh;
+    padding-top: 1vh;
   }
 
   .footer-text {
