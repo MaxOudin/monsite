@@ -6,24 +6,29 @@
 # --------------------- RESET -------------------------------
 
 # Reset database
+Outil.destroy_all
 Projet.destroy_all
 puts "Reset database"
 
 # Create project
 surf = Projet.create(
-  titre: "Surf.ai",
+  titre: "Surf.Ai",
   type_projet: "application web",
   description: "Surf.Ai est une plateforme de location de planches de surf entre particuliers.
-  Elle connecte les passionnés de surf, facilitant des recherches simples par type et emplacement, avec des descriptions détaillées.
-  Les locataires peuvent consulter les évaluations des clients précédents, assurant des choix éclairés.
-  Le processus de réservation intuitif permet aux utilisateurs de réserver des planches de surf pour des dates spécifiques.
-  Surf.Ai offre un récapitulatif des réservations et un hub centralisé pour la gestion des réservations,
-  favorisant l'engagement communautaire grâce aux évaluations et aux avis post-location, améliorant ainsi l'expérience de surf.",
+  Je peux à la fois proposer mes planches à la location et louer des planches de surf.
+  En tant qu'utilisateur, je peux donc créer une planche avec un titre, un descriptif, un prix par jour et lui ajouter plusieurs photos pour la proposer à la location.
+  Depuis l'accueil, je peux voir les planches disponibles par planche avec la moyenne des notes laissés par les précédents locataires et chacune géocalisée sur la carte.
+  Il est possible de rechercher plus précisemment des planches de surf en fonction de leur type, pour trouver celle qui me correspond.
+  Les locataires peuvent consulter les évaluations et avis des clients précédents, assurant des choix éclairés.
+  Avant la confirmer la réservation la plateforme Surf.ai vous montre le récapitulatif de l'offre.
+  Vous pourrez y retrouver les détails de votre choix pour vérifier notamment des dates spécifiques et le budget total.
+  Surf.Ai offre à chaque utilisateur un espace présentant l'historique de réservations et de locations.
+  Cela favorisant l'engagement communautaire grâce aux évaluations et aux avis post-location, améliorant ainsi l'expérience des utilisateurs.",
   image_url: "https://res.cloudinary.com/dyleaesxc/image/upload/v1698925883/production/66xsp347pg4llarxvcikcys3depg.png",
   image_url_alt: "Capture ecran du projet Surf.ai",
   date_debut: "2023-08-21",
   date_fin: "2023-08-25",
-  client: "Projet personnel",
+  client: "Projet sprint 1 semaine",
   github_lien: "https://github.com/MaxOudin/surf-ai/blob/master/README.md",
   couleur: "#6AE897"
   )
@@ -41,8 +46,6 @@ ruby_surf = Outil.create(
   Il suit le motif d'architecture logicielle Modèle Vue Controleur.
   Le langage de programmation Ruby et le framework Rails sont au cœur du développement de Surf.ai,
   assurant une base solide et une gestion efficace des données",
-  icon_url:"",
-  icon_url_alt:"Logo Ruby on Rails",
   projet: surf
 )
 
@@ -51,8 +54,6 @@ js_stimulus_surf = Outil.create(
   description: "L'utilisation de JavaScript, combinée au framework Stimulus,
   permet une interface utilisateur interactive et réactive,
   améliorant ainsi l'expérience utilisateur.",
-  icon_url:"",
-  icon_url_alt:"Logo JavaScript",
   projet: surf
 )
 
@@ -62,8 +63,6 @@ mapbox_surf = Outil.create(
   L'intégration de Mapbox apporte une dimension visuelle.
   Elle permet aux utilisateurs de localiser et de visualiser les planches disponibles,
   facilitant ainsi le choix des emplacements de location.",
-  icon_url:"",
-  icon_url_alt:"Logo Mapbox",
   projet: surf
 )
 
@@ -71,8 +70,6 @@ cloudinary_surf = Outil.create(
   nom: "Cloudinary",
   description: "Cloudinary est utilisé pour le stockage des images,
   assurant une gestion efficace des images et des performances optimales.",
-  icon_url:"",
-  icon_url_alt:"Logo Cloudinary",
   projet: surf
 )
 
@@ -80,8 +77,6 @@ flatpickr_surf = Outil.create(
   nom: "Flatpickr",
   description: "Flatpickr est intégré pour faciliter la sélection de dates,
   améliorant l'expérience de l'utilisateur lors de l'entrée des informations.",
-  icon_url:"",
-  icon_url_alt:"Logo Flatpickr",
   projet: surf
 )
 
@@ -89,8 +84,6 @@ bootstrap_surf = Outil.create(
   nom: "Bootstrap",
   description: "Le framework Bootstrap garantit un design réactif et esthétiquement plaisant,
   contribuant à une interface utilisateur moderne.",
-  icon_url:"",
-  icon_url_alt:"Logo Bootstrap",
   projet: surf
 )
 
@@ -98,8 +91,6 @@ star_rating_surf = Outil.create(
   nom: "Star Rating",
   description: "L'intégration de Star Rating permet aux utilisateurs de noter les planches de surf,
   favorisant l'engagement communautaire et améliorant l'expérience de surf.",
-  icon_url:"",
-  icon_url_alt:"Logo Star Rating",
   projet: surf
 )
 
@@ -107,16 +98,12 @@ tom_select_surf = Outil.create(
   nom: "Tom Select",
   description: "Tom Select est intégré pour faciliter la sélection des emplacements,
   améliorant l'expérience de l'utilisateur lors de l'entrée des informations.",
-  icon_url:"",
-  icon_url_alt:"Logo Tom Select",
   projet: surf
 )
 
 devise_surf = Outil.create(
   nom: "Devise",
   description: "L'utilisation de Devise simplifie l'implémentation de fonctionnalités liées à l'authentification et à la gestion des utilisateurs.",
-  icon_url:"",
-  icon_url_alt:"Logo Devise",
   projet: surf
 )
 
@@ -124,8 +111,6 @@ github_surf = Outil.create(
   nom: "GitHub",
   description: "La plateforme GitHub est utilisée pour le suivi et la gestion du code source,
   favorisant la collaboration au sein de l'équipe de développement.",
-  icon_url:"",
-  icon_url_alt:"Logo GitHub",
   projet: surf
 )
 
@@ -133,8 +118,6 @@ heroku_surf = Outil.create(
   nom: "Heroku",
   description: "Heroku est utilisé comme plateforme d'hébergement,
   assurant la disponibilité et la stabilité de Surf.ai.",
-  icon_url:"",
-  icon_url_alt:"Logo Heroku",
   projet: surf
 )
 
@@ -142,8 +125,6 @@ trello_surf = Outil.create(
   nom: "Trello, Slack",
   description: "Trello est utilisé pour la gestion de projet,
   tandis que Slack facilite la communication au sein de l'équipe de développement.",
-  icon_url:"",
-  icon_url_alt:"Logo Trello",
   projet: surf
 )
 
@@ -154,14 +135,19 @@ puts "Outils surf créés"
 # ---------------------NEW PROJET -------------------------------
 
 surviv = Projet.create(
-  titre: "Surviv.ai",
+  titre: "Surviv.Ai",
   type_projet: "saas",
-  description: "Logiciel de téléchargement et gestion de factures.
-  Surviv.ai est une application de gestion des factures et des paiements.
-  Le but du SaaS est d'éliminer les tâches répétitives et chronophages en automatisant le dépôt de factures et simplifiant la visualisation de leur statut.
-  Surviv.ai permet aux utilisateurs ayant créé un compte, d'enregistrer les factures en téléchargeant le fichier pdf.
-  En utilisant les outils API Mindee, le logiciel arrive à lire le pdf et à extraire de façon automatisée des détails cruciaux.
-  Cette extraction est aussi possible à travers les pièces jointes aux e-mails grâce à Zapier.",
+  description: "Surviv.Ai est un logiciel de téléchargement et gestion de factures.
+  Le but du SaaS (Software As A Service) est d'éliminer les tâches répétitives et chronophages.
+  Nous avons choisi d'autimatiser le dépôt de factures et simplifiant la visualisation de leur statut.
+  Surviv.Ai permet aux utilisateurs ayant créé un compte, d'enregistrer les factures en téléchargeant le fichier pdf.
+  Notre technologie lit le pdf et extrait de façon automatisée les détails cruciaux pour l'enregistrer dans la base de données.
+  Cette extraction est aussi possible à travers les pièces jointes aux e-mails.
+  En effet, notre technologie est aussi capable de lire le pdf inclut en pièce jointe et d'extraire les informations.
+  Les utilisateurs peuvent ensuite visualiser les factures enregistrées et leur statut sous différents aspects.
+  Il est aussi possible de voir l'historique des relances faites pour chaque facture.
+  Surviv.Ai offre à chaque utilisateur un espace présentant le tableau de bord.
+  Ce tableau de bord présente les informations financières clés autour des délais de paiement.",
   image_url: "https://res.cloudinary.com/dyleaesxc/image/upload/v1696419032/Capture_d_e%CC%81cran_2023-10-03_a%CC%80_14.32.06_jwjcda.png",
   image_url_alt: "Capture ecran du projet Survivai, vue des factures en cartes",
   date_debut: "2023-09-04",
@@ -178,113 +164,89 @@ puts "Projet surviv créé"
 # --------------------- OUTILS pour projet -------------------------------
 # --------------------- OUTILS pour projet -------------------------------
 
-ruby_surviv = outil.create(
+ruby_surviv = Outil.create(
   nom: "Ruby On Rails",
   description: "Ruby on Rails est un framework libre écrit en Ruby.
   Il suit le motif d'architecture logicielle Modèle Vue Controleur.
   Le langage de programmation Ruby et le framework Rails sont au cœur du développement de Surviv.ai,
   assurant une base solide et une gestion efficace des données",
-  icon_url:"",
-  icon_url_alt:"Logo Ruby on Rails",
   projet: surviv
 )
 
-js_stimulus_surviv = outil.create(
+js_stimulus_surviv = Outil.create(
   nom: "JavaScript et Stimulus",
   description: "L'utilisation de JavaScript, combinée au framework Stimulus,
   permet une interface utilisateur interactive et réactive,
   améliorant ainsi l'expérience utilisateur.",
-  icon_url:"",
-  icon_url_alt:"Logo JavaScript",
   projet: surviv
 )
 
-redis_surviv = outil.create(
+redis_surviv = Outil.create(
   nom: "Redis",
   description: "Le système de stockage clé-valeur Redis est intégré pour des performances optimales,
   offrant une gestion rapide et efficace des données.",
-  icon_url:"",
-  icon_url_alt:"Logo Redis",
   projet: surviv
 )
 
-mindee_surviv = outil.create(
+mindee_surviv = Outil.create(
   nom: "Mindee API",
   description: "L'API Mindee est utilisée pour l'extraction automatisée des détails des factures à partir de documents PDF,
   optimisant ainsi le processus de gestion des factures.",
-  icon_url:"",
-  icon_url_alt:"Logo Mindee",
   projet: surviv
 )
 
-zapier_surviv = outil.create(
+zapier_surviv = Outil.create(
   nom: "Zapier",
   description: "L'intégration de Zapier facilite l'automatisation des tâches,
   améliorant l'efficacité opérationnelle de Surviv.ai.",
-  icon_url:"",
-  icon_url_alt:"Logo Zapier",
   projet: surviv
 )
 
-postgresql_surviv = outil.create(
+postgresql_surviv = Outil.create(
   nom: "PostgreSQL",
   description: "Les bases de données SQL sont utilisées pour le stockage et la gestion structurée des données,
   assurant la stabilité et la fiabilité du système.",
-  icon_url:"",
-  icon_url_alt:"Logo PostgreSQL",
   projet: surviv
 )
 
-flatpickr_surviv = outil.create(
+flatpickr_surviv = Outil.create(
   nom: "Flatpickr",
   description: "Flatpickr est intégré pour faciliter la sélection de dates,
   améliorant l'expérience de l'utilisateur lors de l'entrée des informations.",
-  icon_url:"",
-  icon_url_alt:"Logo Flatpickr",
   projet: surviv
 )
 
-bootstrap_surviv = outil.create(
+bootstrap_surviv = Outil.create(
   nom: "Bootstrap",
   description: "Le framework Bootstrap garantit un design réactif et esthétiquement plaisant,
   contribuant à une interface utilisateur moderne.",
-  icon_url:"",
-  icon_url_alt:"Logo Bootstrap",
   projet: surviv
 )
 
-devise_surviv = outil.create(
+devise_surviv = Outil.create(
   nom: "Devise",
   description: "L'utilisation de Devise simplifie l'implémentation de fonctionnalités liées à l'authentification et à la gestion des utilisateurs.",
-  icon_url:"",
-  icon_url_alt:"Logo Devise",
   projet: surviv
 )
 
-github_surviv = outil.create(
+github_surviv = Outil.create(
   nom: "GitHub",
   description: "La plateforme GitHub est utilisée pour le suivi et la gestion du code source,
   favorisant la collaboration au sein de l'équipe de développement.",
-  icon_url:"",
-  icon_url_alt:"Logo GitHub",
   projet: surviv
 )
 
-heroku_surviv = outil.create(
+heroku_surviv = Outil.create(
   nom: "Heroku",
   description: "Heroku est utilisé comme plateforme d'hébergement,
   assurant la disponibilité et la stabilité de Surviv.ai.",
-  icon_url:"",
-  icon_url_alt:"Logo Heroku",
   projet: surviv
 )
 
-trello_surviv = outil.create(
+trello_surviv = Outil.create(
   nom: "Trello, Slack",
   description: "Trello est utilisé pour la gestion de projet,
   tandis que Slack facilite la communication au sein de l'équipe de développement.",
-  icon_url:"",
-  icon_url_alt:"Logo Trello",
   projet: surviv
 )
 
@@ -293,13 +255,6 @@ puts "Outils surviv créés"
 # ---------------------NEW PROJET -------------------------------
 # ---------------------NEW PROJET -------------------------------
 # ---------------------NEW PROJET -------------------------------
-
-
-# t.string :nom
-#       t.text :description
-#       t.string :icone_url
-#       t.string :icone_url_alt
-#       t.references :projet, foreign_key: true
 
 
 
