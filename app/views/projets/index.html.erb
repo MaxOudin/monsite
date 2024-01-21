@@ -25,11 +25,12 @@
   </div>
 </div> %>
 
-<div class="cards-container" style="background:white; color: #141414; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+<div class="cards-container" style="background:white; color: #141414; display: flex; flex-direction: column; align-items: center; justify-content: center; padding-top: 2vh;">
   <div style="width: 70%; display: flex; flex-direction: column; align-items: center; text-align: center; margin-top:2vh; margin-bottom:1vh;">
     <h3 style="font-weight: bold; text-align: left; margin-top: 2vh; margin-bottom: 2vh;">Mes derniers projets</h3>
-    <p style="text-align: left; width: 70%;">Vous trouverez les précédentes réalisations significatives.
-      Je m'adapte à vos besoins pour réaliser, ensemble, le site qui vous ressemble.</p>
+    <p style="text-align: left;">Vous trouverez les précédentes réalisations significatives.
+      Je m'adapte à vos besoins pour réaliser, ensemble, le site qui vous ressemble.
+      Pour chacun des projets, vous avez la possibilité de voir les outils utilisés et un texte descriptif de celui-ci.</p>
   </div>
   <% if @projets.last != nil %>
     <% @projets.each do |projet| %>
