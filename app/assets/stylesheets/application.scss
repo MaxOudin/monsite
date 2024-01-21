@@ -6,7 +6,6 @@
 @import "hero";
 @import "footer";
 
-
 // Global styles
 body {
   background-color: #141414;
@@ -14,11 +13,10 @@ body {
   color: white;
 }
 
-body {
-    h1, h2 {
+body h1, h2, h3 {
     font-family: 'Playfair Display SC', serif;
-  }
 }
+
 
 .container-application {
   background-color: #141414;
@@ -26,8 +24,4 @@ body {
   width: 100vw;
   display: flex;
   flex-direction: column;
-}
-
-.hidden {
-  display: none;
 }

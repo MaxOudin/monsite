@@ -34,7 +34,7 @@
   </div>
   <% if @projets.last != nil %>
     <% @projets.each do |projet| %>
-      <div class="card" style="width: 26rem; margin-top:2vh; margin-bottom:2vh; margin-left: 2vw; margin-right: 2vw;
+      <div class="card" style="width: 24rem; margin-top:2vh; margin-bottom:2vh; margin-left: 2vw; margin-right: 2vw;
         border: 1px solid <%= projet.couleur %>;
         box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);">
         <img class="card-img-top" src=<%= projet.image_url%> alt=<%= projet.image_url_alt %>>
