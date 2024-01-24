@@ -5,6 +5,7 @@ export default class extends Controller {
   static targets = ["description"];
 
   connect() {
+    console.log("Hello, Outils controller");
   }
 
   // Lorsque l'utilisateur clique sur la flèche, bascule entre display: none et display: block
