@@ -144,6 +144,7 @@ GEM
       racc (~> 1.4)
     nokogiri (1.16.0-x86_64-linux)
       racc (~> 1.4)
+    particles-js-rails (2.0.0)
     pg (1.5.4)
     popper_js (2.11.8)
     psych (5.1.2)
@@ -249,6 +250,7 @@ DEPENDENCIES
   font-awesome-sass (~> 6.1)
   importmap-rails
   jbuilder
+  particles-js-rails
   pg (~> 1.1)
   popper_js (~> 2.11.8)
   puma (~> 5.0)

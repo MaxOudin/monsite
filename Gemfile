@@ -56,7 +56,8 @@ gem 'popper_js', '~> 2.11.8'
 # Simple form
 # gem "simple_form", "~> 5.1"
 
-
+# Background animations
+gem 'particles-js-rails'
 
 # Font-awesome Icones librairy import
 gem "font-awesome-sass", "~> 6.1"
