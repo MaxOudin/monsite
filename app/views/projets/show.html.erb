@@ -15,7 +15,7 @@
       <h3 style="font-weight: bold; text-align: left; margin-bottom: 2vh;"><%= @projet.titre %>, c'est quoi ?</h3>
       <p style="text-align: left;"><%= @projet.description %></p>
     </div>
-    <div style="display: flex; justify-content: center; margin-top: 3vh; margin-bottom: 3vh;">
+    <div style="display: flex; justify-content: center; margin-top: 3vh; margin-bottom: 4vh;">
         <a href="<%= @projet.github_lien%>" target="_blank" class="btn btn-primary" style="background:<%= @projet.couleur %>; border: solid 1px <%= @projet.couleur %>; border-radius: 4px; color: black; font-weight: bold; text-decoration: none;
                 display: flex;
                 justify-content: center;
@@ -24,16 +24,23 @@
     </div>
 
     <h3 style="font-size: 20px; text-align: left; margin-bottom: 1vh;">Avec quels outils a été conçu <%= @projet.titre %> ?</h3>
+    <p style="opacity: 0.8;"> Vous pouvez cliquer sur l'outil pour en savoir plus.</p>
     <%  @projet.outils.each do |outil| %>
     <div style= "margin-bottom: 1vh;"
                 data-controller="outil"
                 data-action="click->outil#toggleDescription">
-      <div style= "font-weight: bold; cursor: pointer;" ><%= outil.nom %> <i class="fas fa-chevron-down" style="color: <%= @projet.couleur %>"></i></div>
-      <p data-outil-target="description" style="opacity: 0.9; display:none; padding-left: 2vw;" ><%= outil.description %></p>
+      <div style= "font-weight: bold; cursor: pointer;" ><%= outil.nom %>
+        <i class="fas fa-chevron-down" style="color: <%= @projet.couleur %>"></i>
+      </div>
+      <p data-outil-target="description"
+        style="opacity: 0.9; display:none; padding-left: 2vw;" >
+        <%= outil.description %>
+      </p>
     </div>
     <% end %>
 
   </div>
+
 
     <div style="display: flex; justify-content: flex-end; margin-top: 2vh; margin-bottom: 2vh;">
       <a href="/projets" class="btn btn-primary" style="background: #141414; border: 0px; color: white; font-weight: bold; font-size: 18px;

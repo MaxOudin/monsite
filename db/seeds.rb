@@ -224,7 +224,7 @@ postgresql_surviv = Outil.create(
 flatpickr_surviv = Outil.create(
   nom: "Flatpickr",
   description: "Flatpickr est intégré pour faciliter la sélection de dates,
-  améliorant l'expérience de l'utilisateur lors de l'entrée des informations.",
+  améliorant l'expérience de l'utilisateur lors de la saisie des informations.",
   projet: surviv
 )
 
@@ -274,9 +274,11 @@ music = Projet.create(
   titre: 'MaxMusic - Shazam API',
   type_projet: "application web",
   description: "Voici MaxMusic, outil de recherches de Music par mots clés.
-  Vous pouvez utiliser le formulaire de recherche pour retrouver des mots à partir du titre d'une chanson.
   Ma mémoire me fait parfois défaut, et je connais approximativement le titre de la musique...
-  J'ai pensé qu'il serait agréable de trouver directement la pochette de l'album, l'artiste et d'avoir la possibilité d'écouter la musique pour être sûr de la chanson que je recherche, sans avoir à naviguer uniquement en tapant une fois les mots-clés.",
+  Avec Maxmusic vous pouvez utiliser la barre de recherche pour retrouver vos chansons préférées à partir de quelques mots.
+  J'ai pensé qu'il serait agréable de trouver directement la pochette de l'album pour avoir un visuel.
+  Afin de s'assurer que le résultat convient à notre recherche vous aurez quelques informations supplémentaires.
+  Mais surtout vous aurez la possibilité d'écouter la musique, sans avoir à naviguer sur d'autres onglets ou directement aller voir le clip sur Youtube.",
   image_url: "https://res.cloudinary.com/dyleaesxc/image/upload/v1697205527/home_g3tvhj.png",
   image_url_alt: "Capture ecran du projet MaxMusic, outil de recherche de musiques via API Shazam",
   date_debut: "2023-09-24",
@@ -325,8 +327,8 @@ bootstrap_music = Outil.create(
 
 postman = Outil.create(
   nom: "Postman & API REST",
-  description: "Postman est utilisé pour tester les API REST,
-  assurant la stabilité et la fiabilité du système.",
+  description: "Postman est utilisé pour tester les API REST.
+  Le logiciel permet de visualiser les requêtes et les réponses HTTP et d'assurer la stabilité et la fiabilité du système. ",
   projet: music
 )
 

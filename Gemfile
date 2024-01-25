@@ -56,11 +56,8 @@ gem 'popper_js', '~> 2.11.8'
 # Simple form
 # gem "simple_form", "~> 5.1"
 
-
-
 # Font-awesome Icones librairy import
 gem "font-awesome-sass", "~> 6.1"
-
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
