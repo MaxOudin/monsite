@@ -19,7 +19,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_18_090823) do
     t.text "description"
     t.string "icone_url"
     t.string "icone_url_alt"
-    t.bigint "projet_id", null: false
+    t.bigint "projet_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["projet_id"], name: "index_outils_on_projet_id"
