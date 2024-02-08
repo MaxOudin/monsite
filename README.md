@@ -22,12 +22,18 @@ rbenv install 3.2.3
 
 # Set the new version as the global version
 rbenv global 3.2.3
+
+# Check and Install Gem Dependencies
+After ensuring the correct Ruby version is set, you should check and install the gem dependencies for your project. This is done using Bundler, which reads the Gemfile and installs the specified gems. Run the following command in the root directory of your project:
+
+bundle install
+This command will install all the gems listed in your Gemfile along with their dependencies.
+
 Configuration
 Ensure your local configuration is correctly set up, especially for PostgreSQL. Make sure the database connection information is correct in the config/database.yml file.
 
 Database Creation
 To create your PostgreSQL database, execute the following commands:
-
 
 # Create the database
 rails db:create
