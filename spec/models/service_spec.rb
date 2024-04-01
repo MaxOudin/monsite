@@ -1,5 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe Service, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
-end
+# validates :nom, presence: true, uniqueness: true
+# validates :description, presence: true, uniqueness: true
+
+# RSpec.describe Service, type: :model do
+
+# end
