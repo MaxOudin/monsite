@@ -20,7 +20,7 @@ require 'rspec/rails'
 # directory. Alternatively, in the individual `*_spec.rb` files, manually
 # require only the support files necessary.
 #
-# Rails.root.glob('spec/support/**/*.rb').sort.each { |f| require f }
+Rails.root.glob('spec/support/**/*.rb').sort.each { |f| require f }
 
 # Checks for pending migrations and applies them before tests are run.
 # If you are not using ActiveRecord, you can remove these lines.
@@ -40,6 +40,8 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
 
+  config.include Rails.application.routes.url_helpers
+
   config.include FactoryBot::Syntax::Methods
 
   Shoulda::Matchers.configure do |config|
@@ -48,4 +50,18 @@ RSpec.configure do |config|
       with.library :rails
     end
   end
+
+  config.include Capybara::DSL
+  # If you're not using ActiveRecord, or you'd prefer not to run each of your
+  # examples within a transaction, remove the following line or assign false
+  # instead of true.
+  # config.use_transactional_fixtures = true
+  config.before(:suite) { DatabaseCleaner.clean_with(:truncation) }
+  config.before(:each) { DatabaseCleaner.strategy = :transaction }
+  config.before(:each, js: true) { DatabaseCleaner.strategy = :truncation }
+  config.before(:each) { DatabaseCleaner.start }
+  config.after(:each) { DatabaseCleaner.clean }
+
+  config.use_active_record = true
+
 end

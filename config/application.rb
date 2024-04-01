@@ -28,6 +28,7 @@ module Cd
       helper_specs: false,
       routing_specs: false
       )
+      g.factory_bot false
     end
   end
 end

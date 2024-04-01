@@ -6,7 +6,7 @@
 
 FactoryBot.define do
   factory :projet do
-    titre { "Surf.Ai" }
+    titre { "Test.Ai" }
     type_projet { "application web" }
     description { "Surf.Ai est une plateforme de location de planches de surf entre particuliers.
       Je peux à la fois proposer mes planches à la location et louer des planches de surf.

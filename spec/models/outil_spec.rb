@@ -9,12 +9,16 @@ require 'rails_helper'
 
 RSpec.describe Outil, type: :model do
   it "has a valid factory" do
-    expect(FactoryBot.build(:outil)).to be_valid
+    outil = FactoryBot.create(:outil)
+    expect(outil).to be_valid
   end
 
-  let(:outil) { FactoryBot.build(:outil) }
+  describe "ActiveRecord associations outil - projet" do
+    let(:outil) { FactoryBot.create(:outil) }
 
-  describe "ActiveRecord associations" do
-    it { expect(outil).to belong_to(:projet) }
+    it "belongs to a projet" do
+      association = described_class.reflect_on_association(:projet)
+      expect(association.macro).to eq :belongs_to
+    end
   end
 end
