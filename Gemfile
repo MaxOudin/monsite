@@ -10,7 +10,7 @@ gem "rails", "~> 7.1"
 gem "sprockets-rails"
 
 # Use postgresql as the database for Active Record
-gem "pg", "~> 1.1"
+gem "pg", "~> 1.4"
 
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", "~> 6.0"
@@ -45,11 +45,6 @@ gem "bootsnap", require: false
 # Use Sass to process CSS
 gem "sassc-rails"
 
-# Librairy for pagination
-
-# Simple form
-# gem "simple_form", "~> 5.1"
-
 # Font-awesome Icones librairy import
 gem "font-awesome-sass", "~> 6.1"
 
@@ -60,6 +55,14 @@ group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
   gem "dotenv-rails"
+
+  # Helper pour avoir les informations des modèles dans les fichiers
+  gem 'annotate', '~> 3.2'
+
+  # Pry pour débuggage
+  gem "pry-byebug"
+  gem "pry-rails"
+  gem "byebug"
 end
 
 group :development do
@@ -78,4 +81,11 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 
+  # Tests + Factory Bot pour les tests
+  gem "rspec-rails"
+  gem "factory_bot_rails"
+  gem "database_cleaner"
+
+  # Helper pour les tests Models et Pundit
+  gem "shoulda-matchers"
 end
