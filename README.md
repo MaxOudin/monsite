@@ -18,10 +18,10 @@ To manage Ruby versions, you can use tools like rbenv. Here's how you can instal
 rbenv install --list
 
 # Install a new Ruby version (e.g., 3.2.3)
-rbenv install 3.2.3
+rbenv install 3.2.2
 
 # Set the new version as the global version
-rbenv global 3.2.3
+rbenv global 3.2.2
 
 # Check and Install Gem Dependencies
 After ensuring the correct Ruby version is set, you should check and install the gem dependencies for your project. This is done using Bundler, which reads the Gemfile and installs the specified gems. Run the following command in the root directory of your project:
