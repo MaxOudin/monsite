@@ -26,7 +26,7 @@ RSpec.describe "Projets", type: :system do
     expect(page).to have_content("Maxime Oudin, développeur web Ruby On Rails à Bordeaux")
   end
 
-  it "On arrive sur la show d'un projet" do
+  it "On arrive sur la show du projet" do
     @projet = FactoryBot.create(:projet)
 
     visit projet_path(@projet) # Utilisez projet_path au lieu de projets_path

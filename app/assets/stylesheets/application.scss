@@ -1,9 +1,9 @@
-// Libraries imported
-@import "font-awesome";
 
-@import "navbar";
-@import "hero";
-@import "footer";
+ // Internal styles
+@import "components/index";
+
+ // Libraries imported
+@import "font-awesome";
 
 // Global styles
 body {
@@ -13,9 +13,8 @@ body {
 }
 
 body h1, h2, h3 {
-    font-family: 'Playfair Display SC', serif;
+  font-family: 'Playfair Display SC', serif;
 }
-
 
 .container-application {
   background-color: #141414;

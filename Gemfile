@@ -6,9 +6,6 @@ ruby "3.2.2"
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.1"
 
-# The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
-gem "sprockets-rails"
-
 # Use postgresql as the database for Active Record
 gem "pg", "~> 1.4"
 
@@ -30,6 +27,12 @@ gem "jbuilder"
 # Use Redis adapter to run Action Cable in production
 gem "redis", "~> 4.0"
 
+# Dart Sass is the new, fast implementation of Sass (replace sassc-rails)
+gem "dartsass-rails", "~> 0.5.0"
+
+# Use Sprockets for asset management with Dart Sass
+gem 'dartsass-sprockets'
+
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
 
@@ -41,9 +44,6 @@ gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
-
-# Use Sass to process CSS
-gem "sassc-rails"
 
 # Font-awesome Icones librairy import
 gem "font-awesome-sass", "~> 6.1"
