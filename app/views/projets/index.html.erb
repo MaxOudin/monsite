@@ -1,36 +1,25 @@
-
-<div class="cards-container">
-
-  <div class="cards-container-project">
-    <h3> Mes derniers projets</h3>
-    <p style="text-align: left;">
-      Vous trouverez les précédentes réalisations significatives.
-      Je m'adapte à vos besoins pour réaliser, ensemble, le site qui vous ressemble.
-      Pour chacun des projets, vous avez la possibilité de voir les outils utilisés et un texte descriptif de celui-ci.
-    </p>
+<div class="container-projets">
+  <div class="">
+    <h3>Mes derniers projets</h3>
+    <p>Vous trouverez les précédentes réalisations significatives. Je m'adapte à vos besoins pour réaliser, ensemble, le site qui vous ressemble. Pour chacun des projets, vous avez la possibilité de voir les outils utilisés et un texte descriptif de celui-ci.</p>
   </div>
-  <% if @projets.last != nil %>
-    <% @projets.each do |projet| %>
-      <div class="card" style="border: 1px solid <%= projet.couleur %>;">
-        <img class="card-img-top" src=<%= projet.image_url%> alt=<%= projet.image_url_alt %>>
-        <div class="card-body">
-          <h4><%= projet.type_projet.upcase %></h4>
-          <h3 class="card-title"><%= projet.titre %></h3>
-          <p class="card-text"><%= truncate(projet.description, length: 200) %></p>
-        </div>
-        <div style="display:flex; justify-content: flex-end;">
-          <a href="projets/<%= projet.id %>" class="en-savoir-plus-btn" style="<%= "border-color: #{projet.couleur}; background-color: #{projet.couleur};" %>">
-            En savoir plus
+  <div class="container-cartes">
+    <% if @projets.last != nil %>
+      <% @projets.each do |projet| %>
+        <div class="container-une-carte" style="border: 1px solid <%= projet.couleur %>; box-shadow: 0 0 10px 0 <%= projet.couleur %>; width: 24rem;">
+          <a href="projets/<%= projet.id %>" class="carte-lien">
+          <img src="<%= projet.image_url%>" alt="Projet <%= projet.titre %>" style="width: 24rem;">
+            <h3><%= projet.type_projet.upcase %></h3>
+            <h3><%= projet.titre %></h3>
+            <p><%= truncate(projet.description, length: 200) %></p>
           </a>
         </div>
-      </div>
-    <% end %>
+      <% end %>
     <% else %>
       <p>Aucun projet n'a été retrouvé</p>
-  <% end %>
-
-    <div style="display: flex; justify-content: flex-end; margin-top: 5vh; margin-bottom: 3vh;">
-      <a href="/" class="retour-accueil-btn">Retour à l'accueil</a>
-    </div>
-
+    <% end %>
+  </div>
+  <div style="display: flex; justify-content: flex-end; margin-top: 5vh; margin-bottom: 3vh;">
+    <a href="/" class="btn retour-accueil-btn">Retour à l'accueil</a>
+  </div>
 </div>

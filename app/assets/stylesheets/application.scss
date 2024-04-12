@@ -6,22 +6,20 @@
 @import "font-awesome";
 
 // Global styles
+.container-application {
+  background-color: white;
+  color: #141414;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+}
+
 body {
-  background-color: #141414;
   font-family: 'Montserrat', sans-serif;
-  color: white;
 }
 
 body h1, h2, h3 {
   font-family: 'Playfair Display SC', serif;
-}
-
-.container-application {
-  background-color: #141414;
-  color: white;
-  width: 100vw;
-  display: flex;
-  flex-direction: column;
 }
 
 a:link {

@@ -1,27 +1,98 @@
+/* Styles pour la bannière */
 .banner {
+  background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url("https://res.cloudinary.com/dyleaesxc/image/upload/v1706306291/fond-connexion-reseau-degrade_23-2148870455-modified_gmau2q.webp");
   background-size: cover;
   background-position: center;
   padding: 50px 0;
-
+  display: flex;
+  justify-content: center;
+  color: white;
 }
 
 .banner h1 {
-  margin: 5vh 0 5vh 0;
-  color: white;
+  margin: 5vh 0;
   text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
-  font-size: 40px !important;
+  font-size: 40px;
   font-weight: bold;
 }
 
-.container h3 {
-  font-family: 'Montserrat', sans-serif !important;
-  color: white;
+.banner p {
+  font-size: 20px;
+  opacity: .8;
   text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
 }
 
-.banner p {
-  font-size: 20px !important;
-  color: white;
-  opacity: .8;
-  text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+/* Styles pour le conteneur héros */
+.container-hero {
+  width: 65vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Styles pour les boutons d'appel à l'action */
+.btn-cta-contact {
+  background: rgb(93,224,230);
+  color: #141414;
+  border: 1px solid rgb(93,224,230);
+  box-shadow: 0px 0px 6px 0px rgb(93,224,230);
+  height: 4vh;
+}
+
+.btn-cta-contact:hover {
+  background: #141414;
+  color: rgb(93,224,230);
+  transition: all 0.3s ease-in;
+}
+
+/* Styles pour la section des projets */
+.container-cta-projets {
+  background: white;
+  color: #141414;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.container-cta-projets .content-cta-projets {
+  width: 54%;
+  text-align: center;
+  margin-top: 2vh;
+}
+
+.container-cta-projets h3 {
+  font-weight: bold;
+  text-align: left;
+  margin-top: 4vh;
+  margin-bottom: 2vh;
+}
+
+.container-cta-projets p {
+  text-align: left;
+}
+
+.container-cta-projets .button-container {
+  background: white;
+  height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.container-btn-cta-projets {
+  margin: 4vh 0 4vh 0;
+}
+
+/* Style pour le bouton "Voir les projets" */
+.btn-cta-projets {
+  background: #141414;
+  color: rgb(93,224,230);
+  border: 1px solid #141414;
+  box-shadow: 0px 0px 6px 0px #141414;
+  height: 4vh;
+}
+
+.btn-cta-projets:hover {
+  background: rgb(93,224,230);
+  border: 1px solid rgb(93,224,230);
+  color: #141414;
 }

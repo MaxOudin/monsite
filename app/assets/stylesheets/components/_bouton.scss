@@ -1,12 +1,6 @@
 .btn {
-  background: rgb(93,224,230);
-  color:black;
-  border: 1px solid rgb(93,224,230);
-  border-radius:4px; cursor: pointer;
-  box-shadow: 0px 0px 6px 0px rgb(93,224,230);
-  font-weight:bold;
-  width: 8vw;
-  height: 8vh;
+  border-radius: 4px; cursor: pointer;
+  font-weight: bold;
   padding: 1vh 1vw 1vh 1vw;
   text-decoration: none;
   text-align: center;
@@ -15,12 +9,22 @@
   align-items: center;
 }
 .btn:hover {
-  background: black;
-  color: rgb(93,224,230);
+  transition: all 0.3s ease-in;
+}
+.btn-projets {
+  background: #141414;
+  color:rgb(93,224,230);
+  border: 1px solid #141414;
+  box-shadow: 0px 0px 6px 0px #141414;
+  height: 4vh;
+}
+.btn-projets:hover {
+  background: rgb(93,224,230);
+  color: #141414;
   transition: all 0.3s ease-in;
 }
 .en-savoir-plus-btn {
-  color: black;
+  color: #141414;
   font-weight: bold;
   margin-right: 1vh;
   margin-bottom: 1vh;
@@ -31,45 +35,18 @@
   transition: all 0.3s ease; /* Ajouter une transition pour l'animation */
 }
 .en-savoir-plus-btn:hover {
-  background: black;
+  background: #141414;
   color: white;
 }
 .retour-accueil-btn {
-  background: #141414;
-  color: white;
-  border: 1px solid #141414;
-  border-radius:4px; cursor: pointer;
-  box-shadow: 0px 0px 6px 0px #141414;
-  width: 8vw;
-  height: 8vh;
-  padding: 1vh 1vw 1vh 1vw;
-  font-weight: bold;
-  font-size: 18px;
-  text-decoration: none; /* Supprimer le soulignement par défaut des liens */
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  transition: all 0.3s ease; /* Ajouter une transition pour l'animation */
-}
-.retour-accueil-btn:hover {
   background: white;
   color: #141414;
-  transition: all 0.3s ease-in;
+  border: 1px solid white;
+  box-shadow: 0px 0px 6px 0px #141414;
 }
-.btn-cta-projets {
-  background: black;
-  color: rgb(93,224,230);
-  border-radius:4px; cursor: pointer;
+.retour-accueil-btn:hover {
+  background: #141414;
+  color: #93E0E6;
+  border: 1px solid rgb(93,224,230);
   box-shadow: 0px 0px 6px 0px rgb(93,224,230);
-  padding: 1vh 1vw 1vh 1vw;
-  border: 1px solid #141414;
-  padding:1vh 2vw 0 2vw;
-  font-weight: bold;
-  font-size: 18px;
-  text-decoration: none; /* Supprimer le soulignement par défaut des liens */
-}
-.btn-cta-projets:hover {
-  background: black;
-  color: rgb(93,224,230);
-  transition: all 0.3s ease-in;
 }

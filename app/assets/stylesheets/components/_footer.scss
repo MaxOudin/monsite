@@ -70,9 +70,27 @@
   border-radius:4px;
 }
 
-.btn a:link {
-  color: black;
+.btn-contact {
+  background: #141414;
+  color: rgb(93,224,230);
+  border: 1px solid rgb(93,224,230);
+  box-shadow: 0px 0px 6px 0px #141414;
 }
+
+.btn-contact a {
+  color: rgba(93,224,230,1);
+}
+
+.btn-contact:hover {
+  background: rgb(93,224,230);
+  color: #141414;
+  transition: all 0.3s ease-in;
+}
+
+.btn-contact:hover a {
+  color: #141414;
+}
+
 
 // Small devices (landscape phones, 576px and up)
 @media (min-width: 576px) {
