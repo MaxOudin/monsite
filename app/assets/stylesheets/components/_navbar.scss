@@ -27,7 +27,7 @@
 }
 
 // // Small devices (landscape phones, 576px and up)
-@media (min-width: 576px) {
+@media (min-width: 600px) {
   .dropdown-nav {
     margin-right: 1vh;
   }
@@ -38,7 +38,7 @@
 }
 
 // // Large devices (desktops, 992px and up)
-@media (min-width: 700px) {
+@media (min-width: 768px) {
   .dropdown-nav {
     margin-right: 3vh;
   }

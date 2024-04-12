@@ -36,6 +36,11 @@
   opacity: 0.8;
   font-size: 2.5rem;
 }
+.footer-links a:hover {
+  color: rgb(93,224,230);
+  opacity: 1;
+  transition: all 0.3s ease-in;
+}
 
 .footer-end {
   width: 90vw;
@@ -118,10 +123,6 @@
     width: 35vw;
     padding-top: 0vh;
     padding-bottom: 0vh;
-  }
-
-  .footer-links a:hover {
-    opacity: 1;
   }
 
   .footer-end {

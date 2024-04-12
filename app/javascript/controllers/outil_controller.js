@@ -3,10 +3,6 @@ import { Controller } from "@hotwired/stimulus"
 // Connects to data-controller="outil"
 export default class extends Controller {
   static targets = ["description"];
-
-  connect() {
-  }
-
   // Lorsque l'utilisateur clique sur la flèche, bascule entre display: none et display: block
 
   toggleDescription() {

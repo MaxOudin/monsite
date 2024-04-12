@@ -3,6 +3,8 @@
   display: flex;
   flex-direction: column;
   align-items: center; /* Centrer les cartes horizontalement */
+  padding: 1vh 5vw;
+  text-align: center;
 }
 
 .container-cartes {
@@ -13,47 +15,93 @@
 }
 
 .container-une-carte {
-  width: 24rem;
-  height: 20rem; /* Taille fixe pour la carte */
-  padding: 1rem;
-  margin-top: 4rem;
-  margin-bottom: 4rem;
-  position: relative; /* Pour positionner le lien au-dessus de l'image */
+  max-width: 35vw;
+  margin: 5vh;
   border-radius: 4px;
-}
+  background: white;
+  text-align: left;
 
-.container-une-carte img {
-  height: 100%;
-  width: 24rem;
-  object-fit: cover; /* Redimensionne l'image pour qu'elle remplisse le conteneur en coupant les parties excédentaires */
-  object-position: center; /* Centre l'image à l'intérieur de son conteneur */
-  overflow: hidden;
-}
+  &:hover {
+    opacity: 0.5;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, .1);
+    border: 1px solid #141414;
+    transition: all 0.3s ease;
+  }
 
-.container-une-carte .carte-lien {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1; /* Assure que le lien est cliquable au-dessus de l'image */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-decoration: none;
-  color: white;
-}
+  a, a:visited {
+    text-decoration: none;
+    color: #141414;
+  }
 
-.container-une-carte:hover img {
-  opacity: 0; /* Fait disparaître l'image au survol */
-}
+  .card-img {
+    border-radius: 4px;
+    position: relative;
+    text-align: center;
 
-.container-une-carte:hover {
-  border-color: rgba(255, 255, 255, 0.8); /* Change la couleur de la bordure au survol */
-}
+    img {
+      max-height: 300px;
+      width: 100%;
+    }
 
-/* Style pour le bouton "En savoir plus" */
+    &:before {
+      position: absolute;
+      bottom: -8px;
+      left: 50%;
+      margin-left: -10px;
+      width: 0;
+      height: 0;
+      border-top: solid 10px transparent;
+      border-left: solid 10px transparent;
+      border-right: solid 10px transparent;
+    }
+
+    h3 {
+      position: absolute;
+      margin: 0;
+      font-size: 42px;
+      bottom: 15px;
+      width: 100%;
+      color: #fff;
+    }
+  }
+
+  .card-details {
+    margin-top: 20px;
+
+    span {
+      padding: 0 30px;
+
+      i {
+        margin-right: 5px;
+      }
+    }
+  }
+
+  .card-text {
+    padding: 10px 11px;
+    line-height: 22px;
+  }
+}
 .en-savoir-plus-btn {
-  margin-top: 1rem; /* Ajoute de l'espace entre le texte et le bouton */
+  color: #141414;
+  border: 2px solid; /* Vous pouvez ajuster l'épaisseur et le style de la bordure ici */
+  background: transparent;
+  box-shadow: 0 0 6px 0 #141414; /* Ajouter une ombre portée */
+  transition: all 0.3s ease; /* Ajouter une transition pour l'animation */
+  width: 10vw;
+}
+.en-savoir-plus-btn:hover {
+  box-shadow: 0 0 2px 0 #141414; /* Ajouter une ombre portée */
+}
+
+@media (max-width: 768px) {
+  .en-savoir-plus-btn {
+    width: 20vw;
+  }
+  .container-cartes {
+    width: 90vw;
+  }
+  .container-une-carte {
+    max-width: 100%;
+  }
 }
