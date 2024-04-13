@@ -8,7 +8,7 @@
     <% if @projets.last != nil %>
       <% @projets.each do |projet| %>
         <div class="container-une-carte" style="border: 1px solid <%= projet.couleur %>;">
-          <a href="projets/<%= projet.id %>">
+          <a href="<%= projet_path(projet.titre.gsub(' ', '-')) %>">
           <div class="card-img">
             <img src="<%= projet.image_url%>" alt="Projet <%= projet.titre %>">
             <h3><%= projet.titre %></h3>

@@ -5,7 +5,13 @@ class ProjetsController < ApplicationController
   end
 
   def show
-    @projet = Projet.find(params[:id])
+    titre = params[:id].gsub('-', ' ')
+    @projet = Projet.find_by(titre: titre)
   end
 
+  private
+
+  def projet_params
+    params.require(:projet).permit(:titre, :description, :image)
+  end
 end

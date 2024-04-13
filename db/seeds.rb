@@ -24,7 +24,7 @@ puts "Reset database"
 
 # Create project
 surf = Projet.create(
-  titre: "Surf.Ai",
+  titre: "Surf Ai",
   type_projet: "application web",
   description: "Surf.Ai est une plateforme de location de planches de surf entre particuliers.
   Je peux à la fois proposer mes planches à la location et louer des planches de surf.<br>
@@ -147,7 +147,7 @@ puts "Outils surf créés"
 # ---------------------NEW PROJET -------------------------------
 
 surviv = Projet.create(
-  titre: "Surviv.Ai",
+  titre: "Surviv Ai",
   type_projet: "saas",
   description: "Surviv.Ai est un logiciel de téléchargement et gestion de factures.
   Le but du SaaS (Software As A Service) est d'éliminer les tâches répétitives et chronophages.
