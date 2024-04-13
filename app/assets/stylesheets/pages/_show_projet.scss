@@ -1,0 +1,137 @@
+.project-container {
+  align-self: center;
+  padding: 1vh;
+  width: 70vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: left;
+
+  h2 {
+    text-align: center;
+  }
+}
+.project-type {
+  text-align: center;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+}
+
+.description-container {
+  width: 75%;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin-top: 2vh;
+
+  h3 {
+    font-weight: bold;
+    text-align: left;
+    margin-bottom: 2vh;
+  }
+
+  p {
+    text-align: left;
+  }
+}
+.image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 3vh;
+  border-radius: 4px;
+  overflow: hidden;
+  width: 50vw;
+
+  img {
+    max-height: 500px;
+    width: auto;
+    overflow: hidden;
+  }
+}
+
+.github-link-container {
+  display: flex;
+  justify-content: center;
+  margin: 4vh;
+
+  a, a:visited {
+    text-decoration: none;
+    color: #141414;
+  }
+}
+.github-btn {
+  color: #141414;
+  box-shadow: 0 0 6px 0 #141414; /* Ajouter une ombre portée */
+  transition: all 0.3s ease; /* Ajouter une transition pour l'animation */
+  padding: 0;
+  width: 10vw;
+}
+.github-btn:hover {
+  box-shadow: 0 0 2px 0 #141414;
+}
+
+.tools-container {
+  width: 75%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  text-align: left;
+  margin-top: 2vh;
+}
+
+.tool-item {
+
+  .tool-name {
+    align-self: left;
+    text-align: left;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .tool-description-container {
+    margin: 1vh;
+    overflow: hidden; // Pour éviter que le texte ne déborde lors de l'animation
+    transition: all 0.5s ease;
+    max-height: 0; // Par défaut, la div est masquée
+    opacity: 0;
+  }
+
+  .tool-description-container.visible {
+    transition: all 0.5s ease;
+    max-height: 500px; // Hauteur maximale lorsque la classe 'visible' est présente
+    opacity: 1;
+  }
+
+  .tool-description {
+    text-align: left;
+    padding-left: 2vw;
+    transition: all 0.5s ease;
+  }
+}
+.fa-chevron-down {
+  margin-left: 1vw;
+}
+
+.return-button-container {
+  display: flex;
+  justify-content: flex-end;
+  margin: 4vh;
+}
+
+@media (max-width: 768px) {
+  .project-container {
+  width: 90vw;
+  }
+  .image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3vh;
+    border-radius: 4px;
+    overflow: hidden;
+    width: 100%;
+  }
+  .github-btn {
+    width: 30vw;
+  }
+}

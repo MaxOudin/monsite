@@ -27,13 +27,13 @@ surf = Projet.create(
   titre: "Surf.Ai",
   type_projet: "application web",
   description: "Surf.Ai est une plateforme de location de planches de surf entre particuliers.
-  Je peux à la fois proposer mes planches à la location et louer des planches de surf.
+  Je peux à la fois proposer mes planches à la location et louer des planches de surf.<br>
   En tant qu'utilisateur, je peux donc créer une planche avec un titre, un descriptif, un prix par jour et lui ajouter plusieurs photos pour la proposer à la location.
   Depuis l'accueil, je peux voir les planches disponibles par planche avec la moyenne des notes laissés par les précédents locataires et chacune géocalisée sur la carte.
-  Il est possible de rechercher plus précisemment des planches de surf en fonction de leur type, pour trouver celle qui me correspond.
+  Il est possible de rechercher plus précisemment des planches de surf en fonction de leur type, pour trouver celle qui me correspond.<br>
   Les locataires peuvent consulter les évaluations et avis des clients précédents, assurant des choix éclairés.
   Avant la confirmer la réservation la plateforme Surf.ai vous montre le récapitulatif de l'offre.
-  Vous pourrez y retrouver les détails de votre choix pour vérifier notamment des dates spécifiques et le budget total.
+  Vous pourrez y retrouver les détails de votre choix pour vérifier notamment des dates spécifiques et le budget total.<br>
   Surf.Ai offre à chaque utilisateur un espace présentant l'historique de réservations et de locations.
   Cela favorisant l'engagement communautaire grâce aux évaluations et aux avis post-location, améliorant ainsi l'expérience des utilisateurs.",
   image_url: "https://res.cloudinary.com/dyleaesxc/image/upload/v1698925883/production/66xsp347pg4llarxvcikcys3depg.png",
@@ -151,13 +151,13 @@ surviv = Projet.create(
   type_projet: "saas",
   description: "Surviv.Ai est un logiciel de téléchargement et gestion de factures.
   Le but du SaaS (Software As A Service) est d'éliminer les tâches répétitives et chronophages.
-  Nous avons choisi d'autimatiser le dépôt de factures et simplifiant la visualisation de leur statut.
+  Nous avons choisi d'autimatiser le dépôt de factures et simplifiant la visualisation de leur statut. <br>
   Surviv.Ai permet aux utilisateurs ayant créé un compte, d'enregistrer les factures en téléchargeant le fichier pdf.
   Notre technologie lit le pdf et extrait de façon automatisée les détails cruciaux pour l'enregistrer dans la base de données.
-  Cette extraction est aussi possible à travers les pièces jointes aux e-mails.
+  Cette extraction est aussi possible à travers les pièces jointes aux e-mails. <br>
   En effet, notre technologie est aussi capable de lire le pdf inclut en pièce jointe et d'extraire les informations.
   Les utilisateurs peuvent ensuite visualiser les factures enregistrées et leur statut sous différents aspects.
-  Il est aussi possible de voir l'historique des relances faites pour chaque facture.
+  Il est aussi possible de voir l'historique des relances faites pour chaque facture. <br>
   Surviv.Ai offre à chaque utilisateur un espace présentant le tableau de bord.
   Ce tableau de bord présente les informations financières clés autour des délais de paiement.",
   image_url: "https://res.cloudinary.com/dyleaesxc/image/upload/v1696419032/Capture_d_e%CC%81cran_2023-10-03_a%CC%80_14.32.06_jwjcda.png",
@@ -271,13 +271,13 @@ puts "Outils surviv créés"
 # Create project
 
 music = Projet.create(
-  titre: 'MaxMusic - Shazam API',
+  titre: 'Shazam API',
   type_projet: "application web",
   description: "Voici MaxMusic, outil de recherches de Music par mots clés.
-  Ma mémoire me fait parfois défaut, et je connais approximativement le titre de la musique...
+  Ma mémoire me fait parfois défaut, et je connais approximativement le titre de la musique... <br>
   Avec Maxmusic vous pouvez utiliser la barre de recherche pour retrouver vos chansons préférées à partir de quelques mots.
   J'ai pensé qu'il serait agréable de trouver directement la pochette de l'album pour avoir un visuel.
-  Afin de s'assurer que le résultat convient à notre recherche vous aurez quelques informations supplémentaires.
+  Afin de s'assurer que le résultat convient à notre recherche vous aurez quelques informations supplémentaires. <br>
   Mais surtout vous aurez la possibilité d'écouter la musique, sans avoir à naviguer sur d'autres onglets ou directement aller voir le clip sur Youtube.",
   image_url: "https://res.cloudinary.com/dyleaesxc/image/upload/v1697205527/home_g3tvhj.png",
   image_url_alt: "Capture ecran du projet MaxMusic, outil de recherche de musiques via API Shazam",

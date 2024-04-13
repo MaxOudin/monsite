@@ -7,7 +7,7 @@
 
     <% if @projets.last != nil %>
       <% @projets.each do |projet| %>
-        <div class="container-une-carte" style="border: 1px solid <%= projet.couleur %>; box-shadow: 0 0 6px 0 <%= projet.couleur %>;">
+        <div class="container-une-carte" style="border: 1px solid <%= projet.couleur %>;">
           <a href="projets/<%= projet.id %>">
           <div class="card-img">
             <img src="<%= projet.image_url%>" alt="Projet <%= projet.titre %>">
@@ -15,8 +15,14 @@
           </div>
           <div class="card-text">
             <h3><%= projet.type_projet.upcase %></h3>
-            <p><%= truncate(projet.description, length: 200) %></p>
+            <p><%= truncate(projet.description, length: 300) %></p>
           </div>
+          <!-- <div class="container-btn-projets">
+            <button class="btn en-savoir-plus-btn" style="background-color: <%= projet.couleur %>; border: 1px solid <%= projet.couleur %>;">
+              En savoir plus
+            </button>
+          </div> -->
+          </a>
         </div>
       <% end %>
 

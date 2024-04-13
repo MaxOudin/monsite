@@ -8,6 +8,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: all 0.3s ease-in;
 }
 .btn:hover {
   transition: all 0.3s ease-in;
@@ -24,9 +25,7 @@
   transition: all 0.3s ease-in;
 }
 .retour-accueil-btn {
-  background: white;
   color: #141414;
-  border: 1px solid white;
   box-shadow: 0px 0px 6px 0px #141414;
 }
 .retour-accueil-btn:hover {
@@ -34,4 +33,5 @@
 }
 
 @media (max-width: 768px) {
+
 }

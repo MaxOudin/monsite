@@ -1,48 +1,38 @@
+<div class="project-container">
+  <h2>Projet: <%= @projet.titre %></h2>
+  <h3 class="project-type" style="color: <%= @projet.couleur %>;"> <%= @projet.type_projet.upcase %></h3>
 
-<div style="background: white; color: #141414; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-
-  <h2 style="text-align: center; font-weight: bold; padding-top:4vh;">
-      Projet: <%= @projet.titre %></h2>
-  <p style="text-align: center; color: <%= @projet.couleur %>; text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
-      padding-top:2vh; padding-bottom:1vh; font-size: 24px"><%= @projet.type_projet.upcase %></p>
-
-  <div style="display:flex; justify-content: center; align-items: center; margin-top: 2vh; margin-bottom: 2vh;">
-    <img src=<%= @projet.image_url %> alt=<%= @projet.image_url_alt %> style="width: 50%; height: auto; border: 2px solid <%= @projet.couleur %>; border-radius:3px;">
+  <div class="image-container" style="border: 1px solid <%= @projet.couleur %>;">
+    <img src="<%= @projet.image_url %>" alt="<%= @projet.image_url_alt %>" class="project-image">
   </div>
 
-  <div style="width: 75%;">
-    <div style="display: flex; flex-direction: column; text-align: center; margin-top: 2vh;">
-      <h3 style="font-weight: bold; text-align: left; margin-bottom: 2vh;"><%= @projet.titre %>, c'est quoi ?</h3>
-      <p style="text-align: left;"><%= @projet.description %></p>
-    </div>
-    <div style="display: flex; justify-content: center; margin-top: 3vh; margin-bottom: 4vh;">
-        <a href="<%= @projet.github_lien%>" target="_blank" class="btn btn-primary" style="background:<%= @projet.couleur %>; border: solid 1px <%= @projet.couleur %>; border-radius: 4px; color: black; font-weight: bold; text-decoration: none;
-                display: flex;
-                justify-content: center;
-                align-items: center;">
-                Lien Github</a>
-    </div>
+  <div class="description-container">
+    <h3 class="description-title"><%= @projet.titre %>, c'est quoi ?</h3>
+    <p class="description-text"><%= @projet.description %></p>
+  </div>
 
-    <h3 style="font-size: 20px; text-align: left; margin-bottom: 1vh;">Avec quels outils a été conçu <%= @projet.titre %> ?</h3>
-    <p style="opacity: 0.8;"> Vous pouvez cliquer sur l'outil pour en savoir plus.</p>
-    <%  @projet.outils.each do |outil| %>
-    <div style= "margin-bottom: 1vh;"
-                data-controller="outil"
-                data-action="click->outil#toggleDescription">
-      <div style= "font-weight: bold; cursor: pointer;" ><%= outil.nom %>
-        <i class="fas fa-chevron-down" style="color: <%= @projet.couleur %>"></i>
+  <div class="github-link-container">
+    <a href="<%= @projet.github_lien %>" target="_blank" class="btn github-btn" style="background-color: <%= @projet.couleur %>; border: 1px solid <%= @projet.couleur %>;">Lien Github</a>
+  </div>
+  <div class="description-container">
+    <h3 class="description-title">Avec quels outils a été conçu <%= @projet.titre %> ?</h3>
+    <p class="description-text">Vous pouvez cliquer sur l'outil pour en savoir plus.</p>
+  </div>
+  <div class="tools-container">
+    <% @projet.outils.each do |outil| %>
+      <div class="tool-item" data-controller="outil" data-action="click->outil#toggleDescription">
+        <div class="tool-name"><%= outil.nom %>
+          <i class="fas fa-chevron-down" style="color: <%= @projet.couleur %>"></i>
+        </div>
+        <div class="tool-description-container">
+          <div class="tool-description" data-outil-target="description">
+            <%= outil.description %>
+          </div>
+        </div>
       </div>
-      <p data-outil-target="description"
-        style="opacity: 0.9; display:none; padding-left: 2vw;" >
-        <%= outil.description %>
-      </p>
-    </div>
     <% end %>
-
   </div>
-
-
-   <div style="display: flex; justify-content: flex-end; margin-top: 5vh; margin-bottom: 3vh;">
+  <div class="return-button-container">
     <a href="/projets" class="btn retour-accueil-btn">Retour aux projets</a>
   </div>
 </div>

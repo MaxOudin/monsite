@@ -36,14 +36,12 @@
   color: #141414;
   border: 1px solid rgb(93,224,230);
   box-shadow: 0px 0px 6px 0px rgb(93,224,230);
-  width: 18vw;
+  width: 12vw;
   margin: 2vh 0 2vh 0;
 }
 
 .btn-cta-contact:hover {
-  background: #141414;
-  color: rgb(93,224,230);
-  transition: all 0.3s ease-in;
+  box-shadow: 0px 0px 0px 0px rgb(93,224,230);
 }
 
 /* Styles pour la section des projets */
@@ -95,7 +93,7 @@
 }
 
 .btn-cta-projets:hover {
-  color: white;
+  box-shadow: 0px 0px 0px 0px #141414;
 }
 
 /* Media query pour les appareils sous tablette */

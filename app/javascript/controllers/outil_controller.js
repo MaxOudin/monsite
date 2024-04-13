@@ -8,9 +8,9 @@ export default class extends Controller {
   toggleDescription() {
     this.descriptionTargets.forEach((descriptionTarget) => {
       if (descriptionTarget === this.descriptionTarget) {
-        // Si c'est l'élément actuel, basculez entre display: none et display: block
-        descriptionTarget.style.display = (descriptionTarget.style.display === 'none') ? 'block' : 'none';
+        descriptionTarget.closest('.tool-description-container').classList.toggle('visible');
       }
     });
   }
+
 }
