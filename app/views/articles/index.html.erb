@@ -1,14 +1,30 @@
-<h2>Articles Index</h2>
-<% if @articles.last != nil %>
-  <% @articles.each do |article| %>
-    <div class="card" style="width: 18rem;">
-      <img src="<%= article.image_url %>" style="width:200px; height: auto;" alt="<%= article.image_alt %>">
-      <div class="card-body">
-        <h5 class="card-title"><%= article.titre %></h5>
-        <a href="<%= article_detail_path(article.titre.gsub(' ', '-')) %>" class="btn">Voir l'article</a>
-      </div>
-    </div>
-  <% end %>
-<% else %>
-  <p>Aucun article n'a été retrouvé</p>
-<% end %>
+<div class="container-projets">
+  <div style="">
+    <h3>Voici les articles</h3>
+  </div>
+  <div class="container-cartes">
+
+    <% if @articles.last != nil %>
+      <% @articles.each do |article| %>
+        <div class="container-une-carte" style="border: 1px solid <%= article.couleur %>;">
+          <a href="<%= article_path(article.titre.gsub(' ', '-')) %>">
+          <div class="card-img">
+            <img src="<%= article.image_url%>" alt="<%= article.image_alt %>">
+            <h3 class="titre-article"><%= article.titre %></h3>
+          </div>
+          <div class="card-text">
+            <h3><%= article.theme.upcase %></h3>
+          </div>
+          </a>
+        </div>
+      <% end %>
+
+    <% else %>
+      <p>Aucun article n'a été retrouvé</p>
+    <% end %>
+  </div>
+
+  <div style="display: flex; justify-content: flex-end; margin-top: 5vh; margin-bottom: 3vh;">
+    <a href="/" class="btn retour-accueil-btn">Retour à l'accueil</a>
+  </div>
+</div>

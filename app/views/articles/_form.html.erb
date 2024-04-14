@@ -23,7 +23,7 @@
     </div>
     <div class="field">
       <%= f.label :theme %>
-      <%= f.text_field :theme %>
+      <%= f.select :theme, options_for_select(Article::THEMES) %>
     </div>
     <div class="field">
       <%= f.label :couleur %>
@@ -35,7 +35,7 @@
       <%= f.rich_text_area :content, style: "background-color: white;", rows: 70 %>
     </div>
     <br>
-    <div class="d-flex justify-content-evenly">
+    <div class="">
       <% if article.persisted? %>
         <%= f.submit 'Modifier Article', data: { turbo: false }, class: "btn btn-projets" %>
       <% else %>

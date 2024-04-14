@@ -1,14 +1,21 @@
-<p>bienvenue la show</p>
-<h2> <%= @article.titre %></h2>
 
+  <% if user_signed_in? %>
+      <%= link_to 'Modifier', edit_article_path(@article) %>
+  <% end %>
 
-<%= @article.content %>
+<div class="project-container">
+  <h2> <%= @article.titre %> </h2>
+  <h3 class="project-type" style="color: <%= @article.couleur %>;"> <%= @article.theme.upcase %></h3>
 
-<div style="width: 300px; height:auto;">
-  <%= image_tag @article.image_url %>
+  <div class="image-container" style="border: 1px solid <%= @article.couleur %>;">
+    <img src="<%= @article.image_url %>" alt="<%= @article.image_alt %>" class="project-image">
+  </div>
+
+  <div class="article-container">
+    <p class="description-text"><%= @article.content %></p>
+  </div>
+
+  <div class="return-button-container">
+    <a href="/articles" class="btn retour-accueil-btn">Retour aux articles</a>
+  </div>
 </div>
-
-<% if user_signed_in? %>
-  <%= link_to 'Edit', edit_article_path(@article), class: "btn" %> |
-  <%= link_to 'Back', articles_path, class: "btn"  %>
-<% end %>

@@ -59,6 +59,7 @@
     <%# <%= render 'shared/navbar' %>
     <% if user_signed_in? %>
       <%= button_to 'Se déconnecter', destroy_user_session_path, method: :delete %> <br>
+      <%= link_to "Retour à l'accueil", root_path %> <br>
       <%= link_to 'Créer nouveau projet', new_projet_path %> <br>
       <%= link_to 'Créer nouveau article', new_article_path %>
     <% end %>
