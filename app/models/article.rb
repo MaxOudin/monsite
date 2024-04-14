@@ -14,7 +14,6 @@ class Article < ApplicationRecord
   validates :content, presence: true
   validates :image_url, presence: true
   validates :image_alt, presence: true
-  validates :id, presence: true, uniqueness: true
   validates :couleur, presence: true
   validates :theme, presence: true, inclusion: { in: THEMES }
 
