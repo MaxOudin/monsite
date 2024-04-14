@@ -1,12 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Google result text-->
-    <title>Développeur web freelance fullstack à Bordeaux. Maxime Oudin, expert Ruby On Rails, crée votre site internet</title>
 
+    <title>Maxime Oudin, développeur web à Bordeaux, crée votre site internet</title>
+    <link rel="canonical" href="https://maximeoudin.fr/">
+
+    <!-- Google result text-->
     <meta name="dc.title" content="Développeur web freelance fullstack à Bordeaux. Maxime Oudin, expert Ruby On Rails, crée votre site internet">
     <meta name="dc.description" content="Développeur web freelance fullstack à Bordeaux et Paris. Spécialisé dans la création de sites vitrine, e-commerce, CRM, SaaS, et applications web.">
     <meta name="dc.relation" content="https://maximeoudin.fr/">
@@ -23,6 +25,7 @@
     <meta property="og:image" content="Logo_black.png">
     <meta property="og:description" content="Développeur web freelance fullstack à Bordeaux et Paris. Spécialisé dans la création de sites vitrine, e-commerce, CRM, SaaS, et applications web. Expert en Ruby On Rails et Webflow. Créons ensemble le site internet dont vous avez besoin !">
     <meta property="og:site_name" content="Maxime Oudin dev"/>
+    <meta property="og:url" content="https://maximeoudin.fr/">
 
     <!-- Twitter meta -->
     <%# <meta name="twitter:card" content="Logo_black.png">
@@ -37,6 +40,7 @@
 
     <!--load your compiled CSS -->
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "actiontext", "data-turbo-track": "reload" %>
     <!--load your compiled javascript -->
     <%= javascript_importmap_tags %>
 
@@ -44,7 +48,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" async>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;600&family=Playfair+Display+SC:wght@400;700&display=swap" rel="stylesheet" async>
-
 
     <!--load contact form -->
     <script async src="https://tally.so/widgets/embed.js"></script>
@@ -54,6 +57,11 @@
   <body>
 
     <%# <%= render 'shared/navbar' %>
+    <% if user_signed_in? %>
+      <%= button_to 'Se déconnecter', destroy_user_session_path, method: :delete %> <br>
+      <%= link_to 'Créer nouveau projet', new_projet_path %> <br>
+      <%= link_to 'Créer nouveau article', new_article_path %>
+    <% end %>
 
       <div class= "container-application">
 

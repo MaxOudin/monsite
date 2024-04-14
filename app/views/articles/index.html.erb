@@ -1,0 +1,14 @@
+<h2>Articles Index</h2>
+<% if @articles.last != nil %>
+  <% @articles.each do |article| %>
+    <div class="card" style="width: 18rem;">
+      <img src="<%= article.image_url %>" style="width:200px; height: auto;" alt="<%= article.image_alt %>">
+      <div class="card-body">
+        <h5 class="card-title"><%= article.titre %></h5>
+        <a href="<%= article_detail_path(article.titre.gsub(' ', '-')) %>" class="btn">Voir l'article</a>
+      </div>
+    </div>
+  <% end %>
+<% else %>
+  <p>Aucun article n'a été retrouvé</p>
+<% end %>

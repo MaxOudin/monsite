@@ -6,3 +6,4 @@ class Projet < ApplicationRecord
   has_many :outils
 
 end
+

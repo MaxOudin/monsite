@@ -1,0 +1,48 @@
+
+
+<div class="form-container">
+  <%= form_with(model: article, local: true, multipart: true) do |f| %>
+    <% if f.object.errors.any? %>
+      <div>
+        <% f.object.errors.full_messages.each do |error| %>
+        <div><%= error %></div>
+        <% end %>
+      <div>
+    <% end %>
+    <div class="field">
+      <%= f.label :titre, value: "Titre de l'article" %>
+      <%= f.text_field :titre, style: "background-color: white;" %>
+    </div>
+    <div class="field">
+      <%= f.label :image_url, value: "Image url de l'article" %>
+      <%= f.text_field :image_url, style: "background-color: white;" %>
+    </div>
+    <div class="field">
+      <%= f.label :image_alt, value: "Texte pour alt de l'image de l'article" %>
+      <%= f.text_field :image_alt, style: "background-color: white;" %>
+    </div>
+    <div class="field">
+      <%= f.label :theme %>
+      <%= f.text_field :theme %>
+    </div>
+    <div class="field">
+      <%= f.label :couleur %>
+      <%= f.text_field :couleur %>
+    </div>
+
+    <div class="field">
+      <%= f.label :content, value: "Contenu de l'article" %>
+      <%= f.rich_text_area :content, style: "background-color: white;", rows: 70 %>
+    </div>
+    <br>
+    <div class="d-flex justify-content-evenly">
+      <% if article.persisted? %>
+        <%= f.submit 'Modifier Article', data: { turbo: false }, class: "btn btn-projets" %>
+      <% else %>
+        <%= f.submit 'Créer Article', data: { turbo: false }, class: "btn btn-projets" %>
+      <% end %>
+      <br>
+      <%= link_to 'Retour', root_path, class: "btn retour-accueil-btn" %>
+    </div>
+  <% end %>
+</div>

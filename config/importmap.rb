@@ -7,3 +7,5 @@ pin "@hotwired/stimulus-loading", to: "stimulus-loading.js"
 
 # Épingle pour les controllers de votre application
 pin_all_from "app/javascript/controllers", under: "controllers"
+pin "trix"
+pin "@rails/actiontext", to: "actiontext.esm.js"

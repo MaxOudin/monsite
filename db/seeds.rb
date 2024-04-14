@@ -22,6 +22,14 @@ puts "Reset database"
 # ---------------------NEW PROJET -------------------------------
 # ---------------------NEW PROJET -------------------------------
 
+# Create user
+user = User.where(email: "oudinmaxime@gmail.com").first_or_initialize
+user.update!(
+  password: "password",
+  password_confirmation: "password"
+)
+puts "User created"
+
 # Create project
 surf = Projet.create(
   titre: "Surf Ai",

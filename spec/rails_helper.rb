@@ -43,7 +43,8 @@ RSpec.configure do |config|
   config.include Rails.application.routes.url_helpers
 
   config.include FactoryBot::Syntax::Methods
-
+  config.include Devise::TestHelpers, type: :helper
+  
   Shoulda::Matchers.configure do |config|
     config.integrate do |with|
       with.test_framework :rspec

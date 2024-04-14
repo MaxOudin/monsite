@@ -33,6 +33,9 @@ gem "dartsass-rails", "~> 0.5.0"
 # Use Sprockets for asset management with Dart Sass
 gem 'dartsass-sprockets'
 
+# Authentification with Devise
+gem 'devise', '~> 4.9.3'
+
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
 
@@ -49,7 +52,11 @@ gem "bootsnap", require: false
 gem "font-awesome-sass", "~> 6.1"
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
-# gem "image_processing", "~> 1.2"
+gem "image_processing", "~> 1.2"
+
+# File management libvips for images et poppler for pdf
+gem 'ruby-vips'
+gem 'poppler'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
