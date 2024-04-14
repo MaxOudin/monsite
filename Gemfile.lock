@@ -413,6 +413,7 @@ DEPENDENCIES
   dotenv-rails
   factory_bot_rails
   font-awesome-sass (~> 6.1)
+  gobject-introspection (~> 4.2.2)
   image_processing (~> 1.2)
   importmap-rails
   jbuilder

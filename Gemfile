@@ -55,6 +55,8 @@ gem "font-awesome-sass", "~> 6.1"
 gem "image_processing", "~> 1.2"
 
 # File management libvips for images et poppler for pdf
+gem 'gobject-introspection', '~> 4.2.2'
+
 gem 'ruby-vips'
 gem 'poppler'
 
