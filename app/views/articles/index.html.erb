@@ -12,8 +12,8 @@
             <img src="<%= article.image_url%>" alt="<%= article.image_alt %>">
           </div>
           <div class="card-text">
-            <h3>Article : <%= article.titre %></h3>
-            <p style="opacity:0.7;">Thème : <%= article.theme.upcase %></p>
+            <h3> <%= article.titre %></h3>
+            <p style="opacity:0.7;">Thème : <%= article.theme %></p>
             <p style="opacity:0.7;"> Cet article a été rédigé le <%= article.created_at.strftime("%d/%m/%Y") %></p>
           </div>
           </a>

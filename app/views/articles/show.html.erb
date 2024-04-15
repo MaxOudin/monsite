@@ -4,8 +4,8 @@
   <% end %>
 
 <div class="project-container">
-  <h2> <%= @article.titre %> </h2>
-  <h3 class="project-type" style="color: <%= @article.couleur %>;"> <%= @article.theme.upcase %></h3>
+  <h2> <%= @article.titre.upcase %> </h2>
+  <h3 class="project-type" style="color: <%= @article.couleur %>;"> <%= @article.theme %></h3>
 
   <div class="image-container" style="border: 1px solid <%= @article.couleur %>;">
     <img src="<%= @article.image_url %>" alt="<%= @article.image_alt %>" class="project-image">
