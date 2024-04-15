@@ -11,10 +11,10 @@
           <a href="<%= projet_path(projet.titre.gsub(' ', '-')) %>">
           <div class="card-img">
             <img src="<%= projet.image_url%>" alt="Projet <%= projet.titre %>">
-            <h3><%= projet.titre %></h3>
           </div>
           <div class="card-text">
-            <h3><%= projet.type_projet.upcase %></h3>
+            <h3><%= projet.titre %></h3>
+            <h3 style="color: <%= projet.couleur %> !important;"><%= projet.type_projet.upcase %></h3>
             <p><%= truncate(projet.description, length: 300) %></p>
           </div>
           </a>

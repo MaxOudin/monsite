@@ -12,6 +12,9 @@
   </div>
 
   <div class="article-container">
+    <p style="opacity:0.7;"> Article rédigé le <%= @article.created_at.strftime("%d/%m/%Y") %></p>
+    <br>
+
     <p class="description-text"><%= @article.content %></p>
   </div>
 
