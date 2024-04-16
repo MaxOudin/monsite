@@ -30,6 +30,14 @@
   align-items: center;
 }
 
+.container-cta-projets {
+  display: flex;
+  width: 65vw;
+  flex-direction: column;
+  align-items: center;
+  align-self: center;
+}
+
 /* Styles pour les boutons d'appel à l'action */
 .btn-cta-contact {
   background: rgb(93,224,230);

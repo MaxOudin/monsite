@@ -14,14 +14,14 @@
 }
 
 .footer-logo img {
-  width: 60vw;
+  width: 50vw;
   margin-bottom: 1vh;
   height: auto;
   align-items: center;
 }
 
 .footer-text {
-  width: 80%;
+  width: 60vw;
   text-align: center;
 }
 
@@ -104,19 +104,19 @@
   }
 
   .footer-text {
-    width: 80%;
+    width: 90vw;
   }
 }
 
 // Large devices (desktops, 992px and up)
 @media (min-width: 700px) {
   .footer-logo img {
-    width: 40vw;
+    width: 25vw;
     padding-top: 1vh;
   }
 
   .footer-text {
-    width: 50vw;
+    width: 85vw;
   }
 
   .footer-links {

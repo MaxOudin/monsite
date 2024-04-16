@@ -4,6 +4,10 @@ class ProjetsController < ApplicationController
 
   def index
     @projets = Projet.all
+    if params[:query].present?
+      sql_subquery = "titre ILIKE :query OR description ILIKE :query"
+      @projets = @projets.where(sql_subquery, query: "%#{params[:query]}%")
+    end
   end
 
   def show

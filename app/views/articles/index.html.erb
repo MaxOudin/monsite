@@ -1,3 +1,18 @@
+<% if user_signed_in? %>
+<div class="row justify-content-center">
+  <div class="col-sm-8 my-3">
+    <%= form_with url: articles_path, method: :get, class: "d-flex" do %>
+      <%= text_field_tag :query,
+            params[:query],
+            class: "form-control",
+            placeholder: "Type a keyword"
+        %>
+      <%= submit_tag "Search", name: "", class: "btn" %>
+    <% end %>
+  </div>
+</div>
+<% end %>
+
 <div class="container-projets">
   <div style="">
     <h3>Voici les articles</h3>
