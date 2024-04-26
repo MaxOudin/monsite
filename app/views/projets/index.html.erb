@@ -1,3 +1,5 @@
+<%= render 'shared/navbar' %>
+
 <% if user_signed_in? %>
 <div class="row justify-content-center">
   <div class="col-sm-8 my-3">
@@ -22,15 +24,15 @@
 
     <% if @projets.last != nil %>
       <% @projets.each do |projet| %>
-        <div class="container-une-carte" style="border: 1px solid <%= projet.couleur %>;">
+        <div class="container-une-carte">
           <a href="<%= projet_path(projet.titre.gsub(' ', '-')) %>">
           <div class="card-img">
             <img src="<%= projet.image_url%>" alt="Projet <%= projet.titre %>">
           </div>
           <div class="card-text">
             <h3><%= projet.titre %></h3>
-            <h3 style="color: <%= projet.couleur %> !important;"><%= projet.type_projet.upcase %></h3>
             <p><%= truncate(projet.description, length: 300) %></p>
+            <div class="card-pastille" style="background-color: <%= projet.couleur %>;"><%= projet.type_projet.upcase %></div>
           </div>
           </a>
         </div>

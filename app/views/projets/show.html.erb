@@ -1,7 +1,9 @@
-  <% if user_signed_in? %>
-      <%= link_to 'Modifier', edit_projet_path(@projet) %>
-      <%= button_to 'Supprimer', projet_path(@projet), method: :delete, data: { confirm: 'Are you sure?' } %>
-  <% end %>
+<%= render 'shared/navbar' %>
+
+<% if user_signed_in? %>
+    <%= link_to 'Modifier', edit_projet_path(@projet) %>
+    <%= button_to 'Supprimer', projet_path(@projet), method: :delete, data: { confirm: 'Are you sure?' } %>
+<% end %>
 <div class="project-container">
   <h2>Projet: <%= @projet.titre %></h2>
   <h3 class="project-type" style="color: <%= @projet.couleur %>;"> <%= @projet.type_projet.upcase %></h3>
@@ -12,7 +14,7 @@
 
   <div class="description-container">
     <h3 class="description-title"><%= @projet.titre %>, c'est quoi ?</h3>
-    <p class="description-text"><%= @projet.description %></p>
+    <p class="description-paragraphe"><%= @projet.description %></p>
   </div>
 
   <div class="github-link-container">

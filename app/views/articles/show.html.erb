@@ -1,3 +1,4 @@
+<%= render 'shared/navbar' %>
 
   <% if user_signed_in? %>
       <%= link_to 'Modifier', edit_article_path(@article) %>
@@ -5,19 +6,19 @@
 
 <div class="project-container">
   <h2> <%= @article.titre.upcase %> </h2>
-  <h3 class="project-type" style="color: <%= @article.couleur %>;"> <%= @article.theme %></h3>
+  <div class="card-pastille" style="background-color:<%= @article.couleur_du_theme %>;"><%= @article.theme %></div>
 
   <div class="image-container" style="border: 1px solid <%= @article.couleur %>;">
     <img src="<%= @article.image_url %>" alt="<%= @article.image_alt %>" class="project-image">
   </div>
 
   <div class="article-container">
-    <p style="opacity:0.7;"> Article rédigé le <%= @article.created_at.strftime("%d/%m/%Y") %></p>
     <br>
 
-    <p class="description-text"><%= @article.content %></p>
+    <p class="description-paragraphe"><%= @article.content %></p>
   </div>
 
+  <p style="opacity:0.7;"> Article publié le <%= @article.created_at.strftime("%d/%m/%Y") %></p>
   <div class="return-button-container">
     <a href="/articles" class="btn retour-accueil-btn">Retour aux articles</a>
   </div>

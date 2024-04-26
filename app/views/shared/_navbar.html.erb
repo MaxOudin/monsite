@@ -1,25 +1,19 @@
-<div class="navbar navbar-custom" style="height:80px; justify-content: space-between">
-  <div class="navbar-logo-container" style="">
-    <a class="navbar-brand" href="#">
-        <img src="https://res.cloudinary.com/dyleaesxc/image/upload/v1705009354/Logo_black_and_white_recoupe_pwq2m8.png" alt="Logo Maxime Oudin"
-        style="width: 70px; height: auto;">
+<div class="navbar navbar-custom" id="navbar">
+  <div class="navbar-logo-container">
+    <a class="navbar-brand" href="/">
+      <img src="https://res.cloudinary.com/dyleaesxc/image/upload/v1705009354/Logo_black_and_white_recoupe_pwq2m8.png" alt="Logo Maxime Oudin" style="width: 100px; height: auto;">
     </a>
   </div>
 
-    <div class="dropdown-nav" style=""
-    data-controller="dropdown-menu">
-      <button class="bouton-dropdown btn" type="button"style="background: linear-gradient(90deg, rgba(93,224,230,1) 0%, rgba(0,74,173,1) 100%); color:black; font-weight:bold; border-radius:4px; border: solid 1px #141414"
-      data-action="click->dropdown-menu#toggleDropdown">
-        Menu
-      </button>
-      <ul class="dropdown-menu"
-      data-dropdown-menu-target="menu">
-        <li><a class="dropdown-item" href="/" style="display: block; width: 100px;"
-        data-dropdown-menu-target="menu">Accueil</a></li>
-        <li><a class="dropdown-item" href="#">Projets</a></li>
-        <li><a class="dropdown-item" href="#contact-infos"
-        data-dropdown-menu-target="menu">Contact</a></li>
-      </ul>
-    </div>
-
+  <div class="dropdown-nav" data-controller="dropdownmenu">
+    <button class="bouton-dropdown" type="button" data-action="click->dropdownmenu#toggleDropdown">
+      Menu
+    </button>
+    <ul class="dropdown-menu" data-dropdownmenu-target="menu">
+      <li class="dropdown-item"><a href="/" class="nav-link">Accueil</a></li>
+      <li class="dropdown-item"><a href="/projets" class="nav-link">Mes projets</a></li>
+      <li class="dropdown-item"><a href="/articles" class="nav-link">Mes articles</a></li>
+      <li class="dropdown-item"><a href="#contact-infos" class="nav-link">Contact</a></li>
+    </ul>
+  </div>
 </div>

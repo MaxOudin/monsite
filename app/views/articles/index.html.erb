@@ -1,3 +1,5 @@
+<%= render 'shared/navbar' %>
+
 <% if user_signed_in? %>
 <div class="row justify-content-center">
   <div class="col-sm-8 my-3">
@@ -15,21 +17,21 @@
 
 <div class="container-projets">
   <div style="">
-    <h3>Voici les articles</h3>
+    <h3>Mes articles</h3>
   </div>
   <div class="container-cartes">
 
     <% if @articles.last != nil %>
       <% @articles.each do |article| %>
-        <div class="container-une-carte" style="border: 1px solid <%= article.couleur %>;">
+        <div class="container-une-carte">
           <a href="<%= article_path(article.titre.gsub(' ', '-')) %>">
           <div class="card-img">
             <img src="<%= article.image_url%>" alt="<%= article.image_alt %>">
           </div>
           <div class="card-text">
             <h3> <%= article.titre %></h3>
-            <p style="opacity:0.7;">Thème : <%= article.theme %></p>
-            <p style="opacity:0.7;"> Cet article a été rédigé le <%= article.created_at.strftime("%d/%m/%Y") %></p>
+            <div class="card-pastille" style="background-color:<%= article.couleur_du_theme %>;"><%= article.theme %></div>
+            <p style="opacity:0.7; font-size: 14px;"> Article publié le <%= article.created_at.strftime("%d/%m/%Y") %></p>
           </div>
           </a>
         </div>
