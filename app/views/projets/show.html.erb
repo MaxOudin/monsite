@@ -5,10 +5,10 @@
     <%= button_to 'Supprimer', projet_path(@projet), method: :delete, data: { confirm: 'Are you sure?' } %>
 <% end %>
 <div class="project-container">
-  <h3 class="project-type" style="color: <%= @projet.couleur %>;"> <%= @projet.type_projet.upcase %></h3>
+  <div class="card-pastille" style="background-color: <%= @projet.couleur %>;"><%= @projet.type_projet.upcase %></div>
 
-  <div class="image-container" style="border: 1px solid <%= @projet.couleur %>;">
   <h2>Projet: <%= @projet.titre %></h2>
+  <div class="image-container" style="border: 1px solid <%= @projet.couleur %>;">
     <img src="<%= @projet.image_url %>" alt="<%= @projet.image_url_alt %>" class="project-image">
   </div>
 

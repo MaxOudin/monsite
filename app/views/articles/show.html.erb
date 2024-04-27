@@ -5,8 +5,8 @@
   <% end %>
 
 <div class="project-container">
-  <h2> <%= @article.titre.upcase %> </h2>
   <div class="card-pastille" style="background-color:<%= @article.couleur_du_theme %>;"><%= @article.theme %></div>
+  <h2> <%= @article.titre.upcase %> </h2>
 
   <div class="image-container" style="border: 1px solid <%= @article.couleur %>;">
     <img src="<%= @article.image_url %>" alt="<%= @article.image_alt %>" class="project-image">
