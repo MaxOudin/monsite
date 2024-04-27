@@ -27,11 +27,10 @@ gem "jbuilder"
 # Use Redis adapter to run Action Cable in production
 gem "redis", "~> 4.0"
 
-# Dart Sass is the new, fast implementation of Sass (replace sassc-rails)
-gem "dartsass-rails", "~> 0.5.0"
+# Sassc-rails)
+gem "sassc-rails"
 
-# Use Sprockets for asset management with Dart Sass
-gem 'dartsass-sprockets'
+gem "autoprefixer-rails"
 
 # Authentification with Devise
 gem 'devise', '~> 4.9.3'
@@ -66,7 +65,7 @@ group :development, :test do
   gem "pry-byebug"
   gem "pry-rails"
   gem "byebug"
-  
+
 # File management libvips for images et poppler for pdf
 gem 'gobject-introspection', '~> 4.2.2'
 
