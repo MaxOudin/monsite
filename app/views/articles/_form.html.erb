@@ -23,7 +23,7 @@
     </div>
     <div class="field">
       <%= f.label :theme %>
-      <%= f.select :theme, options_for_select(Article::THEMES) %>
+      <%= f.select :theme, options_for_select(Article::THEMES_WITH_COLORS.keys) %>
     </div>
     <div class="field">
       <%= f.label :couleur %>
