@@ -159,7 +159,7 @@ surviv = Projet.create(
   type_projet: "saas",
   description: "Surviv.Ai est un logiciel de téléchargement et gestion de factures.
   Le but du SaaS (Software As A Service) est d'éliminer les tâches répétitives et chronophages.
-  Nous avons choisi d'autimatiser le dépôt de factures et simplifier la visualisation de leur statut.
+  Nous avons choisi d'automatiser le dépôt de factures et de simplifier la visualisation de leur statut.
   Surviv.Ai permet aux utilisateurs ayant créé un compte, de pouvoir enregistrer les factures en téléchargeant le fichier pdf.
   Notre technologie lit le pdf et extrait de façon automatisée les détails cruciaux pour l'enregistrer dans la base de données.
   Cette extraction est aussi possible à travers les pièces jointes aux e-mails.
