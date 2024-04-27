@@ -26,6 +26,7 @@
   left: 0;
   width: max-content;
   background-color: white;
+  transition: all 0.3s ease-in;
 
   a {
     color: #141414;
@@ -38,6 +39,7 @@
 }
 
 .dropdown-menu.visible {
+  transition: all 0.3s ease-in;
   display: block; /* Show the dropdown menu when visible class is present */
 }
 
@@ -46,6 +48,10 @@
 }
 
 .nav-link {
+  border-radius: 4px; cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   color: white;
   text-decoration: none;
 }
@@ -54,17 +60,31 @@
   text-decoration: underline;
 }
 
+.nav-link-contact {
+  background: #141414;
+  color: rgb(93, 224, 230) !important;
+  border: 1px solid rgb(93, 224, 230);
+  border-radius: 4px; cursor: pointer;
+  padding: 1vh 2vw 1vh 2vw;
+  text-decoration: none;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .bouton-dropdown {
   background-color: white;
   color: #141414;
   box-shadow: 0px 0px 6px 0px #141414;
   border: 1px solid #141414;
   font-weight: bold;
-  padding: 1vh 2vw 1vh 2vw;
+  padding: 1vh 1vw 1vh 1vw;
   border-radius: 4px;
   text-align: center;
   cursor: pointer;
   transition: all 0.3s ease-in;
+  margin-right: 8vw;
 
   &:hover {
     box-shadow: 0px 0px 2px 0px #141414;
@@ -74,5 +94,9 @@
 @media (max-width: 768px) {
   .navbar-custom {
     width: 90vw;
+  }
+  .dropdown-menu {
+    left: -20px;
+    width: max-content;
   }
 }
