@@ -2,7 +2,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: white;
+  background-color: transparent;
   color: black;
   padding: 10px 20px;
   width: 70vw;
@@ -41,6 +41,7 @@
 .dropdown-menu.visible {
   transition: all 0.3s ease-in;
   display: block; /* Show the dropdown menu when visible class is present */
+  margin-left: -3vw;;
 }
 
 .dropdown-menu li {
@@ -74,27 +75,13 @@
 }
 
 .bouton-dropdown {
-  background-color: white;
+  background-color: transparent;
   color: #141414;
-  box-shadow: 0px 0px 6px 0px #141414;
-  border: 1px solid #141414;
-  font-weight: bold;
   padding: 1vh 1vw 1vh 1vw;
   border-radius: 4px;
   text-align: center;
   cursor: pointer;
   transition: all 0.3s ease-in;
-  margin-right: 8vw;
-
-  &:hover {
-    box-shadow: 0px 0px 2px 0px #141414;
-  }
-}
-
-.nav-transparent {
-  background-color: transparent !important;
-  color: white !important;
-  opacity: 0.7 !important;
 }
 
 @media (max-width: 768px) {
@@ -104,5 +91,8 @@
   .dropdown-menu {
     left: -20px;
     width: max-content;
+  }
+  .bouton-dropdown {
+    margin-right: 6vw;
   }
 }
