@@ -3,7 +3,7 @@ class ArticlesController < ApplicationController
   before_action :set_article, only: [:edit, :update, :destroy]
 
   def index
-    @articles = Article.all
+    @articles = Article.all.order(created_at: :desc)
     if params[:query].present?
       # rich_text_ids = ActionText::RichText.where("body ILIKE :query", query: "%#{params[:query]}%").pluck(:record_id)
       # @articles = @articles.where("titre ILIKE :query OR id IN (?)", "%#{params[:query]}%", rich_text_ids)
