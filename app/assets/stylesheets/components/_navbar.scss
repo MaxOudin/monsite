@@ -82,6 +82,7 @@
   text-align: center;
   cursor: pointer;
   transition: all 0.3s ease-in;
+
 }
 
 @media (max-width: 768px) {
@@ -94,5 +95,6 @@
   }
   .bouton-dropdown {
     margin-right: 6vw;
+    width: 10vw;
   }
 }
