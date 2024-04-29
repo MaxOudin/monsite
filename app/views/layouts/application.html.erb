@@ -27,14 +27,6 @@
     <meta property="og:site_name" content="Maxime Oudin dev"/>
     <meta property="og:url" content="https://maximeoudin.fr/">
 
-    <!-- Twitter meta -->
-    <%# <meta name="twitter:card" content="Logo_black.png">
-    <meta name="twitter:site" content="@maximeoudin">
-    <meta name="twitter:title" content="Développeur web freelance fullstack à Bordeaux et Paris. Spécialisé dans la création de sites vitrine, e-commerce, CRM, SaaS, et applications web. Expert en Ruby On Rails et Webflow. Créons ensemble le site internet dont vous avez besoin !">
-    <meta name="twitter:description" content="Le Wagon is the best French coding school for entrepreneurs. Checkout by yourself the projects of our students. You will be impressed.">
-    <meta name="twitter:creator" content="@maximeoudin">
-    <meta name="twitter:image:src" content="Logo_black.png"> %>
-
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -56,7 +48,6 @@
 
   <body>
 
-    <%# <%= render 'shared/navbar' %>
     <% if user_signed_in? %>
       <%= button_to 'Se déconnecter', destroy_user_session_path, method: :delete %> <br>
       <%= link_to "Retour à l'accueil", root_path %> <br>
@@ -64,11 +55,12 @@
       <%= link_to 'Créer nouveau article', new_article_path %>
     <% end %>
 
-      <div class= "container-application">
 
-        <%= yield %>
+    <div class= "container-application">
 
-      </div>
+      <%= yield %>
+
+    </div>
 
     <%= render 'shared/footer' %>
 

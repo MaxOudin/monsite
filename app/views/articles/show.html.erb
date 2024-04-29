@@ -1,5 +1,6 @@
 <%= render 'shared/navbar' %>
 
+
   <% if user_signed_in? %>
       <%= link_to 'Modifier', edit_article_path(@article) %>
   <% end %>

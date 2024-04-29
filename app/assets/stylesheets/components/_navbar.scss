@@ -91,6 +91,12 @@
   }
 }
 
+.nav-transparent {
+  background-color: transparent !important;
+  color: white !important;
+  opacity: 0.7 !important;
+}
+
 @media (max-width: 768px) {
   .navbar-custom {
     width: 90vw;
