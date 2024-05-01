@@ -4,13 +4,13 @@ class ArticlesController < ApplicationController
 
   def index
     @articles = Article.all.order(created_at: :desc)
-    if params[:query].present?
+    # if params[:query].present?
       # rich_text_ids = ActionText::RichText.where("body ILIKE :query", query: "%#{params[:query]}%").pluck(:record_id)
       # @articles = @articles.where("titre ILIKE :query OR id IN (?)", "%#{params[:query]}%", rich_text_ids)
 
       # sql_subquery = "titre ILIKE :query OR content.body ILIKE :query"
       # @articles = @articles.where(sql_subquery, query: "%#{params[:query]}%")
-    end
+    # end
   end
 
   def show
