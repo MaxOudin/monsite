@@ -1,4 +1,3 @@
-# lib/tasks/modify_storage_config.rake
 
 namespace :storage do
   desc "Modify storage configuration to get public access to files"
@@ -6,8 +5,9 @@ namespace :storage do
     # Parcourir tous les Blobs
     ActiveStorage::Blob.find_each do |blob|
       # Mettre à jour la configuration de chaque Blob
-      blob.update(public: true)
+      blob.update(service_metadata: { public: true })
+      puts "Configuration du Blob ##{blob.id} mise à jour avec succès !"
     end
-    puts "Configuration des Blobs mise à jour avec succès !"
+    p "Fin de la mise à jour des Blobs en public true"
   end
 end
