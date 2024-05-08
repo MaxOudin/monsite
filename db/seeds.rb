@@ -25,8 +25,8 @@ puts "Reset database"
 # Create user
 user = User.where(email: ENV['USER_EMAIL']).first_or_initialize
 user.update!(
-  password: ENV['USER_PASSWORD'],
-  password_confirmation: ENV['USER_PASSWORD']
+  password: ENV.fetch("USER_PASSWORD"),
+  password_confirmation: ENV.fetch("USER_PASSWORD")
 )
 puts "User created"
 

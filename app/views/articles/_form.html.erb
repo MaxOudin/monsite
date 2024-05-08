@@ -35,6 +35,7 @@
       <%= f.rich_text_area :content, style: "background-color: white;", rows: 70 %>
     </div>
     <br>
+    
     <div class="">
       <% if article.persisted? %>
         <%= f.submit 'Modifier Article', data: { turbo: false }, class: "btn btn-projets" %>
