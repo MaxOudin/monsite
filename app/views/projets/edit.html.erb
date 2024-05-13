@@ -53,7 +53,10 @@
       <%= f.label :date_fin %>
       <%= f.date_field :date_fin %>
     </div>
-
+    <div class="outils-field" style="height: 30vh; width: 20vw;">
+      <%= f.label :outils, "Outils" %>
+      <%= f.collection_select(:outil_ids, Outil.all, :id, :nom, {}, { multiple: true }) %>
+    </div>
 
     <br>
 

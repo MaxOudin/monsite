@@ -64,11 +64,15 @@ class ProjetsController < ApplicationController
   private
 
   def projet_params
-    params.require(:projet).permit(:titre, :type_projet, :description, :image_url, :image_url_alt, :date_debut, :date_fin, :client, :projet_lien, :github_lien, :couleur, :outils_projet_attributes => [:id, :projet_id, :outil_id, :_destroy])
+    params.require(:projet).permit(:titre, :type_projet, :description, :image_url, :image_url_alt, :date_debut, :date_fin, :client, :projet_lien, :github_lien, :couleur, :outil_ids => [])
   end
 
   def set_projet
     @projet = Projet.find(params[:id])
+  end
+
+  def set_outils_projet
+    @outils_projet = OutilsProjet.where(projet_id: @projet.id) if @projet.present? && OutilsProjet.find(@projet).present?
   end
 
 end
