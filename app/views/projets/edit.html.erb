@@ -1,5 +1,7 @@
+<h2> Modifier projet </h2>
+
 <div class="form-container">
-  <%= form_with(model: projet, local: true, multipart: true) do |f| %>
+  <%= form_with(model: @projet, local: true, multipart: true) do |f| %>
     <% if f.object.errors.any? %>
       <div>
         <% f.object.errors.full_messages.each do |error| %>
@@ -17,7 +19,7 @@
     </div>
     <div class="field">
       <%= f.label :description, value: "Description du projet" %>
-      <%= f.text_field :description, style: "background-color: white;", rows: 50 %>
+      <%= f.text_field :description, style: "background-color: white;" %>
     </div>
     <div class="field">
       <%= f.label :image_url, value: "Image url de l'article" %>
@@ -51,17 +53,12 @@
       <%= f.label :date_fin %>
       <%= f.date_field :date_fin %>
     </div>
-    <div class="field">
-      <%= f.label :outils %>
-      <%= f.collection_select :outil_ids, @outils, :id, :nom, {}, { multiple: true } %>
-    </div>
+
 
     <br>
 
     <div class="">
-
-        <%= f.submit 'Créer Projet', data: { turbo: false }, class: "btn btn-projets" %>
-
+      <%= f.submit 'Modifier Article', data: { turbo: false }, class: "btn btn-projets" %>
       <br>
       <%= link_to 'Retour', root_path, class: "btn retour-accueil-btn" %>
     </div>

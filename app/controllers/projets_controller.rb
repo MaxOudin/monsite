@@ -13,17 +13,25 @@ class ProjetsController < ApplicationController
   def show
     titre = params[:id].gsub('-', ' ')
     @projet = Projet.find_by(titre: titre)
+    if @projet.nil?
+      # Gérer le cas où aucun article n'est trouvé avec le titre spécifié
+      flash[:error] = "Aucun article trouvé avec le titre spécifié"
+      redirect_to articles_path # Rediriger vers la liste des articles ou une autre page appropriée
+    end
   end
 
   def new
     @projet = Projet.new
+    @outils_projet = OutilsProjet.new
     @outils = Outil.all.order(:nom => :desc)
   end
 
   def create
-    if @projet.save
+    @projet = Projet.new(projet_params)
+    @outils_projet = OutilsProjet.new
+    if @projet.save!
       flash[:notice] = "Projet créé avec succès"
-      redirect_to projet_path(@projet)
+      redirect_to projet_detail_path(@projet.titre.gsub(' ', '-'))
     else
       flash[:error] = "Projet non créé, veuillez réessayer"
       render :new
@@ -35,7 +43,7 @@ class ProjetsController < ApplicationController
 
   def update
     if @projet.update(projet_params)
-      redirect_to projet_path(@projet), notice: "Projet modifié avec succès"
+      redirect_to projet_detail_path(@projet.titre.gsub(' ', '-')), notice: "Projet modifié avec succès"
     else
       flash[:error] = "Projet non modifié, veuillez réessayer"
       render :edit
@@ -56,7 +64,7 @@ class ProjetsController < ApplicationController
   private
 
   def projet_params
-    params.require(:projet).permit(:titre, :type_projet, :description, :image_url, :image_url_alt, :date_debut, :date_fin, :client, :projet_lien, :github_lien, :couleur, :outils_ids => [])
+    params.require(:projet).permit(:titre, :type_projet, :description, :image_url, :image_url_alt, :date_debut, :date_fin, :client, :projet_lien, :github_lien, :couleur, :outils_projet_attributes => [:id, :projet_id, :outil_id, :_destroy])
   end
 
   def set_projet

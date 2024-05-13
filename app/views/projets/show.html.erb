@@ -1,9 +1,9 @@
 <%= render 'shared/navbar' %>
 
 <% if user_signed_in? %>
-    <%= link_to 'Modifier', edit_projet_path(@projet) %>
-    <%= button_to 'Supprimer', projet_path(@projet), method: :delete, data: { confirm: 'Are you sure?' } %>
+  <%= link_to 'Modifier', edit_projet_path(@projet) %>
 <% end %>
+
 <div class="project-container">
   <div class="card-pastille" style="background-color: <%= @projet.couleur %>;"><%= @projet.type_projet.upcase %></div>
 
