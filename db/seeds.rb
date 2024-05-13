@@ -16,21 +16,18 @@ if Projet.last != nil
   puts "Reset projets"
 end
 
-puts "Reset database"
 
-# ---------------------NEW PROJET -------------------------------
-# ---------------------NEW PROJET -------------------------------
-# ---------------------NEW PROJET -------------------------------
+# # Create user
+# user = User.where(email: ENV['USER_EMAIL']).first_or_initialize
+# user.update!(
+#   password: ENV.fetch("USER_PASSWORD"),
+#   password_confirmation: ENV.fetch("USER_PASSWORD")
+# )
+# puts "User Maxime créé"
 
-# Create user
-user = User.where(email: ENV['USER_EMAIL']).first_or_initialize
-user.update!(
-  password: ENV.fetch("USER_PASSWORD"),
-  password_confirmation: ENV.fetch("USER_PASSWORD")
-)
-puts "User created"
+# --------------------- NEW PROJET -------------------------------
+# --------------------- SURF AI -------------------------------
 
-# Create project
 surf = Projet.create(
   titre: "Surf Ai",
   type_projet: "application web",
@@ -55,104 +52,9 @@ surf = Projet.create(
 
 puts "Projet surf créé"
 
-# --------------------- OUTILS pour projet -------------------------------
-# --------------------- OUTILS pour projet -------------------------------
-# --------------------- OUTILS pour projet -------------------------------
 
-
-ruby_surf = Outil.create(
-  nom: "Ruby On Rails",
-  description: "Ruby on Rails est un framework libre écrit en Ruby.
-  Il suit le motif d'architecture logicielle Modèle Vue Controleur.
-  Le langage de programmation Ruby et le framework Rails sont au cœur du développement de Surf.ai,
-  assurant une base solide et une gestion efficace des données",
-  projet: surf
-)
-
-js_stimulus_surf = Outil.create(
-  nom: "JavaScript et Stimulus",
-  description: "L'utilisation de JavaScript, combinée au framework Stimulus,
-  permet une interface utilisateur interactive et réactive,
-  améliorant ainsi l'expérience utilisateur.",
-  projet: surf
-)
-
-mapbox_surf = Outil.create(
-  nom: "Mapbox",
-  description: "Mapbox est utilisé pour la visualisation des cartes,
-  L'intégration de Mapbox apporte une dimension visuelle.
-  Elle permet aux utilisateurs de localiser et de visualiser les planches disponibles,
-  facilitant ainsi le choix des emplacements de location.",
-  projet: surf
-)
-
-cloudinary_surf = Outil.create(
-  nom: "Cloudinary",
-  description: "Cloudinary est utilisé pour le stockage des images,
-  assurant une gestion efficace des images et des performances optimales.",
-  projet: surf
-)
-
-flatpickr_surf = Outil.create(
-  nom: "Flatpickr",
-  description: "Flatpickr est intégré pour faciliter la sélection de dates,
-  améliorant l'expérience de l'utilisateur lors de l'entrée des informations.",
-  projet: surf
-)
-
-bootstrap_surf = Outil.create(
-  nom: "Bootstrap",
-  description: "Le framework Bootstrap garantit un design réactif et esthétiquement plaisant,
-  contribuant à une interface utilisateur moderne.",
-  projet: surf
-)
-
-star_rating_surf = Outil.create(
-  nom: "Star Rating",
-  description: "L'intégration de Star Rating permet aux utilisateurs de noter les planches de surf,
-  favorisant l'engagement communautaire et améliorant l'expérience de surf.",
-  projet: surf
-)
-
-tom_select_surf = Outil.create(
-  nom: "Tom Select",
-  description: "Tom Select est intégré pour faciliter la sélection des emplacements,
-  améliorant l'expérience de l'utilisateur lors de l'entrée des informations.",
-  projet: surf
-)
-
-devise_surf = Outil.create(
-  nom: "Devise",
-  description: "L'utilisation de Devise simplifie l'implémentation de fonctionnalités liées à l'authentification et à la gestion des utilisateurs.",
-  projet: surf
-)
-
-github_surf = Outil.create(
-  nom: "GitHub",
-  description: "La plateforme GitHub est utilisée pour le suivi et la gestion du code source,
-  favorisant la collaboration au sein de l'équipe de développement.",
-  projet: surf
-)
-
-heroku_surf = Outil.create(
-  nom: "Heroku",
-  description: "Heroku est utilisé comme plateforme d'hébergement,
-  assurant la disponibilité et la stabilité de Surf.ai.",
-  projet: surf
-)
-
-trello_surf = Outil.create(
-  nom: "Trello, Slack",
-  description: "Trello est utilisé pour la gestion de projet,
-  tandis que Slack facilite la communication au sein de l'équipe de développement.",
-  projet: surf
-)
-
-puts "Outils surf créés"
-
-# ---------------------NEW PROJET -------------------------------
-# ---------------------NEW PROJET -------------------------------
-# ---------------------NEW PROJET -------------------------------
+# --------------------- NEW PROJET -------------------------------
+# --------------------- SURVIV AI -------------------------------
 
 surviv = Projet.create(
   titre: "Surviv Ai",
@@ -179,104 +81,8 @@ surviv = Projet.create(
 
 puts "Projet surviv créé"
 
-
-# --------------------- OUTILS pour projet -------------------------------
-# --------------------- OUTILS pour projet -------------------------------
-# --------------------- OUTILS pour projet -------------------------------
-
-ruby_surviv = Outil.create(
-  nom: "Ruby On Rails",
-  description: "Ruby on Rails est un framework libre écrit en Ruby.
-  Il suit le motif d'architecture logicielle Modèle Vue Controleur.
-  Le langage de programmation Ruby et le framework Rails sont au cœur du développement de Surviv.ai,
-  assurant une base solide et une gestion efficace des données",
-  projet: surviv
-)
-
-js_stimulus_surviv = Outil.create(
-  nom: "JavaScript et Stimulus",
-  description: "L'utilisation de JavaScript, combinée au framework Stimulus,
-  permet une interface utilisateur interactive et réactive,
-  améliorant ainsi l'expérience utilisateur.",
-  projet: surviv
-)
-
-redis_surviv = Outil.create(
-  nom: "Redis",
-  description: "Le système de stockage clé-valeur Redis est intégré pour des performances optimales,
-  offrant une gestion rapide et efficace des données.",
-  projet: surviv
-)
-
-mindee_surviv = Outil.create(
-  nom: "Mindee API",
-  description: "L'API Mindee est utilisée pour l'extraction automatisée des détails des factures à partir de documents PDF,
-  optimisant ainsi le processus de gestion des factures.",
-  projet: surviv
-)
-
-zapier_surviv = Outil.create(
-  nom: "Zapier",
-  description: "L'intégration de Zapier facilite l'automatisation des tâches,
-  améliorant l'efficacité opérationnelle de Surviv.ai.",
-  projet: surviv
-)
-
-postgresql_surviv = Outil.create(
-  nom: "PostgreSQL",
-  description: "Les bases de données SQL sont utilisées pour le stockage et la gestion structurée des données,
-  assurant la stabilité et la fiabilité du système.",
-  projet: surviv
-)
-
-flatpickr_surviv = Outil.create(
-  nom: "Flatpickr",
-  description: "Flatpickr est intégré pour faciliter la sélection de dates,
-  améliorant l'expérience de l'utilisateur lors de la saisie des informations.",
-  projet: surviv
-)
-
-bootstrap_surviv = Outil.create(
-  nom: "Bootstrap",
-  description: "Le framework Bootstrap garantit un design réactif et esthétiquement plaisant,
-  contribuant à une interface utilisateur moderne.",
-  projet: surviv
-)
-
-devise_surviv = Outil.create(
-  nom: "Devise",
-  description: "L'utilisation de Devise simplifie l'implémentation de fonctionnalités liées à l'authentification et à la gestion des utilisateurs.",
-  projet: surviv
-)
-
-github_surviv = Outil.create(
-  nom: "GitHub",
-  description: "La plateforme GitHub est utilisée pour le suivi et la gestion du code source,
-  favorisant la collaboration au sein de l'équipe de développement.",
-  projet: surviv
-)
-
-heroku_surviv = Outil.create(
-  nom: "Heroku",
-  description: "Heroku est utilisé comme plateforme d'hébergement,
-  assurant la disponibilité et la stabilité de Surviv.ai.",
-  projet: surviv
-)
-
-trello_surviv = Outil.create(
-  nom: "Trello, Slack",
-  description: "Trello est utilisé pour la gestion de projet,
-  tandis que Slack facilite la communication au sein de l'équipe de développement.",
-  projet: surviv
-)
-
-puts "Outils surviv créés"
-
-# ---------------------NEW PROJET -------------------------------
-# ---------------------NEW PROJET -------------------------------
-# ---------------------NEW PROJET -------------------------------
-
-# Create project
+# --------------------- NEW PROJET -------------------------------
+# --------------------- SHAZAM API -------------------------------
 
 music = Projet.create(
   titre: 'Shazam API',
@@ -294,84 +100,195 @@ music = Projet.create(
   client: "Projet personnel",
   github_lien: 'https://github.com/MaxOudin/Maxmusic#readme',
   couleur: "#6AE2C6"
-  )
-
-  puts "Projet music créé"
-
-# --------------------- OUTILS pour projet -------------------------------
-# --------------------- OUTILS pour projet -------------------------------
-# --------------------- OUTILS pour projet -------------------------------
-
-ruby_music = Outil.create(
-  nom: "Ruby On Rails",
-  description: "Ruby on Rails est un framework libre écrit en Ruby.
-  Il suit le motif d'architecture logicielle Modèle Vue Controleur.
-  Le langage de programmation Ruby et le framework Rails sont au cœur du développement de MaxMusic,
-  assurant une base solide et une gestion efficace des données",
-  projet: music
 )
 
-js_stimulus_music = Outil.create(
+puts "Projets music créés"
+
+
+
+# --------------------- OUTILS pour projet -------------------------------
+# --------------------- OUTILS pour projet -------------------------------
+# --------------------- OUTILS pour projet -------------------------------
+
+ruby = Outil.create(
+  nom: "Ruby",
+  description: "Ruby est un langage de programmation populaire utilisé pour le développement d'applications web. Il est apprécié pour sa syntaxe élégante et sa simplicité."
+)
+
+rails = Outil.create(
+  nom: "Rails",
+  description: "Ruby on Rails est un framework web open-source écrit en Ruby. Il est utilisé pour développer des applications web robustes et évolutives."
+)
+
+js_stimulus = Outil.create(
   nom: "JavaScript et Stimulus",
-  description: "L'utilisation de JavaScript, combinée au framework Stimulus,
-  permet une interface utilisateur interactive et réactive,
-  améliorant ainsi l'expérience utilisateur.",
-  projet: music
+  description: "JavaScript est un langage de programmation utilisé pour rendre les pages web interactives. Stimulus est un framework JavaScript léger et efficace pour ajouter des fonctionnalités interactives aux pages web."
 )
 
-shazam_music = Outil.create(
-  nom: "Shazam API",
-  description: "L'API Shazam est utilisée pour la recherche de musiques,
-  optimisant ainsi le processus de recherche de musiques.",
-  projet: music
+flatpickr = Outil.create(
+  nom: "Flatpickr",
+  description: "Flatpickr est une bibliothèque JavaScript pour sélectionner des dates et des heures dans les formulaires web. Elle offre une interface utilisateur conviviale et réactive."
 )
 
-bootstrap_music = Outil.create(
+bootstrap = Outil.create(
   nom: "Bootstrap",
-  description: "Le framework Bootstrap garantit un design réactif et esthétiquement plaisant,
-  contribuant à une interface utilisateur moderne.",
-  projet: music
+  description: "Bootstrap est un framework front-end open-source pour le développement web. Il fournit des composants prêts à l'emploi pour créer des interfaces utilisateur attrayantes et réactives."
+)
+
+devise = Outil.create(
+  nom: "Devise",
+  description: "Devise est une bibliothèque Ruby on Rails pour l'authentification des utilisateurs. Elle fournit des fonctionnalités telles que l'inscription, la connexion et la récupération de mot de passe."
+)
+
+github = Outil.create(
+  nom: "GitHub",
+  description: "GitHub est une plateforme de développement logiciel basée sur Git. Elle offre des fonctionnalités de suivi des problèmes, de gestion de versions et de collaboration pour les projets de développement logiciel."
+)
+
+heroku = Outil.create(
+  nom: "Heroku",
+  description: "Heroku est une plateforme cloud qui permet le déploiement et l'hébergement d'applications web. Elle prend en charge plusieurs langages de programmation et offre une gestion facile des ressources d'application."
+)
+
+trello = Outil.create(
+  nom: "Trello, Slack",
+  description: "Trello est un outil de gestion de projet en ligne qui utilise des tableaux Kanban pour organiser les tâches. Slack est une plateforme de communication d'équipe qui facilite la collaboration et la communication en temps réel."
+)
+
+redis = Outil.create(
+  nom: "Redis",
+  description: "Redis est une base de données de type clé-valeur open-source. Elle est utilisée pour le stockage en mémoire cache, la gestion de sessions et d'autres cas d'utilisation nécessitant une haute performance."
+)
+
+mindee = Outil.create(
+  nom: "Mindee API",
+  description: "L'API Mindee est utilisée pour l'extraction de données à partir de documents PDF. Elle offre des fonctionnalités avancées pour extraire des informations telles que les coordonnées, les montants et les dates à partir de factures et de reçus."
+)
+
+zapier = Outil.create(
+  nom: "Zapier",
+  description: "Zapier est une plateforme d'automatisation des tâches qui permet de connecter des applications web et de créer des flux de travail automatisés. Elle offre des intégrations avec des centaines d'applications populaires."
+)
+
+postgresql = Outil.create(
+  nom: "PostgreSQL",
+  description: "PostgreSQL est un système de gestion de base de données relationnelle open-source. Il offre des fonctionnalités avancées telles que la prise en charge des transactions ACID, les index avancés et les fonctions stockées."
+)
+
+mapbox = Outil.create(
+  nom: "Mapbox",
+  description: "Mapbox est une plateforme de cartographie en ligne qui offre des services de cartographie personnalisés et des outils de visualisation de données géospatiales. Elle est utilisée pour créer des cartes interactives et personnalisées dans les applications web."
+)
+
+cloudinary = Outil.create(
+  nom: "Cloudinary",
+  description: "Cloudinary est un service de gestion des ressources multimédias dans le cloud. Il offre des fonctionnalités telles que le stockage d'images, la manipulation d'images et la diffusion de contenu multimédia."
+)
+
+star_rating = Outil.create(
+  nom: "Star Rating",
+  description: "Star Rating est une bibliothèque JavaScript pour la notation des éléments dans les applications web. Elle permet aux utilisateurs de donner des évaluations en étoiles et de visualiser les scores moyens."
+)
+
+tom_select = Outil.create(
+  nom: "Tom Select",
+  description: "Tom Select est une bibliothèque JavaScript pour les champs de sélection avancés dans les formulaires web. Elle offre une interface utilisateur améliorée pour sélectionner des options à partir de listes déroulantes et de champs de recherche."
+)
+
+shazam_api = Outil.create(
+  nom: "Shazam API",
+  description: "L'API Shazam est utilisée pour la recherche de musique en ligne. Elle permet aux utilisateurs de reconnaître des chansons à partir de courts extraits audio et de trouver des informations sur les artistes et les titres."
 )
 
 postman = Outil.create(
   nom: "Postman & API REST",
-  description: "Postman est utilisé pour tester les API REST.
-  Le logiciel permet de visualiser les requêtes et les réponses HTTP et d'assurer la stabilité et la fiabilité du système. ",
-  projet: music
+  description: "Postman est un client API qui permet de tester, de développer et de documenter les API REST. Il offre des fonctionnalités avancées telles que la gestion des environnements, les tests automatisés et la génération de documentation."
 )
 
-github_music = Outil.create(
-  nom: "GitHub",
-  description: "La plateforme GitHub est utilisée pour le suivi et la gestion du code source,
-  favorisant la collaboration au sein de l'équipe de développement.",
-  projet: music
-)
-
-puts "Outils music créés"
+puts "Outils créés"
 
 
+surf = Projet.find_by(titre: "Surf Ai")
+surviv = Projet.find_by(titre: "Surviv Ai")
+music = Projet.find_by(titre: "Shazam API")
 
-  ## Create services
+# -------- ATTRIBUTION DES OUTILS ---------
+# -------- ATTRIBUTION DES OUTILS ---------
+# -------- ATTRIBUTION DES OUTILS ---------
 
-#   create_table "services", force: :cascade do |t|
-#     t.string "nom"
-#     t.text "description"
-#     t.text "icone_url"
-#     t.string "icone_url_alt"
-#     t.string "couleur"
-#     t.datetime "created_at", null: false
-#     t.datetime "updated_at", null: false
-#   end
+# -------- Ruby ---------
+surf.outils << ruby
+surviv.outils << ruby
+music.outils << ruby
 
+# -------- Ruby ---------
+surf.outils << rails
+surviv.outils << rails
+music.outils << rails
 
-# # Create sujets
-#   create_table "sujets", force: :cascade do |t|
-#     t.string "nom"
-#     t.text "description"
-#     t.integer "numero"
-#     t.string "couleur"
-#     t.text "icone_url"
-#     t.string "icone_url_alt"
-#     t.datetime "created_at", null: false
-#     t.datetime "updated_at", null: false
-#   end
+# -------- JS Stimulus ---------
+surf.outils << js_stimulus
+surviv.outils << js_stimulus
+music.outils << js_stimulus
+
+# -------- Flatpickr ---------
+surf.outils << flatpickr
+surviv.outils << flatpickr
+
+# -------- Bootstrap ---------
+surf.outils << bootstrap
+surviv.outils << bootstrap
+music.outils << bootstrap
+
+# -------- Devise ---------
+surf.outils << devise
+surviv.outils << devise
+
+# -------- GitHub ---------
+surf.outils << github
+surviv.outils << github
+music.outils << github
+
+# -------- Heroku ---------
+surf.outils << heroku
+surviv.outils << heroku
+
+# -------- Trello ---------
+surf.outils << trello
+surviv.outils << trello
+
+# -------- Redis ---------
+surviv.outils << redis
+
+# -------- Mindee ---------
+surviv.outils << mindee
+
+# -------- Zapier ---------
+surviv.outils << zapier
+
+# -------- PostgreSQL ---------
+surviv.outils << postgresql
+
+# -------- Mapbox ---------
+surf.outils << mapbox
+
+# -------- Cloudinary ---------
+surf.outils << cloudinary
+
+# -------- Star rating ---------
+surf.outils << star_rating
+
+# -------- Tom Select ---------
+surf.outils << tom_select
+
+# -------- Shazam API ---------
+music.outils << shazam_api
+
+# -------- Postman ---------
+music.outils << postman
+
+surf.save
+surviv.save
+music.save
+
+puts "Outils attribués aux projets"

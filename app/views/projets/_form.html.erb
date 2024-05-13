@@ -1,0 +1,69 @@
+<div class="form-container">
+  <%= form_with(model: projet, local: true, multipart: true) do |f| %>
+    <% if f.object.errors.any? %>
+      <div>
+        <% f.object.errors.full_messages.each do |error| %>
+        <div><%= error %></div>
+        <% end %>
+      <div>
+    <% end %>
+    <div class="field">
+      <%= f.label :titre, value: "Titre du projet" %>
+      <%= f.text_field :titre, style: "background-color: white;" %>
+    </div>
+    <div class="field">
+      <%= f.label :type_projet %>
+      <%= f.select :type_projet, options_for_select(Projet::TYPE_PROJET) %>
+    </div>
+    <div class="field">
+      <%= f.label :description, value: "Description du projet" %>
+      <%= f.text_field :description, style: "background-color: white;", rows: 50 %>
+    </div>
+    <div class="field">
+      <%= f.label :image_url, value: "Image url de l'article" %>
+      <%= f.text_field :image_url, style: "background-color: white;" %>
+    </div>
+    <div class="field">
+      <%= f.label :image_url_alt, value: "Texte pour alt de l'image de l'article" %>
+      <%= f.text_field :image_url_alt, style: "background-color: white;" %>
+    </div>
+    <div class="field">
+      <%= f.label :client %>
+      <%= f.text_field :client %>
+    </div>
+    <div class="field">
+      <%= f.label :couleur %>
+      <%= f.text_field :couleur %>
+    </div>
+    <div class="field">
+      <%= f.label :projet_lien %>
+      <%= f.text_field :projet_lien %>
+    </div>
+    <div class="field">
+      <%= f.label :github_lien %>
+      <%= f.text_field :github_lien %>
+    </div>
+    <div class="field">
+      <%= f.label :date_debut %>
+      <%= f.date_field :date_debut %>
+    </div>
+    <div class="field">
+      <%= f.label :date_fin %>
+      <%= f.date_field :date_fin %>
+    </div>
+    <div class="field">
+      <%= f.label :outils %>
+      <%= f.collection_select :outil_ids, @outils, :id, :nom, {}, { multiple: true } %>
+    </div>
+
+    <br>
+
+    <div class="">
+
+        <%= f.submit 'Créer Projet', data: { turbo: false }, class: "btn btn-projets" %>
+
+      <br>
+      <%= link_to 'Retour', root_path, class: "btn retour-accueil-btn" %>
+    </div>
+  <% end %>
+</div>

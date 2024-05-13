@@ -17,6 +17,7 @@ class ProjetsController < ApplicationController
 
   def new
     @projet = Projet.new
+    @outils = Outil.all.order(:nom => :desc)
   end
 
   def create
@@ -55,10 +56,11 @@ class ProjetsController < ApplicationController
   private
 
   def projet_params
-    params.require(:projet).permit(:titre, :type_projet, :description, :image_url, :image_url_alt, :date_debut, :date_fin, :client, :projet_lien, :github_lien, :couleur)
+    params.require(:projet).permit(:titre, :type_projet, :description, :image_url, :image_url_alt, :date_debut, :date_fin, :client, :projet_lien, :github_lien, :couleur, :outils_ids => [])
   end
 
   def set_projet
     @projet = Projet.find(params[:id])
   end
+
 end

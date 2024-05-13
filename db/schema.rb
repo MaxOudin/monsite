@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_14_061544) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_13_181756) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -73,6 +73,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_14_061544) do
     t.index ["projet_id"], name: "index_outils_on_projet_id"
   end
 
+  create_table "outils_projets", force: :cascade do |t|
+    t.bigint "outil_id", null: false
+    t.bigint "projet_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["outil_id"], name: "index_outils_projets_on_outil_id"
+    t.index ["projet_id"], name: "index_outils_projets_on_projet_id"
+  end
+
   create_table "projets", force: :cascade do |t|
     t.string "titre"
     t.string "type_projet"
@@ -125,4 +134,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_14_061544) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "outils", "projets"
+  add_foreign_key "outils_projets", "outils"
+  add_foreign_key "outils_projets", "projets"
 end
