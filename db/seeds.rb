@@ -102,8 +102,49 @@ music = Projet.create(
   couleur: "#6AE2C6"
 )
 
-puts "Projets music créés"
+puts "Projets music créé"
 
+
+arko = Projet.create(
+  titre: 'CMS personnalisé',
+  type_projet: "saas",
+  description: "Arko CMS est un système de gestion de contenu (CMS) qui permet de construire l'API pour un site web.
+  Il permet aux utilisateurs de créer, modifier et publier du contenu en ligne sans avoir besoin de compétences techniques.
+  En effet, il est possible de créer des projets ou organisations, d'y attribuer du contenu, des images, des documents, des vidéos et de les publier sur le site web.
+  Dans le cadre du développement du CMS Arko et du site Partnerships4SustainableCities, des améliorations significatives ont été apportées entre janvier et avril 2024.
+  Ces améliorations se concentrent sur la gestion des données et l'expérience utilisateur pour une navigation plus fluide et intuitive.
+  Parmi les principales modifications apportées, on retrouve une organisation thématique des données par ordre alphabétique, l'implémentation d'une fonction de recherche par attribut principal, et la possibilité de prévisualiser, télécharger et supprimer divers types de fichiers.
+  De plus, des ajustements ont été faits pour améliorer l'expérience utilisateur, notamment en corrigeant le processus de réinitialisation de mot de passe et en traduisant les informations affichées en plusieurs langues.",
+  image_url: "https://res.cloudinary.com/dyleaesxc/image/upload/v1715628235/Capture_d_e%CC%81cran_2024-05-13_a%CC%80_21.18.43_mdlpxr.png",
+  image_url_alt: "Capture ecran du projet Arko CMS",
+  date_debut: "2024-02-01",
+  date_fin: "2024-04-30",
+  client: "Arko Consulting",
+  projet_lien: "https://api.partnerships4sustainablecities.eu/management",
+  github_lien: "",
+  couleur: "#0C6DFD"
+)
+
+cities = Projet.create(
+  titre: 'Partnerships4SustainableCities',
+  type_projet: "application web",
+  description: "Partnerships4SustainableCities est une plateforme en ligne qui vise à promouvoir les partenariats pour le développement durable dans les villes.
+  Elle offre un espace de collaboration pour les acteurs locaux, régionaux et internationaux engagés dans la mise en œuvre des objectifs de développement durable (ODD) des Nations Unies.
+  La plateforme permet aux utilisateurs de partager des informations, des ressources et des bonnes pratiques, de collaborer sur des projets communs et de suivre les progrès réalisés vers les ODD.
+  Elle offre également des fonctionnalités de suivi des objectifs, de gestion des partenariats et de communication entre les membres de la communauté.
+  La plateforme Partnerships4SustainableCities est un outil essentiel pour renforcer la coopération et l'engagement en faveur du développement durable au niveau local et mondial.",
+  image_url: "https://res.cloudinary.com/dyleaesxc/image/upload/v1715672170/Capture_d_e%CC%81cran_2024-05-13_a%CC%80_21.19.33_jw5zax.png",
+  image_url_alt: "Capture ecran du site Partnerships4SustainableCities",
+  date_debut: "2024-02-01",
+  date_fin: "2024-04-30",
+  client: "Arko Consulting",
+  projet_lien: "https://partnerships4sustainablecities.eu/",
+  github_lien: "",
+  couleur: "#7AB829"
+)
+
+
+puts "Projet Arko créé"
 
 
 # --------------------- OUTILS pour projet -------------------------------
@@ -143,6 +184,11 @@ devise = Outil.create(
 github = Outil.create(
   nom: "GitHub",
   description: "GitHub est une plateforme de développement logiciel basée sur Git. Elle offre des fonctionnalités de suivi des problèmes, de gestion de versions et de collaboration pour les projets de développement logiciel."
+)
+
+gitlab = Outil.create(
+  nom: "GitLab",
+  description: "GitLab est une plateforme de développement logiciel basée sur Git. Elle offre des fonctionnalités de suivi des problèmes, de gestion de versions et de collaboration pour les projets de développement logiciel."
 )
 
 heroku = Outil.create(
@@ -205,31 +251,95 @@ postman = Outil.create(
   description: "Postman est un client API qui permet de tester, de développer et de documenter les API REST. Il offre des fonctionnalités avancées telles que la gestion des environnements, les tests automatisés et la génération de documentation."
 )
 
+aws = Outil.create(
+  nom: "AWS S3",
+  description: "Amazon S3 (Simple Storage Service) est un service de stockage en ligne d'Amazon Web Services. Il offre un stockage sécurisé, évolutif et fiable pour les données, les images et les vidéos dans le cloud."
+)
+
+turbo = Outil.create(
+  nom: "Turbo Hotwire",
+  description: "Turbo Hotwire est un framework JavaScript pour le développement web. Il offre des fonctionnalités avancées telles que le rendu côté serveur, la mise en cache des fragments de page et la mise à jour en temps réel des données."
+)
+
+javascript = Outil.create(
+  nom: "JavaScript",
+  description: "JavaScript est un langage de programmation utilisé pour rendre les pages web interactives. Il offre des fonctionnalités avancées pour la manipulation du DOM, les animations et les interactions utilisateur."
+)
+
+typescript = Outil.create(
+  nom: "TypeScript",
+  description: "TypeScript est un langage de programmation basé sur JavaScript. Il offre des fonctionnalités avancées telles que le typage statique, les interfaces et les classes pour améliorer la qualité du code."
+)
+
+nuxt3 = Outil.create(
+  nom: "Nuxt 3",
+  description: "Nuxt 3 est un framework JavaScript pour le développement web. Il offre des fonctionnalités avancées telles que le rendu côté serveur, la génération de pages statiques et la gestion des données."
+)
+
+vuejs = Outil.create(
+  nom: "Vue.js",
+  description: "Vue.js est un framework JavaScript pour le développement web. Il offre des fonctionnalités avancées telles que le rendu côté client, la gestion des composants et la réactivité des données."
+)
+
+openlayers = Outil.create(
+  nom: "OpenLayers",
+  description: "OpenLayers est une bibliothèque JavaScript pour la cartographie en ligne. Elle offre des fonctionnalités avancées pour la visualisation de données géospatiales, la création de cartes interactives et la gestion des couches de carte."
+)
+
+vercel = Outil.create(
+  nom: "Vercel",
+  description: "Vercel est une plateforme cloud pour le déploiement et l'hébergement d'applications web. Elle offre des fonctionnalités avancées telles que le déploiement automatique, la gestion des environnements et la surveillance des performances."
+)
+
+
 puts "Outils créés"
 
 
 surf = Projet.find_by(titre: "Surf Ai")
 surviv = Projet.find_by(titre: "Surviv Ai")
 music = Projet.find_by(titre: "Shazam API")
+arko = Projet.find_by(titre: "CMS personnalisé")
+cities = Projet.find_by(titre: "Partnerships4SustainableCities")
 
 # -------- ATTRIBUTION DES OUTILS ---------
 # -------- ATTRIBUTION DES OUTILS ---------
 # -------- ATTRIBUTION DES OUTILS ---------
+
+# -------- JavaScript ---------
+cities.outils << javascript
+
+# -------- TypeScript ---------
+cities.outils << typescript
+
+# -------- Nuxt 3 ---------
+cities.outils << nuxt3
+
+# -------- Vue.js ---------
+cities.outils << vuejs
+
+# -------- OpenLayers ---------
+cities.outils << openlayers
+
+# -------- Vercel ---------
+cities.outils << vercel
 
 # -------- Ruby ---------
 surf.outils << ruby
 surviv.outils << ruby
 music.outils << ruby
+arko.outils << ruby
 
-# -------- Ruby ---------
+# -------- Rails ---------
 surf.outils << rails
 surviv.outils << rails
 music.outils << rails
+arko.outils << rails
 
 # -------- JS Stimulus ---------
 surf.outils << js_stimulus
 surviv.outils << js_stimulus
 music.outils << js_stimulus
+arko.outils << js_stimulus
 
 # -------- Flatpickr ---------
 surf.outils << flatpickr
@@ -239,15 +349,21 @@ surviv.outils << flatpickr
 surf.outils << bootstrap
 surviv.outils << bootstrap
 music.outils << bootstrap
+arko.outils << bootstrap
 
 # -------- Devise ---------
 surf.outils << devise
 surviv.outils << devise
+arko.outils << devise
 
 # -------- GitHub ---------
 surf.outils << github
 surviv.outils << github
 music.outils << github
+
+# -------- GitLab ---------
+arko.outils << gitlab
+cities.outils << gitlab
 
 # -------- Heroku ---------
 surf.outils << heroku
@@ -268,6 +384,7 @@ surviv.outils << zapier
 
 # -------- PostgreSQL ---------
 surviv.outils << postgresql
+arko.outils << postgresql
 
 # -------- Mapbox ---------
 surf.outils << mapbox
@@ -286,9 +403,21 @@ music.outils << shazam_api
 
 # -------- Postman ---------
 music.outils << postman
+arko.outils << postman
+cities.outils << postman
+
+# -------- AWS S3 ---------
+arko.outils << aws
+
+# -------- Turbo Hotwire ---------
+arko.outils << turbo
+
+
+puts "Outils attribués aux projets"
 
 surf.save
 surviv.save
 music.save
+arko.save
 
-puts "Outils attribués aux projets"
+puts "Projets sauvegardés avec outils attribués"

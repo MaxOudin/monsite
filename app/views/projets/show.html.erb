@@ -17,9 +17,17 @@
     <p class="description-paragraphe"><%= @projet.description %></p>
   </div>
 
-  <div class="github-link-container">
-    <a href="<%= @projet.github_lien %>" target="_blank" class="btn github-btn" style="background-color: <%= @projet.couleur %>; border: 1px solid <%= @projet.couleur %>;">Lien Github</a>
-  </div>
+  <% if @projet.github_lien? %>
+    <div class="github-link-container">
+      <a href="<%= @projet.github_lien %>" target="_blank" class="btn github-btn" style="background-color: <%= @projet.couleur %>; border: 1px solid <%= @projet.couleur %>;">Lien github</a>
+    </div>
+  <% end %>
+  <% if @projet.projet_lien? %>
+    <div class="github-link-container">
+      <a href="<%= @projet.projet_lien %>" target="_blank" class="btn github-btn" style="background-color: <%= @projet.couleur %>; border: 1px solid <%= @projet.couleur %>;">Voir projet</a>
+    </div>
+  <% end %>
+
   <div class="description-container">
     <h3 class="description-title">Avec quels outils a été conçu <%= @projet.titre %> ?</h3>
     <p class="description-text">Vous pouvez cliquer sur l'outil pour en savoir plus.</p>
