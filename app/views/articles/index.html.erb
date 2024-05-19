@@ -18,29 +18,42 @@
 
 <div class="container-projets">
   <div style="">
-    <h3>Mes articles</h3>
+    <h3>Découvrez les différents articles</h3>
   </div>
+    <%= form_with url: articles_path, method: :get, local: true do %>
+      <div style="display: flex;">
+        <%= select_tag :theme, options_for_select(Article::THEMES_WITH_COLORS.keys, params[:theme]), prompt: "Tous les thèmes" %>
+        <%= submit_tag 'Filtrer', class: 'btn' %>
+      </div>
+    <% end %>
   <div class="container-cartes">
 
-    <% if @articles.last != nil %>
-      <% @articles.each do |article| %>
-        <div class="container-une-carte">
-          <a href="<%= article_path(article.titre.gsub(' ', '-')) %>">
-          <div class="card-img">
-            <img src="<%= article.image_url%>" alt="<%= article.image_alt %>">
-          </div>
-          <div class="card-text">
-            <h3> <%= article.titre %></h3>
-            <div class="card-pastille" style="background-color:<%= article.couleur_du_theme %>;"><%= article.theme %></div>
-            <p style="opacity:0.7; font-size: 14px;"> Article publié le <%= article.created_at.strftime("%d/%m/%Y") %></p>
-          </div>
-          </a>
-        </div>
-      <% end %>
 
-    <% else %>
-      <p>Aucun article n'a été retrouvé</p>
-    <% end %>
+    <div style="margin-top: 4vh; margin-bottom: 4vh;">
+
+      <% if @articles.last != nil %>
+        <% @articles.each do |article| %>
+          <div class="container-une-carte">
+            <a href="<%= article_path(article.titre.gsub(' ', '-')) %>">
+            <div class="card-img">
+              <img src="<%= article.image_url%>" alt="<%= article.image_alt %>">
+            </div>
+            <div class="card-text">
+              <h3> <%= article.titre %></h3>
+              <div class="info-carte-article">
+                <div class="card-pastille" style="background-color:<%= article.couleur_du_theme %>;"><%= article.theme %></div>
+                <p class="date-publication-article"> Publié le <%= article.created_at.strftime("%d/%m/%Y") %></p>
+              </div>
+            </div>
+            </a>
+          </div>
+        <% end %>
+
+      <% else %>
+        <p>Aucun article n'a été retrouvé</p>
+      <% end %>
+    </div>
+
   </div>
 
   <div style="display: flex; justify-content: flex-end; margin-top: 5vh; margin-bottom: 3vh;">

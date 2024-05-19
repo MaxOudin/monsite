@@ -3,9 +3,13 @@ class ProjetsController < ApplicationController
   before_action :set_projet, only: [:edit, :update, :destroy]
 
   def index
-    @projets = Projet.all.order(date_debut: :desc)
+    @projets = Projet.left_joins(:outils).distinct.order(date_debut: :desc)
     if params[:query].present?
-      sql_subquery = "titre ILIKE :query OR description ILIKE :query"
+      sql_subquery = <<-SQL
+        projets.titre ILIKE :query OR
+        projets.description ILIKE :query OR
+        outils.description ILIKE :query
+      SQL
       @projets = @projets.where(sql_subquery, query: "%#{params[:query]}%")
     end
   end

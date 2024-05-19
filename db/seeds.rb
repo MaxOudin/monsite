@@ -161,6 +161,16 @@ rails = Outil.create(
   description: "Ruby on Rails est un framework web open-source écrit en Ruby. Il est utilisé pour développer des applications web robustes et évolutives."
 )
 
+javascript = Outil.create(
+  nom: "JavaScript",
+  description: "JavaScript est un langage de programmation utilisé pour rendre les pages web interactives. Il offre des fonctionnalités avancées pour la manipulation du DOM, les animations et les interactions utilisateur."
+)
+
+nuxt3 = Outil.create(
+  nom: "Nuxt 3",
+  description: "Nuxt 3 est un framework JavaScript pour le développement web. Il offre des fonctionnalités avancées telles que le rendu côté serveur, la génération de pages statiques et la gestion des données."
+)
+
 js_stimulus = Outil.create(
   nom: "JavaScript et Stimulus",
   description: "JavaScript est un langage de programmation utilisé pour rendre les pages web interactives. Stimulus est un framework JavaScript léger et efficace pour ajouter des fonctionnalités interactives aux pages web."
@@ -261,19 +271,9 @@ turbo = Outil.create(
   description: "Turbo Hotwire est un framework JavaScript pour le développement web. Il offre des fonctionnalités avancées telles que le rendu côté serveur, la mise en cache des fragments de page et la mise à jour en temps réel des données."
 )
 
-javascript = Outil.create(
-  nom: "JavaScript",
-  description: "JavaScript est un langage de programmation utilisé pour rendre les pages web interactives. Il offre des fonctionnalités avancées pour la manipulation du DOM, les animations et les interactions utilisateur."
-)
-
 typescript = Outil.create(
   nom: "TypeScript",
   description: "TypeScript est un langage de programmation basé sur JavaScript. Il offre des fonctionnalités avancées telles que le typage statique, les interfaces et les classes pour améliorer la qualité du code."
-)
-
-nuxt3 = Outil.create(
-  nom: "Nuxt 3",
-  description: "Nuxt 3 est un framework JavaScript pour le développement web. Il offre des fonctionnalités avancées telles que le rendu côté serveur, la génération de pages statiques et la gestion des données."
 )
 
 vuejs = Outil.create(

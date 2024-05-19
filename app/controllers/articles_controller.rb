@@ -11,6 +11,10 @@ class ArticlesController < ApplicationController
       # sql_subquery = "titre ILIKE :query OR content.body ILIKE :query"
       # @articles = @articles.where(sql_subquery, query: "%#{params[:query]}%")
     # end
+
+    if params[:theme].present?
+      @articles = @articles.where(theme: params[:theme])
+    end
   end
 
   def show
