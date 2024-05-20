@@ -238,6 +238,26 @@ postgresql = Outil.create(
   description: "PostgreSQL est un système de gestion de base de données relationnelle open-source. Il offre des fonctionnalités avancées telles que la prise en charge des transactions ACID, les index avancés et les fonctions stockées."
 )
 
+typescript = Outil.create(
+  nom: "TypeScript",
+  description: "TypeScript est un langage de programmation basé sur JavaScript. Il offre des fonctionnalités avancées telles que le typage statique, les interfaces et les classes pour améliorer la qualité du code."
+)
+
+vuejs = Outil.create(
+  nom: "Vue.js",
+  description: "Vue.js est un framework JavaScript pour le développement web. Il offre des fonctionnalités avancées telles que le rendu côté client, la gestion des composants et la réactivité des données."
+)
+
+openlayers = Outil.create(
+  nom: "OpenLayers",
+  description: "OpenLayers est une bibliothèque JavaScript pour la cartographie en ligne. Elle offre des fonctionnalités avancées pour la visualisation de données géospatiales, la création de cartes interactives et la gestion des couches de carte."
+)
+
+vercel = Outil.create(
+  nom: "Vercel",
+  description: "Vercel est une plateforme cloud pour le déploiement et l'hébergement d'applications web. Elle offre des fonctionnalités avancées telles que le déploiement automatique, la gestion des environnements et la surveillance des performances."
+)
+
 mapbox = Outil.create(
   nom: "Mapbox",
   description: "Mapbox est une plateforme de cartographie en ligne qui offre des services de cartographie personnalisés et des outils de visualisation de données géospatiales. Elle est utilisée pour créer des cartes interactives et personnalisées dans les applications web."
@@ -277,27 +297,6 @@ turbo = Outil.create(
   nom: "Turbo Hotwire",
   description: "Turbo Hotwire est un framework JavaScript pour le développement web. Il offre des fonctionnalités avancées telles que le rendu côté serveur, la mise en cache des fragments de page et la mise à jour en temps réel des données."
 )
-
-typescript = Outil.create(
-  nom: "TypeScript",
-  description: "TypeScript est un langage de programmation basé sur JavaScript. Il offre des fonctionnalités avancées telles que le typage statique, les interfaces et les classes pour améliorer la qualité du code."
-)
-
-vuejs = Outil.create(
-  nom: "Vue.js",
-  description: "Vue.js est un framework JavaScript pour le développement web. Il offre des fonctionnalités avancées telles que le rendu côté client, la gestion des composants et la réactivité des données."
-)
-
-openlayers = Outil.create(
-  nom: "OpenLayers",
-  description: "OpenLayers est une bibliothèque JavaScript pour la cartographie en ligne. Elle offre des fonctionnalités avancées pour la visualisation de données géospatiales, la création de cartes interactives et la gestion des couches de carte."
-)
-
-vercel = Outil.create(
-  nom: "Vercel",
-  description: "Vercel est une plateforme cloud pour le déploiement et l'hébergement d'applications web. Elle offre des fonctionnalités avancées telles que le déploiement automatique, la gestion des environnements et la surveillance des performances."
-)
-
 
 puts "Outils créés"
 
