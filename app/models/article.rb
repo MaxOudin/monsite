@@ -22,4 +22,9 @@ class Article < ApplicationRecord
     THEMES_WITH_COLORS[theme]
   end
 
+  # Méthode de classe pour compter les articles par thème
+  def self.count_by_theme
+    group(:theme).count
+  end
+
 end

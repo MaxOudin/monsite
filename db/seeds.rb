@@ -313,14 +313,15 @@ cities = Projet.find_by(titre: "Partnerships4SustainableCities")
 # -------- ATTRIBUTION DES OUTILS ---------
 # -------- ATTRIBUTION DES OUTILS ---------
 
-# -------- JavaScript ---------
-cities.outils << javascript
+
+# -------- Nuxt 3 ---------
+cities.outils << nuxt3
 
 # -------- TypeScript ---------
 cities.outils << typescript
 
-# -------- Nuxt 3 ---------
-cities.outils << nuxt3
+# -------- JavaScript ---------
+cities.outils << javascript
 
 # -------- Vue.js ---------
 cities.outils << vuejs
@@ -427,5 +428,6 @@ surf.save
 surviv.save
 music.save
 arko.save
+cities.save
 
 puts "Projets sauvegardés avec outils attribués"

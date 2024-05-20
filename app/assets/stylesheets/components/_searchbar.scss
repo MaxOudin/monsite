@@ -6,15 +6,16 @@
 }
 
 .search-bar {
-  margin-top: 8px;
-  top: 1000px;
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+  width: 20vw;
   border: 1px solid black;
   border-radius: 6px;
 }
 
 .form-group {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   margin: 0;
   padding: 0;
@@ -58,7 +59,12 @@
   transition: all 0.3s ease-in;
 }
 
-/* Media query to apply the custom-col-sm-8 only on small screens and above (≥ 576px) */
-@media (max-width: 575.98px) {
+/* Media query to apply only on small screens and above (≥ 576px) */
+@media (max-width: 800px) {
+  .search-bar {
+    margin-left: 0;
+    width: 100%;
+    max-width: fit-content;
+  }
 
 }

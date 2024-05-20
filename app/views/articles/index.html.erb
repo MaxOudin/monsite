@@ -22,7 +22,8 @@
   </div>
   <div class="search-bar">
     <%= form_with url: articles_path, method: :get, local: true, class: "form-group" do %>
-      <%= select_tag :theme, options_for_select(Article::THEMES_WITH_COLORS.keys, params[:theme]), class: "form-control", prompt: "Tous les thèmes" %>
+      <% themes_with_articles = Article::THEMES_WITH_COLORS.keys.select { |theme| @article_counts_by_theme[theme].to_i > 0 } %>
+      <%= select_tag :theme, options_for_select(themes_with_articles.map { |theme| ["#{theme} (#{@article_counts_by_theme[theme]})", theme] }, params[:theme]), class: "form-control", prompt: "Sélectionner un thème (articles)" %>
       <%= submit_tag 'Filtrer', class: 'btn-search' %>
     <% end %>
   </div>
