@@ -6,7 +6,6 @@
 # --------------------- RESET -------------------------------
 
 
-
 # Reset database
 
 if OutilsProjet.last != nil
@@ -19,10 +18,10 @@ if Outil.last != nil
   puts "Reset outils"
 end
 
-# if Projet.last != nil
-#   Projet.destroy_all
-#   puts "Reset projets"
-# end
+if Projet.last != nil
+  Projet.destroy_all
+  puts "Reset projets"
+end
 
 
 # # Create user
