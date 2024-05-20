@@ -1,30 +1,64 @@
-.search-form-control {
-  position: relative;
+.container-search {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 
-.search-form-control .form-control {
-  height: 2rem;
-  width: 12vw;
-  margin-right: 1vw;
-}
-
-.search-form-control .form-control:focus {
-  border: 1px solid #5DE0E6;
-  outline: none !important;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+.search-bar {
+  margin-top: 8px;
+  top: 1000px;
+  border: 1px solid black;
+  border-radius: 6px;
 }
 
 .form-group {
   display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 4vh;
 }
 
-.btn-flat {
-  background-color: #5DE0E6;
-  color: #000000;
-  align-self: center;
-  height: 2rem;
+.form-control {
+  border: none;
+  background-color: white;
+  color: #141414;
+
+  &:focus {
+    outline: none;
+    box-shadow: none;
+  }
+
+  &::placeholder {
+    color: #141414;
+  }
 }
 
-.form-group .fa-search {
-  margin-right: 0.5rem;
+.btn-search {
+  background: rgb(93,224,230);
+  color:#141414;
+  cursor: pointer;
+  font-weight: bold;
+  text-decoration: none;
+  text-align: center;
+  transition: all 0.3s ease-in;
+  border: none;
+  border-radius: 6px;
+  height: 4vh;
+  max-width: fit-content;
+  max-height: fit-content;
+}
+
+.btn-projets:hover {
+  background: #141414;
+  color: rgb(93,224,230);
+  transition: all 0.3s ease-in;
+}
+
+/* Media query to apply the custom-col-sm-8 only on small screens and above (≥ 576px) */
+@media (max-width: 575.98px) {
+
 }

@@ -21,13 +21,11 @@
     <p>Vous trouverez les précédentes réalisations significatives. Je m'adapte à vos besoins pour réaliser, ensemble, le site qui vous ressemble. Pour chacun des projets, vous avez la possibilité de voir les outils utilisés et un texte descriptif de celui-ci.</p>
   </div>
 
-  <div class="row justify-content-center">
-    <div class="search-form-control">
-      <%= form_with url: projets_path, method: :get, style: "display: flex;" do %>
-        <div class="form-group">
+  <div class="container-search">
+    <div class="search-bar">
+      <%= form_with url: projets_path, method: :get, class: "form-group" do %>
           <%= text_field_tag :query, params[:query], class: "form-control", placeholder: "Entrer votre mot clé..." %>
-          <button name="button" type="submit" class="btn btn-flat"><i class="fas fa-search"></i> Rechercher</button>
-        </div>
+          <%= submit_tag "Rechercher", name: "", class: "btn-search" %>
       <% end %>
     </div>
   </div>

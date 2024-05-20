@@ -20,17 +20,15 @@
   <div style="">
     <h3>Découvrez les différents articles</h3>
   </div>
-    <%= form_with url: articles_path, method: :get, local: true do %>
-      <div style="display: flex;">
-        <%= select_tag :theme, options_for_select(Article::THEMES_WITH_COLORS.keys, params[:theme]), prompt: "Tous les thèmes" %>
-        <%= submit_tag 'Filtrer', class: 'btn' %>
-      </div>
+  <div class="search-bar">
+    <%= form_with url: articles_path, method: :get, local: true, class: "form-group" do %>
+      <%= select_tag :theme, options_for_select(Article::THEMES_WITH_COLORS.keys, params[:theme]), class: "form-control", prompt: "Tous les thèmes" %>
+      <%= submit_tag 'Filtrer', class: 'btn-search' %>
     <% end %>
+  </div>
+
   <div class="container-cartes">
-
-
     <div style="margin-top: 4vh; margin-bottom: 4vh;">
-
       <% if @articles.last != nil %>
         <% @articles.each do |article| %>
           <div class="container-une-carte">
