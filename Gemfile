@@ -61,19 +61,21 @@ group :development, :test do
 
   # Helper pour avoir les informations des modèles dans les fichiers
   gem 'annotate', '~> 3.2'
+  gem 'i18n', '1.14.5'
+
 
   # Pry pour débuggage
   gem "pry-byebug"
   gem "pry-rails"
   gem "byebug"
 
-# File management libvips for images et poppler for pdf
-gem 'gobject-introspection', '~> 4.2.2'
+  # File management libvips for images et poppler for pdf
+  gem 'gobject-introspection', '~> 4.2.2'
 
-gem 'ruby-vips'
-gem 'poppler'
+  gem 'ruby-vips'
+  gem 'poppler'
 
-gem "dotenv-rails"
+  gem "dotenv-rails"
 end
 
 group :development do
