@@ -1,28 +1,77 @@
 .btn {
-  border-radius: 4px; cursor: pointer;
+  border-radius: $border-radius-sm;
+  cursor: pointer;
   font-weight: bold;
-  padding: 1vh 2vw 1vh 2vw;
-  height: 4vh;
+  padding: $spacing-sm $spacing-lg;
   text-decoration: none;
   text-align: center;
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: all 0.3s ease-in;
-  font-size: 16px;
+  transition: $transition-normal;
+  font-size: 1rem;
+  min-height: 2.5rem;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: $shadow-md;
+  }
 }
-.btn:hover {
-  transition: all 0.3s ease-in;
+
+.btn-primary {
+  background: $primary;
+  color: $secondary;
+  border: 1px solid $primary;
+  box-shadow: $shadow-sm;
+
+  &:hover {
+    background: $secondary;
+    color: $primary;
+  }
 }
+
+.btn-secondary {
+  background: $secondary;
+  color: $text-light;
+  border: 1px solid $secondary;
+  box-shadow: $shadow-sm;
+
+  &:hover {
+    background: transparent;
+    color: $secondary;
+  }
+}
+
+.btn-outline {
+  background: transparent;
+  color: $text-primary;
+  border: 1px solid $text-primary;
+
+  &:hover {
+    background: $text-primary;
+    color: $text-light;
+  }
+}
+
+.btn-accent {
+  background: $accent;
+  color: $text-light;
+  border: 1px solid $accent;
+
+  &:hover {
+    background: darken($accent, 10%);
+  }
+}
+
 .btn-projets {
-  background: #141414;
-  color:rgb(93,224,230);
-  border: 1px solid #141414;
-  box-shadow: 0px 0px 6px 0px #141414;
+  background: #004AAD;
+  color: #FFDD00;
+  border: 1px solid #004AAD;
+  box-shadow: 0px 0px 6px 0px #004AAD;
 }
 .btn-projets:hover {
-  background: rgb(93,224,230);
-  color: #141414;
+  background: #FFDD00;
+  color: #004AAD;
   transition: all 0.3s ease-in;
 }
 .retour-accueil-btn {
@@ -33,6 +82,11 @@
   box-shadow: 0px 0px 2px 0px #141414;
 }
 
-@media (max-width: 768px) {
-
+@media (max-width: $tablet) {
+  .btn {
+    padding: $spacing-sm $spacing-md;
+    width: 100%;
+    max-width: 300px;
+    margin: $spacing-sm auto;
+  }
 }
