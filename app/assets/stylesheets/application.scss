@@ -1,17 +1,17 @@
-
- // Internal styles
+@import "config/variables";
 @import "components/index";
 @import "pages/index";
 
- // Libraries imported
+// Libraries imported
 @import "font-awesome";
 
 // Global styles
 .container-application {
-  background-color: white;
-  color: #141414;
+  background-color: $background;
+  color: $text-primary;
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
 }
 
 body {
