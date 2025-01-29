@@ -402,7 +402,7 @@ surf.outils << cloudinary
 # -------- Star rating ---------
 surf.outils << star_rating
 
-# -------- Tom Select ---------
+# -------- Tom Select ---------r
 surf.outils << tom_select
 
 # -------- Shazam API ---------

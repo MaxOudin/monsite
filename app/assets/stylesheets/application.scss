@@ -1,33 +1,45 @@
+// Configuration
+@import "config/variables";
 
- // Internal styles
+// Components
 @import "components/index";
 @import "pages/index";
 
- // Libraries imported
+// Libraries
 @import "font-awesome";
 
 // Global styles
-.container-application {
-  background-color: white;
-  color: #141414;
-  display: flex;
-  flex-direction: column;
-}
-
 body {
   font-family: 'Montserrat', sans-serif;
-  margin: 0 !important;
+  margin: 0;
   line-height: 1.5;
+  background-color: $background;
+  color: $text-primary;
 }
 
-body h1, h2, h3 {
+.container-application {
+  background-color: $background;
+  color: $text-primary;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+h1, h2, h3 {
   font-family: 'Playfair Display SC', serif;
+  color: $text-primary;
+  margin-bottom: $spacing-md;
 }
 
-a:link {
+a {
   text-decoration: none;
-}
+  color: $secondary;
+  transition: $transition-normal;
 
+  &:hover {
+    color: $primary;
+  }
+}
 
 @media (max-width: 768px) {
 }

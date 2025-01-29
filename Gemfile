@@ -1,10 +1,10 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "3.2.2"
+ruby "3.3.1"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 7.1"
+gem "rails", "~> 8.0.0"
 
 # Use postgresql as the database for Active Record
 gem "pg", "~> 1.4"
@@ -64,13 +64,10 @@ group :development, :test do
   gem "pry-rails"
   gem "byebug"
 
-  # File management libvips for images et poppler for pdf
-  gem 'gobject-introspection', '~> 4.2.2'
-
-  gem 'ruby-vips'
-  gem 'poppler'
+  gem "letter_opener"
 
   gem "dotenv-rails"
+  gem 'annotate'
 end
 
 group :development do
@@ -84,7 +81,6 @@ group :development do
   # gem "spring"
 
   # Helper pour avoir les informations des modèles dans les fichiers
-  gem 'annotate', '~> 3.2'
   gem 'i18n', '1.14.5'
 end
 
