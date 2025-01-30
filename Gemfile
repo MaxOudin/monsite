@@ -68,6 +68,7 @@ group :development, :test do
 
   gem "dotenv-rails"
   gem 'annotate'
+  gem "foreman"
 end
 
 group :development do

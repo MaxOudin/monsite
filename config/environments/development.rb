@@ -70,4 +70,19 @@ Rails.application.configure do
   # config.action_cable.disable_request_forgery_protection = true
 
   config.action_mailer.default_url_options = { host: "localhost", port: 3000 }
+
+  # Désactiver la compression des assets en développement
+  config.assets.compress = false
+
+  # Activer le debug mode pour les assets
+  config.assets.debug = true
+
+  # Désactiver la précompilation des assets en développement
+  config.assets.compile = true
+
+  # Permettre le rechargement automatique des assets
+  config.assets.check_precompiled_asset = false
+
+  # Activer le live reload des assets
+  config.assets.digest = false
 end

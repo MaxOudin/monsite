@@ -151,6 +151,7 @@ GEM
     ffi (1.16.3)
     font-awesome-sass (6.5.2)
       sassc (~> 2.0)
+    foreman (0.88.1)
     globalid (1.2.1)
       activesupport (>= 6.1)
     i18n (1.14.5)
@@ -393,6 +394,7 @@ DEPENDENCIES
   dotenv-rails
   factory_bot_rails
   font-awesome-sass (~> 6.1)
+  foreman
   i18n (= 1.14.5)
   image_processing (~> 1.2)
   importmap-rails
