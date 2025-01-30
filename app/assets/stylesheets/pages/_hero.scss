@@ -125,54 +125,102 @@
 }
 
 .hero-section {
-  background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
-              url("votre_image_de_fond.webp");
-  background-size: cover;
-  background-position: center;
-  min-height: 80vh;
+  background: linear-gradient(135deg, rgba($primary, 0.15), rgba($secondary, 0.05));
+  position: relative;
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: $spacing-xl 0;
-  color: $text-light;
+  overflow: hidden;
+  padding: $spacing-sm;
+
+  &::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background:
+      radial-gradient(circle at 0% 0%, rgba($primary, 0.1), transparent 50%),
+      radial-gradient(circle at 100% 100%, rgba($secondary, 0.1), transparent 50%),
+      radial-gradient(circle at 100% 0%, rgba($accent, 0.05), transparent 30%);
+  }
 }
 
 .hero-content {
-  max-width: 800px;
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
   margin: 0 auto;
-  padding: 0 $spacing-lg;
-  text-align: center;
+  padding: $spacing-xl;
 
   h1 {
-    font-size: 3.5rem;
-    line-height: 1.2;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    line-height: 1.1;
+    color: $secondary;
     margin-bottom: $spacing-xl;
 
     .highlight {
-      background: linear-gradient(120deg, $accent, lighten($accent, 15%));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      font-weight: 700;
+      display: inline-block;
+      color: $accent;
+      position: relative;
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -4px;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(90deg, $accent, transparent);
+      }
     }
   }
 
   .hero-description {
-    margin: $spacing-lg 0;
+    position: relative;
+    background: rgba($text-light, 0.5);
+    border-radius: $border-radius-lg;
+    padding: $spacing-lg;
+    border: 1px solid rgba($secondary, 0.1);
+    box-shadow: $shadow-sm;
 
     p {
-      font-size: 1.2rem;
+      color: $secondary;
+      font-size: clamp(1rem, 2vw, 1.25rem);
       line-height: 1.6;
       margin: $spacing-sm 0;
-      opacity: 0.9;
+      transition: transform $transition-normal;
+
+      &:hover {
+        transform: translateX($spacing-xs);
+      }
     }
   }
 
   h2 {
-    font-size: 1.5rem;
+    font-size: clamp(1.25rem, 3vw, 1.75rem);
+    color: $secondary;
     margin: $spacing-xl 0;
-    font-weight: 500;
-    opacity: 0.95;
+    font-weight: $font-weight-medium;
+    opacity: 0.9;
   }
+}
+
+@media (max-width: $tablet) {
+  .hero-content {
+    padding: $spacing-lg;
+    text-align: center;
+
+    .hero-description {
+      text-align: left;
+    }
+  }
+}
+
+.hero-cta {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 }
 
 .features-section {
