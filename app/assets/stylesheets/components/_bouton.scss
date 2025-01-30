@@ -2,6 +2,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: $spacing-md;
   padding: $spacing-sm $spacing-lg;
   border-radius: $border-radius-sm;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -13,9 +14,9 @@
   overflow: hidden;
 
   i {
-    margin-right: $spacing-xs;
     font-size: 1.1rem;
     transition: transform 0.2s ease;
+    margin-right: 0;
   }
 
   &:hover {

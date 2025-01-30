@@ -217,9 +217,15 @@
   }
 }
 
-.hero-cta {
+.hero-cta-end {
   display: flex;
   justify-content: flex-end;
+  align-items: center;
+}
+
+.hero-cta-center {
+  display: flex;
+  justify-content: center;
   align-items: center;
 }
 
