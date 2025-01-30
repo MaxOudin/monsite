@@ -7,12 +7,18 @@ $background: #F7F9FC;  // Blanc glacé - arrière-plan
 $text-primary: #141414; // Noir texte
 $text-light: #FFFFFF;   // Blanc texte
 
-// Spacing
-$spacing-xs: 0.25rem;  // 4px
-$spacing-sm: 0.5rem;   // 8px
-$spacing-md: 1rem;     // 16px
-$spacing-lg: 1.5rem;   // 24px
-$spacing-xl: 2rem;     // 32px
+// Spacing System
+$spacing-3xs: 0.25rem;  // 4px
+$spacing-2xs: 0.5rem;   // 8px
+$spacing-xs: 0.75rem;   // 12px
+$spacing-sm: 1rem;      // 16px
+$spacing-md: 1.25rem;   // 20px
+$spacing-lg: 1.75rem;   // 28px
+$spacing-xl: 2.5rem;    // 40px
+$spacing-2xl: 3.75rem;  // 60px
+$spacing-3xl: 6.25rem;  // 100px
+$spacing-4xl: 10rem;    // 160px
+$spacing-5xl: 15rem;    // 240px
 
 // Border radius
 $border-radius-sm: 4px;
@@ -34,6 +40,32 @@ $mobile: 576px;
 $tablet: 768px;
 $desktop: 992px;
 $large-desktop: 1200px;
+
+// Typography Scale
+$text-2xs: 0.25rem;     // 4px
+$text-xs: 0.5rem;       // 8px
+$text-sm: 0.75rem;      // 12px
+$text-base: 1rem;       // 16px
+$text-lg: 1.25rem;      // 20px
+$text-xl: 1.75rem;      // 28px
+$text-2xl: 2.5rem;      // 40px
+$text-3xl: 3.75rem;     // 60px
+$text-4xl: 6.25rem;     // 100px
+$text-5xl: 10rem;       // 160px
+$text-6xl: 15rem;       // 240px
+
+// Line Heights
+@function title-height($size) {
+  @return $size * 1.2;
+}
+
+@function text-height($size) {
+  @return $size * 1.6;
+}
+
+@function small-text-height($size) {
+  @return $size * 2;
+}
 
 // Typography
 $font-family-base: 'Montserrat', sans-serif;
