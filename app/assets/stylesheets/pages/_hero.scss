@@ -99,7 +99,7 @@
 /* Style pour le bouton "Voir les projets" */
 .btn-cta-projets {
   background: #141414;
-  color: rgb(93,224,230);
+  color: $text-light;
   border: 1px solid #141414;
   box-shadow: 0px 0px 6px 0px #141414;
 }
@@ -121,5 +121,104 @@
   }
   .btn-cta-contact {
     width: 40vw;
+  }
+}
+
+.hero-section {
+  background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+              url("votre_image_de_fond.webp");
+  background-size: cover;
+  background-position: center;
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-xl 0;
+  color: $text-light;
+}
+
+.hero-content {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 $spacing-lg;
+  text-align: center;
+
+  h1 {
+    font-size: 3.5rem;
+    line-height: 1.2;
+    margin-bottom: $spacing-xl;
+
+    .highlight {
+      background: linear-gradient(120deg, $accent, lighten($accent, 15%));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 700;
+    }
+  }
+
+  .hero-description {
+    margin: $spacing-lg 0;
+
+    p {
+      font-size: 1.2rem;
+      line-height: 1.6;
+      margin: $spacing-sm 0;
+      opacity: 0.9;
+    }
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    margin: $spacing-xl 0;
+    font-weight: 500;
+    opacity: 0.95;
+  }
+}
+
+.features-section {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: $spacing-xl;
+  max-width: 1200px;
+  margin: $spacing-xl * 2 auto;
+  padding: 0 $spacing-lg;
+}
+
+.feature-card {
+  background: rgba($text-light, 0.02);
+  border: 1px solid rgba($text-light, 0.1);
+  border-radius: $border-radius-lg;
+  padding: $spacing-xl;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+
+  h3 {
+    font-size: 1.8rem;
+    margin-bottom: $spacing-lg;
+    color: $text-primary;
+  }
+
+  p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: $spacing-xl;
+    color: rgba($text-primary, 0.8);
+  }
+}
+
+@media (max-width: $tablet) {
+  .hero-content {
+    h1 {
+      font-size: 2.5rem;
+    }
+  }
+
+  .features-section {
+    grid-template-columns: 1fr;
+    gap: $spacing-lg;
+    margin: $spacing-xl auto;
   }
 }

@@ -24,7 +24,7 @@
   display: flex;
   justify-content: center;
   gap: $spacing-lg;
-  width: 100%;
+  width: auto;
   max-width: 700px;
   margin: 0 auto $spacing-xl * 2;
   padding: 0 $spacing-lg;
@@ -73,13 +73,31 @@
   }
 
   @media (max-width: $tablet) {
-    width: 100%;
-    max-width: 280px;
+    .footer-end {
+      flex-direction: column;
+      text-align: center;
+      gap: $spacing-lg;
+      width: auto;
+      padding: 0 $spacing-md;
+    }
+
+    .contact-info {
+      width: auto;
+      padding: 0 $spacing-md;
+      display: flex;
+      flex-direction: column;
+      gap: $spacing-md;
+    }
+
+    .footer-copyright {
+      text-align: center;
+      width: auto;
+    }
   }
 }
 
 .footer-end {
-  width: 100%;
+  width: auto;
   max-width: 1200px;
   display: flex;
   justify-content: space-between;
