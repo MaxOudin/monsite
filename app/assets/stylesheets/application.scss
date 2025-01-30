@@ -14,14 +14,27 @@
   min-height: 100vh;
 }
 
-body {
-  font-family: 'Montserrat', sans-serif;
-  margin: 0 !important;
-  line-height: 1.5;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-body h1, h2, h3 {
-  font-family: 'Playfair Display SC', serif;
+body {
+  width: 100%;
+  overflow-x: hidden;
+  position: relative;
+  font-family: $font-family-base;
+  font-weight: $font-weight-regular;
+  font-size: $font-size-base;
+  line-height: 1.5;
+  color: $text-primary;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-family-base;
+  font-weight: $font-weight-bold;
+  line-height: 1.2;
 }
 
 a:link {
