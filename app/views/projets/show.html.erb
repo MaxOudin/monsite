@@ -18,11 +18,14 @@
 
     <div class="show-tools">
       <h3>Technologies utilisées</h3>
-      <div class="tool-grid">
+      <div class="tools-grid">
         <% @projet.outils.each do |outil| %>
-          <div class="tool-item">
-            <h4><%= outil.nom %></h4>
-            <p><%= outil.description %></p>
+          <div class="tool-card">
+            <div class="tool-icon">
+              <%= tool_icon(outil.nom) %>
+            </div>
+            <h4 class="tool-name"><%= outil.nom %></h4>
+            <p class="tool-description"><%= outil.description %></p>
           </div>
         <% end %>
       </div>
