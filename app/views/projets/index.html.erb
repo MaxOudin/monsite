@@ -15,47 +15,45 @@
 </div>
 <% end %>
 
-<div class="container-projets">
-  <div style="">
-    <h3>Mes derniers projets</h3>
-    <p>Vous trouverez les précédentes réalisations significatives. Je m'adapte à vos besoins pour réaliser, ensemble, le site qui vous ressemble. Pour chacun des projets, vous avez la possibilité de voir les outils utilisés et un texte descriptif de celui-ci.</p>
+<div class="projects-container">
+  <div class="projects-header">
+    <h3>Mes Projets</h3>
+    <p>Découvrez une sélection de mes réalisations récentes en développement web.</p>
   </div>
 
-  <div class="container-search">
-    <div class="search-bar">
-      <%= form_with url: projets_path, method: :get, class: "form-group" do %>
-          <%= text_field_tag :query, params[:query], class: "form-control", placeholder: "Entrer votre mot clé..." %>
-          <%= submit_tag "Rechercher", name: "", class: "btn-search" %>
-      <% end %>
-    </div>
-  </div>
-
-  <div class="container-cartes">
-
-    <% if @projets.last != nil %>
+  <div class="projects-grid">
+    <% if @projets.any? %>
       <% @projets.each do |projet| %>
-        <div class="container-une-carte">
+        <div class="project-card">
           <a href="<%= projet_path(projet.titre.gsub(' ', '-')) %>">
-          <div class="card-img">
-            <img src="<%= projet.image_url%>" alt="Projet <%= projet.titre %>">
-          </div>
-          <div class="card-text">
-            <h3><%= projet.titre %></h3>
-            <p><%= truncate(projet.description, length: 230) %></p>
-            <div class="info-carte-article">
-              <div class="card-pastille" style="background-color: <%= projet.couleur %>;"><%= projet.type_projet.upcase %></div>
-              <p class="date-publication-article"> réalisé avec <%= projet.outils[0].nom %>, <%= projet.outils[1].nom %>...</p>
+            <div class="project-image">
+              <img src="<%= projet.image_url%>" alt="Projet <%= projet.titre %>">
             </div>
-          </div>
+
+            <div class="project-content">
+              <h3><%= projet.titre %></h3>
+              <p><%= truncate(projet.description, length: 150) %></p>
+            </div>
+
+            <div class="project-footer">
+              <div class="project-type">
+                <%= projet.type_projet.upcase %>
+              </div>
+              <div class="project-tools">
+                <%= projet.outils[0..1].map(&:nom).join(', ') %>
+              </div>
+            </div>
           </a>
         </div>
       <% end %>
-
     <% else %>
       <p>Aucun projet n'a été retrouvé</p>
     <% end %>
   </div>
-  <div style="display: flex; justify-content: flex-end; margin-top: 5vh; margin-bottom: 3vh;">
-    <a href="/" class="btn retour-accueil-btn">Retour à l'accueil</a>
+
+  <div class="back-button-container">
+    <%= link_to root_path, class: "btn btn-back" do %>
+      </i> Retour à l'accueil
+    <% end %>
   </div>
 </div>
