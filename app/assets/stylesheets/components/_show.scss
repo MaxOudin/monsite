@@ -37,16 +37,24 @@
 
 .show-image {
   width: 100%;
-  height: 400px;
+  max-width: 1000px;
+  margin: 0 auto $spacing-2xl;
   border-radius: $border-radius-lg;
   overflow: hidden;
-  margin-bottom: $spacing-2xl;
   box-shadow: $shadow-md;
+  position: relative;
+  aspect-ratio: 16 / 9;
 
   img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
+    background: rgba($primary, 0.02);
+    transition: transform 0.3s ease;
+  }
+
+  &:hover img {
+    transform: scale(1.02);
   }
 }
 
@@ -111,14 +119,29 @@
       transform: translateY(-$spacing-xl);
       opacity: 0;
     }
+
+    .tool-icon .tool-logo {
+      filter: grayscale(0);
+      opacity: 1;
+    }
   }
 
   .tool-icon {
-    font-size: $text-2xl;
-    color: $primary;
-    margin-bottom: $spacing-sm;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: $spacing-md;
     transition: all 0.3s ease;
-    text-align: center;
+
+    .tool-logo {
+      height: 100%;
+      width: auto;
+      object-fit: contain;
+      filter: grayscale(0.2);
+      opacity: 0.9;
+      transition: all 0.3s ease;
+    }
   }
 
   .tool-name {
@@ -184,7 +207,9 @@
   }
 
   .show-image {
-    height: 300px;
+    aspect-ratio: 4 / 3;
+    margin: 0 (-$spacing-md) $spacing-xl;
+    border-radius: 0;
   }
 
   .show-actions {
