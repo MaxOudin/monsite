@@ -1,26 +1,33 @@
 <%= render 'shared/navbar' %>
 
-
-  <% if user_signed_in? %>
-      <%= link_to 'Modifier', edit_article_path(@article) %>
-  <% end %>
-
-<div class="project-container">
-  <div class="card-pastille pastille-show" style="background-color:<%= @article.couleur_du_theme %>;"><%= @article.theme %></div>
-  <h2> <%= @article.titre.upcase %> </h2>
-
-  <div class="image-container" style="border: 1px solid <%= @article.couleur %>;">
-    <img src="<%= @article.image_url %>" alt="<%= @article.image_alt %>" class="project-image">
+<div class="show-container">
+  <div class="show-header">
+    <div class="show-theme" style="background-color: <%= @article.couleur_du_theme %>20; color: <%= @article.couleur_du_theme %>;">
+      <%= @article.theme %>
+    </div>
+    <h1><%= @article.titre %></h1>
+    <div class="show-meta">
+      Publié le <%= @article.created_at.strftime("%d/%m/%Y") %>
+    </div>
   </div>
 
-  <div class="article-container">
-    <br>
-
-    <p class="description-paragraphe"><%= @article.content %></p>
+  <div class="show-image">
+    <img src="<%= @article.image_url %>" alt="<%= @article.image_alt %>">
   </div>
 
-  <p style="opacity:0.7;"> Article publié le <%= @article.created_at.strftime("%d/%m/%Y") %></p>
-  <div class="return-button-container">
-    <a href="/articles" class="btn retour-accueil-btn">Retour aux articles</a>
+  <div class="show-content">
+    <%= @article.content %>
+  </div>
+
+  <div class="show-actions">
+    <%= link_to articles_path, class: "btn btn-back" do %>
+      Retour aux articles
+    <% end %>
+
+    <% if user_signed_in? %>
+      <%= link_to edit_article_path(@article), class: "btn btn-primary" do %>
+        <i class="fas fa-edit"></i> Modifier
+      <% end %>
+    <% end %>
   </div>
 </div>
