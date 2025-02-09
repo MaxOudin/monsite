@@ -1,62 +1,44 @@
 <%= render 'shared/navbar' %>
 
-
-<% if user_signed_in? %>
-<div class="row justify-content-center">
-  <div class="col-sm-8 my-3">
-    <%= form_with url: articles_path, method: :get, class: "d-flex" do %>
-      <%= text_field_tag :query,
-            params[:query],
-            class: "form-control",
-            placeholder: "Type a keyword"
-        %>
-      <%= submit_tag "Search", name: "", class: "btn" %>
-    <% end %>
-  </div>
-</div>
-<% end %>
-
-<div class="container-projets">
-  <div style="">
-    <h3>Découvrez les différents articles</h3>
-  </div>
-  <div class="search-bar">
-    <%= form_with url: articles_path, method: :get, local: true, class: "form-group" do %>
-      <% themes_with_articles = Article::THEMES_WITH_COLORS.keys.select { |theme| @article_counts_by_theme[theme].to_i > 0 } %>
-      <%# <%= select_tag :theme, options_for_select([["Sélectionner un thème (articles)", ""]] + themes_with_articles.map { |theme| ["#{theme} (#{@article_counts_by_theme[theme]})", theme] }, params[:theme]), class: "form-control", id: "theme_select" %>
-      <%= select_tag :theme, options_for_select([["Sélectionner un thème", ""]] + themes_with_articles.map { |theme| [theme, theme] }, params[:theme]), class: "form-control", id: "theme_select" %>
-      <%= submit_tag 'Filtrer', class: 'btn-search' %>
-    <% end %>
+<div class="articles-container">
+  <div class="articles-header">
+    <h3>Mes Articles</h3>
+    <p>Découvrez mes derniers articles sur le développement web et mes expériences.</p>
   </div>
 
-  <div class="container-cartes">
-    <div style="margin-top: 4vh; margin-bottom: 4vh;">
-      <% if @articles.last != nil %>
-        <% @articles.each do |article| %>
-          <div class="container-une-carte">
-            <a href="<%= article_path(article.titre.gsub(' ', '-')) %>">
-            <div class="card-img">
-              <img src="<%= article.image_url%>" alt="<%= article.image_alt %>">
+  <div class="articles-grid">
+    <% if @articles.any? %>
+      <% @articles.each do |article| %>
+        <div class="article-card">
+          <a href="<%= article_path(article.titre.gsub(' ', '-')) %>">
+            <div class="article-image">
+              <img src="<%= article.image_url %>" alt="<%= article.image_alt %>">
             </div>
-            <div class="card-text">
-              <h3> <%= article.titre %></h3>
-              <div class="info-carte-article">
-                <div class="card-pastille" style="background-color:<%= article.couleur_du_theme %>;"><%= article.theme %></div>
-                <p class="date-publication-article"> Publié le <%= article.created_at.strftime("%d/%m/%Y") %></p>
+
+            <div class="article-content">
+              <h3><%= article.titre %></h3>
+              <p><%= truncate(article.content.to_plain_text, length: 150) %></p>
+            </div>
+
+            <div class="article-footer">
+              <div class="article-theme">
+                <%= article.theme %>
+              </div>
+              <div class="article-date">
+                <%= article.created_at.strftime("%d/%m/%Y") %>
               </div>
             </div>
-            </a>
-          </div>
-        <% end %>
-
-      <% else %>
-        <p>Aucun article n'a été retrouvé</p>
+          </a>
+        </div>
       <% end %>
-    </div>
-
+    <% else %>
+      <p>Aucun article n'a été publié pour le moment.</p>
+    <% end %>
   </div>
 
-  <div style="display: flex; justify-content: flex-end; margin-top: 5vh; margin-bottom: 3vh;">
-    <a href="/" class="btn retour-accueil-btn">Retour à l'accueil</a>
+  <div class="back-button-container">
+    <%= link_to root_path, class: "btn btn-back" do %>
+      Retour à l'accueil
+    <% end %>
   </div>
 </div>
