@@ -1,52 +1,52 @@
 <%= render 'shared/navbar' %>
 
-<% if user_signed_in? %>
-  <%= link_to 'Modifier', edit_projet_path(@projet) %>
-<% end %>
-
-<div class="project-container">
-  <div class="card-pastille pastille-show" style="background-color: <%= @projet.couleur %>;"><%= @projet.type_projet.upcase %></div>
-
-  <h2>Projet: <%= @projet.titre %></h2>
-  <div class="image-container" style="border: 1px solid <%= @projet.couleur %>;">
-    <img src="<%= @projet.image_url %>" alt="<%= @projet.image_url_alt %>" class="project-image">
-  </div>
-
-  <div class="description-container">
-    <h3 class="description-title"><%= @projet.titre %>, c'est quoi ?</h3>
-    <p class="description-paragraphe"><%= @projet.description %></p>
-  </div>
-
-  <% if @projet.github_lien? %>
-    <div class="github-link-container">
-      <a href="<%= @projet.github_lien %>" target="_blank" class="btn github-btn" style="background-color: <%= @projet.couleur %>; border: 1px solid <%= @projet.couleur %>;">Lien github</a>
+<div class="show-container">
+  <div class="show-header">
+    <div class="show-theme" style="background-color: <%= rgba_with_opacity(@projet.couleur, 0.1) %>; color: <%= @projet.couleur %>;">
+      <%= @projet.type_projet %>
     </div>
-  <% end %>
-  <% if @projet.projet_lien? %>
-    <div class="github-link-container">
-      <a href="<%= @projet.projet_lien %>" target="_blank" class="btn github-btn" style="background-color: <%= @projet.couleur %>; border: 1px solid <%= @projet.couleur %>;">Voir projet</a>
-    </div>
-  <% end %>
-
-  <div class="description-container">
-    <h3 class="description-title">Avec quels outils a été conçu <%= @projet.titre %> ?</h3>
-    <p class="description-text">Vous pouvez cliquer sur l'outil pour en savoir plus.</p>
+    <h1><%= @projet.titre %></h1>
   </div>
-  <div class="tools-container">
-    <% @projet.outils.each do |outil| %>
-      <div class="tool-item" data-controller="outil" data-action="click->outil#toggleDescription">
-        <div class="tool-name"><%= outil.nom %>
-          <i class="fas fa-chevron-down" style="color: <%= @projet.couleur %>"></i>
-        </div>
-        <div class="tool-description-container">
-          <div class="tool-description" data-outil-target="description">
-            <%= outil.description %>
+
+  <div class="show-image">
+    <img src="<%= @projet.image_url %>" alt="<%= @projet.image_url_alt %>">
+  </div>
+
+  <div class="show-content">
+    <h2>À propos du projet</h2>
+    <p><%= @projet.description %></p>
+
+    <div class="show-tools">
+      <h3>Technologies utilisées</h3>
+      <div class="tools-grid">
+        <% @projet.outils.each do |outil| %>
+          <div class="tool-card">
+            <div class="tool-icon">
+              <%= tool_icon(outil.nom) %>
+            </div>
+            <h4 class="tool-name"><%= outil.nom %></h4>
+            <p class="tool-description"><%= outil.description %></p>
           </div>
-        </div>
+        <% end %>
       </div>
-    <% end %>
+    </div>
   </div>
-  <div class="return-button-container">
-    <a href="/projets" class="btn retour-accueil-btn">Retour aux projets</a>
+
+  <div class="show-actions">
+    <%= link_to projets_path, class: "btn btn-back" do %>
+      Retour aux projets
+    <% end %>
+
+    <% if @projet.github_lien.present? %>
+      <%= link_to @projet.github_lien, target: "_blank", class: "btn btn-primary" do %>
+        <i class="fab fa-github"></i> Voir sur GitHub
+      <% end %>
+    <% end %>
+
+    <% if @projet.projet_lien.present? %>
+      <%= link_to @projet.projet_lien, target: "_blank", class: "btn btn-secondary" do %>
+        <i class="fas fa-external-link-alt"></i> Voir le projet
+      <% end %>
+    <% end %>
   </div>
 </div>
