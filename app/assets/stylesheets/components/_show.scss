@@ -74,28 +74,69 @@
   border-top: 1px solid rgba($primary, 0.1);
 
   h3 {
-    font-size: $text-lg;
+    font-size: $text-xl;
     color: $secondary;
-    margin-bottom: $spacing-lg;
+    margin-bottom: $spacing-xl;
+    text-align: center;
   }
 }
 
-.tool-grid {
+.tools-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: $spacing-lg;
 }
 
-.tool-item {
+.tool-card {
   background: white;
-  padding: $spacing-md;
-  border-radius: $border-radius-md;
+  padding: $spacing-lg;
+  border-radius: $border-radius-lg;
   border: 1px solid rgba($primary, 0.1);
-  transition: $transition-normal;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
 
   &:hover {
-    transform: translateY(-2px);
-    box-shadow: $shadow-sm;
+    transform: translateY(-4px);
+    box-shadow: $shadow-md;
+    border-color: rgba($primary, 0.2);
+
+    .tool-description {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .tool-icon {
+      transform: translateY(-$spacing-xl);
+      opacity: 0;
+    }
+  }
+
+  .tool-icon {
+    font-size: $text-2xl;
+    color: $primary;
+    margin-bottom: $spacing-sm;
+    transition: all 0.3s ease;
+    text-align: center;
+  }
+
+  .tool-name {
+    font-size: $text-lg;
+    color: $secondary;
+    font-weight: $font-weight-medium;
+    margin-bottom: $spacing-xs;
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+
+  .tool-description {
+    font-size: $text-sm;
+    color: rgba($text-primary, 0.8);
+    line-height: 1.6;
+    opacity: 0;
+    transform: translateY($spacing-md);
+    transition: all 0.3s ease;
   }
 }
 
@@ -154,6 +195,26 @@
     .btn {
       width: 100%;
       max-width: 300px;
+    }
+  }
+
+  .tools-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .tool-card {
+    .tool-description {
+      opacity: 1;
+      transform: none;
+    }
+
+    .tool-icon {
+      transform: none;
+      opacity: 1;
+    }
+
+    &:hover {
+      transform: translateY(-2px);
     }
   }
 }
