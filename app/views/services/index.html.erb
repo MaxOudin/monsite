@@ -1,78 +1,51 @@
 <div class="hero-section">
   <div class="hero-content">
     <div class="hero-left">
-      <h1>
-        MAXIME <br>
-        OUDIN
-      </h1>
-      <div class="dev-container">
-        <%= image_tag "yellow_logo.svg", class: "hero-logo", alt: "Logo Maxime Oudin" %>
-        <span class="highlight">Développeur web</span>
+      <div class="hero-intro">
+        <h1>Maxime Oudin</h1>
+        <div class="hero-title">
+          <div class="title-badge">
+            <%= image_tag "yellow_logo.svg", class: "hero-logo", alt: "Logo Maxime Oudin" %>
+            <span>Développeur Web Indépendant</span>
+          </div>
+        </div>
+      </div>
+
+      <p class="hero-description">
+        Je crée des applications web sur mesure avec une approche centrée sur l'expérience utilisateur et les performances.
+      </p>
+
+      <div class="hero-cta">
+        <%= link_to projets_path, class: "btn btn-outline" do %>
+          <i class="fas fa-code-branch"></i>
+          Mes projets
+        <% end %>
+        <%= link_to articles_path, class: "btn btn-outline" do %>
+          <i class="fas fa-newspaper"></i>
+          Mes articles
+        <% end %>
+        <a href="#" class="btn btn-primary btn-cta"
+          data-tally-open="mB7p75"
+          data-tally-hide-title="1"
+          data-tally-overlay="1">
+          <i class="fas fa-paper-plane"></i>
+          Me contacter
+        </a>
       </div>
     </div>
 
     <div class="hero-right">
-      <nav class="hero-nav">
-        <a href="../projets" class="nav-link">Projets</a>
-        <a href="../articles" class="nav-link">Articles</a>
-        <a href="#"
-           class="nav-link"
-           data-tally-open="mB7p75"
-           data-tally-hide-title="1"
-           data-tally-overlay="1"
-           data-tally-emoji-text="👋"
-           data-tally-emoji-animation="wave">
-          Contact
-        </a>
-      </nav>
-
-      <div class="social-links">
-        <a href="https://github.com/MaxOudin" target="_blank" aria-label="Github">
-          <i class="fab fa-github"></i>
-        </a>
-        <a href="https://www.linkedin.com/in/maxime-oudin-developer/" target="_blank" aria-label="LinkedIn">
-          <i class="fab fa-linkedin"></i>
-        </a>
+      <div class="tech-stack">
+        <div class="tech-title">Technologies principales</div>
+        <div class="tech-grid">
+          <% ["ruby", "rails", "javascript"].each do |tech| %>
+            <div class="tech-item">
+              <%= image_tag "tech_logos/#{tech}.svg", class: "tech-logo", alt: "#{tech} logo" %>
+              <span class="tech-name"><%= tech.capitalize %></span>
+            </div>
+          <% end %>
+        </div>
       </div>
-    </div>
-  </div>
-
-  <div class="marquee">
-    <div class="marquee-content">
-      <span>RUBY</span>
-      <span class="separator-dot"></span>
-      <span>RAILS</span>
-      <span class="separator-dot"></span>
-      <span>JAVASCRIPT</span>
-      <span class="separator-dot"></span>
-      <span>STIMULUS</span>
-      <span class="separator-dot"></span>
-      <span>POSTGRESQL</span>
-      <span class="separator-dot"></span>
-    </div>
-    <div class="marquee-content" aria-hidden="true">
-      <span>RUBY</span>
-      <span class="separator-dot"></span>
-      <span>RAILS</span>
-      <span class="separator-dot"></span>
-      <span>JAVASCRIPT</span>
-      <span class="separator-dot"></span>
-      <span>STIMULUS</span>
-      <span class="separator-dot"></span>
-      <span>POSTGRESQL</span>
-      <span class="separator-dot"></span>
-    </div>
-    <div class="marquee-content" aria-hidden="true">
-      <span>RUBY</span>
-      <span class="separator-dot"></span>
-      <span>RAILS</span>
-      <span class="separator-dot"></span>
-      <span>JAVASCRIPT</span>
-      <span class="separator-dot"></span>
-      <span>STIMULUS</span>
-      <span class="separator-dot"></span>
-      <span>POSTGRESQL</span>
-      <span class="separator-dot"></span>
     </div>
   </div>
 </div>

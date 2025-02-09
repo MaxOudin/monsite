@@ -1,19 +1,19 @@
-<div class="navbar navbar-custom" id="navbar">
-  <div class="navbar-logo-container">
-    <a class="navbar-brand" href="/">
-      <%# <img src="https://res.cloudinary.com/dyleaesxc/image/upload/v1705009354/Logo_black_and_white_recoupe_pwq2m8.png" alt="Logo Maxime Oudin" style="width: 100px; height: auto;"> %>
-      Maxime OUDIN
-    </a>
-  </div>
+<nav class="navbar" data-controller="navbar">
+  <div class="navbar-container">
+    <%= link_to "Maxime Oudin", root_path, class: "navbar-brand" %>
 
-  <div class="dropdown-nav" data-controller="dropdownmenu">
-    <button class="bouton-dropdown" data-action="click->dropdownmenu#toggleDropdown">
-      <i class="fa-solid fa-bars"></i>
+    <button class="navbar-mobile-toggle" data-action="click->navbar#toggleMenu">
+      <i class="fas fa-bars"></i>
     </button>
-    <ul class="dropdown-menu" data-dropdownmenu-target="menu">
-      <li class="dropdown-item"><a href="/projets" class="nav-link">Projets</a></li>
-      <li class="dropdown-item"><a href="/articles" class="nav-link">Articles</a></li>
-      <li class="dropdown-item"><a href="#contact-infos" class="nav-link-contact">Contact</a></li>
-    </ul>
+
+    <div class="navbar-menu" data-navbar-target="menu">
+      <%= link_to "Accueil", root_path, class: "navbar-link #{current_page?(root_path) ? 'active' : ''}" %>
+      <%= link_to "Projets", projets_path, class: "navbar-link #{current_page?(projets_path) ? 'active' : ''}" %>
+      <%= link_to "Articles", articles_path, class: "navbar-link #{current_page?(articles_path) ? 'active' : ''}" %>
+      <%= link_to "Contact", "#contact-infos", class: "navbar-link" %>
+      <% if user_signed_in? %>
+        <%= link_to "Déconnexion", destroy_user_session_path, data: { turbo_method: :delete }, class: "navbar-link" %>
+      <% end %>
+    </div>
   </div>
-</div>
+</nav>
