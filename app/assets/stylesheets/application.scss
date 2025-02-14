@@ -7,11 +7,14 @@
 
 // Global styles
 .container-application {
+  width: 100%;
+  max-width: 100vw;
   background-color: $background;
   color: $text-primary;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
 * {
@@ -20,9 +23,13 @@
   padding: 0;
 }
 
-body {
+html, body {
   width: 100%;
+  max-width: 100vw;
   overflow-x: hidden;
+}
+
+body {
   position: relative;
   font-family: $font-family-base;
   font-weight: $font-weight-regular;
@@ -43,4 +50,7 @@ a:link {
 
 
 @media (max-width: 768px) {
+  * {
+    max-width: 100%;
+  }
 }
