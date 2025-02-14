@@ -83,3 +83,14 @@ $font-size-xl: 1.25rem;    // 20px
 $font-size-2xl: 1.5rem;    // 24px
 $font-size-3xl: 2rem;      // 32px
 $font-size-4xl: 2.5rem;    // 40px
+
+// Container widths
+$container-sm: 540px;
+$container-md: 720px;
+$container-lg: 960px;
+$container-xl: 1140px;
+
+// Spacing for containers
+$container-padding-mobile: $spacing-md;
+$container-padding-tablet: $spacing-lg;
+$container-padding-desktop: $spacing-xl;
