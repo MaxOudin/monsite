@@ -10,8 +10,6 @@ Rails.application.routes.draw do
 
   # Defines the "projets" resources routes
   resources :projets, path: 'projets'
-
-  resources :articles
-  get 'articles/:titre', to: 'articles#show', as: :article_detail
+  resources :articles, path: 'articles'
 
 end

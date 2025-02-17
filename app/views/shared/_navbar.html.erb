@@ -12,7 +12,7 @@
       <%= link_to "Articles", articles_path, class: "navbar-link #{current_page?(articles_path) ? 'active' : ''}" %>
       <%= link_to "Contact", "#contact-infos", class: "navbar-link" %>
       <% if user_signed_in? %>
-        <%= link_to "Déconnexion", destroy_user_session_path, data: { turbo_method: :delete }, class: "navbar-link" %>
+        <%= button_to 'Déconnexion', destroy_user_session_path, method: :delete, data: { confirm: 'Êtes-vous sûr de vouloir vous déconnecter ?' }, class: "navbar-link" %>
       <% end %>
     </div>
   </div>
