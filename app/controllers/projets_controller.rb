@@ -1,6 +1,7 @@
 class ProjetsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :set_projet, only: [:edit, :update, :destroy]
+  before_action :set_projet, only: [:show,:edit, :update, :destroy]
+  before_action :set_outils, only: [:new, :edit, :create, :update]
 
   def index
     @projets = Projet.left_joins(:outils).distinct.order(date_debut: :desc)
@@ -15,8 +16,6 @@ class ProjetsController < ApplicationController
   end
 
   def show
-    titre = params[:id].gsub('-', ' ')
-    @projet = Projet.find_by(titre: titre)
     if @projet.nil?
       # Gérer le cas où aucun article n'est trouvé avec le titre spécifié
       flash[:error] = "Aucun article trouvé avec le titre spécifié"
@@ -26,16 +25,13 @@ class ProjetsController < ApplicationController
 
   def new
     @projet = Projet.new
-    @outils_projet = OutilsProjet.new
-    @outils = Outil.all.order(:nom => :desc)
   end
 
   def create
     @projet = Projet.new(projet_params)
-    @outils_projet = OutilsProjet.new
-    if @projet.save!
+    if @projet.save
       flash[:notice] = "Projet créé avec succès"
-      redirect_to projet_detail_path(@projet.titre.gsub(' ', '-'))
+      redirect_to projet_path(@projet)
     else
       flash[:error] = "Projet non créé, veuillez réessayer"
       render :new
@@ -47,7 +43,7 @@ class ProjetsController < ApplicationController
 
   def update
     if @projet.update(projet_params)
-      redirect_to projet_detail_path(@projet.titre.gsub(' ', '-')), notice: "Projet modifié avec succès"
+      redirect_to projet_path(@projet), notice: "Projet modifié avec succès"
     else
       flash[:error] = "Projet non modifié, veuillez réessayer"
       render :edit
@@ -68,15 +64,36 @@ class ProjetsController < ApplicationController
   private
 
   def projet_params
-    params.require(:projet).permit(:titre, :type_projet, :description, :image_url, :image_url_alt, :date_debut, :date_fin, :client, :projet_lien, :github_lien, :couleur, :outil_ids => [])
+    params.require(:projet).permit(
+      :titre,
+      :type_projet,
+      :description,
+      :image_url,
+      :image_url_alt,
+      :date_debut,
+      :date_fin,
+      :client,
+      :projet_lien,
+      :github_lien,
+      :couleur,
+      outil_ids: []
+    )
   end
 
   def set_projet
-    @projet = Projet.find(params[:id])
+    @projet = Projet.friendly.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    flash[:error] = "Projet non trouvé"
+    redirect_to projets_path
   end
 
   def set_outils_projet
     @outils_projet = OutilsProjet.where(projet_id: @projet.id) if @projet.present? && OutilsProjet.find(@projet).present?
+  end
+
+  def set_outils
+    @outils_projet = OutilsProjet.new
+    @outils = Outil.all.order(:nom => :desc)
   end
 
 end

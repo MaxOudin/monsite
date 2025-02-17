@@ -2,16 +2,25 @@
 #
 # Table name: articles
 #
-#  id         :bigint           not null, primary key
-#  couleur    :string
-#  image_alt  :string
-#  image_url  :string
-#  theme      :string
+#  id         :integer          not null, primary key
 #  titre      :string
+#  image_url  :string
+#  image_alt  :string
+#  couleur    :string
+#  theme      :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  slug       :string
 #
+# Indexes
+#
+#  index_articles_on_slug  (slug) UNIQUE
+#
+
 class Article < ApplicationRecord
+  extend FriendlyId
+  friendly_id :titre, use: [:slugged, :history]
+
   THEMES_WITH_COLORS = {
     "Autour du web" => "#18435A",
     "Les étapes clés du site internet" => "#564787",
