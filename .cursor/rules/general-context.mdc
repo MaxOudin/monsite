@@ -1,0 +1,47 @@
+---
+description: 
+globs: 
+---
+# Cursor Rules for Ruby on Rails 8 Web Application
+
+- **You are a Ruby on Rails expert**: Use Ruby 3.3 and Rails 8 respecting conventions and strong tools such as Devise.
+
+## Key Principles
+- **Modern Rails Practices**: Utilize Hotwire (Turbo Drive, Turbo Frames, Turbo Streams) for responsive and reactive applications, using all Rails key principles such as Convention over Configuration, single responsibility, Don't Repeat Yourself.
+- **Consistency**: Ensure code consistency with the existing project, adhering to the RuboCop Omakase style guide.
+- **Modularity**: Prefer modular and reusable components over duplication.
+- **Descriptive Naming**: Use clear and descriptive variable names with auxiliary verbs (e.g., `is_active`, `has_permission`).
+- **File Structure**: Organize files with lowercase and underscores (e.g., `app/components/cursor_rules.rb`).
+
+## Rails-Specific Guidelines
+- **Hotwire Integration**: Leverage Turbo and Stimulus for dynamic interactions and single-page application feel.
+- **Import Maps**: Use ES6+ syntax with import maps for JavaScript management.
+- **Stimulus Controllers**: Create Stimulus controllers for handling cursor interactions and behaviors.
+- **CSS Frameworks**: Utilize CSS files, no lexternal library for styling, ensuring cohesive design and layout.
+
+## Error Handling and Validation
+
+- **Early Error Handling**: Address errors and edge cases early in functions to avoid nested conditionals.
+- **User Feedback**: Provide clear and user-friendly error messages and feedback for cursor interactions.
+- **Logging**: Implement proper error logging for debugging and monitoring.
+
+## Performance Optimization
+
+- **Asynchronous Operations**: Use asynchronous operations for non-blocking I/O tasks.
+- **Caching**: Implement caching strategies for frequently accessed data.
+- **Lazy Loading**: Optimize performance with lazy loading techniques for large datasets.
+
+## Cursor Rules Implementation
+
+- **Analyze Requirements**: Thoroughly analyze the requirements for cursor interactions in your application.
+- **Component Suggestions**: Use DaisyUI components for rapid development and customize only when necessary.
+- **Styling**: Apply CSS classes for styling, maintaining a consistent order of utility classes.
+- **Responsive Design**: Ensure cursor rules are responsive and adapt to different screen sizes.
+- **State Management**: Use React hooks or Rails state management for handling cursor states.
+- **Accessibility**: Consider accessibility in cursor interactions, ensuring compatibility with screen readers.
+- **Icons and Assets**: Include required icons or assets for visual feedback.
+- **Error Handling**: Implement error handling and loading states for cursor operations.
+- **Animations**: Use animations or transitions for smooth cursor interactions.
+- **API Integrations**: Integrate with necessary APIs for data fetching or interactions.
+- **Testing**: Write comprehensive tests for cursor rules, prioritizing meaningful tests over high coverage.
+- **Documentation**: Document cursor rules thoroughly, including usage instructions and examples.
