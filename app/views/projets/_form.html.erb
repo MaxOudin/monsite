@@ -21,6 +21,35 @@
             <%= render 'shared/form_field', form: f, field: :client, field_type: :text_field, object: projet %>
           </div>
         </div>
+
+        <div class="col-12">
+          <div class="card shadow-sm mb-4">
+            <div class="card-body">
+              <h5 class="card-title mb-3">Outils utilisés</h5>
+
+              <div class="outils-selection">
+                <div class="">
+                  <%= f.label :outil_ids, "Sélectionner les outils", class: "form-label" %>
+                  <div class="outils-grid">
+                    <%= f.collection_check_boxes :outil_ids, @outils, :id, :nom do |b| %>
+                      <div class="outil-checkbox">
+                        <div class="outil-content">
+                          <div class="outil-image">
+                            <%= image_tag b.object.icone_url, alt: b.object.icone_url_alt, class: "outil-icon" if b.object.icone_url.present? %>
+                          </div>
+                          <div class="outil-info">
+                            <%= b.check_box(class: "form-check-input", checked: projet.outils.include?(b.object)) %>
+                            <%= b.label(class: "form-check-label") %>
+                          </div>
+                        </div>
+                      </div>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div class="col-md-4">

@@ -93,7 +93,7 @@ class ProjetsController < ApplicationController
 
   def set_outils
     @outils_projet = OutilsProjet.new
-    @outils = Outil.all.order(:nom => :desc)
+    @outils = Outil.all.order(:nom => :asc)
   end
 
 end
