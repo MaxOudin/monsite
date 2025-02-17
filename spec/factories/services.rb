@@ -2,15 +2,16 @@
 #
 # Table name: services
 #
-#  id            :bigint           not null, primary key
-#  couleur       :string
+#  id            :integer          not null, primary key
+#  nom           :string
 #  description   :text
 #  icone_url     :text
 #  icone_url_alt :string
-#  nom           :string
+#  couleur       :string
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #
+
 FactoryBot.define do
 
 end

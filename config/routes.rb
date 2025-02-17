@@ -9,8 +9,7 @@ Rails.application.routes.draw do
   resources :services, only: [:index]
 
   # Defines the "projets" resources routes
-  resources :projets
-  get 'projets/:titre', to: 'projets#show', as: :projet_detail
+  resources :projets, path: 'projets'
 
   resources :articles
   get 'articles/:titre', to: 'articles#show', as: :article_detail

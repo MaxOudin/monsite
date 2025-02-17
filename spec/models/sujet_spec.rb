@@ -2,16 +2,17 @@
 #
 # Table name: sujets
 #
-#  id            :bigint           not null, primary key
-#  couleur       :string
+#  id            :integer          not null, primary key
+#  nom           :string
 #  description   :text
+#  numero        :integer
+#  couleur       :string
 #  icone_url     :text
 #  icone_url_alt :string
-#  nom           :string
-#  numero        :integer
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #
+
 require 'rails_helper'
 
 # RSpec.describe Sujet, type: :model do

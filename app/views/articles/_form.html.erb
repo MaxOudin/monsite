@@ -1,49 +1,63 @@
+<div class="container py-4">
+  <%= form_with(model: article, local: true, class: "needs-validation") do |f| %>
+    <div class="row">
+      <div class="col-md-8">
+        <div class="card shadow-sm mb-4">
+          <div class="card-body">
+            <h5 class="card-title mb-3">Informations principales</h5>
 
+            <%= render 'shared/form_field', form: f, field: :titre, field_type: :text_field, object: article %>
+            <%= render 'shared/form_field', form: f, field: :theme, field_type: :select, options: Article::THEMES_WITH_COLORS.keys, object: article %>
 
-<div class="form-container">
-  <%= form_with(model: article, local: true, multipart: true) do |f| %>
-    <% if f.object.errors.any? %>
-      <div>
-        <% f.object.errors.full_messages.each do |error| %>
-        <div><%= error %></div>
-        <% end %>
-      <div>
-    <% end %>
-    <div class="field">
-      <%= f.label :titre, value: "Titre de l'article" %>
-      <%= f.text_field :titre, style: "background-color: white;" %>
-    </div>
-    <div class="field">
-      <%= f.label :image_url, value: "Image url de l'article" %>
-      <%= f.text_field :image_url, style: "background-color: white;" %>
-    </div>
-    <div class="field">
-      <%= f.label :image_alt, value: "Texte pour alt de l'image de l'article" %>
-      <%= f.text_field :image_alt, style: "background-color: white;" %>
-    </div>
-    <div class="field">
-      <%= f.label :theme %>
-      <%= f.select :theme, options_for_select(Article::THEMES_WITH_COLORS.keys) %>
-    </div>
-    <div class="field">
-      <%= f.label :couleur %>
-      <%= f.text_field :couleur %>
+            <div class="form-group mb-4">
+              <%= f.label :content, class: "form-label" %>
+              <%= f.rich_text_area :content, class: "form-control trix-content" %>
+              <% if article.errors[:content].any? %>
+                <div class="invalid-feedback d-block">
+                  <%= article.errors[:content].join(", ") %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card shadow-sm mb-4">
+          <div class="card-body">
+            <h5 class="card-title mb-3">Image</h5>
+
+            <div class="image-preview mb-3">
+              <% if article.image_url.present? %>
+                <img src="<%= article.image_url %>" alt="<%= article.image_alt %>" class="img-fluid rounded">
+              <% else %>
+                <div class="placeholder-image">
+                  <p class="text-center text-muted">Aucune image</p>
+                </div>
+              <% end %>
+            </div>
+
+            <%= render 'shared/form_field', form: f, field: :image_url, field_type: :text_field, object: article %>
+            <%= render 'shared/form_field', form: f, field: :image_alt, field_type: :text_field, object: article %>
+          </div>
+        </div>
+
+        <div class="card shadow-sm mb-4">
+          <div class="card-body">
+            <h5 class="card-title mb-3">Couleur</h5>
+            <div class="theme-color-preview mb-3">
+              <div class="current-color" style="background-color: <%= article.couleur_du_theme %>"></div>
+              <small class="text-muted">Couleur automatique basée sur le thème</small>
+            </div>
+            <%= render 'shared/form_field', form: f, field: :couleur, field_type: :color_field, object: article %>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div class="field">
-      <%= f.label :content, value: "Contenu de l'article" %>
-      <%= f.rich_text_area :content, style: "background-color: white;", rows: 70 %>
-    </div>
-    <br>
-    
-    <div class="">
-      <% if article.persisted? %>
-        <%= f.submit 'Modifier Article', data: { turbo: false }, class: "btn btn-projets" %>
-      <% else %>
-        <%= f.submit 'Créer Article', data: { turbo: false }, class: "btn btn-projets" %>
-      <% end %>
-      <br>
-      <%= link_to 'Retour', root_path, class: "btn retour-accueil-btn" %>
+    <div class="d-flex justify-content-between mt-4">
+      <%= link_to 'Annuler', articles_path, class: "btn btn-outline-secondary" %>
+      <%= f.submit article.persisted? ? 'Mettre à jour' : 'Créer', class: "btn btn-primary" %>
     </div>
   <% end %>
 </div>

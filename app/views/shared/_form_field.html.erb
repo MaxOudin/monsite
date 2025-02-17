@@ -1,0 +1,23 @@
+<div class="form-group mb-3">
+  <%= form.label field, class: "form-label" %>
+  <% case field_type %>
+  <% when :text_area %>
+    <%= form.text_area field, class: "form-control", rows: 5 %>
+  <% when :date_field %>
+    <%= form.date_field field, class: "form-control" %>
+  <% when :color_field %>
+    <div class="d-flex align-items-center gap-2">
+      <%= form.color_field field, class: "form-control form-control-color" %>
+      <%= form.text_field field, class: "form-control", placeholder: "#000000" %>
+    </div>
+  <% when :select %>
+    <%= form.select field, options, { include_blank: "Sélectionner..." }, class: "form-select" %>
+  <% else %>
+    <%= form.text_field field, class: "form-control" %>
+  <% end %>
+  <% if object.errors[field].any? %>
+    <div class="invalid-feedback d-block">
+      <%= object.errors[field].join(", ") %>
+    </div>
+  <% end %>
+</div>

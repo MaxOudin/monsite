@@ -1,6 +1,6 @@
 class ArticlesController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :set_article, only: [:edit, :update, :destroy]
+  before_action :set_article, only: [:edit, :update, :destroy, :show]
 
   def index
     @articles = Article.all.order(created_at: :desc)
@@ -11,12 +11,9 @@ class ArticlesController < ApplicationController
   end
 
   def show
-    titre = params[:id].gsub('-', ' ')
-    @article = Article.find_by(titre: titre)
     if @article.nil?
-      # Gérer le cas où aucun article n'est trouvé avec le titre spécifié
       flash[:error] = "Aucun article trouvé avec le titre spécifié"
-      redirect_to articles_path # Rediriger vers la liste des articles ou une autre page appropriée
+      redirect_to articles_path
     end
   end
 
@@ -65,6 +62,6 @@ class ArticlesController < ApplicationController
   end
 
   def set_article
-    @article = Article.find(params[:id])
+    @article = Article.friendly.find(params[:id])
   end
 end
