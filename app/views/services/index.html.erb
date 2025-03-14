@@ -1,5 +1,8 @@
-<div class="hero-section">
-  <div class="hero-background-pattern"></div>
+<% content_for :meta_title, "Développeur Web Indépendant à Bordeaux | Maxime Oudin" %>
+<% content_for :meta_description, "Expert en développement web Ruby on Rails et JavaScript. Création d'applications web performantes et sur mesure à Bordeaux. Découvrez mes services de développement web." %>
+
+<main class="hero-section" role="main">
+  <div class="hero-background-pattern" aria-hidden="true"></div>
   <div class="container hero-content">
     <div class="hero-left">
       <div class="hero-intro">
@@ -7,7 +10,7 @@
         <h1>Maxime Oudin</h1>
         <div class="hero-title">
           <div class="title-badge">
-            <%= image_tag "yellow_logo.svg", class: "hero-logo", alt: "Logo Maxime Oudin" %>
+            <%= image_tag "yellow_logo.svg", class: "hero-logo", alt: "Logo Maxime Oudin - Développeur Web Bordeaux", width: "32", height: "32" %>
             <span>Développeur Web Indépendant</span>
           </div>
         </div>
@@ -17,39 +20,53 @@
         Je crée des <span class="highlight">applications web sur mesure</span> avec une approche centrée sur l'expérience utilisateur et les performances. Basé à <span class="highlight-secondary">Bordeaux</span>, je travaille avec des clients dans toute la France.
       </p>
 
-      <div class="hero-cta-left">
-        <%= link_to projets_path, class: "btn btn-outline" do %>
-          <i class="fas fa-code-branch"></i>
-          Mes projets
+      <nav class="hero-cta-left" aria-label="Navigation principale">
+        <%= link_to projets_path, class: "btn btn-outline", title: "Découvrir mes projets de développement web" do %>
+          <i class="fas fa-code-branch" aria-hidden="true"></i>
+          <span>Mes projets</span>
         <% end %>
-        <%= link_to articles_path, class: "btn btn-outline" do %>
-          <i class="fas fa-newspaper"></i>
-          Mes articles
+        <%= link_to articles_path, class: "btn btn-outline", title: "Lire mes articles sur le développement web" do %>
+          <i class="fas fa-newspaper" aria-hidden="true"></i>
+          <span>Mes articles</span>
         <% end %>
-      </div>
+      </nav>
     </div>
 
-    <div class="hero-right">
-      <div class="tech-stack">
-        <div class="tech-title">Technologies principales</div>
+    <aside class="hero-right">
+      <section class="tech-stack" aria-labelledby="tech-stack-title">
+        <h2 id="tech-stack-title" class="tech-title">Technologies principales</h2>
         <div class="tech-grid">
-          <% ["ruby", "rails", "javascript", "postgresql", "heroku", "github"].each do |tech| %>
+          <% [
+            { name: "Ruby", desc: "Langage de programmation principal" },
+            { name: "Rails", desc: "Framework web Ruby on Rails" },
+            { name: "JavaScript", desc: "Programmation côté client" },
+            { name: "PostgreSQL", desc: "Base de données relationnelle" },
+            { name: "Heroku", desc: "Plateforme de déploiement" },
+            { name: "GitHub", desc: "Gestion de versions" }
+          ].each do |tech| %>
             <div class="tech-item">
-              <%= image_tag "tech_logos/#{tech}.svg", class: "tech-logo", alt: "#{tech} logo" %>
-              <span class="tech-name"><%= tech.capitalize %></span>
+              <%= image_tag "tech_logos/#{tech[:name].downcase}.svg",
+                          class: "tech-logo",
+                          alt: "Logo #{tech[:name]}",
+                          title: tech[:desc],
+                          width: "48",
+                          height: "48" %>
+              <span class="tech-name"><%= tech[:name] %></span>
             </div>
           <% end %>
         </div>
-      </div>
+      </section>
       <div class="hero-cta-right">
-        <a href="#" class="btn btn-primary btn-cta"
-          data-tally-open="mB7p75"
-          data-tally-hide-title="1"
-          data-tally-overlay="1">
-          <i class="fas fa-paper-plane"></i>
-          Me contacter
+        <a href="#contact-infos"
+           class="btn btn-primary btn-cta"
+           data-tally-open="mB7p75"
+           data-tally-hide-title="1"
+           data-tally-overlay="1"
+           title="Contactez-moi pour votre projet web">
+          <i class="fas fa-paper-plane" aria-hidden="true"></i>
+          <span>Me contacter</span>
         </a>
       </div>
-    </div>
+    </aside>
   </div>
-</div>
+</main>
