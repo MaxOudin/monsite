@@ -31,6 +31,7 @@
   text-decoration: none;
   transition: $transition-fast;
   letter-spacing: 0.5px;
+  z-index: 1001;
 
   &:hover {
     color: darken($secondary, 10%);
@@ -90,6 +91,7 @@
   cursor: pointer;
   color: $secondary;
   font-size: $text-xl;
+  z-index: 1001;
 }
 
 // Body blur effect when menu is open
@@ -110,20 +112,22 @@ body.menu-open {
     top: 64px;
     left: 0;
     right: 0;
+    bottom: 0;
     background: rgba($background, 0.95);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     padding: $spacing-lg;
     flex-direction: column;
     gap: $spacing-md;
-    transform: translateY(-100%);
+    visibility: hidden;
     opacity: 0;
     transition: all $transition-normal;
     border-bottom: 1px solid rgba($primary, 0.1);
     box-shadow: $shadow-md;
+    z-index: 999;
 
     &.active {
-      transform: translateY(0);
+      visibility: visible;
       opacity: 1;
     }
   }
