@@ -15,6 +15,45 @@
   flex-direction: column;
   min-height: 100vh;
   overflow-x: hidden;
+  transition: filter 0.3s ease;
+}
+
+// Standard container class for consistent widths
+.container {
+  width: 100%;
+  max-width: $container-width;
+  margin: 0 auto;
+  padding: 0 $spacing-xl;
+}
+
+.container-narrow {
+  width: 100%;
+  max-width: $container-width-narrow;
+  margin: 0 auto;
+  padding: 0 $spacing-xl;
+}
+
+.container-wide {
+  width: 100%;
+  max-width: $container-width-wide;
+  margin: 0 auto;
+  padding: 0 $spacing-xl;
+}
+
+@media (max-width: $tablet) {
+  .container,
+  .container-narrow,
+  .container-wide {
+    padding: 0 $spacing-md;
+  }
+}
+
+@media (min-width: $tablet) and (max-width: $desktop) {
+  .container,
+  .container-narrow,
+  .container-wide {
+    padding: 0 $spacing-lg;
+  }
 }
 
 * {
