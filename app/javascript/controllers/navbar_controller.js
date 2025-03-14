@@ -14,6 +14,7 @@ export default class extends Controller {
 
   toggleMenu() {
     this.menuTarget.classList.toggle('active')
+    document.body.classList.toggle('menu-open')
   }
 
   handleScroll() {

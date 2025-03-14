@@ -84,11 +84,10 @@ $font-size-2xl: 1.5rem;    // 24px
 $font-size-3xl: 2rem;      // 32px
 $font-size-4xl: 2.5rem;    // 40px
 
-// Container widths
-$container-sm: 540px;
-$container-md: 720px;
-$container-lg: 960px;
-$container-xl: 1140px;
+// Container widths - standardized across the application
+$container-width: 1200px;  // Standard container width for all sections
+$container-width-narrow: 800px;  // Narrower container for content-focused sections
+$container-width-wide: 1400px;   // Wider container for grid layouts
 
 // Spacing for containers
 $container-padding-mobile: $spacing-md;

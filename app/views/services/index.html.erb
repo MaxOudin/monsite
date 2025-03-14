@@ -1,7 +1,9 @@
 <div class="hero-section">
-  <div class="hero-content">
+  <div class="hero-background-pattern"></div>
+  <div class="container hero-content">
     <div class="hero-left">
       <div class="hero-intro">
+        <span class="hero-greeting">Bonjour, je suis</span>
         <h1>Maxime Oudin</h1>
         <div class="hero-title">
           <div class="title-badge">
@@ -12,10 +14,10 @@
       </div>
 
       <p class="hero-description">
-        Je crée des applications web sur mesure avec une approche centrée sur l'expérience utilisateur et les performances.
+        Je crée des <span class="highlight">applications web sur mesure</span> avec une approche centrée sur l'expérience utilisateur et les performances. Basé à <span class="highlight-secondary">Bordeaux</span>, je travaille avec des clients dans toute la France.
       </p>
 
-      <div class="hero-cta">
+      <div class="hero-cta-left">
         <%= link_to projets_path, class: "btn btn-outline" do %>
           <i class="fas fa-code-branch"></i>
           Mes projets
@@ -24,13 +26,6 @@
           <i class="fas fa-newspaper"></i>
           Mes articles
         <% end %>
-        <a href="#" class="btn btn-primary btn-cta"
-          data-tally-open="mB7p75"
-          data-tally-hide-title="1"
-          data-tally-overlay="1">
-          <i class="fas fa-paper-plane"></i>
-          Me contacter
-        </a>
       </div>
     </div>
 
@@ -38,13 +33,22 @@
       <div class="tech-stack">
         <div class="tech-title">Technologies principales</div>
         <div class="tech-grid">
-          <% ["ruby", "rails", "javascript"].each do |tech| %>
+          <% ["ruby", "rails", "javascript", "postgresql", "heroku", "github"].each do |tech| %>
             <div class="tech-item">
               <%= image_tag "tech_logos/#{tech}.svg", class: "tech-logo", alt: "#{tech} logo" %>
               <span class="tech-name"><%= tech.capitalize %></span>
             </div>
           <% end %>
         </div>
+      </div>
+      <div class="hero-cta-right">
+        <a href="#" class="btn btn-primary btn-cta"
+          data-tally-open="mB7p75"
+          data-tally-hide-title="1"
+          data-tally-overlay="1">
+          <i class="fas fa-paper-plane"></i>
+          Me contacter
+        </a>
       </div>
     </div>
   </div>
