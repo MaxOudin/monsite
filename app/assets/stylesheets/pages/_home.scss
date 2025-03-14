@@ -275,9 +275,11 @@ h1 {
   }
 
   .hero-content {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
     text-align: center;
     gap: $spacing-sm;
+
   }
 
   .hero-left {
@@ -289,7 +291,7 @@ h1 {
   }
 
   .tech-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .tech-stack {
