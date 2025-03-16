@@ -84,5 +84,5 @@ Rails.application.configure do
   config.assets.check_precompiled_asset = false
 
   # Activer le live reload des assets
-  config.assets.digest = false
+  config.assets.digest = true
 end
