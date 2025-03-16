@@ -12,7 +12,7 @@
   border-bottom: 1px solid rgba($primary, 0.1);
 
   &.scrolled {
-    background: rgba($background, 0.95);
+    background: rgba($background, 0.90);
     box-shadow: $shadow-sm;
   }
 }
@@ -109,26 +109,24 @@ body.menu-open {
 @media (max-width: $tablet) {
   .navbar-menu {
     position: fixed;
-    top: 64px;
+    top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba($background, 0.95);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    padding: $spacing-lg;
+    background: white;
+    padding-top: 64px;
     flex-direction: column;
-    gap: $spacing-md;
-    visibility: hidden;
-    opacity: 0;
-    transition: all $transition-normal;
-    border-bottom: 1px solid rgba($primary, 0.1);
-    box-shadow: $shadow-md;
+    gap: $spacing-xs;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
     z-index: 999;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
 
     &.active {
-      visibility: visible;
-      opacity: 1;
+      transform: translateX(0);
     }
   }
 
@@ -137,17 +135,19 @@ body.menu-open {
   }
 
   .navbar-link {
-    width: 100%;
+    width: 80%;
     text-align: center;
-    padding: $spacing-sm;
-    font-size: $text-base;
+    padding: $spacing-md;
+    font-size: $text-lg;
+    background: white;
 
     &::after {
       bottom: 0;
     }
 
     &:hover {
-      background: rgba($primary, 0.05);
+      background: rgba($primary, 0.1);
+      color: $secondary;
     }
   }
 }
