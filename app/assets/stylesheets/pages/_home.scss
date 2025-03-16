@@ -39,7 +39,7 @@
 
 .hero-greeting {
   font-size: $text-lg;
-  color: $accent;
+  color: $primary;
   display: block;
   margin-bottom: $spacing-sm;
   font-weight: $font-weight-medium;
@@ -97,7 +97,7 @@ h1 {
   }
 
   .highlight-secondary {
-    color: $accent;
+    color: $light-blue;
     font-weight: $font-weight-medium;
   }
 }
@@ -339,5 +339,66 @@ h1 {
     color: $secondary;
     font-size: $text-lg;
     font-weight: $font-weight-medium;
+  }
+}
+
+// Font Awesome Icons styling
+.fa, .fas, .far, .fab, .fa-solid {
+  &.primary-icon {
+    color: $primary;
+  }
+
+  &.secondary-icon {
+    color: $secondary;
+  }
+
+  &.light-blue-icon {
+    color: $light-blue;
+  }
+}
+
+// Dans les boutons
+.btn {
+  i {
+    color: inherit;
+  }
+
+  &.btn-primary i {
+    color: white;
+  }
+
+  &.btn-secondary i {
+    color: $background;
+  }
+
+  &.btn-outline i {
+    color: currentColor;
+  }
+}
+
+// Icônes dans la hero section
+.hero-section {
+  .fas, .far, .fab, .fa-solid {
+    transition: color 0.3s ease;
+  }
+
+  .navbar-toggler i {
+    color: $secondary;
+  }
+
+  .hero-cta-left i,
+  .hero-cta-right i {
+    color: inherit;
+  }
+}
+
+// Icônes dans la tech stack
+.tech-stack {
+  .fas, .far, .fab, .fa-solid {
+    color: $secondary;
+
+    &:hover {
+      color: $primary;
+    }
   }
 }
