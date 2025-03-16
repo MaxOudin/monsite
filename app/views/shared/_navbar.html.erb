@@ -1,19 +1,31 @@
 <nav class="navbar" data-controller="navbar">
-  <div class="container navbar-container">
+  <div class="container">
     <%= link_to "Maxime Oudin", root_path, class: "navbar-brand" %>
 
-    <button class="navbar-mobile-toggle" data-action="click->navbar#toggleMenu">
-      <i class="fas fa-bars"></i>
+    <button class="navbar-toggler" data-action="click->navbar#toggleMenu">
+      <i class="fas fa-bars secondary-icon"></i>
     </button>
 
-    <div class="navbar-menu" data-navbar-target="menu">
-      <%= link_to "Accueil", root_path, class: "navbar-link #{current_page?(root_path) ? 'active' : ''}", data: { action: "click->navbar#closeMenu" } %>
-      <%= link_to "Projets", projets_path, class: "navbar-link #{current_page?(projets_path) ? 'active' : ''}", data: { action: "click->navbar#closeMenu" } %>
-      <%= link_to "Articles", articles_path, class: "navbar-link #{current_page?(articles_path) ? 'active' : ''}", data: { action: "click->navbar#closeMenu" } %>
-      <%= link_to "Contact", "#contact-infos", class: "navbar-link", data: { action: "click->navbar#closeMenu" } %>
-      <% if user_signed_in? %>
-        <%= button_to 'Déconnexion', destroy_user_session_path, method: :delete, data: { confirm: 'Êtes-vous sûr de vouloir vous déconnecter ?', action: "click->navbar#closeMenu" }, class: "navbar-link" %>
-      <% end %>
+    <div class="navbar-collapse" data-navbar-target="menu">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <%= link_to "Accueil", root_path, class: "nav-link #{current_page?(root_path) ? 'active' : ''}", data: { action: "click->navbar#closeMenu" } %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Projets", projets_path, class: "nav-link #{current_page?(projets_path) ? 'active' : ''}", data: { action: "click->navbar#closeMenu" } %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Articles", articles_path, class: "nav-link #{current_page?(articles_path) ? 'active' : ''}", data: { action: "click->navbar#closeMenu" } %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Contact", "#contact-infos", class: "nav-link", data: { action: "click->navbar#closeMenu" } %>
+        </li>
+        <% if user_signed_in? %>
+          <li class="nav-item">
+            <%= button_to 'Déconnexion', destroy_user_session_path, method: :delete, class: "nav-link", data: { action: "click->navbar#closeMenu" } %>
+          </li>
+        <% end %>
+      </ul>
     </div>
   </div>
 </nav>
