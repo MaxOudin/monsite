@@ -1,4 +1,5 @@
-<div class="form-group mb-3">
+<% form_group_class = field_type == :color_field ? "form-group form-group-flex mb-3" : "form-group mb-3" %>
+<div class="<%= form_group_class %>">
   <%= form.label field, class: "form-label" %>
   <% case field_type %>
   <% when :text_area %>

@@ -1,11 +1,11 @@
 <%= render 'shared/navbar' %>
 
 <div class="show-container">
-  <div class="show-header">
+  <div class="show-header" data-controller="text-fit">
     <div class="show-theme" style="background-color: <%= rgba_with_opacity(@projet.couleur, 0.1) %>; color: <%= @projet.couleur %>;">
       <%= @projet.type_projet %>
     </div>
-    <h1><%= @projet.titre %></h1>
+    <h1 data-text-fit-target="heading"><%= @projet.titre %></h1>
   </div>
 
   <div class="show-image">

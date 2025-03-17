@@ -68,8 +68,8 @@ group :development, :test do
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
 
   # Pry pour débuggage
-  gem "pry-byebug"
-  gem "pry-rails"
+  # gem "pry-byebug"
+  # gem "pry-rails"
   gem "byebug"
 
   gem "letter_opener"

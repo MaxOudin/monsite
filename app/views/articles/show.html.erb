@@ -1,11 +1,11 @@
 <%= render 'shared/navbar' %>
 
 <div class="show-container">
-  <div class="show-header">
+  <div class="show-header" data-controller="text-fit">
     <div class="show-theme" style="background-color: <%= @article.couleur_du_theme %>20; color: <%= @article.couleur_du_theme %>;">
       <%= @article.theme %>
     </div>
-    <h1><%= @article.titre %></h1>
+    <h1 data-text-fit-target="heading"><%= @article.titre %></h1>
     <div class="show-meta">
       Publié le <%= @article.created_at.strftime("%d/%m/%Y") %>
     </div>

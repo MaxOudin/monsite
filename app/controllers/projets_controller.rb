@@ -6,21 +6,11 @@ class ProjetsController < ApplicationController
   def index
     @projets = Projet.left_joins(:outils).distinct.order(date_debut: :desc)
     if params[:query].present?
-      sql_subquery = <<-SQL
-        projets.titre ILIKE :query OR
-        projets.description ILIKE :query OR
-        outils.description ILIKE :query
-      SQL
-      @projets = @projets.where(sql_subquery, query: "%#{params[:query]}%")
+      @projets = @projets.search(params[:query])
     end
   end
 
   def show
-    if @projet.nil?
-      # Gérer le cas où aucun article n'est trouvé avec le titre spécifié
-      flash[:error] = "Aucun article trouvé avec le titre spécifié"
-      redirect_to articles_path # Rediriger vers la liste des articles ou une autre page appropriée
-    end
   end
 
   def new
