@@ -11,7 +11,9 @@
 
             <div class="form-group mb-4">
               <%= f.label :content, class: "form-label" %>
-              <%= f.rich_text_area :content, class: "form-control trix-content" %>
+              <div class="trix-wrapper">
+                <%= f.rich_text_area :content, class: "trix-content" %>
+              </div>
               <% if article.errors[:content].any? %>
                 <div class="invalid-feedback d-block">
                   <%= article.errors[:content].join(", ") %>

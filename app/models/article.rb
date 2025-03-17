@@ -49,4 +49,16 @@ class Article < ApplicationRecord
     group(:theme).count
   end
 
+  # Méthode de recherche sécurisée
+  def self.search(query)
+    return all unless query.present?
+
+    query = query.to_s.strip
+
+    # Utiliser la même structure de jointure pour les deux requêtes
+    base_query = joins("LEFT JOIN action_text_rich_texts ON action_text_rich_texts.record_id = articles.id AND action_text_rich_texts.record_type = 'Article' AND action_text_rich_texts.name = 'content'")
+
+    # Recherche dans les attributs de base et le contenu
+    base_query.where("articles.titre ILIKE :query OR articles.theme ILIKE :query OR action_text_rich_texts.body ILIKE :query", query: "%#{query}%").distinct
+  end
 end

@@ -131,6 +131,19 @@
     grid-template-columns: repeat(2, 1fr);
     gap: $spacing-xl;
   }
+
+  .article-image {
+    height: 280px;
+  }
+
+  .articles-header {
+    text-align: left;
+    margin-bottom: $spacing-2xl;
+
+    p {
+      font-size: $text-lg;
+    }
+  }
 }
 
 @media (min-width: 1024px) {

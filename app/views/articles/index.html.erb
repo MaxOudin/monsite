@@ -6,6 +6,34 @@
     <p>Découvrez mes derniers articles sur le développement web et mes expériences.</p>
   </div>
 
+  <div class="search-container">
+    <%= form_with url: articles_path, method: :get, class: "search-form" do %>
+      <div class="search-input-group">
+        <%= text_field_tag :query,
+              params[:query],
+              class: "search-input",
+              placeholder: "Rechercher un article..."
+          %>
+        <button type="submit" class="search-button">
+          <i class="fas fa-search"></i>
+        </button>
+      </div>
+    <% end %>
+  </div>
+
+  <% if params[:query].present? %>
+    <div class="search-results-info">
+      <p>
+        <% if @articles.any? %>
+          <%= @articles.count %> résultat<%= @articles.count > 1 ? 's' : '' %> pour "<%= params[:query] %>"
+        <% else %>
+          Aucun résultat pour "<%= params[:query] %>"
+        <% end %>
+      </p>
+      <%= link_to "Effacer la recherche", articles_path, class: "clear-search-link" %>
+    </div>
+  <% end %>
+
   <div class="articles-grid">
     <% if @articles.any? %>
       <% @articles.each do |article| %>
@@ -32,7 +60,7 @@
         </div>
       <% end %>
     <% else %>
-      <p>Aucun article n'a été publié pour le moment.</p>
+      <p class="no-results">Aucun article n'a été trouvé.</p>
     <% end %>
   </div>
 

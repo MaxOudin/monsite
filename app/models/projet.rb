@@ -53,4 +53,24 @@ class Projet < ApplicationRecord
         .gsub(/-+/, '-')
         .gsub(/^-|-$/, '')
   end
+
+  # Méthode de recherche sécurisée
+  def self.search(query)
+    return all unless query.present?
+
+    query = query.to_s.strip
+
+    # Utiliser une jointure LEFT pour inclure les outils
+    base_query = left_joins(:outils)
+
+    # Recherche dans les attributs du projet et des outils
+    base_query.where(
+      "projets.titre ILIKE :query OR
+       projets.description ILIKE :query OR
+       projets.type_projet ILIKE :query OR
+       outils.nom ILIKE :query OR
+       outils.description ILIKE :query",
+      query: "%#{query}%"
+    ).distinct
+  end
 end

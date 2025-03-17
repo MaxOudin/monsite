@@ -4,17 +4,13 @@ class ArticlesController < ApplicationController
 
   def index
     @articles = Article.all.order(created_at: :desc)
-    @article_counts_by_theme = Article.count_by_theme
-    if params[:theme].present?
-      @articles = @articles.where(theme: params[:theme])
+
+    if params[:query].present?
+      @articles = @articles.search(params[:query])
     end
   end
 
   def show
-    if @article.nil?
-      flash[:error] = "Aucun article trouvé avec le titre spécifié"
-      redirect_to articles_path
-    end
   end
 
   def new
@@ -23,9 +19,9 @@ class ArticlesController < ApplicationController
 
   def create
     @article = Article.new(article_params)
-    if @article.save!
+    if @article.save
       flash[:notice] = "Article créé avec succès"
-      redirect_to article_detail_path(@article.titre.gsub(' ', '-'))
+      redirect_to article_path(@article), notice: "Article créé avec succès"
     else
       flash[:error] = "Article non créé, veuillez réessayer"
       render :new
@@ -37,7 +33,7 @@ class ArticlesController < ApplicationController
 
   def update
     if @article.update(article_params)
-      redirect_to article_detail_path(@article.titre.gsub(' ', '-')), notice: "Article modifié avec succès"
+      redirect_to article_path(@article), notice: "Article modifié avec succès"
     else
       flash[:error] = "Article non modifié, veuillez réessayer"
       render :edit
@@ -63,5 +59,8 @@ class ArticlesController < ApplicationController
 
   def set_article
     @article = Article.friendly.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    flash[:error] = "Aucun article trouvé avec le titre spécifié"
+    redirect_to articles_path
   end
 end

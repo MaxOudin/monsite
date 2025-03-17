@@ -1,25 +1,38 @@
 <%= render 'shared/navbar' %>
 
-<% if user_signed_in? %>
-<div class="row justify-content-center">
-  <div class="col-sm-8 my-3">
-    <%= form_with url: projets_path, method: :get, class: "d-flex" do %>
-      <%= text_field_tag :query,
-            params[:query],
-            class: "form-control",
-            placeholder: "Type a keyword"
-        %>
-      <%= submit_tag "Search", name: "", class: "btn" %>
-    <% end %>
-  </div>
-</div>
-<% end %>
-
 <div class="projects-container">
   <div class="projects-header">
     <h3>Mes Projets</h3>
     <p>Découvrez une sélection de mes réalisations récentes en développement web.</p>
   </div>
+
+  <div class="search-container">
+    <%= form_with url: projets_path, method: :get, class: "search-form" do %>
+      <div class="search-input-group">
+        <%= text_field_tag :query,
+              params[:query],
+              class: "search-input",
+              placeholder: "Rechercher un projet..."
+          %>
+        <button type="submit" class="search-button">
+          <i class="fas fa-search"></i>
+        </button>
+      </div>
+    <% end %>
+  </div>
+
+  <% if params[:query].present? %>
+    <div class="search-results-info">
+      <p>
+        <% if @projets.any? %>
+          <%= @projets.count %> résultat<%= @projets.count > 1 ? 's' : '' %> pour "<%= params[:query] %>"
+        <% else %>
+          Aucun résultat pour "<%= params[:query] %>"
+        <% end %>
+      </p>
+      <%= link_to "Effacer la recherche", projets_path, class: "clear-search-link" %>
+    </div>
+  <% end %>
 
   <div class="projects-grid">
     <% if @projets.any? %>
@@ -47,13 +60,13 @@
         </div>
       <% end %>
     <% else %>
-      <p>Aucun projet n'a été retrouvé</p>
+      <p class="no-results">Aucun projet n'a été trouvé</p>
     <% end %>
   </div>
 
   <div class="back-button-container">
     <%= link_to root_path, class: "btn btn-back" do %>
-      </i> Retour à l'accueil
+      Retour à l'accueil
     <% end %>
   </div>
 </div>

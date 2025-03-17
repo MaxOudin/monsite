@@ -115,7 +115,6 @@ GEM
       xpath (~> 3.2)
     childprocess (5.1.0)
       logger (~> 1.5)
-    coderay (1.1.3)
     concurrent-ruby (1.3.5)
     connection_pool (2.5.0)
     crass (1.0.6)
@@ -193,7 +192,6 @@ GEM
     matrix (0.4.2)
     meta-tags (2.22.1)
       actionpack (>= 6.0.0, < 8.1)
-    method_source (1.0.0)
     mini_magick (4.12.0)
     mini_mime (1.1.5)
     mini_portile2 (2.8.8)
@@ -233,14 +231,6 @@ GEM
     pp (0.6.2)
       prettyprint
     prettyprint (0.2.0)
-    pry (0.14.2)
-      coderay (~> 1.1)
-      method_source (~> 1.0)
-    pry-byebug (3.10.1)
-      byebug (~> 11.0)
-      pry (>= 0.13, < 0.15)
-    pry-rails (0.3.9)
-      pry (>= 0.10.4)
     psych (5.2.3)
       date
       stringio
@@ -409,8 +399,6 @@ DEPENDENCIES
   letter_opener
   meta-tags
   pg (~> 1.4)
-  pry-byebug
-  pry-rails
   puma (~> 6.0)
   rails (~> 8.0.0)
   redis (~> 4.0)
