@@ -5,7 +5,9 @@
     <div class="show-theme" style="background-color: <%= @article.couleur_du_theme %>20; color: <%= @article.couleur_du_theme %>;">
       <%= @article.theme %>
     </div>
-    <h1 data-text-fit-target="heading"><%= @article.titre %></h1>
+    <div>
+      <h1 data-text-fit-target="heading"><%= @article.titre %></h1>
+    </div>
     <div class="show-meta">
       Publié le <%= @article.created_at.strftime("%d/%m/%Y") %>
     </div>
