@@ -27,7 +27,7 @@ class Article < ApplicationRecord
     "Les performances" => "#424B54",
     "Sécurité sur le web" => "#16324F",
     "Ecologie et développement web" => "#386641",
-    "Les métiers du web" => "#2E282A"
+    "Guide : créer son bot IA" => "#2E282A"
   }
 
   has_rich_text :content
