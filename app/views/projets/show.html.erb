@@ -1,3 +1,7 @@
+<% content_for :meta_title, "#{@projet.titre} | #{DEFAULT_META["meta_product_name"]}" %>
+<% content_for :meta_description, @projet.description.truncate(160) %>
+<% content_for :meta_image, @projet.image_url if @projet.image_url.present? %>
+
 <%= render 'shared/navbar' %>
 
 <div class="show-container">
