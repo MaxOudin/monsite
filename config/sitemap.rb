@@ -1,5 +1,5 @@
 # Set the host name for URL creation
-SitemapGenerator::Sitemap.default_host = "https://maximeoudin.fr"
+SitemapGenerator::Sitemap.default_host = "https://#{ENV['DOMAIN']}"
 
 # The directory to write sitemaps to locally
 SitemapGenerator::Sitemap.public_path = 'public/'

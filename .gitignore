@@ -37,5 +37,6 @@
 .DS_Store
 /app/assets/builds
 
-/.cursorrules
+# Cursor infos
 /.cursor/rules/*
+.cursorignore
