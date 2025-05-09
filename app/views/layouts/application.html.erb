@@ -31,24 +31,6 @@
     <meta name="twitter:description" content="<%= meta_description %>">
     <meta name="twitter:image:src" content="<%= meta_image %>">
 
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "ProfessionalService",
-        "name": "<%= DEFAULT_META["meta_product_name"] %>",
-        "image": "<%= meta_image %>",
-        "description": "<%= meta_description %>",
-        "address": {
-          "@type": "PostalAddress",
-          "addressLocality": "Bordeaux",
-          "addressCountry": "FR"
-        },
-        "url": "<%= root_url %>",
-        "telephone": "+33664710483",
-        "email": "contact@maximeoudin.fr"
-      }
-    </script>
-
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
