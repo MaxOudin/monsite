@@ -5,60 +5,31 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Développeur web indépendant à Bordeaux, Maxime Oudin vous accompagne dans la création de votre site internet</title>
-    <link rel="canonical" href="https://maximeoudin.fr/">
+    <title><%= meta_title %></title>
+    <meta name="description" content="<%= meta_description %>">
+    <link rel="canonical" href="<%= request.original_url %>">
 
-    <!-- Google result text-->
-    <meta name="dc.title" content="Développeur web freelance à Bordeaux. Maxime Oudin, expert Ruby On Rails, vous accompagne dans la création de votre site internet">
-    <meta name="dc.description" content="Développeur web freelance à Bordeaux, Paris. Spécialisé dans la création de sites vitrine, e-commerce, CRM, SaaS, et applications web.">
-    <meta name="dc.relation" content="https://maximeoudin.fr/">
-    <meta name="dc.source" content="https://maximeoudin.fr/">
+    <!-- Google result text -->
+    <meta name="dc.title" content="<%= meta_title %>">
+    <meta name="dc.description" content="<%= meta_description %>">
+    <meta name="dc.relation" content="https://<%= ENV['DOMAIN'] %>">
+    <meta name="dc.source" content="https://<%= ENV['DOMAIN'] %>">
     <meta name="dc.language" content="fr">
     <meta name="robots" content="index, follow">
 
-    <!-- Google result description-->
-    <meta name="description" content="Développeur web freelance à Bordeaux, Paris. Spécialisé dans la création de sites vitrine, e-commerce, CRM, SaaS, et applications web. Besoin d'un site performant ? Contactez-moi !">
+    <!-- Facebook Open Graph data -->
+    <meta property="og:title" content="<%= meta_title %>" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="<%= request.original_url %>" />
+    <meta property="og:image" content="<%= meta_image %>" />
+    <meta property="og:description" content="<%= meta_description %>" />
+    <meta property="og:site_name" content="<%= meta_title %>" />
 
-    <!-- Facebook meta -->
-    <meta property="og:title" content="Développeur web à Bordeaux, expert Ruby On Rails">
-    <meta property="og:image" content="yellow_logo.svg">
-    <meta property="og:description" content="Développeur web freelance fullstack à Bordeaux et Paris. Spécialisé dans la création de sites vitrine, e-commerce, CRM, SaaS, et applications web. Expert en Ruby On Rails et Webflow. Créons ensemble le site internet dont vous avez besoin !">
-    <meta property="og:site_name" content="Maxime Oudin dev"/>
-    <meta property="og:url" content="https://maximeoudin.fr/">
-
-    <%= display_meta_tags(
-      site: 'Maxime Oudin',
-      reverse: true,
-      separator: '|',
-      description: 'Développeur web indépendant à Bordeaux. Création d\'applications web sur mesure, expertise Ruby on Rails, JavaScript et UX Design.',
-      keywords: 'développeur web, ruby on rails, javascript, bordeaux, freelance, applications web',
-      canonical: request.original_url,
-      og: {
-        title: 'Développeur Web Bordeaux',
-        description: 'Maxime Oudin - Développeur web indépendant à Bordeaux. Création d\'applications web sur mesure, expertise Ruby on Rails.',
-        type: 'website',
-        url: request.original_url,
-        image: image_url('yellow_logo.svg')
-      }
-    ) %>
-
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "ProfessionalService",
-        "name": "Maxime Oudin - Développeur Web",
-        "image": "<%= image_url('yellow_logo.svg') %>",
-        "description": "Développeur web indépendant à Bordeaux. Création d'applications web sur mesure, expertise Ruby on Rails.",
-        "address": {
-          "@type": "PostalAddress",
-          "addressLocality": "Bordeaux",
-          "addressCountry": "FR"
-        },
-        "url": "<%= root_url %>",
-        "telephone": "+33664710483",
-        "email": "contact@maximeoudin.fr"
-      }
-    </script>
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="<%= meta_title %>">
+    <meta name="twitter:description" content="<%= meta_description %>">
+    <meta name="twitter:image:src" content="<%= meta_image %>">
 
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>

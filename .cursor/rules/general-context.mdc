@@ -1,5 +1,60 @@
 ---
 description: 
 globs: 
-alwaysApply: false
+alwaysApply: true
 ---
+Contexte Général de l'Application
+*Cette application est un portfolio personnel présentant des projets de développement web et des articles. Elle permet de mettre en avant les *réalisations techniques et les réflexions personnelles à travers des articles.
+
+Rôles et Permissions
+*Un utilisateur connecté peut créer, modifier et supprimer du contenu pour les projets et les articles.
+*Un seul user créé (moi-même) et pas de registration possible.
+
+Conventions Rails
+*DRY (Don't Repeat Yourself) : Encourage à suivre les principes DRY pour éviter la duplication de code.
+*Convention over Configuration : Utiliser les conventions de Rails pour réduire la configuration manuelle.
+*Responsabilité Unique : Respecter le principe de responsabilité unique pour chaque classe ou module.
+*Services : Utiliser des services dans app/services pour encapsuler la logique métier complexe.
+*Policies Pundit : Utiliser Pundit pour gérer les autorisations (pas encore implémenter).
+*Concerns : Utiliser des concerns pour partager des comportements entre modèles.
+*PG Search : Utiliser PG Search pour les fonctionnalités de recherche.
+
+Sécurité
+*Injections SQL : Protéger contre les injections SQL en utilisant des requêtes paramétrées.
+*Policies : Utiliser des policies pour gérer les autorisations.
+*Validation des Entrées : Valider les entrées utilisateur pour éviter les failles de sécurité.
+
+Performances
+*Requêtes SQL : Optimiser les requêtes SQL pour éviter les problèmes N+1.
+*Indexation : Utiliser des index sur les colonnes fréquemment recherchées.
+*Cache : Mettre en cache les données fréquemment utilisées.
+*Jobs Asynchrones : Utiliser des jobs asynchrones pour les tâches longues.
+
+Modularité et Réutilisabilité
+*Organisation du Code : Organiser le code en modules et en services pour une meilleure réutilisabilité.
+
+Modèles Principaux et Relations
+*User : Utilisateur de l'application créant du contenu (à savoir moi)
+*Articles: Article d'actualité ou sur des sujets tenant à coeur
+*Projets: Projets réalisés décrits
+*Outils: Outils techinques utilisés
+*OutilProjet: Relation Many:Many entre Projet et Outil
+
+Logique Métier
+*Gestion de Contenu : Création, modification et suppression de projets et d'articles.
+*Gestion des Outils : Association des outils techniques aux projets.
+
+Fonctionnalités Clés
+*Visulalisation et gestion du contenu.
+
+Services et Intégrations
+*AWS S3 : Stockage de fichiers.
+
+Structure du Projet
+*Organisation MVC : Organisation standard Rails avec MVC.
+*Services : Services pour les opérations complexes.
+
+Environnement de Développement
+*Dotenv : Variables d'environnement.
+*Letter Opener : Test des emails en développement.
+*Annotate : Documentation des modèles.
