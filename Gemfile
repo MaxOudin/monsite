@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby "3.3.7"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 8.0.0"
+gem "rails", "~> 7.2"
 
 # Use postgresql as the database for Active Record
 gem "pg", "~> 1.4"
@@ -34,6 +34,9 @@ gem "autoprefixer-rails"
 
 # Authentification with Devise
 gem 'devise', '~> 4.9.3'
+gem "pundit", "~> 2.5"
+
+gem 'simple_token_authentication', '~> 1.17'
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
