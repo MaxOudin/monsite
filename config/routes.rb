@@ -12,9 +12,10 @@ Rails.application.routes.draw do
   resources :projets, path: 'projets'
   resources :articles, path: 'articles'
 
-  namespace :api do
+
+  namespace :api, defaults: { format: :json } do
     namespace :v1 do
-      resources :articles, only: [:index, :new, :create, :show]
+      resources :articles, only: [:index, :show, :update, :create, :destroy]
     end
   end
 
