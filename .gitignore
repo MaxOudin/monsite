@@ -38,5 +38,5 @@
 /app/assets/builds
 
 # Cursor infos
-/.cursor/rules/*
+.cursor/rules/*
 .cursorignore
