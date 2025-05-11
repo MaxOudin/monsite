@@ -1,5 +1,5 @@
 class Api::V1::ArticlesController < Api::V1::BaseController
-  acts_as_token_authentication_handler_for User, except: [ :index, :show ]
+  skip_before_action :authenticate_user_from_token!, only: [:index, :show]
   before_action :set_article, only: [:show, :update, :destroy]
 
   def index
