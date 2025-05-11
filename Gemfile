@@ -36,7 +36,7 @@ gem "autoprefixer-rails"
 gem 'devise', '~> 4.9.3'
 gem "pundit", "~> 2.5"
 
-gem 'simple_token_authentication', '~> 1.17'
+gem 'devise-jwt'
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
@@ -65,6 +65,9 @@ gem 'sitemap_generator'
 
 # Meta tags
 gem 'meta-tags'
+
+# API security
+gem 'rack-attack'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

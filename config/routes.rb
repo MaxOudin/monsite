@@ -12,11 +12,17 @@ Rails.application.routes.draw do
   resources :projets, path: 'projets'
   resources :articles, path: 'articles'
 
-
+  # Routes API
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
       resources :articles, only: [:index, :show, :update, :create, :destroy]
+      
+      # Routes d'authentification
+      devise_scope :user do
+        post '/login', to: 'sessions#create'
+        post '/refresh', to: 'sessions#refresh'
+        delete '/logout', to: 'sessions#destroy'
+      end
     end
   end
-
 end
