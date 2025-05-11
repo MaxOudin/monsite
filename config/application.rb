@@ -9,9 +9,18 @@ Bundler.require(*Rails.groups)
 module Cd
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 7.0
+    config.load_defaults 7.2
     config.importmap.enabled = true
     config.action_view.image_loading = "lazy"
+
+    # Please, add to the `ignore_exceptions_directories` list any directory inside your Rails app
+    # where you are using `require` or `load` to execute Ruby code, so they don't cause a
+    # reloading deadlock. Read more about Zeitwerk integration optimization:
+    # https://guides.rubyonrails.org/classic_to_zeitwerk_howto.html#%3A%3Arequire-and-load
+    config.add_autoload_paths_to_load_path = false
+
+    # Add Rack Attack middleware
+    config.middleware.use Rack::Attack
 
     config.generators do |g|
       g.test_framework(
