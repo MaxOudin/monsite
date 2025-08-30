@@ -23,7 +23,7 @@ services:
     volumes:
       - .:/app
       - tmp_data:/app/tmp
-      - .log:/app/log
+      - ./log:/app/log
     networks:
       - traefik_network
     labels:
