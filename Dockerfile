@@ -57,6 +57,10 @@ COPY --from=build /app /app
 # Créer un utilisateur non-root pour exécuter l'application
 RUN useradd rails --create-home --shell /bin/bash
 
+RUN mkdir -p /app/log && \
+    touch /app/log/production.log && \
+    chmod 664 /app/log/production.log
+
 ENV PATH="/app/bin:${PATH}"
 RUN chown -R rails:rails /app && \
     chmod +x /app/bin/*
