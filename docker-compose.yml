@@ -1,0 +1,42 @@
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: mon_user
+      POSTGRES_PASSWORD: mon_mot_de_passe
+      POSTGRES_DB: mon_projet_development
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - traefik_network
+    restart: unless-stopped
+
+  web:
+    build: .
+    command: bash -c "rm -f tmp/pids/server.pid && rails server -b 0.0.0.0"
+    environment:
+      DATABASE_URL: postgres://mon_user:mon_mot_de_passe@db:5432/mon_projet_development
+      RAILS_ENV: production
+      SECRET_KEY_BASE: 35aade4ecc67971fc5e46ad4d251dc350706d8cec513a7cadcb35daf4844c59309a9fc43f89d13404a96b21029aaf7477442959525f46263f3b538d40f26d561
+    volumes:
+      - .:/app
+      - tmp_data:/app/tmp
+    networks:
+      - traefik_network
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.pressureguide.rule=Host(`maximeoudin.fr`)"
+      - "traefik.http.routers.pressureguide.entrypoints=websecure"
+      - "traefik.http.routers.pressureguide.tls.certresolver=myresolver"
+      - "traefik.http.services.pressureguide.loadbalancer.server.port=3001"
+    restart: unless-stopped
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:
+  tmp_data:
+
+networks:
+  traefik_network:
+    external: true
