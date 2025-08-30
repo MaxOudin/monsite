@@ -24,27 +24,6 @@ RUN apt-get update -qq && \
     libgmp-dev \
     nodejs
 
-# Install application gems
-WORKDIR /app
-COPY Gemfile Gemfile.lock ./
-RUN bundle install && \
-    rm -rf ~/.bundle/ "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bundler/gems/*/.git && \
-    bundle exec bootsnap precompile --gemfile
-
-# Copy application code
-COPY . .
-
-# Precompiling assets for production without requiring secret RAILS_MASTER_KEY
-RUN SECRET_KEY_BASE_DUMMY=1 bundle exec rails assets:precompile
-
-# Final stage for app image
-FROM base
-
-# Installer les dépendances nécessaires pour l'exécution
-RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y curl libvips postgresql-client && \
-    rm -rf /var/lib/apt/lists /var/cache/apt/archives
-
 # Définir le répertoire de travail
 WORKDIR /app
 
@@ -65,7 +44,7 @@ FROM base
 
 # Installer les dépendances nécessaires pour l'exécution
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y curl libvips postgresql-client && \
+    apt-get install --no-install-recommends -y curl libvips postgresql-client nodejs && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Définir le répertoire de travail
@@ -88,7 +67,7 @@ USER rails
 # Définir le répertoire de travail
 WORKDIR /app
 
-# Exposer le port 3000
+# Exposer le port 3001
 EXPOSE 3001
 
 # Commande pour démarrer le serveur Rails
