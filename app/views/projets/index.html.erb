@@ -2,8 +2,16 @@
 
 <div class="projects-container">
   <div class="projects-header">
-    <h3>Mes Projets</h3>
-    <p>Découvrez une sélection de mes réalisations récentes en développement web.</p>
+    <div class="header-content">
+      <h1>Mes Projets</h1>
+      <p>Découvrez mes réalisations récentes en développement web. Chaque projet reflète mon expertise technique et mon approche centrée sur l'expérience utilisateur.</p>
+      <div class="header-cta">
+        <%= link_to "#contact-infos", class: "btn btn-primary btn-large" do %>
+          <i class="fas fa-rocket"></i>
+          <span>Démarrer mon projet</span>
+        <% end %>
+      </div>
+    </div>
   </div>
 
   <div class="search-container">
@@ -12,7 +20,7 @@
         <%= text_field_tag :query,
               params[:query],
               class: "search-input",
-              placeholder: "Rechercher un projet..."
+              placeholder: "Rechercher un projet par nom, technologie ou description..."
           %>
         <button type="submit" class="search-button">
           <i class="fas fa-search"></i>
@@ -41,32 +49,75 @@
           <%= link_to projet_path(projet) do %>
             <div class="project-image">
               <img src="<%= projet.image_url%>" alt="Projet <%= projet.titre %>">
+              <div class="project-overlay">
+                <span class="view-project">Voir le projet</span>
+              </div>
             </div>
 
             <div class="project-content">
-              <h3><%= projet.titre %></h3>
-              <p><%= truncate(projet.description, length: 150) %></p>
+              <div class="project-header">
+                <h3><%= projet.titre %></h3>
+                <span class="project-type"><%= projet.type_projet.upcase %></span>
+              </div>
+              <p class="project-description"><%= truncate(projet.description, length: 120) %></p>
+              
+              <div class="project-tools">
+                <div class="tools-list">
+                  <% projet.outils[0..2].each do |outil| %>
+                    <span class="tool-tag"><%= outil.nom %></span>
+                  <% end %>
+                  <% if projet.outils.count > 3 %>
+                    <span class="tool-tag more">+<%= projet.outils.count - 3 %></span>
+                  <% end %>
+                </div>
+              </div>
             </div>
 
             <div class="project-footer">
-              <div class="project-type">
-                <%= projet.type_projet.upcase %>
+              <div class="project-meta">
+                <span class="project-date">
+                  <i class="fas fa-calendar"></i>
+                  <%= projet.created_at.strftime("%B %Y") %>
+                </span>
               </div>
-              <div class="project-tools">
-                <%= projet.outils[0..1].map(&:nom).join(', ') %>
+              <div class="project-arrow">
+                <i class="fas fa-arrow-right"></i>
               </div>
             </div>
           <% end %>
         </div>
       <% end %>
     <% else %>
-      <p class="no-results">Aucun projet n'a été trouvé</p>
+      <div class="no-results">
+        <div class="no-results-content">
+          <i class="fas fa-search"></i>
+          <h3>Aucun projet trouvé</h3>
+          <p>Essayez de modifier vos critères de recherche ou contactez-moi pour discuter de votre projet.</p>
+          <div class="no-results-cta">
+            <%= link_to "#contact-infos", class: "btn btn-primary" do %>
+              <i class="fas fa-envelope"></i>
+              <span>Me contacter</span>
+            <% end %>
+          </div>
+        </div>
+      </div>
     <% end %>
   </div>
 
-  <div class="back-button-container">
-    <%= link_to root_path, class: "btn btn-back" do %>
-      Retour à l'accueil
-    <% end %>
+  <div class="projects-cta">
+    <div class="cta-content">
+      <h3>Vous avez un projet en tête ?</h3>
+      <p>Discutons de vos besoins et créons ensemble la solution parfaite pour votre entreprise.</p>
+      <div class="cta-buttons">
+        <%= link_to "#contact-infos", class: "btn btn-primary btn-large" do %>
+          <i class="fas fa-rocket"></i>
+          <span>Démarrer mon projet</span>
+        <% end %>
+        <%= link_to root_path, class: "btn btn-outline" do %>
+          <i class="fas fa-home"></i>
+          <span>Retour à l'accueil</span>
+        <% end %>
+      </div>
+    </div>
   </div>
 </div>

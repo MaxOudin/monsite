@@ -1,3 +1,5 @@
+<%= render 'shared/navbar' %>
+
 <% content_for :meta_title, "Développeur Web Indépendant à Bordeaux | Maxime Oudin" %>
 <% content_for :meta_description, "Expert en développement web Ruby on Rails et JavaScript. Création d'applications web performantes et sur mesure à Bordeaux. Découvrez mes services de développement web." %>
 
@@ -6,11 +8,8 @@
   <div class="container hero-content">
     <div class="hero-left">
       <div class="hero-intro">
-        <span class="hero-greeting">Bonjour, je suis</span>
-        <h1>Maxime Oudin</h1>
         <div class="hero-title">
           <div class="title-badge">
-            <%= image_tag "yellow_logo.svg", class: "hero-logo", alt: "Logo Maxime Oudin - Développeur Web Bordeaux", width: "32", height: "32" %>
             <span>Développeur Web Indépendant</span>
           </div>
         </div>
@@ -20,16 +19,23 @@
         Je crée des <span class="highlight">applications web sur mesure</span> avec une approche centrée sur l'expérience utilisateur et les performances. Basé à <span class="highlight-secondary">Bordeaux</span>, je travaille avec des clients dans toute la France.
       </p>
 
-      <nav class="hero-cta-left" aria-label="Navigation principale">
+      <div class="hero-cta-primary">
+        <%= link_to "#contact-infos", class: "btn btn-primary btn-large" do %>
+          <i class="fas fa-rocket"></i>
+          <span>Démarrer mon projet</span>
+        <% end %>
+      </div>
+
+      <div class="hero-cta-secondary">
         <%= link_to projets_path, class: "btn btn-outline", title: "Découvrir mes projets de développement web" do %>
           <i class="fas fa-code-branch" aria-hidden="true"></i>
-          <span>Mes projets</span>
+          <span>Voir mes projets</span>
         <% end %>
         <%= link_to articles_path, class: "btn btn-outline", title: "Lire mes articles sur le développement web" do %>
           <i class="fas fa-newspaper" aria-hidden="true"></i>
-          <span>Mes articles</span>
+          <span>Lire mes articles</span>
         <% end %>
-      </nav>
+      </div>
     </div>
 
     <aside class="hero-right">
@@ -41,32 +47,118 @@
             { name: "Rails", desc: "Framework web Ruby on Rails" },
             { name: "JavaScript", desc: "Programmation côté client" },
             { name: "PostgreSQL", desc: "Base de données relationnelle" },
-            { name: "Heroku", desc: "Plateforme de déploiement" },
+            { name: "IA", desc: "Intelligence artificielle" },
             { name: "GitHub", desc: "Gestion de versions" }
           ].each do |tech| %>
             <div class="tech-item">
-              <%= image_tag "tech_logos/#{tech[:name].downcase}.svg",
-                          class: "tech-logo",
-                          alt: "Logo #{tech[:name]}",
-                          title: tech[:desc],
-                          width: "48",
-                          height: "48" %>
               <span class="tech-name"><%= tech[:name] %></span>
             </div>
           <% end %>
         </div>
       </section>
-      <div class="hero-cta-right">
-        <a href="#contact-infos"
-           class="btn btn-primary btn-cta"
-           data-tally-open="mB7p75"
-           data-tally-hide-title="1"
-           data-tally-overlay="1"
-           title="Contactez-moi pour votre projet web">
-          <i class="fa-solid fa-envelope"></i>
-          <span>Me contacter</span>
-        </a>
-      </div>
     </aside>
   </div>
 </main>
+
+<!-- Section Services Simplifiée -->
+<section class="services-section">
+  <div class="container">
+    <div class="section-header">
+      <h2>Mes Services</h2>
+      <p>Solutions web complètes pour votre entreprise</p>
+    </div>
+    
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">
+          <i class="fas fa-laptop-code"></i>
+        </div>
+        <h3>Développement Web</h3>
+        <p>Applications web modernes et performantes avec Ruby on Rails et JavaScript.</p>
+        <div class="service-cta">
+          <%= link_to "#contact-infos", class: "btn btn-outline btn-small" do %>
+            <span>En savoir plus</span>
+            <i class="fas fa-arrow-right"></i>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">
+          <i class="fas fa-mobile-alt"></i>
+        </div>
+        <h3>Design Responsive</h3>
+        <p>Interfaces adaptées à tous les appareils pour une expérience utilisateur optimale.</p>
+        <div class="service-cta">
+          <%= link_to "#contact-infos", class: "btn btn-outline btn-small" do %>
+            <span>En savoir plus</span>
+            <i class="fas fa-arrow-right"></i>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">
+          <i class="fas fa-rocket"></i>
+        </div>
+        <h3>Déploiement & Maintenance</h3>
+        <p>Mise en production et maintenance continue de vos applications web.</p>
+        <div class="service-cta">
+          <%= link_to "#contact-infos", class: "btn btn-outline btn-small" do %>
+            <span>En savoir plus</span>
+            <i class="fas fa-arrow-right"></i>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section Contact Simplifiée -->
+<section class="contact-section" id="contact-infos">
+  <div class="container">
+    <div class="contact-content">
+      <div class="contact-info">
+        <h2>Démarrons votre projet</h2>
+        <p>Discutons de vos besoins et créons ensemble la solution parfaite pour votre entreprise.</p>
+        
+        <div class="contact-methods">
+          <div class="contact-method">
+            <div class="contact-icon">
+              <i class="fas fa-envelope"></i>
+            </div>
+            <div class="contact-details">
+              <h4>Email</h4>
+              <p>contact@maximeoudin.fr</p>
+            </div>
+          </div>
+          
+          <div class="contact-method">
+            <div class="contact-icon">
+              <i class="fas fa-phone"></i>
+            </div>
+            <div class="contact-details">
+              <h4>Téléphone</h4>
+              <p>+33 6 64 71 04 83</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="contact-cta">
+        <h3>Prêt à démarrer ?</h3>
+        <p>Contactez-moi pour discuter de votre projet et obtenir un devis personnalisé.</p>
+        <div class="contact-buttons">
+          <%= link_to "mailto:contact@maximeoudin.fr", class: "btn btn-primary btn-large" do %>
+            <i class="fas fa-envelope"></i>
+            <span>Envoyer un email</span>
+          <% end %>
+          <%= link_to "tel:+33664710483", class: "btn btn-outline btn-large" do %>
+            <i class="fas fa-phone"></i>
+            <span>Appeler maintenant</span>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

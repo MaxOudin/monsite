@@ -3,17 +3,21 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 64px;
-  background: rgba($background, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  height: 70px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   z-index: 1000;
-  transition: all $transition-normal;
+  transition: all 0.3s ease;
   border-bottom: 1px solid rgba($primary, 0.1);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
 
   &.scrolled {
-    background: rgba($background, 0.90);
-    box-shadow: $shadow-sm;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15);
+    border-bottom: 1px solid rgba($primary, 0.15);
   }
 }
 
@@ -22,9 +26,12 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 0 $spacing-xl;
 }
 
 .navbar-brand {
+  display: flex;
+  align-items: center;
   font-size: $text-xl;
   font-weight: $font-weight-bold;
   color: $secondary;
@@ -35,12 +42,18 @@
 
   &:hover {
     color: darken($secondary, 10%);
+    transform: translateY(-1px);
+  }
+
+  .navbar-brand-text {
+    font-weight: $font-weight-bold;
   }
 }
 
 .navbar-menu {
   display: flex;
   align-items: center;
+  gap: $spacing-md;
 }
 
 .navbar-link {
@@ -51,6 +64,7 @@
   padding: $spacing-xs $spacing-sm;
   font-weight: $font-weight-medium;
   position: relative;
+  border-radius: $border-radius-sm;
 
   &::after {
     content: '';
@@ -66,6 +80,7 @@
 
   &:hover {
     color: $secondary;
+    background: rgba($primary, 0.05);
 
     &::after {
       width: 100%;
@@ -74,9 +89,48 @@
 
   &.active {
     color: $secondary;
+    background: rgba($primary, 0.1);
 
     &::after {
       width: 100%;
+    }
+  }
+}
+
+.navbar-admin {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  padding: $spacing-xs $spacing-sm;
+  background: rgba($accent, 0.1);
+  border-radius: $border-radius-md;
+  border: 1px solid rgba($accent, 0.2);
+  backdrop-filter: blur(10px);
+
+  .admin-indicator {
+    font-size: $text-xs;
+    color: $accent;
+    font-weight: $font-weight-bold;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .admin-link {
+    background: none;
+    border: none;
+    color: $accent;
+    font-size: $text-sm;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+
+    &:hover {
+      color: darken($accent, 10%);
+      background: none;
+    }
+
+    &::after {
+      display: none;
     }
   }
 }
@@ -90,6 +144,13 @@
   color: $secondary;
   font-size: $text-xl;
   z-index: 1001;
+  border-radius: $border-radius-sm;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: rgba($primary, 0.1);
+    transform: scale(1.1);
+  }
 }
 
 // Body blur effect when menu is open
@@ -105,14 +166,24 @@ body.menu-open {
 
 // Mobile styles
 @media (max-width: $tablet) {
+  .navbar {
+    height: 60px;
+  }
+
+  .navbar-container {
+    padding: 0 $spacing-md;
+  }
+
   .navbar-menu {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: white;
-    padding-top: 64px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    padding-top: 60px;
     flex-direction: column;
     display: flex;
     align-items: center;
@@ -121,6 +192,7 @@ body.menu-open {
     transition: transform 0.3s ease-in-out;
     z-index: 999;
     box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+    gap: 0;
 
     &.active {
       transform: translateX(0);
@@ -136,8 +208,9 @@ body.menu-open {
     text-align: center;
     padding: $spacing-md 0;
     font-size: $text-lg;
-    background: white;
+    background: transparent;
     margin: 0;
+    border-radius: 0;
 
     &::after {
       bottom: 0;
@@ -148,18 +221,25 @@ body.menu-open {
       color: $secondary;
     }
   }
+
+  .navbar-admin {
+    width: 100%;
+    justify-content: center;
+    margin-top: $spacing-md;
+    border-radius: 0;
+  }
 }
 
 // Tablet styles
 @media (min-width: $tablet) and (max-width: $desktop) {
   .navbar-menu {
-    // Suppression du gap pour les tablettes aussi
+    gap: $spacing-sm;
   }
 }
 
 // Desktop styles
 @media (min-width: $desktop) {
-  .navbar-container {
-    padding: 0 $spacing-xl;
+  .navbar-menu {
+    gap: $spacing-md;
   }
 }

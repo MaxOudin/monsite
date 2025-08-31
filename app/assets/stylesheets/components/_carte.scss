@@ -1,153 +1,95 @@
-/* Styles pour les conteneurs de cartes */
-.container-projets {
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* Centrer les cartes horizontalement */
-  padding: 3vh 10vw;
-  text-align: left;
-  width: 70vw;
-  align-self: center;
+// Colors
+$primary: #FFDD00; // Jaune vif - couleur principale
+$secondary: #004AAD; // Bleu électrique - couleur secondaire
+$accent: #FF007F; // Magenta - couleur d'accent
+$light-blue: #6EB5FF; // Bleu pastel - couleur analogique
+$background: #F7F9FC; // Blanc glacé - arrière-plan
+$text-primary: #141414; // Noir texte
+$text-light: #FFFFFF; // Blanc texte
+
+// Spacing System
+$spacing-3xs: 0.25rem; // 4px
+$spacing-2xs: 0.5rem; // 8px
+$spacing-xs: 0.75rem; // 12px
+$spacing-sm: 1rem; // 16px
+$spacing-md: 1.25rem; // 20px
+$spacing-lg: 1.75rem; // 28px
+$spacing-xl: 2.5rem; // 40px
+$spacing-2xl: 3.75rem; // 60px
+$spacing-3xl: 6.25rem; // 100px
+$spacing-4xl: 10rem; // 160px
+$spacing-5xl: 15rem; // 240px
+
+// Border radius
+$border-radius-sm: 4px;
+$border-radius-md: 8px;
+$border-radius-lg: 12px;
+
+// Transitions
+$transition-fast: 0.2s ease;
+$transition-normal: 0.3s ease;
+$transition-slow: 0.5s ease;
+
+// Shadows
+$shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+$shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+$shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+
+// Breakpoints
+$mobile: 576px;
+$tablet: 768px;
+$desktop: 992px;
+$large-desktop: 1200px;
+
+// Typography Scale
+$text-2xs: 0.25rem; // 4px
+$text-xs: 0.5rem; // 8px
+$text-sm: 0.75rem; // 12px
+$text-base: 1rem; // 16px
+$text-lg: 1.25rem; // 20px
+$text-xl: 1.75rem; // 28px
+$text-2xl: 2.5rem; // 40px
+$text-3xl: 3.75rem; // 60px
+$text-4xl: 6.25rem; // 100px
+$text-5xl: 10rem; // 160px
+$text-6xl: 15rem; // 240px
+
+// Line Heights
+@function title-height($size) {
+    @return $size * 1.2;
 }
 
-.container-cartes {
-  width: 70vw;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center; /* Centrer les cartes verticalement */
+@function text-height($size) {
+    @return $size * 1.6;
 }
 
-.container-une-carte {
-  width: 35vw;
-  margin: 5vh;
-  border-radius: 4px;
-  background: white;
-  text-align: left;
-  box-shadow: 0 0 10px 0 #141414; /* Ajouter une ombre portée */
-
-
-  &:hover {
-    box-shadow: 0 0 2px 0 #141414;
-    transition: all 0.3s ease;
-  }
-
-  a, a:visited {
-    text-decoration: none;
-    color: #141414;
-  }
-
-  .card-img {
-    border-radius: 4px;
-    position: relative;
-    text-align: center;
-
-    img {
-      height: 300px;
-      width: 100%;
-    }
-
-    &:before {
-      position: absolute;
-      bottom: -8px;
-      left: 50%;
-      margin-left: -10px;
-      width: 0;
-      height: 0;
-      border-top: solid 10px transparent;
-      border-left: solid 10px transparent;
-      border-right: solid 10px transparent;
-    }
-
-    h3 {
-      position: absolute;
-      font-size: $font-size-4xl;
-      bottom: 15px;
-      width: 100%;
-      color: $text-light;
-      font-weight: $font-weight-bold;
-    }
-  }
-
-  .card-details {
-    margin-top: 20px;
-
-    span {
-      padding: 0 30px;
-
-      i {
-        margin-right: 5px;
-      }
-    }
-  }
-
-  .card-text {
-    display: flex;
-    flex-direction: column;
-    padding: 10px 11px;
-    line-height: 22px;
-
-    h3 {
-      font-weight: $font-weight-bold;
-      font-family: $font-family-base;
-    }
-  }
-}
-.container-btn-projets {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  margin: 1vw;
+@function small-text-height($size) {
+    @return $size * 2;
 }
 
-.en-savoir-plus-btn {
-  color: #141414;
-  box-shadow: 0 0 6px 0 #141414; /* Ajouter une ombre portée */
-  transition: all 0.3s ease; /* Ajouter une transition pour l'animation */
-}
-.en-savoir-plus-btn:hover {
-  box-shadow: 0 0 0px 0 #141414;
-}
+// Typography
+$font-family-base: 'Montserrat', sans-serif;
+$font-weight-light: 300;
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-bold: 700;
 
-.info-carte-article {
-  display: flex;
-  justify-content: space-between;
-  display: table;
-}
+// Font sizes
+$font-size-xs: 0.75rem; // 12px
+$font-size-sm: 0.875rem; // 14px
+$font-size-base: 1rem; // 16px
+$font-size-lg: 1.125rem; // 18px
+$font-size-xl: 1.25rem; // 20px
+$font-size-2xl: 1.5rem; // 24px
+$font-size-3xl: 2rem; // 32px
+$font-size-4xl: 2.5rem; // 40px
 
-.card-pastille {
-  border-radius: 6px;
-  display: table-cell;
-  vertical-align: middle;
-  text-align: center;
-  color: white;
-}
+// Container widths - standardized across the application
+$container-width: 1200px; // Standard container width for all sections
+$container-width-narrow: 800px; // Narrower container for content-focused sections
+$container-width-wide: 1400px; // Wider container for grid layouts
 
-.pastille-show {
-  padding: 2vh 2vw 2vh 2vw;
-}
-
-.date-publication-article {
-  font-size: 14px;
-  opacity: 0.7;
-  display: flex;
-  justify-content: flex-end;
-  margin-left: 2vh;
-}
-
-@media (max-width: 768px) {
-  .container-projets {
-    text-align: center;
-  }
-  .container-cartes {
-    width: 90vw;
-    max-width: fit-content;
-  }
-  .container-une-carte {
-    width: 100%;
-    max-width: fit-content;
-    margin-left: 0;
-    margin-right: 0;
-  }
-  .en-savoir-plus-btn {
-    width: 30vw;
-  }
-}
+// Spacing for containers
+$container-padding-mobile: $spacing-md;
+$container-padding-tablet: $spacing-lg;
+$container-padding-desktop: $spacing-xl;

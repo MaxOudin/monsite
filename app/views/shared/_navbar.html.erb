@@ -1,8 +1,10 @@
 <nav class="navbar" data-controller="navbar">
   <div class="container navbar-container">
-    <%= link_to "Maxime Oudin", root_path, class: "navbar-brand" %>
+    <%= link_to root_path, class: "navbar-brand" do %>
+      <span class="navbar-brand-text">Maxime Oudin</span>
+    <% end %>
 
-    <button class="navbar-mobile-toggle" data-action="click->navbar#toggleMenu">
+    <button class="navbar-mobile-toggle" data-action="click->navbar#toggleMenu" aria-label="Menu de navigation">
       <i class="fas fa-bars"></i>
     </button>
 
@@ -12,7 +14,10 @@
       <%= link_to "Articles", articles_path, class: "navbar-link #{current_page?(articles_path) ? 'active' : ''}", data: { action: "click->navbar#closeMenu" } %>
       <%= link_to "Contact", "#contact-infos", class: "navbar-link", data: { action: "click->navbar#closeMenu" } %>
       <% if user_signed_in? %>
-        <%= button_to 'Déconnexion', destroy_user_session_path, method: :delete, data: { confirm: 'Êtes-vous sûr de vouloir vous déconnecter ?', action: "click->navbar#closeMenu" }, class: "navbar-link" %>
+        <div class="navbar-admin">
+          <span class="admin-indicator">Admin</span>
+          <%= button_to 'Déconnexion', destroy_user_session_path, method: :delete, data: { confirm: 'Êtes-vous sûr de vouloir vous déconnecter ?', action: "click->navbar#closeMenu" }, class: "navbar-link admin-link" %>
+        </div>
       <% end %>
     </div>
   </div>

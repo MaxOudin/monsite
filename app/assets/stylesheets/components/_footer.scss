@@ -1,129 +1,249 @@
 .footer-section {
-  background: rgba($secondary, 0.8);
-  padding: $spacing-xl $spacing-2xl;
-  border-top: 1px solid rgba($primary, 0.1);
-  color: $text-light;
+  background: linear-gradient(135deg, $secondary, darken($secondary, 10%));
+  color: white;
+  padding: $spacing-4xl 0 $spacing-2xl;
+  margin-top: auto;
 }
 
 .footer-container {
   display: flex;
   flex-direction: column;
+  gap: $spacing-3xl;
 }
 
-.footer-text-container {
-  max-width: $container-width-narrow;
-  margin: 0 auto $spacing-xl;
-  text-align: center;
+.footer-main {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: $spacing-3xl;
+  padding-bottom: $spacing-2xl;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
 
-  .footer-text {
-    color: $text-light;
+.footer-brand {
+  .footer-logo {
+    display: flex;
+    align-items: center;
+    margin-bottom: $spacing-lg;
+
+    span {
+      font-size: $text-xl;
+      font-weight: $font-weight-bold;
+    }
+  }
+
+  .footer-description {
     font-size: $text-base;
-    line-height: 1.5;
-    margin-bottom: $spacing-sm;
+    line-height: 1.6;
     opacity: 0.9;
+    max-width: 400px;
+  }
+}
+
+.footer-services,
+.footer-contact,
+.footer-social {
+  h4 {
+    font-size: $text-lg;
+    font-weight: $font-weight-bold;
+    margin-bottom: $spacing-lg;
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 30px;
+      height: 2px;
+      background: $primary;
+      border-radius: 1px;
+    }
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+
+    li {
+      padding: $spacing-xs 0;
+      opacity: 0.9;
+      transition: all 0.3s ease;
+
+      &:hover {
+        opacity: 1;
+        transform: translateX(5px);
+      }
+    }
   }
 }
 
 .contact-info {
   display: flex;
-  justify-content: center;
-  gap: $spacing-lg;
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: $spacing-md;
+}
 
-  .btn-contact {
-    display: flex;
-    align-items: center;
-    gap: $spacing-sm;
-    padding: $spacing-sm $spacing-md;
-    border-radius: $border-radius-md;
-    background: rgba($primary, 0.5);
+.btn-contact {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  color: white;
+  text-decoration: none;
+  padding: $spacing-sm;
+  border-radius: $border-radius-md;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateX(5px);
     color: white;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    border: 1px solid rgba($primary, 0.2);
+  }
 
-    &:hover {
-      background: rgba($primary, 0.7);
-      transform: translateY(-2px);
-    }
+  i {
+    font-size: $text-lg;
+    color: $primary;
+  }
 
-    i {
-      font-size: $text-lg;
-    }
+  span {
+    font-weight: $font-weight-medium;
   }
 }
 
-@media (max-width: 768px) {
-  .footer-section {
-    padding: $spacing-lg $spacing-md;
+.social-links {
+  display: flex;
+  gap: $spacing-md;
+}
+
+.social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  color: white;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+
+  &:hover {
+    background: $primary;
+    color: $secondary;
+    transform: translateY(-3px);
   }
 
-  .contact-info {
-    flex-direction: column;
-    align-items: center;
-    gap: $spacing-md;
+  i {
+    font-size: $text-lg;
+  }
 
-    .btn-contact {
-      width: 200px;
-      justify-content: center;
-    }
+  &.linkedin:hover {
+    background: #0077b5;
+  }
+
+  &.github:hover {
+    background: #333;
   }
 }
 
-.footer-end {
-  width: 100%;
+.footer-bottom {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: $spacing-xl $spacing-lg 0;
-  margin-top: $spacing-xl;
-  border-top: 1px solid rgba($text-light, 0.1);
+  padding-top: $spacing-xl;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.footer-links {
-  display: flex;
-  gap: $spacing-lg;
+.footer-copyright {
+  p {
+    margin: 0;
+    opacity: 0.8;
+    font-size: $text-sm;
 
-  a {
-    color: rgba($text-light, 0.7);
-    font-size: 1.5rem;
-    transition: $transition-normal;
-
-    &:hover {
-      color: $text-light;
+    &:first-child {
+      font-weight: $font-weight-medium;
+      margin-bottom: $spacing-xs;
     }
   }
 }
 
-.footer-copyright {
-  text-align: right;
+.footer-legal {
+  display: flex;
+  gap: $spacing-lg;
 
-  p {
-    color: rgba($text-light, 0.7);
-    font-size: 0.9rem;
-    margin: $spacing-xs 0;
+  .nav-link-mentions {
+    color: white;
+    text-decoration: none;
+    font-size: $text-sm;
+    opacity: 0.8;
+    transition: all 0.3s ease;
+
+    &:hover {
+      opacity: 1;
+      color: $primary;
+    }
   }
 }
 
-.nav-link-mentions {
-  color: rgba($text-light, 0.6);
-  font-size: 0.9rem;
-  margin: $spacing-xs 0;
-  transition: $transition-normal;
-
-  &:hover {
-    color: $text-light;
-  }
+.footer-carbon {
+  display: flex;
+  justify-content: center;
+  padding-top: $spacing-lg;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+// Responsive design
 @media (max-width: $tablet) {
-  .footer-end {
-    flex-direction: column;
+  .footer-main {
+    grid-template-columns: 1fr;
+    gap: $spacing-2xl;
     text-align: center;
-    gap: $spacing-lg;
   }
 
-  .footer-copyright {
+  .footer-brand {
+    .footer-logo {
+      justify-content: center;
+    }
+
+    .footer-description {
+      max-width: 100%;
+    }
+  }
+
+  .footer-services,
+  .footer-contact,
+  .footer-social {
+    h4::after {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+
+  .social-links {
+    justify-content: center;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    gap: $spacing-lg;
+    text-align: center;
+  }
+
+  .footer-legal {
+    justify-content: center;
+  }
+}
+
+@media (min-width: $tablet) and (max-width: $desktop) {
+  .footer-main {
+    grid-template-columns: 1fr 1fr;
+    gap: $spacing-2xl;
+  }
+
+  .footer-brand {
+    grid-column: 1 / -1;
     text-align: center;
   }
 }

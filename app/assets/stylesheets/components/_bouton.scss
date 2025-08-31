@@ -2,110 +2,274 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: $spacing-sm $spacing-lg;
+  gap: $spacing-sm;
+  padding: $spacing-md $spacing-lg;
   border-radius: $border-radius-md;
   font-size: $text-base;
   font-weight: $font-weight-medium;
   text-decoration: none;
-  transition: all 0.3s ease;
+  border: 2px solid transparent;
   cursor: pointer;
-  border: none;
-  outline: none;
+  transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
+  min-width: 140px;
 
+  // Effet de brillance au hover
   &::before {
     content: '';
     position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    transition: width 0.6s ease, height 0.6s ease;
-    z-index: 0;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
   }
 
   &:hover::before {
-    width: 300px;
-    height: 300px;
+    left: 100%;
   }
 
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: $shadow-md;
+  // Bouton principal
+  &.btn-primary {
+    background: linear-gradient(135deg, $primary, darken($primary, 10%));
+    color: $secondary;
+    box-shadow: 0 4px 15px rgba($primary, 0.3);
+    border-color: $primary;
+
+    &:hover {
+      background: linear-gradient(135deg, darken($primary, 5%), darken($primary, 15%));
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba($primary, 0.4);
+    }
+
+    &:active {
+      transform: translateY(0);
+      box-shadow: 0 4px 15px rgba($primary, 0.3);
+    }
   }
 
-  &:active {
-    transform: translateY(0);
-    box-shadow: $shadow-sm;
+  // Bouton outline
+  &.btn-outline {
+    background: transparent;
+    color: $secondary;
+    border-color: $secondary;
+    box-shadow: 0 2px 8px rgba($secondary, 0.1);
+
+    &:hover {
+      background: $secondary;
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba($secondary, 0.3);
+    }
+
+    &:active {
+      transform: translateY(0);
+      box-shadow: 0 2px 8px rgba($secondary, 0.1);
+    }
   }
 
-  i, span {
-    position: relative;
-    z-index: 1;
-  }
-}
+  // Bouton secondaire
+  &.btn-secondary {
+    background: $secondary;
+    color: white;
+    box-shadow: 0 4px 15px rgba($secondary, 0.3);
 
-.btn-primary {
-  background: $primary;
-  color: $secondary;
-  box-shadow: $shadow-sm;
+    &:hover {
+      background: darken($secondary, 10%);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba($secondary, 0.4);
+    }
 
-  &:hover {
-    background: darken($primary, 5%);
-  }
-}
-
-.btn-secondary {
-  background: $secondary;
-  color: $text-light;
-  border: 1px solid $secondary;
-  box-shadow: $shadow-sm;
-
-  &:hover {
-    background: darken($secondary, 5%);
-    border-color: darken($secondary, 5%);
-  }
-}
-
-.btn-accent {
-  background: $accent;
-  color: $text-light;
-  border: 1px solid $accent;
-
-  &:hover {
-    background: lighten($accent, 5%);
-    border-color: lighten($accent, 5%);
-  }
-}
-
-.btn-outline {
-  background: transparent;
-  color: $secondary;
-  border: 1px solid rgba($secondary, 0.3);
-
-  &:hover {
-    background: rgba($secondary, 0.05);
-    border-color: rgba($secondary, 0.5);
+    &:active {
+      transform: translateY(0);
+      box-shadow: 0 4px 15px rgba($secondary, 0.3);
+    }
   }
 
+  // Tailles de boutons
+  &.btn-small {
+    padding: $spacing-sm $spacing-md;
+    font-size: $text-sm;
+    min-width: 100px;
+  }
+
+  &.btn-large {
+    padding: $spacing-lg $spacing-2xl;
+    font-size: $text-lg;
+    min-width: 200px;
+    font-weight: $font-weight-bold;
+  }
+
+  // Bouton avec icône
   i {
-    color: $accent;
+    font-size: 1.1em;
+    transition: transform 0.3s ease;
+  }
+
+  &:hover i {
+    transform: scale(1.1);
+  }
+
+  // Bouton avec flèche
+  &.btn-arrow {
+    i {
+      transition: transform 0.3s ease;
+    }
+
+    &:hover i {
+      transform: translateX(3px);
+    }
+  }
+
+  // Bouton avec effet de pulsation
+  &.btn-pulse {
+    animation: pulse 2s infinite;
+
+    &:hover {
+      animation: none;
+    }
+  }
+
+  // Bouton avec effet de gradient animé
+  &.btn-gradient {
+    background: linear-gradient(45deg, $primary, $secondary, $light-blue, $primary);
+    background-size: 300% 300%;
+    animation: gradientShift 3s ease infinite;
+    color: white;
+    border: none;
+
+    &:hover {
+      animation: gradientShift 1s ease infinite;
+    }
+  }
+
+  // Bouton flottant
+  &.btn-floating {
+    position: fixed;
+    bottom: $spacing-xl;
+    right: $spacing-xl;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    box-shadow: 0 4px 20px rgba($primary, 0.3);
+    z-index: 1000;
+
+    &:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 25px rgba($primary, 0.4);
+    }
+  }
+
+  // États désactivés
+  &:disabled,
+  &.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none !important;
+    box-shadow: none !important;
+
+    &:hover {
+      transform: none !important;
+      box-shadow: none !important;
+    }
+  }
+
+  // Bouton de chargement
+  &.btn-loading {
+    position: relative;
+    color: transparent;
+
+    &::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border: 2px solid transparent;
+      border-top: 2px solid currentColor;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
   }
 }
 
-.btn-cta {
-  font-weight: $font-weight-bold;
-  letter-spacing: 0.5px;
+// Animations
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba($primary, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba($primary, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba($primary, 0);
+  }
 }
 
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+// Groupes de boutons
+.btn-group {
+  display: flex;
+  gap: $spacing-sm;
+
+  .btn {
+    border-radius: $border-radius-sm;
+
+    &:first-child {
+      border-top-left-radius: $border-radius-md;
+      border-bottom-left-radius: $border-radius-md;
+    }
+
+    &:last-child {
+      border-top-right-radius: $border-radius-md;
+      border-bottom-right-radius: $border-radius-md;
+    }
+  }
+}
+
+// Responsive
 @media (max-width: $tablet) {
   .btn {
-    width: auto;
-    max-width: 280px;
-    margin: $spacing-xs auto;
+    &.btn-large {
+      padding: $spacing-md $spacing-xl;
+      font-size: $text-base;
+      min-width: 160px;
+    }
+
+    &.btn-floating {
+      bottom: $spacing-lg;
+      right: $spacing-lg;
+      width: 50px;
+      height: 50px;
+    }
+  }
+
+  .btn-group {
+    flex-direction: column;
+
+    .btn {
+      border-radius: $border-radius-md !important;
+    }
   }
 }
