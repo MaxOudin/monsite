@@ -12,6 +12,10 @@ Rails.application.routes.draw do
   resources :projets, path: 'projets'
   resources :articles, path: 'articles'
 
+  # Sitemap - accessible pour les moteurs de recherche
+  get '/sitemaps/sitemap.xml.gz', to: 'sitemaps#show', as: :sitemap
+  get "/sitemap.xml.gz", to: "sitemaps#show"
+
   # Routes API
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
