@@ -1,4 +1,25 @@
 meta_product_name: "Maxime Oudin"
-meta_title: "Développeur concepteur web à Bordeaux, Maxime Oudin"
-meta_description: "Développeur web indépendant à Bordeaux et Paris. Spécialisé dans la création de sites vitrine, e-commerce, CRM, SaaS, et applications web."
-meta_image: "yellow_logo.svg" 
+meta_title: "Développeur concepteur web indépendant à Bordeaux"
+meta_description: "Développeur web indépendant à Bordeaux et Paris. Spécialisé dans la création de sites vitrine, e-commerce, CRM, SaaS, et applications web. Expertise Ruby on Rails, JavaScript et React."
+meta_image: "yellow_logo.svg"
+meta_keywords: "développeur web bordeaux, développeur web indépendant, création site internet bordeaux, ruby on rails, application web" 
+
+# twitter_account: ""
+# twitter_card: ""
+og_type: "website"
+og_url: "https://maximeoudin.fr"
+# og_image: "open_graph.jpg"
+og_description: "Développeur web indépendant à Bordeaux et Paris. Spécialisé dans la création de sites vitrine, e-commerce, CRM, SaaS, et applications web. Expertise Ruby on Rails."
+og_site_name: "Développeur concepteur web indépendant à Bordeaux"
+og_locale: "fr_FR"
+
+# Vérification moteurs de recherche
+# Remplacez par votre code Google Search Console (laisser vide si non utilisé)
+google_site_verification: ""
+
+# Social Media Profiles (pour structured data)
+# facebook_url: "https://www.facebook.com/xxx"
+# twitter_url: "https://x.com/xxx"
+linkedin_url: "https://www.linkedin.com/in/maxime-oudin-developer/"
+# instagram_url: "https://www.instagram.com/xxx/"
+# youtube_url: "https://www.youtube.com/xxx"

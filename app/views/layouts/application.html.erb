@@ -1,59 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
-
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title><%= meta_title %></title>
-    <meta name="description" content="<%= meta_description %>">
-    <link rel="canonical" href="<%= request.original_url %>">
-
-    <!-- Google result text -->
-    <meta name="dc.title" content="<%= meta_title %>">
-    <meta name="dc.description" content="<%= meta_description %>">
-    <meta name="dc.relation" content="https://<%= ENV['DOMAIN'] %>">
-    <meta name="dc.source" content="https://<%= ENV['DOMAIN'] %>">
-    <meta name="dc.language" content="fr">
-    <meta name="robots" content="index, follow">
-
-    <!-- Facebook Open Graph data -->
-    <meta property="og:title" content="<%= meta_title %>" />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="<%= request.original_url %>" />
-    <meta property="og:image" content="<%= meta_image %>" />
-    <meta property="og:description" content="<%= meta_description %>" />
-    <meta property="og:site_name" content="<%= meta_title %>" />
-
-    <!-- Twitter Card data -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="<%= meta_title %>">
-    <meta name="twitter:description" content="<%= meta_description %>">
-    <meta name="twitter:image:src" content="<%= meta_image %>">
-
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-
-    <!--load your compiled CSS -->
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= stylesheet_link_tag "actiontext", "data-turbo-track": "reload" %>
-    <!--load your compiled javascript -->
-    <%= javascript_importmap_tags %>
-
-    <%# Google Fonts Monserrat & Playfair Display SC added %>
-    <link rel="preconnect" href="https://fonts.googleapis.com" async>
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;600&family=Playfair+Display+SC:wght@400;700&display=swap" rel="stylesheet" async>
-
-    <!--load contact form -->
-    <script async src="https://tally.so/widgets/embed.js"></script>
-
-    <%= favicon_link_tag 'yellow_logo.svg', rel: 'icon', type: 'image/svg' %>
-    <%= favicon_link_tag 'yellow_logo.svg', rel: 'apple-touch-icon', type: 'image/svg', sizes: '180x180' %>
-    <%= favicon_link_tag 'yellow_logo.svg', rel: 'icon', type: 'image/svg', sizes: '32x32' %>
-    <%= favicon_link_tag 'yellow_logo.svg', rel: 'icon', type: 'image/svg', sizes: '16x16' %>
-
-  </head>
+  <%= render 'layouts/head' %>
 
   <body>
 

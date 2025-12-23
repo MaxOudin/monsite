@@ -1,0 +1,11 @@
+<%# app/views/shared/_structured_data.html.erb %>
+<%# Partial pour les données structurées JSON-LD %>
+<%# Usage : <%= render 'shared/structured_data', types: [:organization, :website] %>
+
+<% types ||= [:organization, :website] %>
+
+<% types.each do |type| %>
+  <script type="application/ld+json">
+    <%= send("#{type}_structured_data") %>
+  </script>
+<% end %>
