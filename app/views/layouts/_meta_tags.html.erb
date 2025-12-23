@@ -1,0 +1,55 @@
+<!-- Title -->
+<title><%= meta_title %></title>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Meta Tags de base -->
+<meta name="author" content="Maxime Oudin">
+<meta name="robots" content="index, follow">
+<meta name="description" content="<%= meta_description %>">
+
+<% if meta_keywords.present? %>
+  <meta name="keywords" content="<%= meta_keywords %>">
+<% end %>
+
+<!-- Vérifications moteurs de recherche -->
+<% if DEFAULT_META['google_site_verification'].present? %>
+  <meta name="google-site-verification" content="<%= DEFAULT_META['google_site_verification'] %>">
+<% end %>
+
+<!-- URL Canonique - Vital pour éviter le contenu dupliqué -->
+<link rel="canonical" href="<%= meta_canonical_url %>">
+
+<!-- Google Dublin Core -->
+<meta name="dc.title" content="<%= meta_title %>">
+<meta name="dc.description" content="<%= meta_description %>">
+<meta name="dc.relation" content="https://<%= ENV['DOMAIN'] %>">
+<meta name="dc.source" content="https://<%= ENV['DOMAIN'] %>">
+<meta name="dc.language" content="fr">
+
+<!-- Facebook Open Graph data -->
+<meta property="og:title" content="<%= meta_title %>" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="<%= request.original_url %>" />
+<meta property="og:image" content="<%= meta_image %>" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:description" content="<%= meta_description %>" />
+<meta property="og:site_name" content="<%= DEFAULT_META['meta_product_name'] %>" />
+<meta property="og:locale" content="fr_FR" />
+
+<!-- Twitter Card data -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@maximeoudin">
+<meta name="twitter:creator" content="@maximeoudin">
+<meta name="twitter:title" content="<%= meta_title %>">
+<meta name="twitter:description" content="<%= meta_description %>">
+<meta name="twitter:image" content="<%= meta_image %>">
+<meta name="twitter:image:alt" content="<%= meta_title %>">
+
+
+<%= favicon_link_tag 'yellow_logo.svg', rel: 'icon', type: 'image/svg' %>
+<%= favicon_link_tag 'yellow_logo.svg', rel: 'apple-touch-icon', type: 'image/svg', sizes: '180x180' %>
+<%= favicon_link_tag 'yellow_logo.svg', rel: 'icon', type: 'image/svg', sizes: '32x32' %>
+<%= favicon_link_tag 'yellow_logo.svg', rel: 'icon', type: 'image/svg', sizes: '16x16' %>

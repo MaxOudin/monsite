@@ -6,6 +6,9 @@
 <%= render 'shared/navbar' %>
 
 <div class="show-container">
+
+  <%= render_breadcrumbs %>
+
   <div class="show-header" data-controller="text-fit">
     <div class="show-theme" style="background-color: <%= @article.couleur_du_theme %>20; color: <%= @article.couleur_du_theme %>;">
       <%= @article.theme %>
@@ -18,9 +21,15 @@
     </div>
   </div>
 
-  <div class="show-image">
-    <img src="<%= @article.image_url %>" alt="<%= @article.image_alt %>">
-  </div>
+  <% if @article.image_url.present? && valid_url_or_asset?(@article.image_url) %>
+    <div class="show-image">
+      <img src="<%= @article.image_url %>" 
+           alt="<%= @article.image_alt %>" 
+           loading="lazy"
+           width="1200"
+           height="800">
+    </div>
+  <% end %>
 
   <div class="show-content">
     <%= @article.content %>

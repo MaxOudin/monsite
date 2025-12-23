@@ -4,7 +4,10 @@
 
 <%= render 'shared/navbar' %>
 
+
 <div class="show-container">
+  <%= render_breadcrumbs %>
+
   <div class="show-header" data-controller="text-fit">
     <div class="show-theme" style="background-color: <%= rgba_with_opacity(@projet.couleur, 0.1) %>; color: <%= @projet.couleur %>;">
       <%= @projet.type_projet %>
@@ -12,9 +15,15 @@
     <h1 data-text-fit-target="heading"><%= @projet.titre %></h1>
   </div>
 
-  <div class="show-image">
-    <img src="<%= @projet.image_url %>" alt="<%= @projet.image_url_alt %>">
-  </div>
+  <% if @projet.image_url.present? && valid_url_or_asset?(@projet.image_url) %>
+    <div class="show-image">
+      <img src="<%= @projet.image_url %>" 
+           alt="<%= @projet.image_url_alt %>" 
+           loading="lazy"
+           width="1200"
+           height="800">
+    </div>
+  <% end %>
 
   <div class="show-content">
     <h2>À propos du projet</h2>

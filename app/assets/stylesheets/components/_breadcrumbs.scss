@@ -1,0 +1,114 @@
+// ========================================
+// Breadcrumbs (Fil d'Ariane)
+// ========================================
+
+.breadcrumbs-nav {
+  margin-bottom: 1.5rem;
+}
+
+// ========================================
+// VERSION DESKTOP
+// ========================================
+.breadcrumbs-desktop {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: #6b7280;
+
+  @media (max-width: 767px) {
+    display: none; // Masquer sur mobile
+  }
+}
+
+// Séparateur chevron
+.breadcrumbs-separator {
+  font-size: 0.75rem;
+  color: #9ca3af;
+  margin: 0 0.25rem;
+}
+
+// Lien home avec icône
+.breadcrumbs-home {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+
+  i {
+    font-size: 1rem;
+  }
+}
+
+// Liens cliquables
+.breadcrumbs-link {
+  color: #6b7280;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.2s ease;
+  max-width: 300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  &:hover {
+    color: #003399;
+    text-decoration: underline;
+  }
+
+  @media (max-width: 1023px) {
+    max-width: 200px;
+  }
+}
+
+// Page actuelle (pas cliquable)
+.breadcrumbs-current {
+  color: #003399;
+  font-weight: 600;
+  max-width: 400px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  @media (max-width: 1023px) {
+    max-width: 250px;
+  }
+}
+
+// ========================================
+// VERSION MOBILE
+// ========================================
+.breadcrumbs-mobile {
+  display: none; // Masquer sur desktop
+
+  @media (max-width: 767px) {
+    display: block; // Afficher sur mobile
+  }
+}
+
+.breadcrumbs-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: #6b7280;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.2s ease;
+
+  i {
+    font-size: 0.875rem;
+  }
+
+  span {
+    max-width: 250px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &:hover {
+    color: #003399;
+  }
+}
+

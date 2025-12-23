@@ -11,4 +11,16 @@ module ApplicationHelper
     # Retourner la couleur au format rgba
     "rgba(#{r}, #{g}, #{b}, #{opacity})"
   end
+
+  # Valide si une URL ou un asset est valide pour l'affichage
+  def valid_url_or_asset?(path)
+    return false if path.blank?
+    
+    # Si c'est une URL HTTP/HTTPS, considérer comme valide
+    return true if path.starts_with?("http://", "https://")
+    
+    # Sinon, vérifier que c'est un nom de fichier valide (pas de caractères bizarres)
+    # Accepter lettres, chiffres, tirets, underscores, points et slashes
+    path.match?(/\A[\w\-\.\/]+\z/)
+  end
 end

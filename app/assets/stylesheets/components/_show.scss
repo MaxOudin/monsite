@@ -223,8 +223,9 @@
 
   .show-image {
     aspect-ratio: 4 / 3;
-    margin: 0 (-$spacing-md) $spacing-xl;
-    border-radius: 0;
+    margin: 0 auto $spacing-xl;
+    border-radius: $border-radius-md;
+    max-width: 100%;
   }
 
   .show-actions {

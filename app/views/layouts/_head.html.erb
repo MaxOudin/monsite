@@ -1,0 +1,21 @@
+<head>
+    <%= render 'layouts/meta_tags' %>
+
+    <!-- CSRF meta tags - Rails security -->
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <!--load your compiled CSS -->
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "actiontext", "data-turbo-track": "reload" %>
+    <!--load your compiled javascript -->
+    <%= javascript_importmap_tags %>
+
+    <%# Google Fonts Monserrat & Playfair Display SC added %>
+    <link rel="preconnect" href="https://fonts.googleapis.com" async>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;600&family=Playfair+Display+SC:wght@400;700&display=swap" rel="stylesheet" async>
+
+    <!--load contact form -->
+    <script async src="https://tally.so/widgets/embed.js"></script>
+</head>
