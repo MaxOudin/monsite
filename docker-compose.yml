@@ -28,15 +28,13 @@ services:
       - traefik_network
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.maximeoudin.rule=Host(`maximeoudin.fr`)"
-      - "traefik.http.routers.maximeoudin.entrypoints=websecure"
-      - "traefik.http.routers.maximeoudin.tls.certresolver=myresolver"
-      - "traefik.http.services.maximeoudin.loadbalancer.server.port=3001"
+      - "traefik.http.routers.web.rule=Host(`maximeoudin.fr`)"
+      - "traefik.http.routers.web.entrypoints=websecure"
+      - "traefik.http.routers.web.tls.certresolver=myresolver"
+      - "traefik.http.services.web.loadbalancer.server.port=3001"
     restart: unless-stopped
     depends_on:
       - db
-    ports:
-      - "3001:3001"
 
 volumes:
   postgres_data:
