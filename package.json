@@ -1,5 +1,16 @@
 {
+  "scripts": {
+    "build": "bun build app/javascript/application.js --outdir app/assets/builds --target browser --format esm --minify-whitespace",
+    "build:production": "bun build app/javascript/application.js --outdir app/assets/builds --target browser --format esm --minify",
+    "build:css": "tailwindcss -i ./app/assets/stylesheets/application.scss -o ./app/assets/builds/application.css --minify"
+  },
   "dependencies": {
-    "@hotwired/stimulus": "^3.2.2"
+    "@hotwired/stimulus": "^3.2.2",
+    "@hotwired/turbo-rails": "^8.0.20",
+    "@rails/actiontext": "^8.1.100",
+    "trix": "^2.1.15"
+  },
+  "devDependencies": {
+    "tailwindcss": "^4.1.18"
   }
 }
