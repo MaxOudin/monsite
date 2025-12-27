@@ -10,7 +10,6 @@ module Cd
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.2
-    config.importmap.enabled = true
     config.action_view.image_loading = "lazy"
 
     # Please, add to the `ignore_exceptions_directories` list any directory inside your Rails app
