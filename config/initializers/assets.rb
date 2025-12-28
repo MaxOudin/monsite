@@ -6,10 +6,14 @@ Rails.application.config.assets.version = "1.0"
 # Add additional assets to the asset load path.
 # Rails.application.config.assets.paths << Emoji.images_path
 
+# Add additional assets to the asset load path.
+# Ajouter le dossier builds pour que Sprockets trouve tailwind.css
+Rails.application.config.assets.paths << Rails.root.join('app/assets/builds')
+
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in the app/assets
 # folder are already added.
-# Rails.application.config.assets.precompile += %w( application.scss actiontext.css )
+Rails.application.config.assets.precompile += %w( application.css actiontext.css tailwind.css )
 
 # Ajoutez les chemins des webfonts à l'asset pipeline
 Rails.application.config.assets.paths << Rails.root.join('node_modules/@fortawesome/fontawesome-free/webfonts')

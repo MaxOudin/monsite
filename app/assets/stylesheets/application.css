@@ -1,0 +1,11 @@
+/*
+ * Application Stylesheet
+ * Only Tailwind CSS v4 - all styling is done with Tailwind utility classes in HTML
+ * 
+ * This file is kept minimal. Tailwind is loaded from app/assets/tailwind/application.css
+ * which is compiled to app/assets/builds/tailwind.css
+ */
+
+/* Font Awesome for icons */
+@import "font-awesome-sprockets";
+@import "font-awesome";

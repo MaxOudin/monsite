@@ -1,76 +1,151 @@
-<%= render 'shared/navbar' %>
+<% content_for :meta_product_name, "Projets - #{DEFAULT_META["meta_product_name"]}" %>
+<% content_for :meta_title, "Projets - #{DEFAULT_META["meta_title"]}" %>
+<% content_for :meta_description, "Découvrez mes réalisations récentes" %>
+<% content_for :meta_image, DEFAULT_META["meta_image"] %>
 
-<% content_for :meta_title, "Projets de Maxime Oudin | Développeur Web Indépendant à Bordeaux" %>
-<% content_for :meta_description, "Découvrez mes projets de développement web et mes expériences." %>
-<% content_for :meta_image, image_url("yellow_logo.svg") %>
-
-<div class="projects-container">
-  <div class="projects-header">
-    <h3>Mes Projets</h3>
-    <p>Découvrez une sélection de mes réalisations récentes en développement web.</p>
-  </div>
-
-  <div class="search-container">
-    <%= form_with url: projets_path, method: :get, class: "search-form" do %>
-      <div class="search-input-group">
-        <%= text_field_tag :query,
-              params[:query],
-              class: "search-input",
-              placeholder: "Rechercher un projet..."
-          %>
-        <button type="submit" class="search-button">
-          <i class="fas fa-search"></i>
-        </button>
-      </div>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+  <!-- En-tête -->
+  <div class="flex flex-col sm:flex-row justify-between items-center mb-12 gap-4">
+    <div>
+      <h1 class="text-3xl sm:text-4xl font-bold text-gray-900">Mes Projets</h1>
+      <p class="mt-2 text-lg text-gray-600">Découvrez mes réalisations récentes</p>
+    </div>
+    <% if user_signed_in? %>
+      <%= link_to new_projet_path, 
+          class: "inline-flex items-center px-6 py-3 rounded-xl text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 transition-all duration-200 shadow-md hover:shadow-lg transform hover:scale-105" do %>
+        <i class="fas fa-plus mr-2"></i>
+        <span>Nouveau Projet</span>
+      <% end %>
     <% end %>
   </div>
 
+  <!-- Barre de recherche -->
+  <div class="mb-8">
+    <%= form_with url: projets_path, method: :get, class: "flex gap-2" do |f| %>
+      <div class="flex-1 relative">
+        <%= text_field_tag :query,
+              params[:query],
+              class: "w-full px-4 py-3 pl-10 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all",
+              placeholder: "Rechercher un projet..."
+          %>
+        <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+      </div>
+      <button type="submit" class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+        Rechercher
+      </button>
+      <% if params[:query].present? %>
+        <%= link_to projets_path, class: "px-6 py-3 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors" do %>
+          Effacer
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+
+  <!-- Résultats de recherche -->
   <% if params[:query].present? %>
-    <div class="search-results-info">
-      <p>
+    <div class="mb-6 p-4 bg-blue-50 rounded-lg border border-blue-100">
+      <p class="text-sm text-blue-800">
         <% if @projets.any? %>
-          <%= @projets.count %> résultat<%= @projets.count > 1 ? 's' : '' %> pour "<%= params[:query] %>"
+          <strong><%= @projets.count %></strong> résultat<%= @projets.count > 1 ? 's' : '' %> pour "<%= params[:query] %>"
         <% else %>
           Aucun résultat pour "<%= params[:query] %>"
         <% end %>
       </p>
-      <%= link_to "Effacer la recherche", projets_path, class: "clear-search-link" %>
     </div>
   <% end %>
 
-  <div class="projects-grid">
-    <% if @projets.any? %>
+  <!-- Grille de projets -->
+  <% if @projets.any? %>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
       <% @projets.each do |projet| %>
-        <div class="project-card">
-          <%= link_to projet_path(projet) do %>
-            <div class="project-image">
-              <img src="<%= projet.image_url%>" alt="Projet <%= projet.titre %>">
-            </div>
-
-            <div class="project-content">
-              <h3><%= projet.titre %></h3>
-              <p><%= truncate(projet.description, length: 150) %></p>
-            </div>
-
-            <div class="project-footer">
-              <div class="project-type">
-                <%= projet.type_projet.upcase %>
+        <%= link_to projet_path(projet), class: "group" do %>
+          <div class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-blue-100">
+            <!-- Image du projet -->
+            <% if projet.image_url.present? && valid_url_or_asset?(projet.image_url) %>
+              <div class="aspect-w-16 aspect-h-9 overflow-hidden bg-gray-100">
+                <img src="<%= projet.image_url %>" 
+                     alt="<%= projet.image_url_alt.present? ? projet.image_url_alt : projet.titre %>"
+                     class="w-full h-48 object-cover transform group-hover:scale-105 transition-transform duration-300">
               </div>
-              <div class="project-tools">
-                <%= projet.outils[0..1].map(&:nom).join(', ') %>
+            <% else %>
+              <div class="aspect-w-16 aspect-h-9 bg-gray-100 flex items-center justify-center">
+                <i class="fas fa-image text-4xl text-gray-400"></i>
+              </div>
+            <% end %>
+
+            <!-- Contenu de la carte -->
+            <div class="p-6">
+              <!-- Badge type de projet -->
+              <div class="mb-4">
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium" 
+                      style="background-color: <%= projet.couleur.present? ? "#{projet.couleur}15" : "#004AAD15" %>; color: <%= projet.couleur.present? ? projet.couleur : "#004AAD" %>; border: 1px solid <%= projet.couleur.present? ? "#{projet.couleur}30" : "#004AAD30" %>;">
+                  <%= projet.type_projet.titleize %>
+                </span>
+              </div>
+
+              <!-- Titre et description -->
+              <h2 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors duration-200">
+                <%= projet.titre %>
+              </h2>
+              <p class="text-gray-600 text-sm line-clamp-2">
+                <%= truncate(projet.description, length: 120) %>
+              </p>
+
+              <!-- Technologies utilisées -->
+              <% if projet.outils.any? %>
+                <div class="mt-4 flex flex-wrap gap-2">
+                  <% projet.outils.first(3).each do |outil| %>
+                    <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-gray-100 text-gray-700">
+                      <%= outil.nom %>
+                    </span>
+                  <% end %>
+                  <% if projet.outils.count > 3 %>
+                    <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-gray-100 text-gray-700">
+                      +<%= projet.outils.count - 3 %>
+                    </span>
+                  <% end %>
+                </div>
+              <% end %>
+
+              <!-- Footer de la carte -->
+              <div class="mt-4 pt-4 border-t border-gray-100 flex justify-between items-center">
+                <div class="text-sm text-gray-500">
+                  <% if projet.date_debut.present? %>
+                    <%= projet.date_debut.strftime("%B %Y") %>
+                  <% else %>
+                    Projet récent
+                  <% end %>
+                </div>
+                <div class="flex items-center text-blue-600">
+                  <span class="text-sm font-medium mr-2">Voir le projet</span>
+                  <i class="fas fa-arrow-right transform group-hover:translate-x-1 transition-transform duration-200"></i>
+                </div>
               </div>
             </div>
-          <% end %>
-        </div>
+          </div>
+        <% end %>
       <% end %>
-    <% else %>
-      <p class="no-results">Aucun projet n'a été trouvé</p>
-    <% end %>
-  </div>
-
-  <div class="back-button-container">
-    <%= link_to root_path, class: "btn btn-back" do %>
-      Retour à l'accueil
-    <% end %>
-  </div>
+    </div>
+  <% else %>
+    <!-- Message si aucun projet -->
+    <div class="text-center py-12">
+      <div class="text-gray-400 mb-4">
+        <i class="fas fa-folder-open text-6xl"></i>
+      </div>
+      <h3 class="text-xl font-medium text-gray-900 mb-2">
+        <% if params[:query].present? %>
+          Aucun projet trouvé
+        <% else %>
+          Aucun projet pour le moment
+        <% end %>
+      </h3>
+      <p class="text-gray-600">
+        <% if params[:query].present? %>
+          Essayez avec d'autres mots-clés.
+        <% else %>
+          Les projets que vous créez apparaîtront ici.
+        <% end %>
+      </p>
+    </div>
+  <% end %>
 </div>

@@ -1,15 +1,15 @@
 <% if crumbs.present? %>
-  <nav aria-label="Fil d'ariane" class="breadcrumbs-nav" data-controller="breadcrumbs">
+  <nav aria-label="Fil d'ariane" class="mb-6" data-controller="breadcrumbs">
     <!-- Version desktop : chemin complet -->
-    <div class="breadcrumbs-desktop">
+    <div class="hidden md:flex items-center flex-wrap gap-2 text-sm text-gray-500">
       <% crumbs.each_with_index do |crumb, index| %>
         <% if index > 0 %>
-          <i class="fas fa-chevron-right breadcrumbs-separator" aria-hidden="true"></i>
+          <i class="fas fa-chevron-right text-xs text-gray-400 mx-1" aria-hidden="true"></i>
         <% end %>
 
         <% if index == 0 && crumb[:is_home] && crumb[:path].present? %>
           <%= link_to crumb[:path],
-              class: "breadcrumbs-link breadcrumbs-home",
+              class: "inline-flex items-center gap-1 text-gray-500 font-medium hover:text-secondary transition-colors",
               title: crumb[:name],
               "aria-label": crumb[:name],
               data: { breadcrumbs_target: "link" } do %>
@@ -18,11 +18,11 @@
           <% end %>
         <% elsif crumb[:path].present? %>
           <%= link_to crumb[:name], crumb[:path],
-              class: "breadcrumbs-link",
+              class: "text-gray-500 font-medium hover:text-secondary transition-colors",
               title: crumb[:name],
               data: { breadcrumbs_target: "link" } %>
         <% else %>
-          <span class="breadcrumbs-current" title="<%= crumb[:name] %>" aria-current="page">
+          <span class="text-secondary font-semibold" title="<%= crumb[:name] %>" aria-current="page">
             <%= crumb[:name] %>
           </span>
         <% end %>
@@ -38,8 +38,8 @@
     <% if crumbs.length > 1 %>
       <% parent = crumbs[-2] %>
       <% if parent && parent[:path].present? %>
-        <div class="breadcrumbs-mobile">
-          <%= link_to parent[:path], class: "breadcrumbs-back-link" do %>
+        <div class="md:hidden">
+          <%= link_to parent[:path], class: "inline-flex items-center gap-2 text-sm text-gray-500 font-medium hover:text-secondary transition-colors" do %>
             <i class="fas fa-arrow-left" aria-hidden="true"></i>
             <span><%= parent[:name] %></span>
           <% end %>

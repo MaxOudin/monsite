@@ -1,0 +1,113 @@
+/* Button Styles */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 1.75rem; /* spacing-sm spacing-lg */
+  border-radius: 8px; /* border-radius-md */
+  font-size: 1rem; /* text-base */
+  font-weight: 500; /* font-weight-medium */
+  text-decoration: none;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.6s ease, height 0.6s ease;
+  z-index: 0;
+}
+
+.btn:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* shadow-md */
+}
+
+.btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* shadow-sm */
+}
+
+.btn i,
+.btn span {
+  position: relative;
+  z-index: 1;
+}
+
+.btn-primary {
+  background: #FFDD00; /* primary */
+  color: #004AAD; /* secondary */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* shadow-sm */
+}
+
+.btn-primary:hover {
+  background: #FFE633; /* darken(primary, 5%) approximé */
+}
+
+.btn-secondary {
+  background: #004AAD; /* secondary */
+  color: #FFFFFF; /* text-light */
+  border: 1px solid #004AAD;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* shadow-sm */
+}
+
+.btn-secondary:hover {
+  background: #003A8D; /* darken(secondary, 5%) approximé */
+  border-color: #003A8D;
+}
+
+.btn-accent {
+  background: #FF007F; /* accent */
+  color: #FFFFFF; /* text-light */
+  border: 1px solid #FF007F;
+}
+
+.btn-accent:hover {
+  background: #FF1A8F; /* lighten(accent, 5%) approximé */
+  border-color: #FF1A8F;
+}
+
+.btn-outline {
+  background: transparent;
+  color: #004AAD; /* secondary */
+  border: 1px solid rgba(0, 74, 173, 0.3); /* rgba(secondary, 0.3) */
+}
+
+.btn-outline:hover {
+  background: rgba(0, 74, 173, 0.05); /* rgba(secondary, 0.05) */
+  border-color: rgba(0, 74, 173, 0.5); /* rgba(secondary, 0.5) */
+}
+
+.btn-outline i {
+  color: #FF007F; /* accent */
+}
+
+.btn-cta {
+  font-weight: 700; /* font-weight-bold */
+  letter-spacing: 0.5px;
+}
+
+@media (max-width: 768px) { /* tablet */
+  .btn {
+    width: auto;
+    max-width: 280px;
+    margin: 0.75rem auto; /* spacing-xs */
+  }
+}

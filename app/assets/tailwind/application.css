@@ -1,0 +1,105 @@
+@import "tailwindcss";
+
+@theme {
+  /* Couleurs personnalisées - utilisation directe avec valeurs hex */
+  --color-primary: #FFDD00;
+  --color-secondary: #004AAD;
+  --color-accent: #FF007F;
+  --color-light-blue: #6EB5FF;
+  --color-background: #F7F9FC;
+  --color-text-primary: #141414;
+  --color-text-light: #FFFFFF;
+}
+
+/* Styles de base globaux */
+@layer base {
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html, body {
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+
+  body {
+    position: relative;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #141414;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  a:link {
+    text-decoration: none;
+  }
+
+  @media (max-width: 768px) {
+    * {
+      max-width: 100%;
+    }
+  }
+}
+
+/* Classes utilitaires personnalisées */
+@layer utilities {
+  .container-application {
+    width: 100%;
+    max-width: 100vw;
+    background-color: #F7F9FC;
+    color: #141414;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    overflow-x: hidden;
+    transition: filter 0.3s ease;
+  }
+
+  .container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2.5rem;
+  }
+
+  .container-narrow {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 2.5rem;
+  }
+
+  .container-wide {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2.5rem;
+  }
+
+  /* Responsive padding pour les containers */
+  @media (max-width: 768px) {
+    .container,
+    .container-narrow,
+    .container-wide {
+      padding: 0 1.25rem;
+    }
+  }
+
+  @media (min-width: 768px) and (max-width: 992px) {
+    .container,
+    .container-narrow,
+    .container-wide {
+      padding: 0 1.75rem;
+    }
+  }
+}

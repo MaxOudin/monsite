@@ -1,49 +1,108 @@
-<% content_for :meta_title, "#{@article.titre} | #{DEFAULT_META["meta_product_name"]}" %>
+<% content_for :meta_product_name, "#{@article.titre} - #{DEFAULT_META["meta_product_name"]}" %>
+<% content_for :meta_title, "#{@article.titre} - #{DEFAULT_META["meta_title"]}" %>
 <% description = @article.content.to_plain_text.truncate(160) rescue @article.titre %>
 <% content_for :meta_description, description %>
 <% content_for :meta_image, @article.image_url if @article.image_url.present? %>
 
-<%= render 'shared/navbar' %>
-
-<div class="show-container">
-
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <!-- Breadcrumbs -->
   <%= render_breadcrumbs %>
-
-  <div class="show-header" data-controller="text-fit">
-    <div class="show-theme" style="background-color: <%= @article.couleur_du_theme %>20; color: <%= @article.couleur_du_theme %>;">
-      <%= @article.theme %>
+  <!-- En-tête de l'article -->
+  <div class="mb-8">
+    <div class="flex items-center justify-between flex-wrap gap-4">
+      <h1 class="text-4xl font-bold text-gray-900"><%= @article.titre %></h1>
+      <div class="flex gap-4">
+        <% if user_signed_in? %>
+          <%= link_to "Modifier", edit_article_path(@article), class: "px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors" %>
+        <% end %>
+        <%= link_to "Retour", articles_path, class: "px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors" %>
+      </div>
     </div>
-    <div>
-      <h1 data-text-fit-target="heading"><%= @article.titre %></h1>
-    </div>
-    <div class="show-meta">
-      Publié le <%= @article.created_at.strftime("%d/%m/%Y") %>
+    
+    <!-- Badge thème et date -->
+    <div class="mt-4 flex items-center gap-4 flex-wrap">
+      <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium" 
+            style="background-color: <%= @article.couleur_du_theme %>20; color: <%= @article.couleur_du_theme %>">
+        <%= @article.theme %>
+      </span>
+      <span class="text-gray-500">
+        Publié le <%= @article.created_at.strftime("%d %B %Y") %>
+      </span>
     </div>
   </div>
 
+  <!-- Image principale -->
   <% if @article.image_url.present? && valid_url_or_asset?(@article.image_url) %>
-    <div class="show-image">
+    <div class="mb-8 rounded-2xl overflow-hidden shadow-lg">
       <img src="<%= @article.image_url %>" 
            alt="<%= @article.image_alt %>" 
-           loading="lazy"
-           width="1200"
-           height="800">
+           class="w-full h-[400px] object-cover"
+           loading="lazy">
     </div>
   <% end %>
 
-  <div class="show-content">
-    <%= @article.content %>
-  </div>
+  <!-- Contenu principal -->
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <!-- Colonne principale -->
+    <div class="lg:col-span-2">
+      <article class="prose prose-lg max-w-none">
+        <div class="text-gray-600 leading-relaxed">
+          <%= @article.content %>
+        </div>
+      </article>
+    </div>
 
-  <div class="show-actions">
-    <%= link_to articles_path, class: "btn btn-back" do %>
-      Retour aux articles
-    <% end %>
+    <!-- Sidebar -->
+    <div class="lg:col-span-1">
+      <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 sticky top-8">
+        <!-- Informations -->
+        <div class="space-y-6">
+          <!-- Thème -->
+          <div>
+            <h3 class="text-sm font-medium text-gray-500 mb-2">Thème</h3>
+            <p class="text-base text-gray-900"><%= @article.theme %></p>
+          </div>
 
-    <% if user_signed_in? %>
-      <%= link_to edit_article_path(@article), class: "btn btn-primary" do %>
-        <i class="fas fa-edit"></i> Modifier
-      <% end %>
-    <% end %>
+          <!-- Date de publication -->
+          <div class="pt-6 border-t border-gray-200">
+            <h3 class="text-sm font-medium text-gray-500 mb-2">Date de publication</h3>
+            <p class="text-base text-gray-900"><%= @article.created_at.strftime("%d %B %Y") %></p>
+          </div>
+
+          <!-- Date de mise à jour -->
+          <% if @article.updated_at != @article.created_at %>
+            <div class="pt-6 border-t border-gray-200">
+              <h3 class="text-sm font-medium text-gray-500 mb-2">Dernière mise à jour</h3>
+              <p class="text-base text-gray-900"><%= @article.updated_at.strftime("%d %B %Y") %></p>
+            </div>
+          <% end %>
+        </div>
+
+        <!-- Actions -->
+        <div class="mt-6 pt-6 border-t border-gray-200">
+          <%= link_to articles_path, class: "flex items-center justify-center gap-2 px-4 py-2 w-full bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-50 transition-colors" do %>
+            <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+            </svg>
+            <span class="text-gray-700">Retour aux articles</span>
+          <% end %>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
+
+<!-- Flash messages -->
+<% if notice %>
+  <div class="fixed bottom-4 right-4 bg-green-50 text-green-800 px-4 py-3 rounded-lg shadow-lg z-50" 
+       role="alert">
+    <%= notice %>
+  </div>
+<% end %>
+
+<% if alert %>
+  <div class="fixed bottom-4 right-4 bg-red-50 text-red-800 px-4 py-3 rounded-lg shadow-lg z-50" 
+       role="alert">
+    <%= alert %>
+  </div>
+<% end %>
