@@ -40,3 +40,6 @@
 # Cursor infos
 .cursor/rules/*
 .cursorignore
+
+/app/assets/builds/*
+!/app/assets/builds/.keep

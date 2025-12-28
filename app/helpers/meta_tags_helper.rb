@@ -20,10 +20,16 @@ module MetaTagsHelper
     end
     
     # Retourner l'URL complète
-    meta_image.starts_with?("http") ? meta_image : image_url(meta_image)
-  rescue Sprockets::Rails::Helper::AssetNotFound
-    # En cas d'erreur, retourner le logo par défaut
-    image_url(DEFAULT_META["meta_image"])
+    if meta_image.starts_with?("http")
+      meta_image
+    else
+      begin
+        image_url(meta_image)
+      rescue => e
+        # En cas d'erreur (asset non trouvé), retourner le logo par défaut
+        image_url(DEFAULT_META["meta_image"])
+      end
+    end
   end
 
   # URL Canonique - Vital pour éviter le contenu dupliqué

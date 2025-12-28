@@ -12,8 +12,18 @@ gem "pg", "~> 1.4"
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", "~> 6.0"
 
+# Use Propshaft for asset pipeline
+gem "propshaft"
+
 # Use JavaScript bundling with Bun [https://github.com/rails/jsbundling-rails]
 gem "jsbundling-rails"
+
+# Use CSS bundling with Tailwind CSS
+gem "cssbundling-rails"
+
+# Use Tailwind CSS for styling
+gem "tailwindcss-ruby", "~> 4.1"
+gem "tailwindcss-rails", "~> 4.3"
 
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
 gem "turbo-rails"
@@ -26,11 +36,6 @@ gem "jbuilder"
 
 # Use Redis adapter to run Action Cable in production
 gem "redis", "~> 4.0"
-
-# Sassc-rails)
-gem "sassc-rails"
-
-gem "autoprefixer-rails"
 
 # Authentification with Devise
 gem 'devise', '~> 4.9.3'
@@ -49,9 +54,6 @@ gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
-
-# Font-awesome Icones librairy import
-gem "font-awesome-sass", "~> 6.1"
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 gem "image_processing", "~> 1.2"

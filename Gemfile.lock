@@ -77,8 +77,6 @@ GEM
     annotate (2.6.5)
       activerecord (>= 2.3.0)
       rake (>= 0.8.7)
-    autoprefixer-rails (10.4.16.0)
-      execjs (~> 2)
     aws-eventstream (1.3.0)
     aws-partitions (1.924.0)
     aws-sdk-core (3.194.1)
@@ -118,6 +116,8 @@ GEM
     concurrent-ruby (1.3.5)
     connection_pool (2.5.0)
     crass (1.0.6)
+    cssbundling-rails (1.4.3)
+      railties (>= 6.0.0)
     database_cleaner (2.0.2)
       database_cleaner-active_record (>= 2, < 3)
     database_cleaner-active_record (2.1.0)
@@ -154,15 +154,12 @@ GEM
       logger
       zeitwerk (~> 2.6)
     erubi (1.13.1)
-    execjs (2.9.1)
     factory_bot (6.4.6)
       activesupport (>= 5.0.0)
     factory_bot_rails (6.4.3)
       factory_bot (~> 6.4)
       railties (>= 5.0.0)
     ffi (1.16.3)
-    font-awesome-sass (6.5.2)
-      sassc (~> 2.0)
     foreman (0.88.1)
     friendly_id (5.5.1)
       activerecord (>= 4.0.0)
@@ -244,6 +241,10 @@ GEM
     pp (0.6.2)
       prettyprint
     prettyprint (0.2.0)
+    propshaft (1.3.1)
+      actionpack (>= 7.0.0)
+      activesupport (>= 7.0.0)
+      rack
     psych (5.2.3)
       date
       stringio
@@ -323,14 +324,6 @@ GEM
     ruby-vips (2.2.1)
       ffi (~> 1.12)
     rubyzip (2.3.2)
-    sassc (2.4.0)
-      ffi (~> 1.9)
-    sassc-rails (2.1.2)
-      railties (>= 4.0.0)
-      sassc (>= 2.0)
-      sprockets (> 3.0)
-      sprockets-rails
-      tilt
     securerandom (0.4.1)
     selenium-webdriver (4.19.0)
       base64 (~> 0.2)
@@ -341,18 +334,20 @@ GEM
       activesupport (>= 5.2.0)
     sitemap_generator (6.3.0)
       builder (~> 3.0)
-    sprockets (4.2.1)
-      concurrent-ruby (~> 1.0)
-      rack (>= 2.2.4, < 4)
-    sprockets-rails (3.4.2)
-      actionpack (>= 5.2)
-      activesupport (>= 5.2)
-      sprockets (>= 3.0.0)
     stimulus-rails (1.3.4)
       railties (>= 6.0.0)
     stringio (3.1.2)
+    tailwindcss-rails (4.4.0)
+      railties (>= 7.0.0)
+      tailwindcss-ruby (~> 4.0)
+    tailwindcss-ruby (4.1.18)
+    tailwindcss-ruby (4.1.18-aarch64-linux-gnu)
+    tailwindcss-ruby (4.1.18-aarch64-linux-musl)
+    tailwindcss-ruby (4.1.18-arm64-darwin)
+    tailwindcss-ruby (4.1.18-x86_64-darwin)
+    tailwindcss-ruby (4.1.18-x86_64-linux-gnu)
+    tailwindcss-ruby (4.1.18-x86_64-linux-musl)
     thor (1.3.2)
-    tilt (2.3.0)
     timeout (0.4.3)
     turbo-rails (2.0.5)
       actionpack (>= 6.0.0)
@@ -400,18 +395,17 @@ PLATFORMS
 
 DEPENDENCIES
   annotate
-  autoprefixer-rails
   aws-sdk-s3
   bootsnap
   byebug
   capybara
+  cssbundling-rails
   database_cleaner
   debug
   devise (~> 4.9.3)
   devise-jwt
   dotenv-rails
   factory_bot_rails
-  font-awesome-sass (~> 6.1)
   foreman
   friendly_id (~> 5.5.0)
   i18n (= 1.14.5)
@@ -421,17 +415,19 @@ DEPENDENCIES
   letter_opener
   meta-tags
   pg (~> 1.4)
+  propshaft
   puma (~> 6.0)
   pundit (~> 2.5)
   rack-attack
   rails (~> 7.2)
   redis (~> 4.0)
   rspec-rails
-  sassc-rails
   selenium-webdriver
   shoulda-matchers
   sitemap_generator
   stimulus-rails
+  tailwindcss-rails (~> 4.3)
+  tailwindcss-ruby (~> 4.1)
   turbo-rails
   tzinfo-data
   web-console
