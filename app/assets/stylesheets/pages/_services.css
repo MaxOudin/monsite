@@ -1,0 +1,52 @@
+/* Services Hero Section Styles */
+
+/* Stat cards hover effects */
+.stat-card-link:hover {
+  border-color: #FFDC00 !important;
+}
+
+.stat-card-link:hover .stat-number {
+  color: #FFDC00 !important;
+}
+
+/* CTA Secondary button hover effects */
+.cta-secondary-btn:hover {
+  border-color: #FFDC00 !important;
+  background-color: rgba(255, 220, 0, 0.1) !important;
+}
+
+/* Highlight "solutions" word with styled yellow background */
+.highlight-solutions {
+  display: inline-block;
+  background: linear-gradient(135deg, #FFDC00 0%, #FFE633 100%);
+  color: #111827;
+  padding: 0.25rem 0.75rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(255, 220, 0, 0.3), 
+              0 2px 4px rgba(255, 220, 0, 0.2),
+              inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  transform: rotate(-1deg);
+  transition: all 0.3s ease;
+  position: relative;
+  font-weight: 700;
+}
+
+.highlight-solutions::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, transparent 50%);
+  border-radius: 0.5rem;
+  pointer-events: none;
+}
+
+@media (min-width: 640px) {
+  .highlight-solutions {
+    padding: 0.375rem 1rem;
+    border-radius: 0.625rem;
+  }
+}
+

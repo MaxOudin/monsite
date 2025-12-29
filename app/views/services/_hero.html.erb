@@ -1,63 +1,83 @@
-<section class="relative min-h-screen flex items-center md:py-10 py-12">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-<div class="lg:grid lg:grid-cols-12 lg:gap-16 items-center">
-<!-- Contenu principal -->
-<div class="text-center lg:text-left lg:col-span-7">
+<section class="relative min-h-screen flex items-center py-12 md:py-16 lg:py-20 bg-[#F9F9FD]">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+    <div class="lg:grid lg:grid-cols-12 lg:gap-12 xl:gap-16 items-center">
+      <!-- Contenu principal -->
+      <div class="text-center lg:text-left lg:col-span-7 mb-12 lg:mb-0">
+        <!-- Badge de spécialisation -->
+        <div class="flex flex-col items-center lg:items-start space-y-6 mb-8">
+          <div class="inline-flex items-center px-4 py-2 rounded-full border" style="background-color: rgba(255, 220, 0, 0.2); border-color: #FFDC00;">
+            <span class="text-sm font-semibold text-gray-900">Développeur web indépendant</span>
+          </div>
+        </div>
 
-    <!-- Spécialisation Ruby on Rails mise en avant -->
-    <div class="flex flex-col items-center lg:items-start space-y-4">
-    <div class="flex items-center space-x-3">
-        <span class="text-2xl text-gray-800 font-semibold">Développeur web indépendant</span>
-    </div>
-    </div>
+        <!-- Titre principal -->
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight mb-2">
+          Je transforme vos <span style="color: #FFDC00;">idées</span> en <span class="highlight-solutions">solutions</span> web <span class="text-gray-800">sur-mesure</span>
+        </h1>
 
-    <!-- Description améliorée -->
-    <div class="mt-10 space-y-4">
-    <p class="text-xl text-gray-700 max-w-3xl mx-auto lg:mx-0 leading-relaxed">
-        Je transforme vos <span class="font-bold text-gray-900">idées en solutions web robustes</span> avec les technologies modernes. 
-        Besoin d'un site web accroître votre visibilité ou d'un outil numérique pour améliorer votre productivité ?
-    </p>
-    <p class="text-xl text-gray-700 max-w-3xl mx-auto lg:mx-0 leading-relaxed">
-        Construisons ensemble votre projet.
-    </p>
-    </div>
+        <!-- Description améliorée -->
+        <div class="space-y-4 mb-10">
+          <p class="text-lg sm:text-xl text-gray-700 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+            Besoin d'un site web pour <span class="font-semibold text-gray-900">accroître votre visibilité</span> ou d'un outil numérique pour <span class="font-semibold text-gray-900">améliorer votre productivité</span> ?
+          </p>
+          <p class="text-lg sm:text-xl text-gray-700 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-medium">
+            Construisons ensemble votre projet.
+          </p>
+        </div>
 
-    <!-- Statistiques de crédibilité -->
-    <div class="mt-12 grid grid-cols-3 gap-8 max-w-md mx-auto lg:mx-0">
-    <div class="text-center">
-        <div class="text-3xl font-bold text-gray-900"><%= Date.today.year - 2023 %></div>
-        <div class="text-sm text-gray-600">Années d'expérience</div>
-    </div>
-    <div class="text-center">
-        <div class="text-3xl font-bold text-gray-900"><%= Projet.count %>+</div>
-        <div class="text-sm text-gray-600">Projets réalisés</div>
-    </div>
-    <div class="text-center">
-        <div class="text-3xl font-bold text-gray-900">100%</div>
-        <div class="text-sm text-gray-600">Satisfaction client</div>
-    </div>
-    </div>
+        <!-- Encadrés de statistiques cliquables -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-10 max-w-2xl mx-auto lg:mx-0">
+          <!-- Années d'expérience -->
+          <div class="bg-white rounded-xl p-5 shadow-md border transition-all duration-300 hover:shadow-xl hover:-translate-y-1" style="border-color: #e5e7eb;">
+            <div class="text-3xl sm:text-4xl font-bold text-gray-900 mb-1"><%= Date.today.year - 2023 %></div>
+            <div class="text-xs sm:text-sm text-gray-600 font-medium">Années d'expérience</div>
+          </div>
 
-    <!-- Boutons CTA sobres -->
-    <div class="mt-12 flex flex-col sm:flex-row gap-6 justify-center lg:justify-start">
-    <%= link_to projets_path, 
-        class: "inline-flex items-center justify-center px-4 py-2 rounded-xl text-lg font-semibold text-gray-900 bg-white hover:border-gray-400 hover:bg-gray-50 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105",
-        title: "Découvrir mes projets Ruby on Rails" do %>
-        <span>Voir mes réalisations</span>
-    <% end %>
+          <!-- Projets réalisés - Cliquable -->
+          <%= link_to projets_path, class: "stat-card-link bg-white rounded-xl p-5 shadow-md border transition-all duration-300 hover:shadow-xl hover:-translate-y-1 group cursor-pointer", style: "border-color: #e5e7eb;" do %>
+            <div class="text-3xl sm:text-4xl font-bold mb-1 transition-colors stat-number" style="color: #111827;"><%= Projet.count %>+</div>
+            <div class="text-xs sm:text-sm text-gray-600 font-medium group-hover:text-gray-900 transition-colors">Projets réalisés</div>
+          <% end %>
 
-    <a href="#contact" 
-        class= "inline-flex items-center justify-center px-4 py-2 rounded-xl text-lg font-semibold text-white bg-gray-900 hover:bg-gray-800 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105">
-        <span>Me contacter</span>
-    </a>
-    </div>
-</div>
+          <!-- Articles publiés - Cliquable -->
+          <%= link_to articles_path, class: "stat-card-link bg-white rounded-xl p-5 shadow-md border transition-all duration-300 hover:shadow-xl hover:-translate-y-1 group cursor-pointer", style: "border-color: #e5e7eb;" do %>
+            <div class="text-3xl sm:text-4xl font-bold mb-1 transition-colors stat-number" style="color: #111827;"><%= Article.count %>+</div>
+            <div class="text-xs sm:text-sm text-gray-600 font-medium group-hover:text-gray-900 transition-colors">Articles publiés</div>
+          <% end %>
 
-<div class="lg:col-span-5">
-    <div class="flex justify-center items-center">
-    <%= image_tag "yellow_logo.svg", class: "w-40 h-40 rounded-full", alt: "Logo Maxime Oudin - Développeur Ruby on Rails Bordeaux" %>
+          <!-- Satisfaction client -->
+          <div class="rounded-xl p-5 shadow-md border" style="background: linear-gradient(to bottom right, rgba(255, 220, 0, 0.1), rgba(255, 220, 0, 0.2)); border-color: #FFDC00;">
+            <div class="text-3xl sm:text-4xl font-bold text-gray-900 mb-1">100%</div>
+            <div class="text-xs sm:text-sm text-gray-700 font-medium">Satisfaction client</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Colonne droite : Logo et Boutons -->
+      <div class="hidden lg:flex lg:col-span-5 flex-col items-center justify-center">
+        <!-- Image/Logo -->
+        <div class="relative mb-8">
+          <div class="absolute inset-0 rounded-full blur-2xl opacity-30 animate-pulse" style="background: linear-gradient(to bottom right, #FFDC00, #FFDC00);"></div>
+          <%= image_tag "yellow_logo.svg", class: "relative w-32 h-32 sm:w-36 sm:h-36 lg:w-40 lg:h-40 rounded-full shadow-2xl transform hover:scale-105 transition-transform duration-300", alt: "Logo Maxime Oudin - Développeur Ruby on Rails Bordeaux" %>
+        </div>
+
+        <!-- Boutons CTA optimisés pour le marketing -->
+        <div class="flex flex-col sm:flex-row gap-4 justify-center w-full">
+          <!-- CTA Principal - Contact (le plus visible) -->
+          <a href="#contact" 
+             class="group inline-flex items-center justify-center px-8 py-4 rounded-xl text-lg font-bold text-white bg-gradient-to-r from-gray-900 to-gray-800 hover:from-gray-800 hover:to-gray-700 transition-all duration-300 shadow-xl hover:shadow-2xl hover:scale-105 transform">
+            <span>Me contacter</span>
+          </a>
+
+          <!-- CTA Secondaire - Projets -->
+          <%= link_to projets_path, 
+              class: "cta-secondary-btn group inline-flex items-center justify-center px-8 py-4 rounded-xl text-lg font-semibold text-gray-900 bg-white border-2 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 transform",
+              style: "border-color: #e5e7eb;",
+              title: "Découvrir mes projets Ruby on Rails" do %>
+            <span>Voir mes réalisations</span>
+          <% end %>
+        </div>
+      </div>      
     </div>
-</div>      
-</div>
-</div>
+  </div>
 </section>
