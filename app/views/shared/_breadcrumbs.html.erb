@@ -34,17 +34,30 @@
       <%= breadcrumbs_structured_data(crumbs, request.original_url) %>
     </script>
 
-    <!-- Version mobile : retour au parent uniquement -->
+    <!-- Version mobile : Accueil > Parent -->
     <% if crumbs.length > 1 %>
+      <% home_crumb = crumbs.first %>
       <% parent = crumbs[-2] %>
-      <% if parent && parent[:path].present? %>
-        <div class="md:hidden">
-          <%= link_to parent[:path], class: "inline-flex items-center gap-2 text-sm text-gray-500 font-medium hover:text-secondary transition-colors" do %>
-            <i class="fas fa-arrow-left" aria-hidden="true"></i>
+      <div class="md:hidden flex items-center gap-2 text-sm text-gray-500">
+        <% if home_crumb && home_crumb[:path].present? %>
+          <%= link_to home_crumb[:path], 
+              class: "inline-flex items-center gap-1 text-gray-500 font-medium hover:text-secondary transition-colors",
+              title: home_crumb[:name],
+              "aria-label": home_crumb[:name] do %>
+            <i class="fas fa-home" aria-hidden="true"></i>
+            <span><%= home_crumb[:name] %></span>
+          <% end %>
+        <% end %>
+        <% if parent && parent[:path].present? %>
+          <i class="fas fa-chevron-right text-xs text-gray-400" aria-hidden="true"></i>
+          <%= link_to parent[:path], 
+              class: "text-gray-500 font-medium hover:text-secondary transition-colors",
+              title: parent[:name],
+              "aria-label": parent[:name] do %>
             <span><%= parent[:name] %></span>
           <% end %>
-        </div>
-      <% end %>
+        <% end %>
+      </div>
     <% end %>
   </nav>
 <% end %>

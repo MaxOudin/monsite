@@ -14,18 +14,17 @@
         <% if user_signed_in? %>
           <%= link_to "Modifier", edit_projet_path(@projet), class: "px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors" %>
         <% end %>
-        <%= link_to "Retour", projets_path, class: "px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors" %>
       </div>
     </div>
     
     <!-- Badge type de projet et dates -->
-    <div class="mt-4 flex items-center gap-4 flex-wrap">
-      <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium" 
+    <div class="mt-4 flex flex-col md:flex-row items-center justify-center md:items-center gap-3 md:gap-4">
+      <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium w-fit" 
             style="background-color: <%= @projet.couleur.present? ? "#{@projet.couleur}20" : "#004AAD20" %>; color: <%= @projet.couleur.present? ? @projet.couleur : "#004AAD" %>">
         <%= @projet.type_projet.titleize %>
       </span>
       <% if @projet.date_debut.present? %>
-        <span class="text-gray-500">
+        <span class="text-gray-500 text-xs md:text-sm">
           <%= @projet.date_debut.strftime("%B %Y") %> - <%= @projet.date_fin.present? ? @projet.date_fin.strftime("%B %Y") : "En cours" %>
         </span>
       <% end %>
@@ -48,9 +47,9 @@
     <div class="lg:col-span-2 space-y-8">
       <!-- Description -->
       <% if @projet.description.present? %>
-        <section class="prose max-w-none">
+        <section class="prose prose-sm max-w-none">
           <h2 class="text-2xl font-semibold text-gray-900 mb-4">À propos du projet</h2>
-          <div class="mt-4 text-gray-600 leading-relaxed">
+          <div class="mt-4 text-gray-600 leading-relaxed text-sm">
             <%= simple_format(@projet.description) %>
           </div>
         </section>
