@@ -2,21 +2,10 @@
 <html lang="fr">
   <%= render 'layouts/head' %>
 
-  <body>
+  <body class="bg-[#F8F9FC]">
     <%= render 'shared/navbar' %>
 
-    <% if user_signed_in? %>
-      <div class="fixed bottom-4 right-4 z-40 bg-white rounded-lg shadow-lg p-4 border border-gray-200">
-        <div class="space-y-2 text-sm">
-          <%= link_to 'Créer nouveau projet', new_projet_path, class: "block px-3 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors" %>
-          <%= link_to 'Créer nouveau article', new_article_path, class: "block px-3 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors" %>
-          <%= button_to 'Se déconnecter', destroy_user_session_path, data: { turbo: false, confirm: 'Êtes-vous sûr de vouloir vous déconnecter ?' }, method: :delete, 
-              class: "block w-full px-3 py-2 bg-gray-600 text-white rounded hover:bg-gray-700 transition-colors" %>
-        </div>
-      </div>
-    <% end %>
-
-    <div class="container-application" data-controller="breadcrumbs">
+    <div class="container-application">
       <%= yield %>
     </div>
 

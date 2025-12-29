@@ -15,17 +15,16 @@
         <% if user_signed_in? %>
           <%= link_to "Modifier", edit_article_path(@article), class: "px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors" %>
         <% end %>
-        <%= link_to "Retour", articles_path, class: "px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors" %>
       </div>
     </div>
     
     <!-- Badge thème et date -->
-    <div class="mt-4 flex items-center gap-4 flex-wrap">
-      <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium" 
+    <div class="mt-4 flex flex-col md:flex-row items-center justify-center md:items-center gap-3 md:gap-4">
+      <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium w-fit" 
             style="background-color: <%= @article.couleur_du_theme %>20; color: <%= @article.couleur_du_theme %>">
         <%= @article.theme %>
       </span>
-      <span class="text-gray-500">
+      <span class="text-gray-500 text-xs md:text-sm">
         Publié le <%= @article.created_at.strftime("%d %B %Y") %>
       </span>
     </div>
@@ -45,8 +44,8 @@
   <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
     <!-- Colonne principale -->
     <div class="lg:col-span-2">
-      <article class="prose prose-lg max-w-none">
-        <div class="text-gray-600 leading-relaxed">
+      <article class="prose prose-sm max-w-none">
+        <div class="text-gray-600 leading-relaxed text-sm">
           <%= @article.content %>
         </div>
       </article>
