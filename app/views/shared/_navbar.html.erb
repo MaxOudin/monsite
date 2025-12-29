@@ -1,4 +1,4 @@
-<nav class="fixed top-0 z-50 w-full backdrop-blur-sm bg-[#F8F9FC]/90 border-b border-gray-200 h-[52px] md:h-16">
+<nav class="fixed top-0 z-50 w-full backdrop-blur-sm bg-[#F8F9FC]/90 border-b border-gray-200 h-[52px] md:h-16" data-controller="navbar">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex justify-between items-center h-[52px] md:h-16">
       <!-- Logo -->
@@ -7,19 +7,15 @@
         <span class="text-2xl text-gray-800 font-semibold ml-2">Maxime Oudin</span>
       <% end %>
 
-      <!-- Actions visibles sur mobile -->
-      <div class="flex md:hidden items-center space-x-2">
-        <a href="#contact-infos" class="px-3 py-2 rounded-lg text-sm font-semibold text-gray-900 bg-white border border-gray-300 hover:bg-gray-50 transition-colors">
-          Contact
-        </a>
-        <% if user_signed_in? %>
-          <%= button_to 'Déconnexion', destroy_user_session_path, method: :delete, 
-              class: "px-3 py-2 rounded-lg text-sm font-semibold text-gray-900 bg-white border border-gray-300 hover:bg-gray-50 transition-colors",
-              data: { confirm: 'Êtes-vous sûr de vouloir vous déconnecter ?' } %>
-        <% end %>
-      </div>
+      <!-- Bouton burger menu (mobile) -->
+      <button type="button" 
+              class="md:hidden p-2 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors"
+              data-action="click->navbar#toggleMenu"
+              aria-label="Menu">
+        <i class="fas fa-bars text-xl"></i>
+      </button>
 
-      <!-- Menu principal -->
+      <!-- Menu principal (desktop) -->
       <div class="hidden md:flex md:items-center md:space-x-8">
         <%= link_to "Projets", projets_path, 
             class: "text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 #{current_page?(projets_path) ? 'text-gray-900 font-semibold' : ''}" %>
@@ -37,6 +33,40 @@
                 data: { confirm: 'Êtes-vous sûr de vouloir vous déconnecter ?' } %>
           <% end %>
         </div>
+      </div>
+    </div>
+
+    <!-- Menu mobile (burger menu) -->
+    <div class="md:hidden absolute top-full left-0 right-0 bg-white z-40 border-b border-gray-200 shadow-lg max-h-0 overflow-hidden transition-all duration-300 ease-in-out" 
+         data-navbar-target="menu">
+      <div class="flex flex-col px-6 py-4">
+        <!-- Liens de navigation -->
+        <%= link_to projets_path, 
+            class: "py-4 text-lg font-medium text-gray-900 border-b border-gray-200 hover:text-blue-600 transition-colors #{current_page?(projets_path) ? 'text-blue-600 font-semibold' : ''}",
+            data: { action: "click->navbar#closeMenu" } do %>
+          Projets
+        <% end %>
+        
+        <%= link_to articles_path, 
+            class: "py-4 text-lg font-medium text-gray-900 border-b border-gray-200 hover:text-blue-600 transition-colors #{current_page?(articles_path) ? 'text-blue-600 font-semibold' : ''}",
+            data: { action: "click->navbar#closeMenu" } do %>
+          Articles
+        <% end %>
+        
+        <a href="#contact-infos" 
+           class="py-4 text-lg font-medium text-gray-900 border-b border-gray-200 hover:text-blue-600 transition-colors"
+           data-action="click->navbar#closeMenu">
+          Contact
+        </a>
+
+        <!-- Déconnexion (si connecté) -->
+        <% if user_signed_in? %>
+          <div class="mt-4">
+            <%= button_to 'Déconnexion', destroy_user_session_path, method: :delete,
+                class: "w-full py-3 px-4 rounded-lg text-sm font-semibold text-gray-700 bg-gray-100 border border-gray-300 hover:bg-gray-200 transition-colors",
+                data: { confirm: 'Êtes-vous sûr de vouloir vous déconnecter ?', action: "click->navbar#closeMenu" } %>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>
