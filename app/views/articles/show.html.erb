@@ -8,22 +8,27 @@
   <!-- Breadcrumbs -->
   <%= render_breadcrumbs %>
   <!-- En-tête de l'article -->
-  <div class="mb-8">
-    <div class="flex items-center justify-between flex-wrap gap-4">
-      <h1 class="text-4xl font-bold text-gray-900"><%= @article.titre %></h1>
-      <div class="flex gap-4">
-        <% if user_signed_in? %>
-          <%= link_to "Modifier", edit_article_path(@article), class: "px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors" %>
-        <% end %>
+  <div class="mb-8 text-center">
+    <!-- Bouton modifier (positionné en haut à droite) -->
+    <% if user_signed_in? %>
+      <div class="flex justify-end mb-4">
+        <%= link_to "Modifier", edit_article_path(@article), class: "px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors" %>
       </div>
-    </div>
+    <% end %>
     
-    <!-- Badge thème et date -->
-    <div class="mt-4 flex flex-col md:flex-row items-center justify-center md:items-center gap-3 md:gap-4">
+    <!-- Catégorie (thème) -->
+    <div class="mb-4 flex justify-center">
       <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium w-fit" 
             style="background-color: <%= @article.couleur_du_theme %>20; color: <%= @article.couleur_du_theme %>">
         <%= @article.theme %>
       </span>
+    </div>
+    
+    <!-- Titre -->
+    <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4"><%= @article.titre %></h1>
+    
+    <!-- Date de publication -->
+    <div class="flex justify-center">
       <span class="text-gray-500 text-xs md:text-sm">
         Publié le <%= @article.created_at.strftime("%d %B %Y") %>
       </span>

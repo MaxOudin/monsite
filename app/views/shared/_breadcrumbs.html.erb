@@ -48,7 +48,7 @@
             <span><%= home_crumb[:name] %></span>
           <% end %>
         <% end %>
-        <% if parent && parent[:path].present? %>
+      <% if parent && parent[:path].present? %>
           <i class="fas fa-chevron-right text-xs text-gray-400" aria-hidden="true"></i>
           <%= link_to parent[:path], 
               class: "text-gray-500 font-medium hover:text-secondary transition-colors",
@@ -56,8 +56,8 @@
               "aria-label": parent[:name] do %>
             <span><%= parent[:name] %></span>
           <% end %>
-        <% end %>
-      </div>
+          <% end %>
+        </div>
     <% end %>
   </nav>
 <% end %>

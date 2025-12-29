@@ -56,50 +56,49 @@
 
   <!-- Grille d'articles -->
   <% if @articles.any? %>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
       <% @articles.each do |article| %>
-        <%= link_to article_path(article), class: "group" do %>
-          <div class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-blue-100">
-            <!-- Image de l'article -->
-            <% if article.image_url.present? && valid_url_or_asset?(article.image_url) %>
-              <div class="aspect-w-16 aspect-h-9 overflow-hidden bg-gray-100">
-                <img src="<%= article.image_url %>" 
-                     alt="<%= article.image_alt %>"
-                     class="w-full h-48 object-cover transform group-hover:scale-105 transition-transform duration-300">
-              </div>
-            <% else %>
-              <div class="aspect-w-16 aspect-h-9 bg-gray-100 flex items-center justify-center">
-                <i class="fas fa-image text-4xl text-gray-400"></i>
-              </div>
-            <% end %>
-
-            <!-- Contenu de la carte -->
-            <div class="p-6">
-              <!-- Badge thème -->
-              <div class="mb-4">
-                <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium" 
-                      style="background-color: <%= article.couleur_du_theme %>20; color: <%= article.couleur_du_theme %>; border: 1px solid <%= article.couleur_du_theme %>30;">
+        <% 
+          # Déterminer l'image de fond (image de l'article ou logo par défaut)
+          background_image = article.image_url.present? && valid_url_or_asset?(article.image_url) ? article.image_url : image_path('assets/images/yellow_logo.svg')
+          # Couleur uniforme pour toutes les cartes depuis la configuration
+          overlay_color = DEFAULT_META['card_overlay_color']
+        %>
+        <%= link_to article_path(article), class: "group h-full flex" do %>
+          <div class="relative w-full h-80 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-1">
+            <!-- Image de fond -->
+            <div class="absolute inset-0 bg-cover bg-center bg-no-repeat" 
+                 style="background-image: url('<%= background_image %>');">
+            </div>
+            
+            <!-- Overlay de couleur qui s'enlève au hover -->
+            <div class="absolute inset-0 opacity-50 transition-opacity duration-500 group-hover:opacity-0" 
+                 style="background-color: <%= overlay_color %>;">
+            </div>
+            
+            <!-- Contenu par-dessus -->
+            <div class="relative h-full flex flex-col justify-between p-6 text-white">
+              <!-- En-tête avec date et thème -->
+              <div class="flex-shrink-0 flex justify-between items-start">
+                <!-- Date en haut à gauche -->
+                <span class="text-xs font-medium uppercase tracking-wider" 
+                      style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5), 0 0 8px rgba(0, 0, 0, 0.2);">
+                  <%= article.created_at.strftime("%d %b %Y") %>
+                </span>
+                
+                <!-- Badge thème en haut à droite -->
+                <span class="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-semibold backdrop-blur-sm shadow-lg" 
+                      style="background-color: rgba(255, 255, 255, 0.25); color: white; border: 1px solid rgba(255,255,255,0.3); text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5), 0 0 8px rgba(0, 0, 0, 0.2);">
                   <%= article.theme %>
                 </span>
               </div>
-
-              <!-- Titre et description -->
-              <h2 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors duration-200">
-                <%= article.titre %>
-              </h2>
-              <p class="text-gray-600 text-sm line-clamp-2">
-                <%= truncate(article.content.to_plain_text, length: 120) %>
-              </p>
-
-              <!-- Footer de la carte -->
-              <div class="mt-4 pt-4 border-t border-gray-100 flex justify-between items-center">
-                <div class="text-sm text-gray-500">
-                  <%= article.created_at.strftime("%d %B %Y") %>
-                </div>
-                <div class="flex items-center text-blue-600">
-                  <span class="text-sm font-medium mr-2">Lire l'article</span>
-                  <i class="fas fa-arrow-right transform group-hover:translate-x-1 transition-transform duration-200"></i>
-                </div>
+              
+              <!-- Titre en bas -->
+              <div class="flex-shrink-0">
+                <h2 class="text-xl md:text-2xl font-bold leading-tight" 
+                    style="text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7), 0 0 8px rgba(0, 0, 0, 0.5);">
+                  <%= article.titre %>
+                </h2>
               </div>
             </div>
           </div>
