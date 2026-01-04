@@ -20,6 +20,11 @@ module Cd
 
     # Add Rack Attack middleware
     config.middleware.use Rack::Attack
+    
+    # Redirection www vers non-www (ou vice versa) pour SEO
+    # Assure qu'un seul hôte est canonique
+    require_relative '../lib/canonical_host_redirect'
+    config.middleware.use CanonicalHostRedirect
 
     config.generators do |g|
       g.test_framework(

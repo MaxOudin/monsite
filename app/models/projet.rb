@@ -24,6 +24,8 @@
 #
 
 class Projet < ApplicationRecord
+  include PgSearch::Model
+
   extend FriendlyId
   friendly_id :titre, use: [:slugged, :history]
 
@@ -35,6 +37,17 @@ class Projet < ApplicationRecord
 
   has_many :outils_projets
   has_many :outils, through: :outils_projets
+
+  pg_search_scope :search_projets,
+    against: [:titre, :description, :type_projet],
+    associated_against: {
+      outils: [:nom]
+    },
+    using: {
+      tsearch: {
+        prefix: true
+      }
+    }
 
   def should_generate_new_friendly_id?
     titre_changed? || slug.blank?
@@ -52,25 +65,5 @@ class Projet < ApplicationRecord
         .gsub(/[^a-z0-9]/, '-')
         .gsub(/-+/, '-')
         .gsub(/^-|-$/, '')
-  end
-
-  # Méthode de recherche sécurisée
-  def self.search(query)
-    return all unless query.present?
-
-    query = query.to_s.strip
-
-    # Utiliser une jointure LEFT pour inclure les outils
-    base_query = left_joins(:outils)
-
-    # Recherche dans les attributs du projet et des outils
-    base_query.where(
-      "projets.titre ILIKE :query OR
-       projets.description ILIKE :query OR
-       projets.type_projet ILIKE :query OR
-       outils.nom ILIKE :query OR
-       outils.description ILIKE :query",
-      query: "%#{query}%"
-    ).distinct
   end
 end

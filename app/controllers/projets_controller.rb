@@ -4,9 +4,12 @@ class ProjetsController < ApplicationController
   before_action :set_outils, only: [:new, :edit, :create, :update]
 
   def index
-    @projets = Projet.left_joins(:outils).distinct.order(date_debut: :desc)
     if params[:query].present?
-      @projets = @projets.search(params[:query])
+      # Recherche avec pg_search
+      @projets = Projet.search_projets(params[:query]).order(date_debut: :desc)
+    else
+      # Affichage de tous les projets sans recherche
+      @projets = Projet.order(date_debut: :desc)
     end
   end
 

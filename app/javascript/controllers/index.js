@@ -9,3 +9,6 @@ application.register("navbar", NavbarController)
 
 import TextFitController from "./text_fit_controller"
 application.register("text_fit", TextFitController)
+
+import SearchInputController from "./search_input_controller"
+application.register("search-input", SearchInputController)
