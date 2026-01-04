@@ -238,6 +238,9 @@ GEM
       racc (~> 1.4)
     orm_adapter (0.5.0)
     pg (1.5.6)
+    pg_search (2.3.7)
+      activerecord (>= 6.1)
+      activesupport (>= 6.1)
     pp (0.6.2)
       prettyprint
     prettyprint (0.2.0)
@@ -415,6 +418,7 @@ DEPENDENCIES
   letter_opener
   meta-tags
   pg (~> 1.4)
+  pg_search (~> 2.3)
   propshaft
   puma (~> 6.0)
   pundit (~> 2.5)

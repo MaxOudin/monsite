@@ -16,12 +16,15 @@ Les meta tags sont essentiels pour :
 app/
 ├── helpers/
 │   └── meta_tags_helper.rb          # Logique meta tags
+├── middleware/
+│   └── canonical_host_redirect.rb   # Redirection www/non-www (301)
 ├── views/
 │   └── layouts/
 │       ├── _head.html.erb           # Organisation <head>
 │       └── _meta_tags.html.erb      # Tous les meta tags
 config/
-└── meta.yml                         # Configuration par défaut
+├── meta.yml                         # Configuration par défaut
+└── application.rb                   # Configuration middleware
 ```
 
 ---
@@ -84,12 +87,60 @@ rescue Sprockets::Rails::Helper::AssetNotFound
 end
 
 # URL Canonique (évite contenu dupliqué)
+# Force toujours l'utilisation de l'hôte canonique (non-www) même si la requête arrive avec www
 def meta_canonical_url
   if content_for?(:canonical_url)
-    content_for(:canonical_url)
+    # SÉCURITÉ : Valider et échapper l'URL canonique personnalisée
+    url = content_for(:canonical_url).to_s
+    # Valider que l'URL est bien formée et pointe vers notre domaine
+    if valid_canonical_url?(url)
+      url
+    else
+      # Si l'URL n'est pas valide, utiliser l'URL par défaut
+      build_default_canonical_url
+    end
   else
-    url_for(only_path: false, params: request.query_parameters.except(*ignored_query_params))
+    build_default_canonical_url
   end
+end
+
+# Construit l'URL canonique par défaut
+def build_default_canonical_url
+  # Utiliser le domaine canonique depuis ENV pour garantir la cohérence
+  canonical_domain = ENV['DOMAIN'] || 'maximeoudin.fr'
+  canonical_host = canonical_domain.start_with?('www.') ? canonical_domain : canonical_domain
+  
+  # SÉCURITÉ : Utiliser HTTPS en production, le schème de la requête en développement
+  scheme = Rails.env.production? ? 'https' : request.scheme
+  
+  # SÉCURITÉ : Nettoyer le chemin
+  path = sanitize_url_path(request.path)
+  
+  # Construire l'URL canonique avec le bon hôte
+  query_params = request.query_parameters.except(*ignored_query_params)
+  query_string = query_params.any? ? "?#{query_params.to_query}" : ""
+  
+  "#{scheme}://#{canonical_host}#{path}#{query_string}"
+end
+
+# Valide qu'une URL canonique personnalisée est sûre
+def valid_canonical_url?(url)
+  return false if url.blank?
+  
+  # Vérifier que l'URL commence par http:// ou https://
+  return false unless url.match?(/\Ahttps?:\/\//i)
+  
+  # Extraire le domaine de l'URL
+  uri = URI.parse(url) rescue nil
+  return false unless uri
+  
+  # SÉCURITÉ : Vérifier que l'URL pointe vers notre domaine
+  canonical_domain = ENV['DOMAIN'] || 'maximeoudin.fr'
+  canonical_base = canonical_domain.sub(/^www\./, '').downcase
+  url_host = uri.host.to_s.downcase.sub(/^www\./, '')
+  
+  # L'URL doit pointer vers notre domaine
+  url_host == canonical_base
 end
 
 # Keywords (optionnel)
@@ -138,7 +189,7 @@ end
 <!-- Facebook Open Graph -->
 <meta property="og:title" content="<%= meta_title %>" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="<%= request.original_url %>" />
+<meta property="og:url" content="<%= meta_canonical_url %>" />
 <meta property="og:image" content="<%= meta_image %>" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
@@ -255,14 +306,62 @@ end
 **But** : Éviter le contenu dupliqué
 
 ```erb
-<!-- Spécifier l'URL canonique -->
-<link rel="canonical" href="https://maximeoudin.fr/projets/mon-projet">
+<!-- L'URL canonique est générée automatiquement -->
+<link rel="canonical" href="<%= meta_canonical_url %>">
 ```
 
-**Le helper supprime automatiquement** :
-- Paramètres UTM (`utm_source`, `utm_medium`, etc.)
-- Paramètres de tracking (`fbclid`, `gclid`, etc.)
-- Paramètres analytics (`_ga`, `_gl`)
+**Fonctionnalités automatiques** :
+- ✅ **Hôte canonique** : Utilise toujours le domaine depuis `ENV['DOMAIN']` (non-www par défaut)
+- ✅ **HTTPS forcé** : Utilise HTTPS en production automatiquement
+- ✅ **Suppression paramètres tracking** : Supprime automatiquement :
+  - Paramètres UTM (`utm_source`, `utm_medium`, etc.)
+  - Paramètres de tracking (`fbclid`, `gclid`, etc.)
+  - Paramètres analytics (`_ga`, `_gl`)
+- ✅ **Sécurité** : Validation et sanitization du chemin (protection path traversal)
+- ✅ **Validation URLs personnalisées** : Si vous utilisez `content_for(:canonical_url)`, l'URL est validée pour s'assurer qu'elle pointe vers votre domaine
+
+**Personnalisation** :
+```erb
+<%# Dans une vue, pour forcer une URL canonique spécifique %>
+<% content_for :canonical_url, "https://maximeoudin.fr/articles/mon-article" %>
+```
+
+⚠️ **Sécurité** : Les URLs personnalisées sont validées et doivent pointer vers votre domaine (`ENV['DOMAIN']`). Les URLs externes sont rejetées.
+
+---
+
+## 🔄 Gestion www / non-www
+
+### Middleware de redirection
+
+Un middleware automatique (`CanonicalHostRedirect`) gère la redirection entre www et non-www :
+
+**Configuration** :
+- Le domaine canonique est défini dans `ENV['DOMAIN']` (ex: `maximeoudin.fr`)
+- Le middleware est configuré dans `config/application.rb` :
+  ```ruby
+  config.middleware.use CanonicalHostRedirect
+  ```
+- Le middleware redirige automatiquement `www.maximeoudin.fr` → `maximeoudin.fr` en **301** (permanent)
+
+**Fonctionnalités** :
+- ✅ Redirection 301 automatique (SEO-friendly)
+- ✅ Préservation du chemin et des paramètres de requête
+- ✅ Validation de sécurité (évite les redirections vers domaines externes)
+- ✅ Sanitization du chemin (protection path traversal)
+- ✅ HTTPS forcé en production
+
+**Exemple** :
+```
+Requête : https://www.maximeoudin.fr/projets/mon-projet?page=2
+Redirection 301 → https://maximeoudin.fr/projets/mon-projet?page=2
+```
+
+**Sécurité** :
+- Validation stricte : seuls les domaines correspondant à `ENV['DOMAIN']` sont acceptés
+- Protection contre Host Header Injection
+- Protection contre Open Redirect
+- Limitation de longueur des chemins et query strings
 
 ---
 
@@ -273,12 +372,14 @@ end
 ```html
 <meta property="og:title" content="Votre titre">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://maximeoudin.fr/page">
-<meta property="og:image" content="https://maximeoudin.fr/image.jpg">
+<meta property="og:url" content="<%= meta_canonical_url %>">
+<meta property="og:image" content="<%= meta_image %>">
 <meta property="og:description" content="Description">
 <meta property="og:site_name" content="Maxime Oudin">
 <meta property="og:locale" content="fr_FR">
 ```
+
+**Note importante** : `og:url` utilise maintenant `meta_canonical_url` pour garantir la cohérence avec l'URL canonique et éviter les problèmes www/non-www.
 
 ### Image Open Graph
 
@@ -334,6 +435,29 @@ end
 ### Test Twitter Card
 
 **Card Validator** : https://cards-dev.twitter.com/validator
+
+---
+
+## 🔒 Sécurité
+
+### Protections implémentées
+
+**URL Canonique** :
+- ✅ Validation que les URLs personnalisées pointent vers votre domaine
+- ✅ Sanitization des chemins (protection path traversal)
+- ✅ Limitation de longueur (2000 caractères max)
+- ✅ Validation de la structure URI
+
+**Middleware de redirection** :
+- ✅ Validation stricte du Host header
+- ✅ Protection contre Open Redirect
+- ✅ Protection contre Host Header Injection
+- ✅ Sanitization des chemins et query strings
+
+**Recommandations** :
+- Ne jamais utiliser `content_for(:canonical_url)` avec des URLs externes (elles seront rejetées)
+- Toujours utiliser `ENV['DOMAIN']` pour définir le domaine canonique
+- En production, HTTPS est automatiquement forcé
 
 ---
 
@@ -515,6 +639,30 @@ rails seo:check              # Vérification complète
 - [02_SEO_GENERAL.md](./02_SEO_GENERAL.md) - Vue d'ensemble
 - [04_SEO_STRUCTURED_DATA.md](./04_SEO_STRUCTURED_DATA.md) - Données structurées
 - [05_BREADCRUMBS.md](./05_BREADCRUMBS.md) - Breadcrumbs
+
+---
+
+## 📝 Changelog
+
+### Décembre 2025
+
+**Améliorations SEO** :
+- ✅ Gestion automatique www/non-www avec redirection 301
+- ✅ URL canonique toujours cohérente (utilise `ENV['DOMAIN']`)
+- ✅ `og:url` synchronisé avec l'URL canonique
+- ✅ HTTPS forcé en production pour les URLs canoniques
+
+**Sécurité** :
+- ✅ Validation des URLs canonique personnalisées
+- ✅ Protection contre Open Redirect
+- ✅ Protection contre Host Header Injection
+- ✅ Sanitization des chemins (path traversal)
+
+**Architecture** :
+- ✅ Nouveau middleware `CanonicalHostRedirect`
+- ✅ Méthodes privées `build_default_canonical_url`, `valid_canonical_url?`, `sanitize_url_path`
+
+---
 
 *Dernière mise à jour : 23 Décembre 2025*
 

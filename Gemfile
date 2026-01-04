@@ -62,6 +62,9 @@ gem 'aws-sdk-s3', require: false
 
 gem 'friendly_id', '~> 5.5.0'
 
+# Full-text search with PostgreSQL
+gem 'pg_search', '~> 2.3'
+
 # Sitemap generator
 gem 'sitemap_generator'
 

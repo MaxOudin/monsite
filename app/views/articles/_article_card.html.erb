@@ -1,0 +1,46 @@
+<% 
+    # Déterminer l'image de fond (image de l'article ou logo par défaut)
+    background_image = article.image_url.present? && valid_url_or_asset?(article.image_url) ? article.image_url : image_path('assets/images/yellow_logo.svg')
+    # Couleur uniforme pour toutes les cartes depuis la configuration
+    overlay_color = DEFAULT_META['card_overlay_color']
+%>
+<%= link_to article_path(article), class: "group block" do %>
+    <div class="relative w-full h-56 sm:h-80 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-1">
+        <!-- Image de fond -->
+        <div class="absolute inset-0 bg-cover bg-center bg-no-repeat" 
+                style="background-image: url('<%= background_image %>');">
+        </div>
+        
+        <!-- Overlay de couleur qui s'enlève au hover -->
+        <div class="absolute inset-0 opacity-50 transition-opacity duration-500 group-hover:opacity-0" 
+                style="background-color: <%= overlay_color %>;">
+        </div>
+        
+        <!-- Contenu par-dessus -->
+        <div class="relative h-full flex flex-col justify-between p-4 sm:p-6 text-white">
+            <!-- En-tête avec date et thème -->
+            <div class="flex-shrink-0 flex justify-between items-start">
+            <!-- Date en haut à gauche -->
+            <span class="text-[10px] sm:text-xs font-medium uppercase tracking-wider" 
+                    style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5), 0 0 8px rgba(0, 0, 0, 0.2);">
+                <%= article.created_at.strftime("%b %Y") %>
+            </span>
+            
+            <!-- Badge thème en haut à droite -->
+            <span class="inline-flex items-center px-2 py-1 sm:px-3 sm:py-1.5 rounded-full text-[10px] sm:text-xs font-semibold backdrop-blur-sm shadow-lg" 
+                    style="background-color: rgba(255, 255, 255, 0.25); color: white; border: 1px solid rgba(255,255,255,0.3); text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5), 0 0 8px rgba(0, 0, 0, 0.2);">
+                <%= article.theme %>
+            </span>
+            </div>
+            
+            <!-- Titre en bas -->
+            <div class="flex-shrink-0">
+            <h2 class="text-lg sm:text-xl md:text-2xl font-bold leading-tight" 
+                style="text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7), 0 0 8px rgba(0, 0, 0, 0.5);">
+                <%= article.titre %>
+            </h2>
+            </div>
+        </div>
+    </div>
+<% end %>
+

@@ -18,6 +18,7 @@
 #
 
 class Article < ApplicationRecord
+  include PgSearch::Model
   extend FriendlyId
   friendly_id :titre, use: [:slugged, :history]
 
@@ -39,6 +40,17 @@ class Article < ApplicationRecord
   validates :couleur, presence: true
   validates :theme, presence: true, inclusion: { in: THEMES_WITH_COLORS.keys }
 
+  pg_search_scope :search_articles,
+    against: [:titre, :theme],
+    associated_against: {
+      rich_text_content: [:body]
+    },
+    using: {
+      tsearch: {
+        prefix: true
+      }
+    }
+
   # Méthode pour récupérer la couleur associée à un thème
   def couleur_du_theme
     THEMES_WITH_COLORS[theme]
@@ -49,16 +61,4 @@ class Article < ApplicationRecord
     group(:theme).count
   end
 
-  # Méthode de recherche sécurisée
-  def self.search(query)
-    return all unless query.present?
-
-    query = query.to_s.strip
-
-    # Utiliser la même structure de jointure pour les deux requêtes
-    base_query = joins("LEFT JOIN action_text_rich_texts ON action_text_rich_texts.record_id = articles.id AND action_text_rich_texts.record_type = 'Article' AND action_text_rich_texts.name = 'content'")
-
-    # Recherche dans les attributs de base et le contenu
-    base_query.where("articles.titre ILIKE :query OR articles.theme ILIKE :query OR action_text_rich_texts.body ILIKE :query", query: "%#{query}%").distinct
-  end
 end
