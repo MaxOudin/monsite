@@ -27,6 +27,8 @@ module Cd
     require_relative '../lib/canonical_host_redirect'
     config.middleware.use CanonicalHostRedirect
 
+    ENV["PATH"] = "#{ENV["HOME"]}/.bun/bin:#{ENV["PATH"]}"
+
     config.generators do |g|
       g.test_framework(
       :rspec,
