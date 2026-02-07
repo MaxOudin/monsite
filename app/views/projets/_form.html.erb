@@ -1,5 +1,5 @@
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-8">
-  <%= form_with(model: projet, local: true) do |f| %>
+  <%= form_with(model: projet, local: true, data: { turbo: false }) do |f| %>
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
       <!-- Colonne principale -->
       <div class="lg:col-span-2 space-y-6">
@@ -38,12 +38,12 @@
             <%= f.label :outil_ids, "Sélectionner les outils", class: "block text-sm font-medium text-gray-700 mb-3" %>
             <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 md:gap-4">
               <%= f.collection_check_boxes :outil_ids, @outils, :id, :nom do |b| %>
-                <label class="flex flex-col items-center p-3 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-blue-500 hover:bg-blue-50 transition-colors <%= 'border-blue-500 bg-blue-50' if projet.outils.include?(b.object) %>">
+                <label class="flex flex-col items-center p-3 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-blue-500 hover:bg-blue-50 transition-colors has-[:checked]:border-blue-500 has-[:checked]:bg-blue-50">
+                  <%= b.check_box(class: "sr-only peer") %>
                   <% if b.object.icone_url.present? %>
-                    <img src="<%= b.object.icone_url %>" alt="<%= b.object.icone_url_alt.present? ? b.object.icone_url_alt : b.object.nom %>" class="w-8 h-8 mb-2 object-contain">
+                    <img src="<%= b.object.icone_url %>" alt="<%= b.object.icone_url_alt.present? ? b.object.icone_url_alt : b.object.nom %>" class="w-8 h-8 mb-2 object-contain pointer-events-none">
                   <% end %>
-                  <%= b.check_box(class: "sr-only", checked: projet.outils.include?(b.object)) %>
-                  <span class="text-xs text-center text-gray-700 font-medium"><%= b.label %></span>
+                  <span class="text-xs text-center text-gray-700 font-medium pointer-events-none"><%= b.label %></span>
                 </label>
               <% end %>
             </div>

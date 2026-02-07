@@ -1,16 +1,11 @@
 class ProjetsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
-  before_action :set_projet, only: [:show,:edit, :update, :destroy]
-  before_action :set_outils, only: [:new, :edit, :create, :update]
+  before_action :authenticate_user!, except: %i[index show]
+  before_action :set_projet, only: %i[show edit update destroy]
+  before_action :set_outils, only: %i[new edit create update]
 
   def index
-    if params[:query].present?
-      # Recherche avec pg_search
-      @projets = Projet.search_projets(params[:query]).order(date_debut: :desc)
-    else
-      # Affichage de tous les projets sans recherche
-      @projets = Projet.order(date_debut: :desc)
-    end
+    @projets = policy_scope(Projet).order(date_debut: :desc)
+    @projets.search_projets(params[:query]) if params[:query].present?
   end
 
   def show
@@ -18,10 +13,12 @@ class ProjetsController < ApplicationController
 
   def new
     @projet = Projet.new
+    authorize @projet
   end
 
   def create
     @projet = Projet.new(projet_params)
+    authorize @projet
     if @projet.save
       flash[:notice] = "Projet créé avec succès"
       redirect_to projet_path(@projet)
@@ -75,6 +72,7 @@ class ProjetsController < ApplicationController
 
   def set_projet
     @projet = Projet.friendly.find(params[:id])
+    authorize @projet
   rescue ActiveRecord::RecordNotFound
     flash[:error] = "Projet non trouvé"
     redirect_to projets_path
