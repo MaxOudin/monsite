@@ -1,13 +1,10 @@
 class ArticlesController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
-  before_action :set_article, only: [:edit, :update, :destroy, :show]
+  before_action :authenticate_user!, except: %i[index show]
+  before_action :set_article, only: %i[edit update destroy show]
 
   def index
-    if params[:query].present?
-      @articles = Article.search_articles(params[:query]).order(created_at: :desc)
-    else
-      @articles = Article.order(created_at: :desc)
-    end
+    @articles = policy_scope(Article).order(created_at: :desc)
+    @articles.search_articles(params[:query]) if params[:query].present?
   end
 
   def show
@@ -15,10 +12,12 @@ class ArticlesController < ApplicationController
 
   def new
     @article = Article.new
+    authorize @article
   end
 
   def create
     @article = Article.new(article_params)
+    authorize @article
     if @article.save
       flash[:notice] = "Article créé avec succès"
       redirect_to article_path(@article), notice: "Article créé avec succès"
@@ -59,6 +58,7 @@ class ArticlesController < ApplicationController
 
   def set_article
     @article = Article.friendly.find(params[:id])
+    authorize @article
   rescue ActiveRecord::RecordNotFound
     flash[:error] = "Aucun article trouvé avec le titre spécifié"
     redirect_to articles_path
