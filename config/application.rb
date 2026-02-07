@@ -10,6 +10,7 @@ module Cd
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.2
+    config.autoload_lib(ignore: %w[assets tasks])
     config.action_view.image_loading = "lazy"
 
     # Please, add to the `ignore_exceptions_directories` list any directory inside your Rails app
