@@ -47,7 +47,10 @@ RUN bun install
 # Copier le reste de l'application
 COPY . .
 
-# Précompiler les assets
+# Build CSS avec Tailwind
+RUN bun run build:css
+
+# Précompiler les assets Rails
 RUN SECRET_KEY_BASE_DUMMY=1 bundle exec rails assets:precompile
 
 # Étape finale pour l'image de production
