@@ -76,6 +76,9 @@ WORKDIR /app
 COPY --from=build /usr/local/bundle /usr/local/bundle
 COPY --from=build /app /app
 
+# S'assurer que les assets précompilés (manifest + fichiers) sont bien présents
+COPY --from=build /app/public/assets /app/public/assets
+
 # Créer un utilisateur non-root pour exécuter l'application
 RUN useradd rails --create-home --shell /bin/bash
 RUN mkdir -p /app/log && \
