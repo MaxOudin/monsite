@@ -88,6 +88,5 @@ Rails.application.configure do
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
 
   config.assets.css_compressor = :sass
-  # Ne pas compiler à la volée : utiliser uniquement le manifest des assets précompilés
-  config.assets.compile = false
+  config.assets.compile = true
 end
