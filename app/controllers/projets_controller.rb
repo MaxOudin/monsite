@@ -5,7 +5,7 @@ class ProjetsController < ApplicationController
 
   def index
     @projets = policy_scope(Projet).order(date_debut: :desc)
-    @projets.search_projets(params[:query]) if params[:query].present?
+    @projets = @projets.search_projets(params[:query]) if params[:query].present?
   end
 
   def show
