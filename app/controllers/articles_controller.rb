@@ -4,7 +4,7 @@ class ArticlesController < ApplicationController
 
   def index
     @articles = policy_scope(Article).order(created_at: :desc)
-    @articles.search_articles(params[:query]) if params[:query].present?
+    @articles = @articles.search_articles(params[:query]) if params[:query].present?
   end
 
   def show

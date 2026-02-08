@@ -30,6 +30,5 @@ RSpec.describe Projet, type: :model do
     projet = FactoryBot.create(:projet)
     outil = FactoryBot.create(:outil, projet: projet)
     expect(projet.outils).to eq([outil])
-    
   end
 end
