@@ -47,10 +47,6 @@ RUN bun install
 # Copier le reste de l'application
 COPY . .
 
-# Build CSS avec Tailwind
-RUN bun run build:css
-
-# Précompiler les assets Rails
 RUN SECRET_KEY_BASE_DUMMY=1 bundle exec rails assets:precompile
 
 # Étape finale pour l'image de production
@@ -75,9 +71,6 @@ WORKDIR /app
 # Copier les gems et l'application depuis l'étape de build
 COPY --from=build /usr/local/bundle /usr/local/bundle
 COPY --from=build /app /app
-
-# S'assurer que les assets précompilés (manifest + fichiers) sont bien présents
-COPY --from=build /app/public/assets /app/public/assets
 
 # Créer un utilisateur non-root pour exécuter l'application
 RUN useradd rails --create-home --shell /bin/bash
