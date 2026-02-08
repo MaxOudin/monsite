@@ -1,5 +1,5 @@
 # Utiliser une image Ruby officielle comme base
-FROM ruby:3.4.8-slim as base
+FROM ruby:3.4.8-slim AS base
 
 # Définir l'environnement de production
 ENV RAILS_ENV="production" \
@@ -8,7 +8,7 @@ ENV RAILS_ENV="production" \
     BUNDLE_WITHOUT="development"
 
 # Étape de build pour installer les gems
-FROM base as build
+FROM base AS build
 
 # Install packages needed to build gems and node modules
 RUN apt-get update -qq && \
@@ -53,7 +53,7 @@ RUN SECRET_KEY_BASE_DUMMY=1 bundle exec rails assets:precompile
 # Étape finale pour l'image de production
 FROM base
 
-# Installer les dépendances nécessaires pour l'exécution
+# Installer les dépendances nécessaires pour l'exécution (AVEC unzip)
 RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y \
     curl \
