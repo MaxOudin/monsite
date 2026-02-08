@@ -19,6 +19,7 @@ services:
     environment:
       DATABASE_URL: postgres://mon_user:mon_mot_de_passe@db:5432/mon_projet_development
       RAILS_ENV: production
+      RAILS_SERVE_STATIC_FILES: "true"
       SECRET_KEY_BASE: 35aade4ecc67971fc5e46ad4d251dc350706d8cec513a7cadcb35daf4844c59309a9fc43f89d13404a96b21029aaf7477442959525f46263f3b538d40f26d561
     volumes:
       - tmp_data:/app/tmp
