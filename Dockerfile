@@ -1,5 +1,5 @@
 # Utiliser une image Ruby officielle comme base
-FROM ruby:3.3.7-slim as base
+FROM ruby:3.4.8-slim as base
 
 # Définir l'environnement de production
 ENV RAILS_ENV="production" \
@@ -22,16 +22,27 @@ RUN apt-get update -qq && \
     libyaml-dev \
     libpq-dev \
     libgmp-dev \
-    nodejs
+    unzip && \
+    rm -rf /var/lib/apt/lists/*
+
+# Installer Bun
+RUN curl -fsSL https://bun.sh/install | bash
+ENV PATH="/root/.bun/bin:${PATH}"
 
 # Définir le répertoire de travail
 WORKDIR /app
 
-# Copier le Gemfile et installer les gems
+# Copier le Gemfile et package.json
 COPY Gemfile Gemfile.lock ./
+COPY package.json bun.lockb* ./
+
+# Installer les gems
 RUN bundle install && \
     rm -rf ~/.bundle/ "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bundler/gems/*/.git && \
     bundle exec bootsnap precompile --gemfile
+
+# Installer les dépendances JavaScript avec Bun
+RUN bun install
 
 # Copier le reste de l'application
 COPY . .
@@ -44,8 +55,16 @@ FROM base
 
 # Installer les dépendances nécessaires pour l'exécution
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y curl libvips postgresql-client nodejs && \
+    apt-get install --no-install-recommends -y \
+    curl \
+    libvips \
+    postgresql-client \
+    unzip && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
+
+# Installer Bun pour l'exécution
+RUN curl -fsSL https://bun.sh/install | bash
+ENV PATH="/root/.bun/bin:${PATH}"
 
 # Définir le répertoire de travail
 WORKDIR /app
@@ -56,11 +75,10 @@ COPY --from=build /app /app
 
 # Créer un utilisateur non-root pour exécuter l'application
 RUN useradd rails --create-home --shell /bin/bash
-
 RUN mkdir -p /app/log && \
     touch /app/log/production.log && \
     chmod 664 /app/log/production.log
-
+        
 ENV PATH="/app/bin:${PATH}"
 RUN chown -R rails:rails /app && \
     chmod +x /app/bin/*
