@@ -53,7 +53,7 @@ RUN SECRET_KEY_BASE_DUMMY=1 bundle exec rails assets:precompile
 # Étape finale pour l'image de production
 FROM base
 
-# Installer les dépendances nécessaires pour l'exécution (AVEC unzip)
+# Installer les dépendances nécessaires pour l'exécution
 RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y \
     curl \
@@ -78,7 +78,7 @@ RUN useradd rails --create-home --shell /bin/bash
 RUN mkdir -p /app/log && \
     touch /app/log/production.log && \
     chmod 664 /app/log/production.log
-        
+
 ENV PATH="/app/bin:${PATH}"
 RUN chown -R rails:rails /app && \
     chmod +x /app/bin/*
