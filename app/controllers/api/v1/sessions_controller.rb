@@ -20,6 +20,14 @@ class Api::V1::SessionsController < Devise::SessionsController
         }
       }, status: :ok
     else
+      # Notifie Rack::Attack pour les blocklists logins/ip/fail_l1 et fail_l2
+      ActiveSupport::Notifications.publish(
+        "rack.attack.login_failure",
+        Time.current,
+        Time.current,
+        SecureRandom.uuid,
+        { request: request }
+      )
       render json: { error: 'Email ou mot de passe invalide' }, status: :unauthorized
     end
   end
