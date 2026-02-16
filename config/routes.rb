@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  post "/csp-violation-report-endpoint", to: "csp_reports#create", as: :csp_violation_report_endpoint
+  
   devise_for :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

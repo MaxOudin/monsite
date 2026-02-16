@@ -1,0 +1,2 @@
+module CspReportsHelper
+end
