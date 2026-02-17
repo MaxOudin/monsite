@@ -52,7 +52,7 @@
             class: "inline-block mt-2 text-gray-400 hover:text-white underline transition-colors duration-200" %>
 
         <% if user_signed_in? %>
-          <%= link_to destroy_user_session_path, data: { turbo_method: :delete }, class: "text-gray-400 hover:text-white transition-colors duration-200" do %>
+          <%= button_to destroy_user_session_path, method: :delete, data: { turbo: false }, class: "inline-block text-gray-400 hover:text-white transition-colors duration-200 bg-transparent border-0 p-0 cursor-pointer" do %>
             <i class="fa-solid fa-lock"></i>
           <% end %>
         <% else %>

@@ -24,13 +24,12 @@
 
         <!-- CTA Desktop -->
         <div class="ml-4 flex items-center space-x-3">
-          <a href="#contact-infos" class="inline-flex items-center justify-center px-4 py-2 rounded-lg text-sm font-semibold text-white bg-gray-900 hover:bg-gray-800 transition-colors">
-            Contact
-          </a>
+          <%= render ButtonComponent.new(variant: :dark, size: :md) do %>
+            <%= link_to "Contact", "#contact-infos", class: "text-white" %>
+          <% end %>
           <% if user_signed_in? %>
-            <%= button_to 'Déconnexion', destroy_user_session_path, method: :delete,
-                class: "inline-flex items-center justify-center px-4 py-2 rounded-lg text-sm font-semibold text-gray-700 bg-white border border-gray-300 hover:bg-gray-50 transition-colors",
-                data: { confirm: 'Êtes-vous sûr de vouloir vous déconnecter ?' } %>
+            <%= button_to "Déconnexion", destroy_user_session_path, class: "inline-flex items-center justify-center rounded-lg font-semibold transition-all duration-200 px-4 py-2 text-sm text-gray-700 bg-white border border-gray-300 hover:bg-gray-50", 
+                method: :delete, data: { turbo: false } %>
           <% end %>
         </div>
       </div>
@@ -62,9 +61,8 @@
         <!-- Déconnexion (si connecté) -->
         <% if user_signed_in? %>
           <div class="mt-4">
-            <%= button_to 'Déconnexion', destroy_user_session_path, method: :delete,
-                class: "w-full py-3 px-4 rounded-lg text-sm font-semibold text-gray-700 bg-gray-100 border border-gray-300 hover:bg-gray-200 transition-colors",
-                data: { confirm: 'Êtes-vous sûr de vouloir vous déconnecter ?', action: "click->navbar#closeMenu" } %>
+            <%= button_to 'Déconnexion', destroy_user_session_path, turbo_method: :delete,
+                class: "w-full py-3 px-4 rounded-lg text-sm font-semibold text-gray-700 bg-gray-100 border border-gray-300 hover:bg-gray-200 transition-colors" %>
           </div>
         <% end %>
       </div>
