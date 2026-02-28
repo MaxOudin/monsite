@@ -1,5 +1,6 @@
 {
   "scripts": {
+    "heroku-prebuild": "bash bin/install-bun",
     "build": "bun bun.config.js",
     "build:css": "bunx @tailwindcss/cli -i ./app/assets/stylesheets/application.tailwind.css -o ./app/assets/builds/application.css --minify"
   },
