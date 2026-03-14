@@ -1,0 +1,98 @@
+require "image_processing/vips"
+
+class ImageProcessor
+  MAX_FILE_SIZE = 50.megabytes
+  RASTER_FORMATS = %w[jpg jpeg png webp tiff gif bmp heic].freeze
+  ALLOWED_FORMATS = (RASTER_FORMATS + %w[svg ico]).freeze
+  FAVICON_SIZES = [ 16, 32, 48, 64, 128, 256 ].freeze
+
+  class << self
+    def resize(file, width:, height:, mode: :fit)
+      pipeline = ImageProcessing::Vips.source(file.tempfile)
+
+      case mode
+      when :fit
+        pipeline.resize_to_fit(width.presence, height.presence)
+      when :fill
+        pipeline.resize_to_fill(width, height)
+      when :exact
+        pipeline.resize_to_limit(width, height)
+      else
+        pipeline.resize_to_fit(width.presence, height.presence)
+      end.call
+    end
+
+    def convert(file, format:, quality: nil)
+      format = normalize_format(format)
+      pipeline = ImageProcessing::Vips.source(file.tempfile).convert(format)
+      pipeline = pipeline.saver(Q: quality) if quality && %w[jpg jpeg webp heic].include?(format)
+      pipeline.call
+    end
+
+    def remove_bg(file)
+      rembg_url = ENV.fetch("REMBG_URL", "http://localhost:7000")
+      uri = URI("#{rembg_url}/api/remove")
+
+      request = Net::HTTP::Post.new(uri)
+      request["Content-Type"] = file.content_type
+      request.body = file.read
+
+      response = Net::HTTP.start(uri.host, uri.port) do |http|
+        http.read_timeout = 60
+        http.request(request)
+      end
+
+      raise "Remove BG failed: #{response.code}" unless response.is_a?(Net::HTTPSuccess)
+
+      tempfile = Tempfile.new([ "nobg", ".png" ])
+      tempfile.binmode
+      tempfile.write(response.body)
+      tempfile.rewind
+      tempfile
+    end
+
+    private
+
+    def normalize_format(format)
+      format = format.to_s.downcase.strip
+      format == "jpeg" ? "jpg" : format
+    end
+
+    def detect_format(file)
+      ext = File.extname(file.original_filename).delete(".").downcase
+      ext == "jpeg" ? "jpg" : ext
+    end
+
+    def build_ico(png_files)
+      entries = png_files.map { |f| File.binread(f.path) }
+      count = entries.size
+      header_size = 6
+      dir_entry_size = 16
+      offset = header_size + (dir_entry_size * count)
+
+      ico = "".b
+      ico << [ 0, 1, count ].pack("vvv")
+
+      entries.each do |png_data|
+        vips_img = Vips::Image.new_from_buffer(png_data, "")
+        w = vips_img.width
+        h = vips_img.height
+        ico << [ w >= 256 ? 0 : w, h >= 256 ? 0 : h, 0, 0, 1, 32, png_data.size, offset ].pack("CCCCvvVV")
+        offset += png_data.size
+      end
+
+      entries.each { |png_data| ico << png_data }
+      ico
+    end
+  end
+end
+
+module SvgOptimizer
+  def self.optimize(content)
+    content
+      .gsub(/<!--.*?-->/m, "")
+      .gsub(/\s+/, " ")
+      .gsub(/> </, "><")
+      .strip
+  end
+end

@@ -14,6 +14,17 @@ Rails.application.routes.draw do
   resources :projets, path: 'projets'
   resources :articles, path: 'articles'
 
+  # Image Tools
+  get  "tools",                to: "tools#index",              as: :tools
+  get  "tools/resize",         to: "tools#resize",             as: :tools_resize
+  post "tools/resize",         to: "tools#process_resize",     as: :tools_process_resize
+  get  "tools/convert",        to: "tools#convert",            as: :tools_convert
+  post "tools/convert",        to: "tools#process_convert",    as: :tools_process_convert
+  get  "tools/remove_bg",      to: "tools#remove_bg",          as: :tools_remove_bg
+  post "tools/remove_bg",      to: "tools#process_remove_bg",  as: :tools_process_remove_bg
+  get  "tools/optimize_svg",   to: "tools#optimize_svg",       as: :tools_optimize_svg
+  post "tools/optimize_svg",   to: "tools#process_optimize_svg", as: :tools_process_optimize_svg
+
   # Sitemap - accessible pour les moteurs de recherche
   get '/sitemaps/sitemap.xml.gz', to: 'sitemaps#show', as: :sitemap
   get "/sitemap.xml.gz", to: "sitemaps#show"

@@ -1,0 +1,52 @@
+<% content_for :meta_title, "Outils Image - Maxime Oudin" %>
+<% content_for :meta_description, "Outils en ligne gratuits pour redimensionner, convertir et traiter vos images directement dans le navigateur." %>
+
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+  <div class="mb-12">
+    <h1 class="text-3xl sm:text-4xl font-bold text-gray-900">Outils Image</h1>
+    <p class="mt-2 text-lg text-gray-600">Traitez vos images en ligne — redimensionnement, conversion, suppression de fond et plus encore.</p>
+  </div>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+
+    <%= link_to tools_resize_path, class: "group bg-white rounded-xl border border-gray-200 p-6 hover:shadow-md hover:border-gray-300 transition-all duration-200" do %>
+      <div class="flex items-center gap-4 mb-4">
+        <div class="w-11 h-11 rounded-lg bg-yellow-50 flex items-center justify-center flex-shrink-0 group-hover:bg-yellow-100 transition-colors">
+          <i class="fas fa-expand-arrows-alt text-yellow-600"></i>
+        </div>
+        <h2 class="text-base font-semibold text-gray-900">Redimensionner</h2>
+      </div>
+      <p class="text-sm text-gray-500 leading-relaxed">Modifiez les dimensions d'une image en préservant ou non les proportions.</p>
+      <div class="mt-5 flex items-center gap-1.5 text-sm font-medium text-gray-900">
+        Utiliser <i class="fas fa-arrow-right text-xs"></i>
+      </div>
+    <% end %>
+
+    <%= link_to tools_convert_path, class: "group bg-white rounded-xl border border-gray-200 p-6 hover:shadow-md hover:border-gray-300 transition-all duration-200" do %>
+      <div class="flex items-center gap-4 mb-4">
+        <div class="w-11 h-11 rounded-lg bg-yellow-50 flex items-center justify-center flex-shrink-0 group-hover:bg-yellow-100 transition-colors">
+          <i class="fas fa-exchange-alt text-yellow-600"></i>
+        </div>
+        <h2 class="text-base font-semibold text-gray-900">Convertir</h2>
+      </div>
+      <p class="text-sm text-gray-500 leading-relaxed">Convertissez vos images vers JPG, PNG, WebP, TIFF et autres formats.</p>
+      <div class="mt-5 flex items-center gap-1.5 text-sm font-medium text-gray-900">
+        Utiliser <i class="fas fa-arrow-right text-xs"></i>
+      </div>
+    <% end %>
+
+    <%# <%= link_to tools_remove_bg_path, class: "group bg-white rounded-xl border border-gray-200 p-6 hover:shadow-md hover:border-gray-300 transition-all duration-200" do %>
+    <%= link_to "#", class: "group bg-white rounded-xl border border-gray-200 p-6 hover:shadow-md hover:border-gray-300 transition-all duration-200" do %>
+      <div class="flex items-center gap-4 mb-4">
+        <div class="w-11 h-11 rounded-lg bg-yellow-50 flex items-center justify-center flex-shrink-0 group-hover:bg-yellow-100 transition-colors">
+          <i class="fas fa-magic text-yellow-600"></i>
+        </div>
+        <h2 class="text-base font-semibold text-gray-900">Supprimer le fond</h2>
+      </div>
+      <p class="text-sm text-gray-500 leading-relaxed">Supprimez automatiquement l'arrière-plan d'une image en un clic.</p>
+      <div class="mt-5 flex items-center gap-1.5 text-sm font-medium text-gray-900">
+        (pas disponible pour le moment)
+      </div>
+    <% end %>
+  </div>
+</div>
