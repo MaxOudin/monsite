@@ -16,7 +16,8 @@ RUN apt-get update -qq && \
     build-essential \
     curl \
     git \
-    libvips \
+    libvips-dev \
+    libheif-dev \
     pkg-config \
     python-is-python3 \
     libyaml-dev \
@@ -56,7 +57,9 @@ FROM base
 RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y \
     curl \
-    libvips \
+    libvips42 \
+    libheif1 \
+    libheif-plugin-libde265 \
     postgresql-client \
     unzip && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
