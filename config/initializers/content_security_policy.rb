@@ -32,8 +32,8 @@ Rails.application.configure do
     # Directive cruciale pour les Web Workers de Mapbox
     policy.worker_src  :self, :blob
     
-    # Configuration connect-src avec support pour l'object storage Hetzner
-    connect_sources = [:self, "https://ka-f.fontawesome.com/"]
+    # Configuration connect-src (API Website Carbon, Font Awesome, etc.)
+    connect_sources = [:self, "https://ka-f.fontawesome.com/", "https://api.websitecarbon.com"]
     connect_sources << "http://localhost:*" if Rails.env.development?
     connect_sources << "ws://localhost:*" if Rails.env.development?
     

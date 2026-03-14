@@ -15,3 +15,9 @@ application.register("search-input", SearchInputController)
 
 import QualityRangeController from "./quality_range_controller"
 application.register("quality-range", QualityRangeController)
+
+import RemoveBgController from "./remove_bg_controller"
+application.register("remove-bg", RemoveBgController)
+
+import UploadController from "./upload_controller"
+application.register("upload", UploadController)
