@@ -8,6 +8,7 @@ class ImageProcessor
 
   class << self
     def resize(file, width:, height:, mode: :fit)
+      require_vips!
       pipeline = ImageProcessing::Vips.source(file.tempfile)
 
       case mode
@@ -23,10 +24,37 @@ class ImageProcessor
     end
 
     def convert(file, format:, quality: nil)
+      require_vips!
       format = normalize_format(format)
       pipeline = ImageProcessing::Vips.source(file.tempfile).convert(format)
       pipeline = pipeline.saver(Q: quality) if quality && %w[jpg jpeg webp heic].include?(format)
       pipeline.call
+    end
+
+    def compress(file, quality:)
+      require_vips!
+      format = detect_format(file)
+      image = Vips::Image.new_from_file(file.tempfile.path)
+
+      case format
+      when "png"
+        tempfile = Tempfile.new([ "compressed", ".png" ])
+        image = image.colourspace("srgb") if image.bands >= 3
+        image.pngsave(tempfile.path, compression: 9, palette: true, Q: quality, strip: true)
+        tempfile
+      when "jpg", "jpeg"
+        tempfile = Tempfile.new([ "compressed", ".jpg" ])
+        image.jpegsave(tempfile.path, Q: quality, strip: true, optimize_coding: true, interlace: true)
+        tempfile
+      when "webp"
+        tempfile = Tempfile.new([ "compressed", ".webp" ])
+        image.webpsave(tempfile.path, Q: quality, strip: true)
+        tempfile
+      else
+        tempfile = Tempfile.new([ "compressed", ".webp" ])
+        image.webpsave(tempfile.path, Q: quality, strip: true)
+        tempfile
+      end
     end
 
     def remove_bg(file)
@@ -52,6 +80,10 @@ class ImageProcessor
     end
 
     private
+
+    def require_vips!
+      require "image_processing/vips"
+    end
 
     def normalize_format(format)
       format = format.to_s.downcase.strip
