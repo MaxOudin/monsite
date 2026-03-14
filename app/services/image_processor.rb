@@ -8,7 +8,6 @@ class ImageProcessor
 
   class << self
     def resize(file, width:, height:, mode: :fit)
-      require_vips!
       pipeline = ImageProcessing::Vips.source(file.tempfile)
 
       case mode
@@ -24,7 +23,6 @@ class ImageProcessor
     end
 
     def convert(file, format:, quality: nil)
-      require_vips!
       format = normalize_format(format)
       pipeline = ImageProcessing::Vips.source(file.tempfile).convert(format)
       pipeline = pipeline.saver(Q: quality) if quality && %w[jpg jpeg webp heic].include?(format)
@@ -32,7 +30,6 @@ class ImageProcessor
     end
 
     def compress(file, quality:)
-      require_vips!
       format = detect_format(file)
       image = Vips::Image.new_from_file(file.tempfile.path)
 
@@ -80,10 +77,6 @@ class ImageProcessor
     end
 
     private
-
-    def require_vips!
-      require "image_processing/vips"
-    end
 
     def normalize_format(format)
       format = format.to_s.downcase.strip
