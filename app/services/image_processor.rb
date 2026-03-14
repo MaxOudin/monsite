@@ -24,9 +24,21 @@ class ImageProcessor
     def convert(file, format:, quality: nil)
       require_vips!
       format = normalize_format(format)
+
+      log_heic_diagnostics(file) if detect_format(file) == "heic"
+
+      Rails.logger.info "[ImageProcessor#convert] source=#{file.original_filename} " \
+                        "size=#{file.size} content_type=#{file.content_type} " \
+                        "tempfile=#{file.tempfile.path} target_format=#{format}"
+
+      Rails.logger.info "[ImageProcessor#convert] Étape 1 — lecture du fichier source par vips"
       pipeline = ImageProcessing::Vips.source(file.tempfile).convert(format)
       pipeline = pipeline.saver(Q: quality) if quality && %w[jpg jpeg webp heic].include?(format)
-      pipeline.call
+
+      Rails.logger.info "[ImageProcessor#convert] Étape 2 — lancement du pipeline vips"
+      result = pipeline.call
+      Rails.logger.info "[ImageProcessor#convert] Succès — résultat: #{result.path}"
+      result
     end
 
     def compress(file, quality:)
@@ -143,6 +155,30 @@ class ImageProcessor
 
     def require_vips!
       require "image_processing/vips"
+    end
+
+    def log_heic_diagnostics(file)
+      Rails.logger.info "[ImageProcessor] === Diagnostic HEIC ==="
+      Rails.logger.info "[ImageProcessor] libvips version: #{Vips::VERSION}"
+      Rails.logger.info "[ImageProcessor] ruby-vips version: #{Vips::VERSION_STRING}"
+
+      # Loaders disponibles pour heic/heif
+      heic_loaders = Vips::get_suffixes.select { |s| s.match?(/heic|heif/i) } rescue []
+      Rails.logger.info "[ImageProcessor] Suffixes heic/heif reconnus par vips: #{heic_loaders.inspect}"
+
+      # Vérifie si le fichier est lisible
+      Rails.logger.info "[ImageProcessor] Fichier tempfile existe ? #{File.exist?(file.tempfile.path)}"
+      Rails.logger.info "[ImageProcessor] Taille fichier: #{File.size(file.tempfile.path)} octets"
+      Rails.logger.info "[ImageProcessor] Magic bytes (hex): #{File.binread(file.tempfile.path, 16).unpack1('H*')}"
+
+      # Tente une ouverture directe vips pour isoler l'erreur
+      Rails.logger.info "[ImageProcessor] Tentative Vips::Image.new_from_file..."
+      Vips::Image.new_from_file(file.tempfile.path)
+      Rails.logger.info "[ImageProcessor] new_from_file OK"
+    rescue => e
+      Rails.logger.error "[ImageProcessor] new_from_file a échoué: #{e.class} — #{e.message}"
+    ensure
+      Rails.logger.info "[ImageProcessor] === Fin diagnostic HEIC ==="
     end
 
     def normalize_format(format)
