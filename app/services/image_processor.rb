@@ -1,5 +1,3 @@
-require "image_processing/vips"
-
 class ImageProcessor
   MAX_FILE_SIZE = 50.megabytes
   RASTER_FORMATS = %w[jpg jpeg png webp tiff gif bmp heic].freeze
@@ -8,6 +6,7 @@ class ImageProcessor
 
   class << self
     def resize(file, width:, height:, mode: :fit)
+      require_vips!
       pipeline = ImageProcessing::Vips.source(file.tempfile)
 
       case mode
@@ -23,6 +22,7 @@ class ImageProcessor
     end
 
     def convert(file, format:, quality: nil)
+      require_vips!
       format = normalize_format(format)
       pipeline = ImageProcessing::Vips.source(file.tempfile).convert(format)
       pipeline = pipeline.saver(Q: quality) if quality && %w[jpg jpeg webp heic].include?(format)
@@ -30,6 +30,7 @@ class ImageProcessor
     end
 
     def compress(file, quality:)
+      require_vips!
       format = detect_format(file)
       image = Vips::Image.new_from_file(file.tempfile.path)
 
@@ -76,7 +77,73 @@ class ImageProcessor
       tempfile
     end
 
+    def favicon(file)
+      require_vips!
+      require "zip"
+
+      buffer = Zip::OutputStream.write_buffer do |zip|
+        FAVICON_SIZES.each do |size|
+          result = ImageProcessing::Vips.source(file.tempfile)
+            .resize_to_fill(size, size)
+            .convert("png")
+            .call
+
+          zip.put_next_entry("favicon-#{size}x#{size}.png")
+          zip.write(File.binread(result.path))
+          result.close! if result.respond_to?(:close!)
+        end
+
+        ico_sizes = [ 16, 32, 48 ]
+        ico_images = ico_sizes.map do |size|
+          ImageProcessing::Vips.source(file.tempfile)
+            .resize_to_fill(size, size)
+            .convert("png")
+            .call
+        end
+
+        zip.put_next_entry("favicon.ico")
+        zip.write(build_ico(ico_images))
+        ico_images.each { |img| img.close! if img.respond_to?(:close!) }
+      end
+
+      buffer.string
+    end
+
+    def optimize_svg(content)
+      SvgOptimizer.optimize(content)
+    end
+
+    def bulk(files, operation:, **options)
+      require_vips!
+      require "zip"
+
+      buffer = Zip::OutputStream.write_buffer do |zip|
+        files.each do |file|
+          result = case operation
+          when "resize"
+            resize(file, width: options[:width], height: options[:height], mode: options.fetch(:mode, :fit))
+          when "convert"
+            convert(file, format: options[:format], quality: options[:quality])
+          when "compress"
+            compress(file, quality: options.fetch(:quality, 80))
+          end
+
+          ext = operation == "convert" ? options[:format] : File.extname(file.original_filename)
+          name = File.basename(file.original_filename, ".*")
+          zip.put_next_entry("#{name}-#{operation}#{ext.start_with?('.') ? ext : ".#{ext}"}")
+          zip.write(File.binread(result.path))
+          result.close! if result.respond_to?(:close!)
+        end
+      end
+
+      buffer.string
+    end
+
     private
+
+    def require_vips!
+      require "image_processing/vips"
+    end
 
     def normalize_format(format)
       format = format.to_s.downcase.strip
