@@ -12,3 +12,6 @@ application.register("text_fit", TextFitController)
 
 import SearchInputController from "./search_input_controller"
 application.register("search-input", SearchInputController)
+
+import QualityRangeController from "./quality_range_controller"
+application.register("quality-range", QualityRangeController)
