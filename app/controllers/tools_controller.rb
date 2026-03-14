@@ -80,7 +80,7 @@ class ToolsController < ApplicationController
     message = error.message.to_s
     case message
     when /is not a known file format/
-      "Format de fichier non reconnu par libvips. Essayez JPG, PNG ou WebP."
+      "Format non reconnu. Pour les fichiers HEIC (iPhone), essayez de les convertir d'abord en JPG avec l'app Photos sur Mac."
     when /No such file/
       "Fichier introuvable. Veuillez réessayer."
     when /Remove BG failed/
