@@ -23,6 +23,9 @@ production:
   # heartbeat_check:
   #   class: HeartbeatCheckJob
   #   schedule: every 10 minutes
+  generate_sitemap:
+    class: GenerateSitemapJob
+    schedule: at 11pm every day
   clear_solid_queue_finished_jobs:
     command: "SolidQueue::Job.clear_finished_in_batches(sleep_between_batches: 0.3)"
     schedule: every 1 hour
