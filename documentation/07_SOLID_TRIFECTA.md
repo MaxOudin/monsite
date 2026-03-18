@@ -4,6 +4,15 @@ Ce document résume les travaux réalisés pour intégrer le **Solid Trifecta** 
 
 ---
 
+## ⚠️ En cas de perte de données en production
+
+Si après des commandes `db:schema:load:queue`, `db:schema:load:cable` ou `db:schema:load:cache` la base de prod est vide (plus d’articles, projets, etc.) :
+
+1. **Restaurer un backup** : Dashboard Scalingo → Addons → PostgreSQL → **Backups** → restaurer le dernier backup **avant** ces commandes.
+2. Ne plus jamais lancer ces trois commandes en production lorsque primary, queue, cable et cache utilisent la **même** base (voir §3 ci‑dessous).
+
+---
+
 ## 1. Objectif
 
 - **Solid Queue** : jobs asynchrones et tâches récurrentes (ex. sitemap quotidien), sans Redis.
@@ -60,14 +69,11 @@ Aucune création de bases supplémentaires en prod (pas de `cd_production_queue`
   bin/rails db:schema:load:cable
   bin/rails db:schema:load:cache
   ```
-  Ou `bin/rails db:prepare` si les schémas sont gérés par la tâche standard.
+  En dev/test les connexions queue/cable/cache pointent vers la **même** base ; ces commandes ajoutent les tables Solid dans cette base. Vérifier que `db/queue_schema.rb` ne contient **que** les tables Solid Queue (pas tout le schéma app), sinon ne pas lancer `schema:load:queue` sur une base qui contient déjà des données.
 
-- **En prod** (une seule fois, après déploiement) :
-  ```bash
-  scalingo-monsite -a maximeoudinpointfr run env DISABLE_DATABASE_ENVIRONMENT_CHECK=1 bundle exec rails db:schema:load:queue
-  scalingo-monsite -a maximeoudinpointfr run env DISABLE_DATABASE_ENVIRONMENT_CHECK=1 bundle exec rails db:schema:load:cable
-  scalingo-monsite -a maximeoudinpointfr run env DISABLE_DATABASE_ENVIRONMENT_CHECK=1 bundle exec rails db:schema:load:cache
-  ```
+- **En prod (une seule base) – attention**  
+  **Ne jamais exécuter** `db:schema:load:queue`, `db:schema:load:cable` ou `db:schema:load:cache` lorsque primary, queue, cable et cache pointent vers la **même** base : Rails peut purger cette base et recréer les tables, ce qui **efface toutes les données** (articles, projets, etc.).  
+  Les tables Solid doivent être créées autrement : migrations dédiées (avec `if_not_exists: true`) ou en s’assurant qu’elles existent déjà (ex. déploiement initial avec `db:prepare` sur une base vide). En cas de doute, ne pas lancer ces commandes en prod.
 
 ---
 
