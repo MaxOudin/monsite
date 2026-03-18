@@ -4,8 +4,10 @@ class GenerateSitemapJob < ApplicationJob
   queue_as :default
 
   def perform
-    Rake::Task["sitemap:refresh"].reenable
-    Rake::Task["sitemap:refresh"].invoke
+    require "rake"
+    Rails.application.load_tasks
+    Rake::Task["sitemap:refresh:no_ping"].reenable
+    Rake::Task["sitemap:refresh:no_ping"].invoke
     Rails.logger.info "[GenerateSitemapJob] Sitemap généré — #{Time.current.iso8601}"
   end
 end
