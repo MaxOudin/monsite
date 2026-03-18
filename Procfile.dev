@@ -1,4 +1,4 @@
 web: bin/rails server -p 3000
 css: bun run build:css --watch
 js: bun run build --watch
-worker: bundle exec bin/jobs
+jobs: bin/rails solid_queue:start
