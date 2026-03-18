@@ -23,6 +23,10 @@ Rails.application.routes.draw do
   get  "tools/remove_bg",      to: "tools#remove_bg",          as: :tools_remove_bg
   post "tools/remove_bg",      to: "tools#process_remove_bg",  as: :tools_process_remove_bg
 
+  # Pages statiques
+  get "/mentions-legales", to: "pages#mentions_legales", as: :mentions_legales
+  get "/cgv", to: "pages#cgv", as: :cgv
+
   # Sitemap - accessible pour les moteurs de recherche
   get '/sitemaps/sitemap.xml.gz', to: 'sitemaps#show', as: :sitemap
   get "/sitemap.xml.gz", to: "sitemaps#show"
