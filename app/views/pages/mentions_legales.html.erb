@@ -1,0 +1,159 @@
+<% content_for :meta_product_name, "Mentions légales - #{DEFAULT_META["meta_product_name"]}" %>
+<% content_for :meta_title, "Mentions légales - Maxime Oudin, développeur web" %>
+<% content_for :meta_description, "Mentions légales du site maximeoudin.fr - Informations sur l'éditeur, l'hébergeur et les conditions d'utilisation." %>
+
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+
+  <!-- En-tête -->
+  <div class="mb-12">
+    <div class="flex items-center gap-3 mb-4">
+      <%= link_to root_path, class: "text-sm text-gray-500 hover:text-gray-700 flex items-center gap-1 transition-colors" do %>
+        <i class="fa-solid fa-arrow-left text-xs"></i>
+        Accueil
+      <% end %>
+    </div>
+    <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">Mentions légales</h1>
+    <p class="text-gray-500 text-sm">Dernière mise à jour : mars 2026</p>
+    <div class="mt-4 h-1 w-16 bg-yellow-400 rounded-full"></div>
+  </div>
+
+  <!-- Contenu -->
+  <div class="space-y-10 text-gray-700">
+
+    <!-- 1. Éditeur du site -->
+    <section class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 sm:p-8">
+      <div class="flex items-center gap-3 mb-5">
+        <div class="w-8 h-8 bg-yellow-400 rounded-lg flex items-center justify-center flex-shrink-0">
+          <i class="fa-solid fa-user text-sm text-gray-900"></i>
+        </div>
+        <h2 class="text-xl font-semibold text-gray-900">1. Éditeur du site</h2>
+      </div>
+      <div class="space-y-2 text-sm sm:text-base leading-relaxed">
+        <p><span class="font-medium text-gray-900">Nom :</span>Monsieur Maxime Oudin</p>
+        <p><span class="font-medium text-gray-900">Statut :</span>Entrepreneur individuel</p>
+        <p><span class="font-medium text-gray-900">Adresse :</span> Bordeaux, France</p>
+        <p><span class="font-medium text-gray-900">Email :</span>
+          <a href="mailto:contact@maximeoudin.fr" class="text-blue-700 hover:underline">contact@maximeoudin.fr</a>
+        </p>
+        <p><span class="font-medium text-gray-900">SIRET :</span>92413632800011</p>
+        <p><span class="font-medium text-gray-900">Numéro TVA intracommunautaire :</span>FR04924136328</p>
+      </div>
+    </section>
+
+    <!-- 2. Directeur de la publication -->
+    <section class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 sm:p-8">
+      <div class="flex items-center gap-3 mb-5">
+        <div class="w-8 h-8 bg-yellow-400 rounded-lg flex items-center justify-center flex-shrink-0">
+          <i class="fa-solid fa-pen text-sm text-gray-900"></i>
+        </div>
+        <h2 class="text-xl font-semibold text-gray-900">2. Directeur de la publication</h2>
+      </div>
+      <p class="text-sm sm:text-base leading-relaxed">
+        Maxime Oudin, en qualité d'éditeur du site.
+      </p>
+    </section>
+
+    <!-- 3. Hébergement -->
+    <section class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 sm:p-8">
+      <div class="flex items-center gap-3 mb-5">
+        <div class="w-8 h-8 bg-yellow-400 rounded-lg flex items-center justify-center flex-shrink-0">
+          <i class="fa-solid fa-server text-sm text-gray-900"></i>
+        </div>
+        <h2 class="text-xl font-semibold text-gray-900">3. Hébergement</h2>
+      </div>
+      <div class="space-y-2 text-sm sm:text-base leading-relaxed">
+        <p><span class="font-medium text-gray-900">Hébergeur :</span> Scalingo SAS</p>
+        <p><span class="font-medium text-gray-900">Adresse :</span>67100 Strasbourg, France</p>
+        <p><span class="font-medium text-gray-900">Site web :</span>
+          <a href="https://scalingo.com" target="_blank" rel="noopener noreferrer" class="text-blue-700 hover:underline">scalingo.com</a>
+        </p>
+      </div>
+    </section>
+
+    <!-- 4. Propriété intellectuelle -->
+    <section class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 sm:p-8">
+      <div class="flex items-center gap-3 mb-5">
+        <div class="w-8 h-8 bg-yellow-400 rounded-lg flex items-center justify-center flex-shrink-0">
+          <i class="fa-solid fa-shield-halved text-sm text-gray-900"></i>
+        </div>
+        <h2 class="text-xl font-semibold text-gray-900">4. Propriété intellectuelle</h2>
+      </div>
+      <p class="text-sm sm:text-base leading-relaxed">
+        L'ensemble du contenu de ce site (textes, images, code source, projets présentés, articles) est la propriété exclusive de Maxime Oudin, sauf mention contraire explicite. Toute reproduction, distribution ou utilisation sans autorisation préalable et écrite est interdite.
+      </p>
+    </section>
+
+    <!-- 5. Données personnelles -->
+    <section class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 sm:p-8">
+      <div class="flex items-center gap-3 mb-5">
+        <div class="w-8 h-8 bg-yellow-400 rounded-lg flex items-center justify-center flex-shrink-0">
+          <i class="fa-solid fa-lock text-sm text-gray-900"></i>
+        </div>
+        <h2 class="text-xl font-semibold text-gray-900">5. Données personnelles</h2>
+      </div>
+      <div class="space-y-3 text-sm sm:text-base leading-relaxed">
+        <p>
+          Ce site est un portfolio personnel à vocation informative. <strong>Aucune donnée personnelle n'est collectée ni stockée</strong> via le site lui-même : pas de formulaire d'inscription, pas de compte utilisateur, pas de cookie de traçage publicitaire.
+        </p>
+        <p>
+          Les formulaires de contact sont gérés par le service tiers <strong>Tally.so</strong>, soumis à sa propre politique de confidentialité. En utilisant ces formulaires, vous acceptez les conditions de Tally.so.
+        </p>
+        <p>
+          Des données techniques anonymisées peuvent être collectées à des fins de monitoring et de détection d'erreurs (via Sentry) ainsi que de statistiques d'audience. Ces données ne permettent pas d'identifier un individu.
+        </p>
+        <p>
+          Conformément au RGPD et à la loi Informatique et Libertés, vous pouvez exercer vos droits (accès, rectification, suppression) en contactant :
+          <a href="mailto:contact@maximeoudin.fr" class="text-blue-700 hover:underline">contact@maximeoudin.fr</a>
+        </p>
+      </div>
+    </section>
+
+    <!-- 6. Cookies -->
+    <section class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 sm:p-8">
+      <div class="flex items-center gap-3 mb-5">
+        <div class="w-8 h-8 bg-yellow-400 rounded-lg flex items-center justify-center flex-shrink-0">
+          <i class="fa-solid fa-cookie-bite text-sm text-gray-900"></i>
+        </div>
+        <h2 class="text-xl font-semibold text-gray-900">6. Cookies</h2>
+      </div>
+      <div class="space-y-3 text-sm sm:text-base leading-relaxed">
+        <p>
+          Ce site n'utilise pas de cookies.
+        </p>
+      </div>
+    </section>
+
+    <!-- 7. Liens hypertextes -->
+    <section class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 sm:p-8">
+      <div class="flex items-center gap-3 mb-5">
+        <div class="w-8 h-8 bg-yellow-400 rounded-lg flex items-center justify-center flex-shrink-0">
+          <i class="fa-solid fa-link text-sm text-gray-900"></i>
+        </div>
+        <h2 class="text-xl font-semibold text-gray-900">7. Liens hypertextes</h2>
+      </div>
+      <p class="text-sm sm:text-base leading-relaxed">
+        Ce site peut contenir des liens vers des sites tiers. Maxime Oudin n'est pas responsable du contenu de ces sites ni des pratiques de confidentialité qui y sont appliquées. La mise en place d'un lien vers ce site est libre, sous réserve qu'il ne porte pas atteinte à l'image du site ou de son éditeur.
+      </p>
+    </section>
+
+    <!-- 8. Droit applicable -->
+    <section class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 sm:p-8">
+      <div class="flex items-center gap-3 mb-5">
+        <div class="w-8 h-8 bg-yellow-400 rounded-lg flex items-center justify-center flex-shrink-0">
+          <i class="fa-solid fa-scale-balanced text-sm text-gray-900"></i>
+        </div>
+        <h2 class="text-xl font-semibold text-gray-900">8. Droit applicable</h2>
+      </div>
+      <p class="text-sm sm:text-base leading-relaxed">
+        Le présent site et ses mentions légales sont soumis au droit français. En cas de litige, et après tentative de résolution amiable, les tribunaux compétents de Bordeaux seront seuls compétents.
+      </p>
+    </section>
+
+  </div>
+
+  <!-- Pied de page de la page -->
+  <div class="mt-12 text-center text-sm text-gray-400">
+    <p>Pour toute question, contactez <a href="mailto:contact@maximeoudin.fr" class="hover:text-gray-600 underline transition-colors">contact@maximeoudin.fr</a></p>
+  </div>
+
+</div>
