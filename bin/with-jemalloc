@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -e
+
+# Inject jemalloc only for the wrapped process (Ruby/Puma/Jobs).
+JEMALLOC_LIB=$(find /app/.apt/usr/lib -name 'libjemalloc.so.2' 2>/dev/null | head -1)
+
+if [ -n "$JEMALLOC_LIB" ]; then
+  exec env LD_PRELOAD="$JEMALLOC_LIB${LD_PRELOAD:+:$LD_PRELOAD}" "$@"
+else
+  exec "$@"
+fi
