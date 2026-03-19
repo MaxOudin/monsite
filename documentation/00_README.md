@@ -12,7 +12,9 @@ documentation/
 ├── 03_SEO_METADATA.md                 ← Meta tags, Open Graph, Twitter Cards
 ├── 04_SEO_STRUCTURED_DATA.md          ← Schema.org et données structurées
 ├── 05_BREADCRUMBS.md                  ← Fil d'Ariane (implémentation et SEO)
-└── 06_CHANGELOG.md                    ← Historique des modifications
+├── 06_CHANGELOG.md                    ← Historique des modifications
+├── 07_SOLID_TRIFECTA.md               ← SolidQueue / SolidCache / SolidCable
+└── 08_MEMORY_AUDIT.md                 ← Audit mémoire web & worker (Scalingo)
 ```
 
 ---
