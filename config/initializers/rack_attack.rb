@@ -123,14 +123,8 @@ class Rack::Attack
     path = req.path.to_s
 
     suspicious =
-      # Scan WordPress typique
-      path.match?(/\/wp-(content|includes)\//i) ||
-      path.match?(/(^|\/)wp-content/i) ||
-      path.match?(/(^|\/)wp-includes/i) ||
-      path.match?(/(^|\/)wp-admin/i) ||
-      # Fichiers/bots php "à l'ancienne" (tous les *.php)
-      path.match?(/\.php(?:[\/?#]|$)/i) ||
-      path.match?(/\/\w+\.php(?:[\/?#]|$)/i)
+      path.match?(/(^|\/)wp-[a-z0-9_-]+/i) ||
+      path.match?(/\.php(?:[\/?#]|$)/i)
 
     store = Rack::Attack.cache&.store
     if suspicious && store
@@ -153,6 +147,21 @@ class Rack::Attack
       rescue
         false
       end
+    else
+      false
+    end
+  end
+
+  # Bloque toutes les requêtes pour une IP ayant déjà déclenché un probe wp/php.
+  # - stage1: 5 minutes
+  # - stage2: 30 minutes
+  blocklist('block bot ip for all requests') do |req|
+    store = Rack::Attack.cache&.store
+    stage1_key = "bot_block_stage1_5m:#{req.ip}"
+    stage2_key = "bot_block_stage2_30m:#{req.ip}"
+
+    if store
+      store.read(stage2_key) || store.read(stage1_key)
     else
       false
     end
