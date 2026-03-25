@@ -132,28 +132,28 @@ class Rack::Attack
       path.match?(/\.php(?:[\/?#]|$)/i) ||
       path.match?(/\/\w+\.php(?:[\/?#]|$)/i)
 
-    return false unless suspicious
-
     store = Rack::Attack.cache&.store
-    return false unless store
+    if suspicious && store
+      begin
+        # Palier anti-bot:
+        # - 1re tentative suspecte => bloqué 5 minutes
+        # - 2e tentative suspecte => bloqué 30 minutes
+        stage1_key = "bot_block_stage1_5m:#{req.ip}"
+        stage2_key = "bot_block_stage2_30m:#{req.ip}"
 
-    begin
-      # Palier anti-bot:
-      # - 1re tentative suspecte => bloqué 5 minutes
-      # - 2e tentative suspecte => bloqué 30 minutes (dès qu'une requête arrive pendant le blocage 5m)
-      stage1_key = "bot_block_stage1_5m:#{req.ip}"
-      stage2_key = "bot_block_stage2_30m:#{req.ip}"
-
-      return true if store.read(stage2_key)
-
-      if store.read(stage1_key)
-        store.write(stage2_key, true, expires_in: 30.minutes)
-        true
-      else
-        store.write(stage1_key, true, expires_in: 5.minutes)
-        true
+        if store.read(stage2_key)
+          true
+        elsif store.read(stage1_key)
+          store.write(stage2_key, true, expires_in: 30.minutes)
+          true
+        else
+          store.write(stage1_key, true, expires_in: 5.minutes)
+          true
+        end
+      rescue
+        false
       end
-    rescue
+    else
       false
     end
   end
