@@ -118,6 +118,46 @@ class Rack::Attack
     dangerous_paths.any? { |pattern| pattern.match?(req.path) }
   end
 
+  # Bloque les scans WordPress et les extensions PHP (site Rails => pas de PHP exposé)
+  blocklist('block wp/php probes') do |req|
+    path = req.path.to_s
+
+    suspicious =
+      # Scan WordPress typique
+      path.match?(/\/wp-(content|includes)\//i) ||
+      path.match?(/(^|\/)wp-content/i) ||
+      path.match?(/(^|\/)wp-includes/i) ||
+      path.match?(/(^|\/)wp-admin/i) ||
+      # Fichiers/bots php "à l'ancienne" (tous les *.php)
+      path.match?(/\.php(?:[\/?#]|$)/i) ||
+      path.match?(/\/\w+\.php(?:[\/?#]|$)/i)
+
+    return false unless suspicious
+
+    store = Rack::Attack.cache&.store
+    return false unless store
+
+    begin
+      # Palier anti-bot:
+      # - 1re tentative suspecte => bloqué 5 minutes
+      # - 2e tentative suspecte => bloqué 30 minutes (dès qu'une requête arrive pendant le blocage 5m)
+      stage1_key = "bot_block_stage1_5m:#{req.ip}"
+      stage2_key = "bot_block_stage2_30m:#{req.ip}"
+
+      return true if store.read(stage2_key)
+
+      if store.read(stage1_key)
+        store.write(stage2_key, true, expires_in: 30.minutes)
+        true
+      else
+        store.write(stage1_key, true, expires_in: 5.minutes)
+        true
+      end
+    rescue
+      false
+    end
+  end
+
   # === 8. RÉPONSES PERSONNALISÉES ===
   
   # Responder pour les IPs bloquées (blocklist)
@@ -146,8 +186,27 @@ class Rack::Attack
     # e.g., "/404.html" for a 404 error
     env['PATH_INFO'] = "/#{status}.html"
     
-    # Call the exceptions app to handle this exception
-    Rails.application.config.exceptions_app.call(env)
+    exceptions_app = Rails.application.config.exceptions_app
+    if exceptions_app&.respond_to?(:call)
+      # Call the exceptions app to handle this exception
+      return exceptions_app.call(env)
+    end
+
+    # Fallback : si exceptions_app n'est pas configuré, on renvoie une page statique
+    # (public/403.html, public/429.html, etc.) plutôt que de crasher en 500.
+    public_file = Rails.root.join('public', "#{status}.html")
+    body =
+      if public_file.exist?
+        File.binread(public_file)
+      else
+        "Access denied (#{status})."
+      end
+
+    headers = { 'Content-Type' => 'text/html; charset=utf-8' }
+    [status, headers, [body]]
+  rescue => e
+    Rails.logger.error("[Rack::Attack] error_response fallback failed: #{e.class} - #{e.message}") if defined?(Rails)
+    [status, { 'Content-Type' => 'text/plain; charset=utf-8' }, ["Access denied (#{status})."]]
   end
 
   # === Helpers Cache Sûrs ===
