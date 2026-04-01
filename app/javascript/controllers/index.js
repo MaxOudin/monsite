@@ -21,3 +21,6 @@ application.register("remove-bg", RemoveBgController)
 
 import UploadController from "./upload_controller"
 application.register("upload", UploadController)
+
+import BackToTopController from "./back_to_top_controller"
+application.register("back-to-top", BackToTopController)
