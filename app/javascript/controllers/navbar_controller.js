@@ -1,15 +1,24 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["menu"]
+  static targets = ["menu", "scrollProgress"]
 
   connect() {
-    // Fermer le menu si on clique en dehors
     document.addEventListener('click', this.handleOutsideClick.bind(this))
+    this._scrollHandler = this.updateScrollProgress.bind(this)
+    window.addEventListener('scroll', this._scrollHandler, { passive: true })
   }
 
   disconnect() {
     document.removeEventListener('click', this.handleOutsideClick.bind(this))
+    window.removeEventListener('scroll', this._scrollHandler)
+  }
+
+  updateScrollProgress() {
+    const scrollTop = window.scrollY
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight
+    const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0
+    this.scrollProgressTarget.style.width = `${progress}%`
   }
 
   toggleMenu() {
