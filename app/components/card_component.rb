@@ -26,9 +26,9 @@ class CardComponent < ViewComponent::Base
   def formatted_date
     case @model
     when Projet
-      @model.date_debut.present? ? @model.date_debut.strftime("%b %Y") : "Projet récent"
+      @model.date_debut.present? ? helpers.l(@model.date_debut, format: :abbr_month_year) : "Projet récent"
     when Article
-      @model.created_at.strftime("%b %Y")
+      helpers.l(@model.created_at.to_date, format: :abbr_month_year)
     end
   end
 
