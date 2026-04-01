@@ -14,7 +14,7 @@
     <!-- Date -->
     <div class="mt-4">
       <span class="text-gray-700 text-sm md:text-base font-medium">
-        Publié le <%= article.created_at.strftime("%d %B %Y") %>
+        Publié le <%= l(article.created_at.to_date, format: :long) %>
       </span>
     </div>
     
@@ -66,14 +66,14 @@
         <!-- Date de publication -->
         <div class="pt-6 border-t border-gray-200">
           <h3 class="text-sm font-medium text-gray-500 mb-2">Date de publication</h3>
-          <p class="text-base text-gray-900"><%= article.created_at.strftime("%d %B %Y") %></p>
+          <p class="text-base text-gray-900"><%= l(article.created_at.to_date, format: :long) %></p>
         </div>
 
         <!-- Date de mise à jour -->
         <% if article.updated_at != article.created_at %>
           <div class="pt-6 border-t border-gray-200">
             <h3 class="text-sm font-medium text-gray-500 mb-2">Dernière mise à jour</h3>
-            <p class="text-base text-gray-900"><%= article.updated_at.strftime("%d %B %Y") %></p>
+            <p class="text-base text-gray-900"><%= l(article.updated_at.to_date, format: :long) %></p>
           </div>
         <% end %>
       </div>

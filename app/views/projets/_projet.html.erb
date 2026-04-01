@@ -17,7 +17,7 @@
       <% if @projet.date_debut.present? %>
         <div class="mt-4">
           <span class="text-gray-700 text-sm md:text-base font-medium">
-            <%= @projet.date_debut.strftime("%B %Y") %> - <%= @projet.date_fin.present? ? @projet.date_fin.strftime("%B %Y") : "En cours" %>
+            <%= l(@projet.date_debut, format: :month_year) %> - <%= @projet.date_fin.present? ? l(@projet.date_fin, format: :month_year) : "En cours" %>
           </span>
         </div>
       <% end %>
