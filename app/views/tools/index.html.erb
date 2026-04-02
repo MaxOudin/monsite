@@ -35,6 +35,19 @@
       </div>
     <% end %>
 
+    <%= link_to tools_favicon_path, class: "group bg-white rounded-xl border border-gray-200 p-6 hover:shadow-md hover:border-gray-300 transition-all duration-200" do %>
+      <div class="flex items-center gap-4 mb-4">
+        <div class="w-11 h-11 rounded-lg bg-yellow-50 flex items-center justify-center flex-shrink-0 group-hover:bg-yellow-100 transition-colors">
+          <i class="fas fa-star text-yellow-600"></i>
+        </div>
+        <h2 class="text-base font-semibold text-gray-900">Favicon</h2>
+      </div>
+      <p class="text-sm text-gray-500 leading-relaxed">Générez un pack favicon multi-tailles (ICO + PNG 16 à 256px).</p>
+      <div class="mt-5 flex items-center gap-1.5 text-sm font-medium text-gray-900">
+        Utiliser <i class="fas fa-arrow-right text-xs"></i>
+      </div>
+    <% end %>
+
     <%# <%= link_to tools_remove_bg_path, class: "group bg-white rounded-xl border border-gray-200 p-6 hover:shadow-md hover:border-gray-300 transition-all duration-200" do %>
     <%= link_to "#", class: "group bg-white rounded-xl border border-gray-200 p-6 hover:shadow-md hover:border-gray-300 transition-all duration-200" do %>
       <div class="flex items-center gap-4 mb-4">

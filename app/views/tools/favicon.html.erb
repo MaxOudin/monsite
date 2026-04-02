@@ -1,0 +1,30 @@
+<% content_for :meta_title, "Générer un pack favicon - Outils" %>
+
+<div class="max-w-2xl mx-auto px-4 sm:px-6 py-12">
+
+  <%= render "tools/tool_header", icon: "fa-star", title: "Favicon", subtitle: "Générez un pack favicon multi-tailles" %>
+
+  <div class="bg-white rounded-xl border border-gray-200 p-6 sm:p-8">
+    <%= form_with url: tools_process_favicon_path, method: :post, multipart: true, data: { turbo: false } do |f| %>
+
+      <div class="mb-6">
+        <%= render "shared/upload_zone", name: "file", accept: "image/*,.svg" %>
+        <p class="mt-1.5 text-xs text-gray-400">JPG, PNG, WebP, SVG — max <%= ImageProcessor::MAX_FILE_SIZE / 1.megabyte %> Mo</p>
+      </div>
+
+      <%= f.submit "Générer le pack favicon",
+          class: "w-full px-6 py-3 bg-gray-900 text-white text-sm font-semibold rounded-lg hover:bg-gray-800 active:bg-black transition-colors cursor-pointer" %>
+    <% end %>
+  </div>
+
+  <div class="mt-5 p-4 bg-gray-50 rounded-xl border border-gray-200">
+    <h3 class="text-xs font-semibold text-gray-700 uppercase tracking-wide mb-2">Tailles générées</h3>
+    <div class="flex flex-wrap gap-2">
+      <% ImageProcessor::FAVICON_SIZES.each do |size| %>
+        <span class="px-2 py-1 rounded bg-white border border-gray-200 text-xs text-gray-600"><%= size %>×<%= size %></span>
+      <% end %>
+      <span class="px-2 py-1 rounded bg-yellow-50 border border-yellow-200 text-xs text-yellow-700 font-medium">favicon.ico</span>
+    </div>
+  </div>
+
+</div>

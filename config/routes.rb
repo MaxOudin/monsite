@@ -22,7 +22,8 @@ Rails.application.routes.draw do
   post "tools/convert",        to: "tools#process_convert",    as: :tools_process_convert
   get  "tools/remove_bg",      to: "tools#remove_bg",          as: :tools_remove_bg
   post "tools/remove_bg",      to: "tools#process_remove_bg",  as: :tools_process_remove_bg
-
+  get  "tools/favicon",        to: "tools#favicon",            as: :tools_favicon
+  post "tools/favicon",        to: "tools#process_favicon",    as: :tools_process_favicon
   # Pages statiques
   get "/mentions-legales", to: "pages#mentions_legales", as: :mentions_legales
   get "/cgv", to: "pages#cgv", as: :cgv

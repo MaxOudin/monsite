@@ -1,0 +1,16 @@
+<%# Usage: render "tools/tool_header", icon: "fa-star", title: "Favicon", subtitle: "Générez un pack favicon multi-tailles" %>
+<div class="mb-8">
+  <%= link_to tools_path, class: "inline-flex items-center gap-2 text-sm text-gray-500 hover:text-gray-700 transition-colors mb-6" do %>
+    <i class="fas fa-arrow-left text-xs"></i> Tous les outils
+  <% end %>
+
+  <div class="flex items-center gap-4">
+    <div class="w-11 h-11 rounded-lg bg-yellow-50 flex items-center justify-center flex-shrink-0">
+      <i class="fas <%= icon %> text-yellow-600"></i>
+    </div>
+    <div>
+      <h1 class="text-2xl sm:text-3xl font-bold text-gray-900"><%= title %></h1>
+      <p class="text-sm text-gray-500 mt-0.5"><%= subtitle %></p>
+    </div>
+  </div>
+</div>

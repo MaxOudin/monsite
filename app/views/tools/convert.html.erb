@@ -2,21 +2,7 @@
 
 <div class="max-w-2xl mx-auto px-4 sm:px-6 py-12">
 
-  <div class="mb-8">
-    <%= link_to tools_path, class: "inline-flex items-center gap-2 text-sm text-gray-500 hover:text-gray-700 transition-colors mb-6" do %>
-      <i class="fas fa-arrow-left text-xs"></i> Tous les outils
-    <% end %>
-
-    <div class="flex items-center gap-4">
-      <div class="w-11 h-11 rounded-lg bg-yellow-50 flex items-center justify-center flex-shrink-0">
-        <i class="fas fa-exchange-alt text-yellow-600"></i>
-      </div>
-      <div>
-        <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">Convertir</h1>
-        <p class="text-sm text-gray-500 mt-0.5">Changez le format de votre image</p>
-      </div>
-    </div>
-  </div>
+  <%= render "tools/tool_header", icon: "fa-exchange-alt", title: "Convertir", subtitle: "Changez le format de votre image" %>
 
   <div class="bg-white rounded-xl border border-gray-200 p-6 sm:p-8">
     <%= form_with url: tools_process_convert_path, method: :post, multipart: true, data: { turbo: false } do |f| %>
