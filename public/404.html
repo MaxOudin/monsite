@@ -1,112 +1,40 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
-  <title>The page you were looking for doesn't exist (404)</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <style>
-  .rails-default-error-page {
-    background-color: #EFEFEF;
-    color: #2E2F30;
-    text-align: center;
-    font-family: arial, sans-serif;
-    margin: 0;
-  }
-
-  .rails-default-error-page div.dialog {
-    width: 95%;
-    max-width: 33em;
-    margin: 4em auto 0;
-  }
-
-  .rails-default-error-page div.dialog > div {
-    border: 1px solid #CCC;
-    border-right-color: #999;
-    border-left-color: #999;
-    border-bottom-color: #BBB;
-    border-top: #B00100 solid 4px;
-    border-top-left-radius: 9px;
-    border-top-right-radius: 9px;
-    background-color: white;
-    padding: 7px 12% 0;
-    box-shadow: 0 3px 8px rgba(50, 50, 50, 0.17);
-  }
-
-  .rails-default-error-page h1 {
-    font-size: 100%;
-    color: #730E15;
-    line-height: 1.5em;
-  }
-
-  .rails-default-error-page div.dialog > p {
-    margin: 0 0 1em;
-    padding: 1em;
-    background-color: #F7F7F7;
-    border: 1px solid #CCC;
-    border-right-color: #999;
-    border-left-color: #999;
-    border-bottom-color: #999;
-    border-bottom-left-radius: 4px;
-    border-bottom-right-radius: 4px;
-    border-top-color: #DADADA;
-    color: #666;
-    box-shadow: 0 3px 8px rgba(50, 50, 50, 0.17);
-  }
-  </style>
+  <title>Page introuvable (404)</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="icon" href="/favicon.ico" sizes="any">
 </head>
+<body class="bg-gray-50 min-h-screen flex flex-col items-center justify-center px-4 font-sans">
 
-<body class="rails-default-error-page">
-  <!-- This file lives in public/404.html -->
-  <div class="dialog">
-    <div>
+  <div class="text-center max-w-md w-full">
 
-      <div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(https://res.cloudinary.com/dyleaesxc/image/upload/v1704995910/banner-modified_s3tq0m.webp); display:flex; justify-content:center;">
-        <div class="container-hero" style="width:65vw; display:flex; flex-direction:column; align-items:center;">
-          <div>
-            <h3 style="color:white; text-align: left; font-family:'Montserrat'; font-size: 20px;">
-              Bonjour !
-            </h3>
-
-            <h1 style="margin-top:5vh; margin-bottom:5vh; text-align:center;">
-              Je suis Maxime Oudin, <br> <span style="font-weight:bold;"> développeur web </span> à Bordeaux.</h1>
-            <p style="margin-top:1vh; margin-bottom:1vh; text-align: left; font-size: 20px;">
-              Vous avez un projet de site internet ? <br> Vous souhaitez développer votre activité en ligne ? <br> Vous avez besoin d’un développeur web pour vous accompagner ? <br>
-            </p>
-            <h3 style="margin-top:3vh; margin-bottom:3vh; color:white; text-align: left; font-family:'Montserrat'; font-size: 20px;">
-              Pour créer votre site vitrine percutant, site e-commerce, ou logiciel sur mesure...
-            </h3>
-          </div>
-
-          <div style="margin-top:6vh; margin-bottom:1vh;">
-              <a class="btn btn-primary"
-                style="padding: 0.8vw; background: linear-gradient(90deg, rgba(93,224,230,1) 0%, rgba(0,74,173,1) 100%); border: 0px; color: black; font-weight: bold; font-size: 18px;"
-                href="#contact-infos"
-                aria-label="Choisissez le mode de contact"
-                >Contactez-moi</a>
-          </div>
-        </div>
-      </div>
-
-    <p>If you are the application owner check the logs for more information warning him with code 404.</p>
-
-   
-      </div>
-      <div class="footer-end">
-        <div class="links-end">
-          <div class="footer-links">
-            <a href="https://www.linkedin.com/in/maxime-oudin-developer/" aria-label="Venez découvrir le profil LinkedIn de Maxime Oudin développeur web" target="_blank"><i class="fab fa-linkedin"></i></a>
-            <a href="https://github.com/MaxOudin" aria-label="Lien du Github de Maxime Oudin développeur web" target="_blank"><i class="fab fa-github"></i></a>
-            <a href="https://linktr.ee/maximeoudin" aria-label="Linktree de Maxime Oudin développeur web" target="_blank"><i class="fa-solid fa-address-book"></i></i></a>
-          </div>
-        </div>
-        <div class="footer-copyright">
-          <p class="nav-link-mentions" style="font-size:16px;">©2024 Monsieur Maxime Oudin</p>
-          <p class="nav-link-mentions" style="font-size:16px;">Créé par Maxime Oudin développeur web Ruby on Rails à Bordeaux.</p>
-        </div>
-      </div>
+    <div class="mb-8">
+      <span class="text-8xl font-bold text-gray-300 select-none">404</span>
     </div>
 
+    <div class="w-10 h-1 bg-yellow-400 mx-auto mb-8 rounded-full"></div>
 
+    <h1 class="text-2xl font-bold text-gray-900 mb-3">Page introuvable</h1>
+    <p class="text-gray-500 text-sm leading-relaxed mb-10">
+      La page que vous cherchez n'existe pas ou a été déplacée.
+    </p>
+
+    <a href="/"
+       class="inline-flex items-center gap-2 px-6 py-3 bg-gray-900 text-white text-sm font-semibold rounded-lg hover:bg-gray-800 transition-colors">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+      </svg>
+      Retour à l'accueil
+    </a>
   </div>
+
+  <footer class="absolute bottom-6 text-center text-xs text-gray-400">
+    © Maxime Oudin
+  </footer>
 
 </body>
 </html>
