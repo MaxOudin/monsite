@@ -1,5 +1,5 @@
 class ToolsController < ApplicationController
-  before_action :validate_file, only: %i[process_resize process_convert process_remove_bg]
+  before_action :validate_file, only: %i[process_resize process_convert process_remove_bg process_favicon]
 
   # GET /tools
   def index; end
@@ -48,6 +48,15 @@ class ToolsController < ApplicationController
     redirect_back fallback_location: tools_remove_bg_path, alert: friendly_error(e)
   ensure
     result&.close! if result.respond_to?(:close!)
+  end
+
+  # GET /tools/favicon
+  def favicon; end
+
+  # POST /tools/favicon
+  def process_favicon
+    zip_data = ImageProcessor.favicon(params[:file])
+    send_data zip_data, filename: "favicon-pack.zip", type: "application/zip", disposition: "attachment"
   end
 
   private
