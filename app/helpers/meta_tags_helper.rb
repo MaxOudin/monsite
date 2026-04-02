@@ -22,6 +22,8 @@ module MetaTagsHelper
     # Retourner l'URL complète
     if meta_image.starts_with?("http")
       meta_image
+    elsif meta_image.starts_with?("/")
+      "#{request.base_url}#{meta_image}"
     else
       begin
         image_url(meta_image)
