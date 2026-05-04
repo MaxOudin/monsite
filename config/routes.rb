@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get "up", to: "rails/health#show", as: :rails_health_check
+
   post "/csp-violation-report-endpoint", to: "csp_reports#create", as: :csp_violation_report_endpoint
   
   devise_for :users
