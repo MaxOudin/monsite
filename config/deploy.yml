@@ -7,7 +7,7 @@ servers:
     - 92.113.31.191
 
 proxy:
-  ssl: false  # passera à true après bascule DNS
+  ssl: true
   hosts:
     - maximeoudin.fr
     - www.maximeoudin.fr
