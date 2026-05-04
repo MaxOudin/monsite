@@ -28,6 +28,7 @@ env:
     - RAILS_MASTER_KEY
     - KAMAL_REGISTRY_PASSWORD
     - POSTGRES_PASSWORD
+    - DATABASE_URL
     - USER_EMAIL
     - USER_PASSWORD
     - AWS_KEY_ID
@@ -38,7 +39,6 @@ env:
     DB_HOST: maximeoudin-db
     POSTGRES_USER: maximeoudin
     POSTGRES_DB: maximeoudin_production
-    DATABASE_URL: postgres://maximeoudin@maximeoudin-db:5432/maximeoudin_production
     AWS_REGION: eu-north-1
     AWS_BUCKET: maximeoudinwebsite
     DOMAIN: maximeoudin.fr
