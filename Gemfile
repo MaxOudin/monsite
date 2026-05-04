@@ -12,6 +12,8 @@ gem "pg", "~> 1.4"
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", "~> 6.0"
 
+gem "kamal"
+
 # Use Propshaft for asset pipeline
 gem "propshaft"
 
