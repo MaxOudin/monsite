@@ -13,7 +13,7 @@ services:
 
   web:
     build: .
-    command: bash -c "rm -f tmp/pids/server.pid && rails server -b 0.0.0.0 -p 3001"
+    command: bash -c "rm -f tmp/pids/server.pid && rails server -b 0.0.0.0 -p 3000"
     env_file:
       - .env
     environment:
@@ -31,7 +31,7 @@ services:
       - "traefik.http.routers.web.rule=Host(`maximeoudin.fr`)"
       - "traefik.http.routers.web.entrypoints=websecure"
       - "traefik.http.routers.web.tls.certresolver=myresolver"
-      - "traefik.http.services.web.loadbalancer.server.port=3001"
+      - "traefik.http.services.web.loadbalancer.server.port=3000"
     restart: unless-stopped
     depends_on:
       - db

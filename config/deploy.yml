@@ -1,0 +1,63 @@
+# config/deploy.yml
+service: maximeoudin
+image: maxoudin/maximeoudin
+
+servers:
+  web:
+    - 92.113.31.191
+
+proxy:
+  ssl: false  # passera à true après bascule DNS
+  hosts:
+    - maximeoudin.fr
+    - www.maximeoudin.fr
+  app_port: 3000
+
+registry:
+  server: ghcr.io
+  username: MaxOudin
+  password:
+    - KAMAL_REGISTRY_PASSWORD
+
+builder:
+  arch: amd64
+  remote: ssh://pioncham@92.113.31.191
+
+env:
+  secret:
+    - RAILS_MASTER_KEY
+    - KAMAL_REGISTRY_PASSWORD
+    - POSTGRES_PASSWORD
+    - USER_EMAIL
+    - USER_PASSWORD
+    - AWS_KEY_ID
+    - AWS_ACCESS_KEY
+    - DEVISE_JWT_SECRET_KEY
+    - SENTRY_DSN
+  clear:
+    DB_HOST: maximeoudin-db
+    POSTGRES_USER: maximeoudin
+    POSTGRES_DB: maximeoudin_production
+    DATABASE_URL: postgres://maximeoudin@maximeoudin-db:5432/maximeoudin_production
+    AWS_REGION: eu-north-1
+    AWS_BUCKET: maximeoudinwebsite
+    DOMAIN: maximeoudin.fr
+    RAILS_LOG_TO_STDOUT: "true"
+    RAILS_SERVE_STATIC_FILES: "true"
+
+ssh:
+  user: pioncham
+
+accessories:
+  db:
+    image: postgres:17
+    host: 92.113.31.191
+    port: "127.0.0.1:5432:5432"
+    env:
+      clear:
+        POSTGRES_USER: maximeoudin
+        POSTGRES_DB: maximeoudin_production
+      secret:
+        - POSTGRES_PASSWORD
+    directories:
+      - data:/var/lib/postgresql/data

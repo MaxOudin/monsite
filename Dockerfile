@@ -91,8 +91,8 @@ USER rails
 # Définir le répertoire de travail
 WORKDIR /app
 
-# Exposer le port 3001
-EXPOSE 3001
+# Exposer le port 3000
+EXPOSE 3000
 
 # Commande pour démarrer le serveur Rails
-CMD ["rails", "server", "-b", "0.0.0.0", "-p", "3001"]
+CMD ["rails", "server", "-b", "0.0.0.0", "-p", "3000"]
