@@ -1,5 +1,5 @@
 # app/services/blob_migration_service.rb
-class BlobMigrationService
+module BlobMigrationService
   def initialize(article)
     @article = article
   end
