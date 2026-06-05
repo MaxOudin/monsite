@@ -1,3 +1,16 @@
 @import "tailwindcss";
 @import "trix/dist/trix.css";
 @import "./actiontext.css";
+@import "./config/_variables.css";
+@import "./config/_dark-mode.css";
+
+@theme {
+  /* Couleurs brand */
+  --color-primary:          #FFDD00;
+  --color-primary-hover:    #FFE633;
+  --color-secondary:        #004AAD;
+  --color-secondary-hover:  #003A8D;
+  --color-accent:           #FF007F;
+  --color-brand-bg:         #F8F9FC;
+  --color-brand-text:       #141414;
+}

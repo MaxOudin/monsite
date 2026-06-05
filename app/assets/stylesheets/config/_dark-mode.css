@@ -1,0 +1,269 @@
+/* ===========================================
+   Dark Mode Overrides
+   Applied when <html data-theme="dark">
+   =========================================== */
+
+/* ---- Base ---- */
+[data-theme="dark"] body {
+  background-color: #111827 !important;
+  color: #f9fafb;
+}
+
+[data-theme="dark"] .container-application {
+  background-color: #111827 !important;
+  color: #f9fafb;
+}
+
+/* Toutes les sections/divs avec un fond clair arbitraire */
+[data-theme="dark"] .bg-\[\#F8F9FC\],
+[data-theme="dark"] .bg-\[\#F9F9FD\],
+[data-theme="dark"] .bg-\[\#F7F9FC\] {
+  background-color: #111827 !important;
+}
+
+/* ---- Global text color overrides ---- */
+[data-theme="dark"] .text-gray-900 {
+  color: #f9fafb !important;
+}
+
+[data-theme="dark"] .text-gray-800 {
+  color: #f3f4f6 !important;
+}
+
+[data-theme="dark"] .text-gray-700 {
+  color: #e5e7eb !important;
+}
+
+[data-theme="dark"] .text-gray-600 {
+  color: #d1d5db !important;
+}
+
+[data-theme="dark"] .text-gray-500 {
+  color: #b5c4d1 !important;
+}
+
+[data-theme="dark"] .text-gray-400 {
+  color: #9ca3af !important;
+}
+
+/* ---- Global background overrides ---- */
+[data-theme="dark"] .bg-white {
+  background-color: #374151 !important;
+}
+
+[data-theme="dark"] .bg-gray-50 {
+  background-color: #1f2937 !important;
+}
+
+[data-theme="dark"] .bg-gray-100 {
+  background-color: #374151 !important;
+}
+
+[data-theme="dark"] .bg-gray-200 {
+  background-color: #4b5563 !important;
+}
+
+[data-theme="dark"] .bg-gray-300 {
+  background-color: #6b7280 !important;
+}
+
+[data-theme="dark"] .hover\:bg-gray-50:hover {
+  background-color: #4b5563 !important;
+}
+
+[data-theme="dark"] .hover\:bg-gray-100:hover,
+[data-theme="dark"] .hover\:bg-gray-200:hover {
+  background-color: #4b5563 !important;
+}
+
+[data-theme="dark"] .hover\:bg-gray-300:hover {
+  background-color: #6b7280 !important;
+}
+
+/* ---- Global border overrides ---- */
+[data-theme="dark"] .border-gray-100,
+[data-theme="dark"] .border-gray-200,
+[data-theme="dark"] .border-gray-300 {
+  border-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+/* ---- Navbar ---- */
+[data-theme="dark"] nav.fixed {
+  background-color: rgba(17, 24, 39, 0.92) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Mobile menu dropdown */
+[data-theme="dark"] [data-navbar-target="menu"] {
+  background-color: #111827 !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* ---- Search inputs ---- */
+[data-theme="dark"] input[type="text"],
+[data-theme="dark"] input[type="email"],
+[data-theme="dark"] input[type="password"],
+[data-theme="dark"] input[type="search"],
+[data-theme="dark"] textarea,
+[data-theme="dark"] select {
+  background-color: #374151 !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+  color: #f9fafb !important;
+}
+
+[data-theme="dark"] input::placeholder,
+[data-theme="dark"] textarea::placeholder {
+  color: #9ca3af !important;
+}
+
+/* ---- Blue info banners (search results) ---- */
+[data-theme="dark"] .bg-blue-50 {
+  background-color: #1e3a5f !important;
+}
+
+[data-theme="dark"] .border-blue-100 {
+  border-color: rgba(59, 130, 246, 0.3) !important;
+}
+
+[data-theme="dark"] .text-blue-800 {
+  color: #93c5fd !important;
+}
+
+[data-theme="dark"] .hover\:text-blue-700:hover {
+  color: #bfdbfe !important;
+}
+
+/* ---- Buttons - secondary variant ---- */
+[data-theme="dark"] .bg-white.border-gray-300 {
+  background-color: #374151 !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+/* ---- Article sidebar ---- */
+[data-theme="dark"] .prose {
+  color: #d1d5db;
+}
+
+[data-theme="dark"] .prose h1,
+[data-theme="dark"] .prose h2,
+[data-theme="dark"] .prose h3,
+[data-theme="dark"] .prose h4 {
+  color: #f9fafb !important;
+}
+
+[data-theme="dark"] .prose p,
+[data-theme="dark"] .prose li {
+  color: #d1d5db;
+}
+
+[data-theme="dark"] .prose code {
+  color: #93c5fd;
+  background-color: #374151;
+}
+
+/* ---- Form elements ---- */
+[data-theme="dark"] .form-control {
+  background-color: #374151 !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+  color: #f9fafb !important;
+}
+
+[data-theme="dark"] .form-group label,
+[data-theme="dark"] label {
+  color: #e5e7eb;
+}
+
+[data-theme="dark"] .trix-wrapper,
+[data-theme="dark"] .trix-wrapper trix-editor,
+[data-theme="dark"] .trix-editor {
+  background-color: #374151 !important;
+  color: #f9fafb !important;
+}
+
+[data-theme="dark"] .trix-wrapper trix-toolbar,
+[data-theme="dark"] trix-toolbar {
+  background: #4b5563 !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+[data-theme="dark"] .trix-wrapper trix-toolbar .trix-button,
+[data-theme="dark"] trix-toolbar .trix-button {
+  background: #6b7280 !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+  color: #f9fafb !important;
+}
+
+[data-theme="dark"] .trix-wrapper trix-toolbar .trix-button:hover,
+[data-theme="dark"] trix-toolbar .trix-button:hover {
+  background: #9ca3af !important;
+}
+
+/* ---- Flashes ---- */
+[data-theme="dark"] .bg-green-50 {
+  background-color: #052e16 !important;
+}
+
+[data-theme="dark"] .bg-red-50 {
+  background-color: #450a0a !important;
+}
+
+[data-theme="dark"] .bg-yellow-50 {
+  background-color: #422006 !important;
+}
+
+[data-theme="dark"] .border-green-200 {
+  border-color: rgba(34, 197, 94, 0.3) !important;
+}
+
+[data-theme="dark"] .border-red-200 {
+  border-color: rgba(239, 68, 68, 0.3) !important;
+}
+
+[data-theme="dark"] .text-green-800 {
+  color: #86efac !important;
+}
+
+[data-theme="dark"] .text-red-800 {
+  color: #fca5a5 !important;
+}
+
+/* ---- Theme toggle button ---- */
+.theme-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: #6b7280;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  flex-shrink: 0;
+}
+
+.theme-toggle-btn:hover {
+  background-color: rgba(0, 0, 0, 0.06);
+  color: #374151;
+}
+
+[data-theme="dark"] .theme-toggle-btn {
+  color: #d1d5db;
+}
+
+[data-theme="dark"] .theme-toggle-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #f9fafb;
+}
+
+/* Transition fluide sur tout le document */
+body,
+nav,
+.container-application,
+[class*="bg-white"],
+[class*="bg-gray"],
+[class*="text-gray"],
+[class*="border-gray"] {
+  transition: background-color 0.3s ease, color 0.2s ease, border-color 0.2s ease;
+}

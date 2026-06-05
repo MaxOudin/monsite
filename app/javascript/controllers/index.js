@@ -24,3 +24,6 @@ application.register("upload", UploadController)
 
 import BackToTopController from "./back_to_top_controller"
 application.register("back-to-top", BackToTopController)
+
+import ThemeController from "./theme_controller"
+application.register("theme", ThemeController)

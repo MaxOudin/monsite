@@ -1,4 +1,11 @@
 <head>
+    <!-- Anti-flash: apply saved theme before page renders -->
+    <script nonce="<%= content_security_policy_nonce %>">
+      (function() {
+        var t = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', t);
+      })();
+    </script>
     <%= render 'layouts/meta_tags' %>
 
     <!-- CSRF meta tags - Rails security -->

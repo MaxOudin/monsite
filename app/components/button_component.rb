@@ -2,10 +2,10 @@
 
 class ButtonComponent < ViewComponent::Base
   VARIANTS = {
-    primary: "text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 shadow-md hover:shadow-lg",
-    secondary: "text-gray-700 bg-white border border-gray-300 hover:bg-gray-50",
-    dark: "text-white bg-gray-900 hover:bg-gray-800",
-    danger: "text-white bg-red-600 hover:bg-red-500"
+    primary:   "text-secondary bg-primary hover:bg-primary-hover shadow-md hover:shadow-lg hover:-translate-y-0.5",
+    secondary: "text-white bg-secondary border border-secondary hover:bg-secondary-hover hover:border-secondary-hover shadow-md hover:shadow-lg hover:-translate-y-0.5",
+    dark:      "text-white bg-gray-900 hover:bg-gray-800 hover:-translate-y-0.5",
+    danger:    "text-white bg-red-600 hover:bg-red-500 hover:-translate-y-0.5"
   }.freeze
 
   SIZES = {
@@ -26,7 +26,7 @@ class ButtonComponent < ViewComponent::Base
 
   def classes
     [
-      "inline-flex items-center justify-center rounded-lg font-semibold transition-all duration-200",
+      "inline-flex items-center justify-center rounded-lg font-semibold transition-all duration-300",
       VARIANTS.fetch(@variant),
       SIZES.fetch(@size),
       (@full_width ? "w-full" : ""),

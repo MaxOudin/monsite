@@ -7,20 +7,36 @@
         <span class="hidden md:inline text-2xl text-gray-800 font-semibold ml-2">Maxime Oudin</span>
       <% end %>
 
-      <!-- Bouton burger menu (mobile) -->
-      <button type="button" 
-              class="md:hidden p-2 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors"
-              data-action="click->navbar#toggleMenu"
-              aria-label="Menu">
-        <i class="fas fa-bars text-xl"></i>
-      </button>
+      <!-- Boutons mobile (toggle thème + burger) -->
+      <div class="md:hidden flex items-center gap-1">
+        <button type="button"
+                class="theme-toggle-btn"
+                data-action="click->theme#toggle"
+                aria-label="Changer de thème">
+          <i class="fas fa-moon" data-theme-target="icon"></i>
+        </button>
+        <button type="button"
+                class="p-2 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors"
+                data-action="click->navbar#toggleMenu"
+                aria-label="Menu">
+          <i class="fas fa-bars text-xl"></i>
+        </button>
+      </div>
 
       <!-- Menu principal (desktop) -->
       <div class="hidden md:flex md:items-center md:space-x-8">
-        <%= link_to "Projets", projets_path, 
-            class: "text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 #{current_page?(projets_path) ? 'text-gray-900 font-semibold' : ''}" %>
-        <%= link_to "Articles", articles_path, 
-            class: "text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 #{current_page?(articles_path) ? 'text-gray-900 font-semibold' : ''}" %>
+        <%= link_to "Projets", projets_path,
+            class: "text-gray-700 hover:text-secondary px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300 #{current_page?(projets_path) ? 'text-secondary font-semibold' : ''}" %>
+        <%= link_to "Articles", articles_path,
+            class: "text-gray-700 hover:text-secondary px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300 #{current_page?(articles_path) ? 'text-secondary font-semibold' : ''}" %>
+
+        <!-- Theme toggle (desktop) -->
+        <button type="button"
+                class="theme-toggle-btn"
+                data-action="click->theme#toggle"
+                aria-label="Changer de thème">
+          <i class="fas fa-moon" data-theme-target="icon"></i>
+        </button>
 
         <!-- CTA Desktop -->
         <div class="ml-4 flex items-center space-x-3">
@@ -40,20 +56,20 @@
          data-navbar-target="menu">
       <div class="flex flex-col px-6 py-4">
         <!-- Liens de navigation -->
-        <%= link_to projets_path, 
-            class: "py-4 text-lg font-medium text-gray-900 border-b border-gray-200 hover:text-blue-600 transition-colors #{current_page?(projets_path) ? 'text-blue-600 font-semibold' : ''}",
+        <%= link_to projets_path,
+            class: "py-4 text-lg font-medium text-gray-900 border-b border-gray-200 hover:text-secondary transition-colors duration-300 #{current_page?(projets_path) ? 'text-secondary font-semibold' : ''}",
             data: { action: "click->navbar#closeMenu" } do %>
           Projets
         <% end %>
-        
-        <%= link_to articles_path, 
-            class: "py-4 text-lg font-medium text-gray-900 border-b border-gray-200 hover:text-blue-600 transition-colors #{current_page?(articles_path) ? 'text-blue-600 font-semibold' : ''}",
+
+        <%= link_to articles_path,
+            class: "py-4 text-lg font-medium text-gray-900 border-b border-gray-200 hover:text-secondary transition-colors duration-300 #{current_page?(articles_path) ? 'text-secondary font-semibold' : ''}",
             data: { action: "click->navbar#closeMenu" } do %>
           Articles
         <% end %>
-        
-        <a href="#contact-infos" 
-           class="py-4 text-lg font-medium text-gray-900 border-b border-gray-200 hover:text-blue-600 transition-colors"
+
+        <a href="#contact-infos"
+           class="py-4 text-lg font-medium text-gray-900 border-b border-gray-200 hover:text-secondary transition-colors duration-300"
            data-action="click->navbar#closeMenu">
           Contact
         </a>
@@ -69,7 +85,7 @@
     </div>
   </div>
   <!-- Barre de progression de scroll -->
-  <div class="absolute bottom-0 left-0 h-[2px] bg-[#FFDD00] origin-left"
+  <div class="absolute bottom-0 left-0 h-[2px] bg-primary origin-left"
        style="width: 0%"
        data-navbar-target="scrollProgress"></div>
 </nav>
