@@ -14,7 +14,8 @@
   color: #f9fafb;
 }
 
-/* Toutes les sections/divs avec un fond clair arbitraire */
+/* Fond brand-bg et valeurs arbitraires legacy */
+[data-theme="dark"] .bg-brand-bg,
 [data-theme="dark"] .bg-\[\#F8F9FC\],
 [data-theme="dark"] .bg-\[\#F9F9FD\],
 [data-theme="dark"] .bg-\[\#F7F9FC\] {
@@ -85,6 +86,15 @@
 [data-theme="dark"] .border-gray-200,
 [data-theme="dark"] .border-gray-300 {
   border-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+/* ---- Navbar hover — secondary (#004AAD) invisible sur fond sombre ---- */
+[data-theme="dark"] .hover\:text-secondary:hover {
+  color: #6EB5FF !important;
+}
+
+[data-theme="dark"] .text-secondary {
+  color: #6EB5FF !important;
 }
 
 /* ---- Navbar ---- */
