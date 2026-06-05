@@ -88,14 +88,28 @@
   border-color: rgba(255, 255, 255, 0.12) !important;
 }
 
-/* ---- Navbar hover — secondary (#004AAD) invisible sur fond sombre ---- */
+/* ---- Hero CTA secondaire ghost (Nuxt-style) ---- */
+/* Light mode bg = transparent (page bg #F8F9FC passe au travers)     */
+/* Dark mode bg  = transparent (page bg #111827 passe au travers)     */
+/* → "inversion" naturelle sans override de fond nécessaire           */
+[data-theme="dark"] .cta-hero-secondary {
+  color: #f3f4f6 !important;
+  border-color: rgba(255, 255, 255, 0.3) !important;
+}
+[data-theme="dark"] .cta-hero-secondary:hover {
+  border-color: rgba(255, 255, 255, 0.6) !important;
+  background-color: rgba(255, 255, 255, 0.06) !important;
+}
+
+/* ---- Navbar — secondary (#004AAD) invisible sur fond sombre → blanc ---- */
 [data-theme="dark"] .hover\:text-secondary:hover {
-  color: #6EB5FF !important;
+  color: #f9fafb !important;
 }
 
 [data-theme="dark"] .text-secondary {
-  color: #6EB5FF !important;
+  color: #f9fafb !important;
 }
+
 
 /* ---- Navbar ---- */
 [data-theme="dark"] nav.fixed {

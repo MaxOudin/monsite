@@ -44,7 +44,8 @@
             <%= link_to "Contact", "#contact-infos", class: "text-white" %>
           <% end %>
           <% if user_signed_in? %>
-            <%= button_to "Déconnexion", destroy_user_session_path, class: "inline-flex items-center justify-center rounded-lg font-semibold transition-all duration-200 px-4 py-2 text-sm text-gray-700 bg-white border border-gray-300 hover:bg-gray-50", 
+            <%= button_to "Déconnexion", destroy_user_session_path,
+                class: "inline-flex items-center justify-center rounded-lg font-semibold transition-all duration-300 px-4 py-2 text-sm text-gray-600 border border-gray-200 hover:bg-gray-100 hover:text-gray-900 hover:-translate-y-0.5",
                 method: :delete, data: { turbo: false } %>
           <% end %>
         </div>
@@ -78,7 +79,7 @@
         <% if user_signed_in? %>
           <div class="mt-4">
             <%= button_to 'Déconnexion', destroy_user_session_path, turbo_method: :delete,
-                class: "w-full py-3 px-4 rounded-lg text-sm font-semibold text-gray-700 bg-gray-100 border border-gray-300 hover:bg-gray-200 transition-colors" %>
+                class: "w-full py-3 px-4 rounded-lg text-sm font-semibold text-gray-600 border border-gray-200 hover:bg-gray-100 hover:text-gray-900 transition-all duration-300" %>
           </div>
         <% end %>
       </div>

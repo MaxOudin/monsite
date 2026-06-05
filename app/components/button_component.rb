@@ -2,7 +2,7 @@
 
 class ButtonComponent < ViewComponent::Base
   VARIANTS = {
-    primary:   "text-secondary bg-primary hover:bg-primary-hover shadow-md hover:shadow-lg hover:-translate-y-0.5",
+    primary:   "text-brand-text bg-primary hover:bg-primary-hover shadow-md hover:shadow-lg hover:-translate-y-0.5",
     secondary: "text-white bg-secondary border border-secondary hover:bg-secondary-hover hover:border-secondary-hover shadow-md hover:shadow-lg hover:-translate-y-0.5",
     dark:      "text-white bg-gray-900 hover:bg-gray-800 hover:-translate-y-0.5",
     danger:    "text-white bg-red-600 hover:bg-red-500 hover:-translate-y-0.5"
