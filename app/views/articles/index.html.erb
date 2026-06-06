@@ -25,14 +25,14 @@
       <div class="flex-1 relative">
         <%= f.text_field :query,
               value: params[:query],
-              class: "w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all",
+              class: "w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary transition-all",
               placeholder: "Renseignez un mot-clé pour rechercher un article...",
               id: "search-query",
               data: { search_input_target: "input" }
           %>
       </div>
-      <%= render ButtonComponent.new(variant: :dark, size: :md, icon: "fas fa-search") do %>
-        <%= link_to "Rechercher", articles_path, method: :get, data: { turbo: false } %>
+      <%= render ButtonComponent.new(variant: :primary, size: :md, icon: "fas fa-search") do %>
+        <%= link_to "Rechercher", articles_path, class: "text-brand-text", method: :get, data: { turbo: false } %>
       <% end %>
     <% end %>
   </div>

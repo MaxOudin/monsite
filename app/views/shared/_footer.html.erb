@@ -12,12 +12,12 @@
 
     <!-- Section contact -->
     <div class="flex flex-col sm:flex-row justify-center items-center gap-6 mb-12" id="contact-infos">
-      <%= link_to "tel:+33664710483", class: "flex items-center gap-3 px-6 py-3 bg-gray-800 hover:bg-gray-700 rounded-xl transition-colors duration-200 text-white" do %>
+      <%= link_to "tel:+33664710483", class: "flex items-center gap-3 px-6 py-3 bg-gray-800 hover:bg-gray-700 rounded-xl transition-colors duration-300 text-white" do %>
         <i class="fa-solid fa-phone text-lg"></i>
         <span class="font-medium">Téléphone</span>
       <% end %>
 
-      <%= link_to "mailto:contact@maximeoudin.fr", class: "flex items-center gap-3 px-6 py-3 bg-gray-800 hover:bg-gray-700 rounded-xl transition-colors duration-200 text-white" do %>
+      <%= link_to "mailto:contact@maximeoudin.fr", class: "flex items-center gap-3 px-6 py-3 bg-gray-800 hover:bg-gray-700 rounded-xl transition-colors duration-300 text-white" do %>
         <i class="fa-solid fa-envelope text-lg"></i>
         <span class="font-medium">Email</span>
       <% end %>
@@ -31,13 +31,13 @@
           <a href="https://www.linkedin.com/in/maxime-oudin-developer/" 
              aria-label="Venez découvrir le profil LinkedIn de Maxime Oudin développeur web" 
              target="_blank"
-             class="text-2xl text-gray-400 hover:text-white transition-colors duration-200">
+             class="text-2xl text-gray-400 hover:text-white transition-colors duration-300">
             <i class="fab fa-linkedin"></i>
           </a>
           <a href="https://github.com/MaxOudin" 
              aria-label="Lien du Github de Maxime Oudin développeur web" 
              target="_blank"
-             class="text-2xl text-gray-400 hover:text-white transition-colors duration-200">
+             class="text-2xl text-gray-400 hover:text-white transition-colors duration-300">
             <i class="fab fa-github"></i>
           </a>
         </div>
@@ -50,19 +50,19 @@
         <div class="flex flex-wrap justify-center items-center gap-x-6 gap-y-2 mt-2 max-w-2xl mx-auto">
           <%= link_to "Mentions légales", mentions_legales_path,
               aria_label: "Mentions légales",
-              class: "text-gray-400 hover:text-white underline transition-colors duration-200" %>
+              class: "text-gray-400 hover:text-white underline transition-colors duration-300" %>
           <%= link_to "CGV", cgv_path,
               aria_label: "Conditions Générales de Vente",
-              class: "text-gray-400 hover:text-white underline transition-colors duration-200" %>
+              class: "text-gray-400 hover:text-white underline transition-colors duration-300" %>
           <%= link_to "Outils", tools_path, 
               aria_label: "Outils en ligne", 
-              class: "text-gray-400 hover:text-white transition-colors duration-200" %>
+              class: "text-gray-400 hover:text-white transition-colors duration-300" %>
           <% if user_signed_in? %>
-            <%= button_to destroy_user_session_path, method: :delete, data: { turbo: false }, class: "text-gray-400 hover:text-white transition-colors duration-200 bg-transparent border-0 p-0 cursor-pointer" do %>
+            <%= button_to destroy_user_session_path, method: :delete, data: { turbo: false }, class: "text-gray-400 hover:text-white transition-colors duration-300 bg-transparent border-0 p-0 cursor-pointer" do %>
               <i class="fa-solid fa-lock"></i>
             <% end %>
           <% else %>
-            <%= link_to new_user_session_path, class: "text-gray-400 hover:text-white transition-colors duration-200" do %>
+            <%= link_to new_user_session_path, class: "text-gray-400 hover:text-white transition-colors duration-300" do %>
               <i class="fa-solid fa-lock"></i>
             <% end %>
           <% end %>
