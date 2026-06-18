@@ -35,6 +35,7 @@ env:
     - AWS_ACCESS_KEY
     - DEVISE_JWT_SECRET_KEY
     - SENTRY_DSN
+    - SMTP_PASSWORD
   clear:
     DB_HOST: maximeoudin-db
     POSTGRES_USER: maximeoudin
@@ -44,7 +45,10 @@ env:
     DOMAIN: maximeoudin.fr
     RAILS_LOG_TO_STDOUT: "true"
     RAILS_SERVE_STATIC_FILES: "true"
-
+    SMTP_NAME: maximeoudin.fr
+    SMTP_HOST: prod-mta-05.swg-srv.net
+    SMTP_PORT: 2525
+    SMTP_FROM: contact@maximeoudin.fr
 ssh:
   user: pioncham
 
