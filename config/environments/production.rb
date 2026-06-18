@@ -66,13 +66,15 @@ Rails.application.configure do
 
   # Specify outgoing SMTP server. Remember to add smtp/* credentials via bin/rails credentials:edit.
   config.action_mailer.delivery_method = :smtp
+  # NB : le From ("départ d'email") n'est PAS une clé SMTP — il est défini par
+  # `default from:` dans ApplicationMailer (ENV['SMTP_FROM']).
   config.action_mailer.smtp_settings = {
-    user_name: ENV['SMTP_NAME'],
     address: ENV['SMTP_HOST'],
-    port: ENV['SMTP_PORT'],
-    password: ENV['SMTP_PASSWORD'],
+    port: ENV['SMTP_PORT'].to_i,
+    domain: ENV['SMTP_DOMAIN'],
     from: ENV['SMTP_FROM'],
-    domain: ENV['DOMAIN'],
+    user_name: ENV['SMTP_LOGIN'],
+    password: ENV['SMTP_PASSWORD'],
     authentication: :plain,
     enable_starttls_auto: true
   }
