@@ -30,6 +30,10 @@
 /tmp/storage/*
 !/tmp/storage/.keep
 
+# Ignore database dumps (never ship prod data in the image).
+*.dump
+*.sql
+
 # Ignore assets.
 /node_modules/
 /app/assets/builds/*

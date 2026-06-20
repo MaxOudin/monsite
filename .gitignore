@@ -33,6 +33,10 @@
 # Ignore env files which are used to store the credentials.
 /.env
 
+# Ignore database dumps (never commit prod data).
+*.dump
+*.sql
+
 /node_modules
 .DS_Store
 /app/assets/builds
