@@ -11,6 +11,10 @@
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #
+# Indexes
+#
+#  index_services_on_nom  (nom) UNIQUE
+#
 
 class Service < ApplicationRecord
   validates :nom, presence: true, uniqueness: true

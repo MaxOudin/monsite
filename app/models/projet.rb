@@ -20,7 +20,8 @@
 #
 # Indexes
 #
-#  index_projets_on_slug  (slug) UNIQUE
+#  index_projets_on_slug   (slug) UNIQUE
+#  index_projets_on_titre  (titre) UNIQUE
 #
 
 class Projet < ApplicationRecord

@@ -12,6 +12,11 @@
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #
+# Indexes
+#
+#  index_sujets_on_nom     (nom) UNIQUE
+#  index_sujets_on_numero  (numero) UNIQUE
+#
 
 require 'rails_helper'
 

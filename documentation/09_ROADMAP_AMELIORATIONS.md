@@ -41,7 +41,7 @@
 | 1 | `test/rspec-baseline` (supprime Minitest + couverture de base) | ✔️ Terminé | — |
 | 2 | `fix/outils-orphan-fk` | ✔️ Terminé | 1 |
 | 3 | `fix/db-not-null-constraints` | ✔️ Terminé | 2 |
-| 4 | `fix/db-unique-indexes` | ✅ À intégrer | 3 |
+| 4 | `fix/db-unique-indexes` | ✔️ Terminé | 3 |
 | 5 | `feat/article-publication-status` | ✅ À intégrer | 4 |
 | 6 | `feat/models-position-ordering` | 🕒 Plus tard | 4 |
 | 7 | `feat/activestorage-images` | 🕒 Plus tard | 4 |
@@ -194,23 +194,33 @@ Moyen. Si des NULL existent en prod, la migration échoue → prévoir un backfi
 
 **Décision : ✅ À intégrer** — l'unicité applicative ne protège pas de la concurrence.
 
+**✔️ Statut : TERMINÉ (2026-07-05).** Version « identité seulement ». Audit dev :
+0 doublon. Migration appliquée (dev), `bundle exec rspec` vert (**104 exemples**).
+
 ### Contexte
 `uniqueness: true` (Ruby) laisse passer les doublons en cas d'écritures
-concurrentes. Manquent des index uniques DB sur : `services.nom`, `sujets.nom`,
-`sujets.numero`, `projets.titre`, `articles.titre`, `outils.nom`,
-`outils.description`.
+concurrentes. **Périmètre retenu (colonnes d'identité, courtes)** : `services.nom`,
+`sujets.nom`, `sujets.numero`, `projets.titre`, `articles.titre`, `outils.nom`.
 (`slug` a déjà son index unique sur `articles` et `projets`.)
 
+**Colonnes `description` volontairement exclues** : ce sont des `text` longs
+(projets déjà à 1202 car.) → un index unique btree peut dépasser la limite
+Postgres (~2704 o) et échouer ; et l'unicité *globale* d'une description est un
+choix métier discutable. L'unicité `description` reste en validation Ruby.
+🔗 À réévaluer : retirer carrément la validation `uniqueness` sur `description` ?
+
 ### Actions
-- [ ] Vérifier l'absence de doublons existants avant chaque index.
-- [ ] Migration : `add_index ..., unique: true` sur les colonnes ci-dessus.
+- [x] Vérifier l'absence de doublons existants (0 doublon en dev).
+- [x] Migration `AddUniqueIndexesToIdentityColumns` : `add_index ..., unique: true`
+      sur les 6 colonnes d'identité.
 
 ### Specs (RSpec)
-- [ ] Une spec par contrainte : insérer un doublon lève
-      `ActiveRecord::RecordNotUnique` au niveau base.
+- [x] `spec/models/unique_indexes_spec.rb` : un doublon inséré en contournant les
+      validations lève `ActiveRecord::RecordNotUnique` (6 cas).
 
 ### Risque
 Moyen. Doublons existants = migration en échec → dédoublonner d'abord.
+⚠️ **En prod : auditer les doublons puis appliquer** (migration passée sur dev seulement).
 
 > 🔗 **Articulation avec la branche 9 (Mobility)** : `titre`/`nom` deviendront des
 > colonnes `jsonb` traduites. Les index uniques scalaires posés ici devront alors

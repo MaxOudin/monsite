@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_07_05_211656) do
+ActiveRecord::Schema[8.1].define(version: 2026_07_05_213437) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -62,6 +62,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_05_211656) do
     t.string "titre", null: false
     t.datetime "updated_at", null: false
     t.index ["slug"], name: "index_articles_on_slug", unique: true
+    t.index ["titre"], name: "index_articles_on_titre", unique: true
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
@@ -90,6 +91,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_05_211656) do
     t.string "icone_url_alt"
     t.string "nom", null: false
     t.datetime "updated_at", null: false
+    t.index ["nom"], name: "index_outils_on_nom", unique: true
   end
 
   create_table "outils_projets", force: :cascade do |t|
@@ -117,6 +119,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_05_211656) do
     t.string "type_projet", null: false
     t.datetime "updated_at", null: false
     t.index ["slug"], name: "index_projets_on_slug", unique: true
+    t.index ["titre"], name: "index_projets_on_titre", unique: true
   end
 
   create_table "services", force: :cascade do |t|
@@ -127,6 +130,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_05_211656) do
     t.string "icone_url_alt"
     t.string "nom", null: false
     t.datetime "updated_at", null: false
+    t.index ["nom"], name: "index_services_on_nom", unique: true
   end
 
   create_table "solid_cable_messages", force: :cascade do |t|
@@ -280,6 +284,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_05_211656) do
     t.string "nom", null: false
     t.integer "numero", null: false
     t.datetime "updated_at", null: false
+    t.index ["nom"], name: "index_sujets_on_nom", unique: true
+    t.index ["numero"], name: "index_sujets_on_numero", unique: true
   end
 
   create_table "users", force: :cascade do |t|

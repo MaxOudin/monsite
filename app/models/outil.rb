@@ -10,6 +10,10 @@
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #
+# Indexes
+#
+#  index_outils_on_nom  (nom) UNIQUE
+#
 
 class Outil < ApplicationRecord
   has_many :outils_projets

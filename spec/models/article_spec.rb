@@ -14,7 +14,8 @@
 #
 # Indexes
 #
-#  index_articles_on_slug  (slug) UNIQUE
+#  index_articles_on_slug   (slug) UNIQUE
+#  index_articles_on_titre  (titre) UNIQUE
 #
 
 require 'rails_helper'
