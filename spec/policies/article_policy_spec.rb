@@ -1,27 +1,33 @@
 require 'rails_helper'
 
 RSpec.describe ArticlePolicy, type: :policy do
-  let(:user) { User.new }
-
   subject { described_class }
 
-  permissions ".scope" do
-    pending "add some examples to (or delete) #{__FILE__}"
+  let(:visiteur) { nil }
+  let(:user)     { User.new }
+
+  permissions :index?, :show? do
+    it "autorise les visiteurs anonymes et connectés" do
+      expect(subject).to permit(visiteur, Article.new)
+      expect(subject).to permit(user, Article.new)
+    end
   end
 
-  permissions :show? do
-    pending "add some examples to (or delete) #{__FILE__}"
+  permissions :create?, :update?, :destroy? do
+    it "refuse un visiteur anonyme" do
+      expect(subject).not_to permit(visiteur, Article.new)
+    end
+
+    it "autorise un utilisateur connecté" do
+      expect(subject).to permit(user, Article.new)
+    end
   end
 
-  permissions :create? do
-    pending "add some examples to (or delete) #{__FILE__}"
-  end
-
-  permissions :update? do
-    pending "add some examples to (or delete) #{__FILE__}"
-  end
-
-  permissions :destroy? do
-    pending "add some examples to (or delete) #{__FILE__}"
+  describe "Scope" do
+    it "renvoie tous les articles" do
+      create_list(:article, 2)
+      scope = ArticlePolicy::Scope.new(user, Article.all).resolve
+      expect(scope.count).to eq(2)
+    end
   end
 end

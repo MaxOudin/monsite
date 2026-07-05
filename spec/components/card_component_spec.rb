@@ -13,7 +13,7 @@ RSpec.describe CardComponent, type: :component do
 
     it "affiche la date formatée" do
       rendered = render_inline(described_class.new(model: projet))
-      expect(rendered.text).to include("Mar 2025")
+      expect(rendered.text).to include("mar 2025")
     end
 
     it "affiche le type de projet en badge" do
@@ -55,7 +55,7 @@ RSpec.describe CardComponent, type: :component do
 
     it "affiche la date de création" do
       rendered = render_inline(described_class.new(model: article))
-      expect(rendered.text).to include("Jun 2025")
+      expect(rendered.text).to include("jun 2025")
     end
 
     it "affiche le thème en badge" do

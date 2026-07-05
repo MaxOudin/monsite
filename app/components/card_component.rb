@@ -15,7 +15,7 @@ class CardComponent < ViewComponent::Base
     if @model.image_url.present? && helpers.valid_url_or_asset?(@model.image_url)
       @model.image_url
     else
-      helpers.image_path("assets/images/yellow_logo.svg")
+      helpers.image_path("yellow_logo.svg")
     end
   end
 

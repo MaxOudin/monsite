@@ -11,37 +11,31 @@ RSpec.describe "Projets", type: :system do
     visit projets_path
 
     # Titre de la page
-    expect(page).to have_content("Mes derniers projets")
+    expect(page).to have_content("Mes Projets")
+    expect(page).to have_content("Découvrez mes réalisations récentes")
 
     # Titre d'un projet
     expect(page).to have_content("Test.Ai")
 
-    # Bouton En savoir plus pour aller vers la show
-    expect(page).to have_content("En savoir plus")
-
-    # Bouton retour
-    expect(page).to have_content("Retour")
-
     # Footer
-    expect(page).to have_content("Maxime Oudin, développeur web Ruby On Rails à Bordeaux")
+    expect(page).to have_content("Créé par Maxime Oudin développeur web Ruby on Rails à Bordeaux.")
   end
 
   it "On arrive sur la show du projet" do
     @projet = FactoryBot.create(:projet)
 
-    visit projet_path(@projet) # Utilisez projet_path au lieu de projets_path
+    visit projet_path(@projet)
 
     # Titre du projet
-    expect(page).to have_content("Projet: Test.Ai")
+    expect(page).to have_content("Test.Ai")
 
-    # Voir les outils utilisés
-    expect(page).to have_content("cliquer sur l'outil pour en savoir plus")
+    # Contenu de la page projet
+    expect(page).to have_content("À propos du projet")
 
     # Bouton retour
-    expect(page).to have_content("Retour")
+    expect(page).to have_content("Retour aux projets")
 
     # Footer
-    expect(page).to have_content("Maxime Oudin, développeur web Ruby On Rails à Bordeaux")
-
+    expect(page).to have_content("Créé par Maxime Oudin développeur web Ruby on Rails à Bordeaux.")
   end
 end

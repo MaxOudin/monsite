@@ -14,9 +14,23 @@
 
 require 'rails_helper'
 
-# validates :nom, presence: true, uniqueness: true
-# validates :description, presence: true, uniqueness: true
+RSpec.describe Service, type: :model do
+  it "a une factory valide" do
+    expect(build(:service)).to be_valid
+  end
 
-# RSpec.describe Service, type: :model do
+  describe "validations" do
+    it { is_expected.to validate_presence_of(:nom) }
+    it { is_expected.to validate_presence_of(:description) }
 
-# end
+    it "refuse un nom dupliqué" do
+      create(:service, nom: "Développement web")
+      expect(build(:service, nom: "Développement web")).not_to be_valid
+    end
+
+    it "refuse une description dupliquée" do
+      create(:service, description: "Une description partagée.")
+      expect(build(:service, description: "Une description partagée.")).not_to be_valid
+    end
+  end
+end

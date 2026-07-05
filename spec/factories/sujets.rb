@@ -14,4 +14,12 @@
 #
 
 FactoryBot.define do
+  factory :sujet do
+    sequence(:nom) { |n| "Sujet #{n}" }
+    sequence(:description) { |n| "Description du sujet #{n}." }
+    sequence(:numero) { |n| n }
+    couleur { "#18435A" }
+    icone_url { "https://example.com/icone.svg" }
+    icone_url_alt { "Icône du sujet" }
+  end
 end

@@ -17,26 +17,38 @@
 #
 
 require 'rails_helper'
-# belongs_to :projet
-# nom "Ruby On Rails"
-# description "Ruby on Rails est un framework libre écrit en Ruby.
-#   Il suit le motif d'architecture logicielle Modèle Vue Controleur.
-#   Le langage de programmation Ruby et le framework Rails sont au cœur du développement de Surf.ai,
-#   assurant une base solide et une gestion efficace des données",
-# projet { association(:projet) }
 
 RSpec.describe Outil, type: :model do
-  it "has a valid factory" do
-    outil = FactoryBot.create(:outil)
-    expect(outil).to be_valid
+  it "a une factory valide" do
+    expect(build(:outil)).to be_valid
   end
 
-  describe "ActiveRecord associations outil - projet" do
-    let(:outil) { FactoryBot.create(:outil) }
+  describe "validations" do
+    it { is_expected.to validate_presence_of(:nom) }
+    it { is_expected.to validate_presence_of(:description) }
 
-    it "belongs to a projet" do
-      association = described_class.reflect_on_association(:projet)
-      expect(association.macro).to eq :belongs_to
+    it "refuse un nom dupliqué" do
+      create(:outil, nom: "Ruby on Rails")
+      expect(build(:outil, nom: "Ruby on Rails")).not_to be_valid
+    end
+
+    it "refuse une description dupliquée" do
+      create(:outil, description: "Une description partagée.")
+      expect(build(:outil, description: "Une description partagée.")).not_to be_valid
+    end
+  end
+
+  describe "associations" do
+    it { is_expected.to have_many(:outils_projets) }
+    it { is_expected.to have_many(:projets).through(:outils_projets) }
+
+    it "est relié à ses projets via la table de jointure" do
+      outil = create(:outil, :with_projet)
+      expect(outil.projets.count).to eq(1)
+    end
+
+    it "ne déclare pas de belongs_to :projet (colonne projet_id vestige, cf. branche 2)" do
+      expect(described_class.reflect_on_association(:projet)).to be_nil
     end
   end
 end

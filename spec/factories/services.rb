@@ -13,9 +13,11 @@
 #
 
 FactoryBot.define do
-
+  factory :service do
+    sequence(:nom) { |n| "Service #{n}" }
+    sequence(:description) { |n| "Description du service #{n}." }
+    couleur { "#18435A" }
+    icone_url { "https://example.com/icone.svg" }
+    icone_url_alt { "Icône du service" }
+  end
 end
-
-
-# validates :nom, presence: true, uniqueness: true
-# validates :description, presence: true, uniqueness: true
