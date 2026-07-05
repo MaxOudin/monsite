@@ -39,7 +39,7 @@
 | # | Branche | Décision | Dépend de |
 |---|---------|----------|-----------|
 | 1 | `test/rspec-baseline` (supprime Minitest + couverture de base) | ✔️ Terminé | — |
-| 2 | `fix/outils-orphan-fk` | ✅ À intégrer | 1 |
+| 2 | `fix/outils-orphan-fk` | ✔️ Terminé | 1 |
 | 3 | `fix/db-not-null-constraints` | ✅ À intégrer | 2 |
 | 4 | `fix/db-unique-indexes` | ✅ À intégrer | 3 |
 | 5 | `feat/article-publication-status` | ✅ À intégrer | 4 |
@@ -114,6 +114,10 @@ Faible (le seul code applicatif touché est le fix 1 ligne du logo par défaut).
 
 **Décision : ✅ À intégrer** — lever l'ambiguïté de modélisation.
 
+**✔️ Statut : TERMINÉ (2026-07-05).** Vérifié en base : 28 outils, **0** avec
+`projet_id` renseigné → suppression sûre. Migration appliquée, `bundle exec rspec`
+vert (79 exemples).
+
 ### Contexte
 La table `outils` porte une FK `projet_id` (relation 1-N Projet→Outil) **en plus**
 de la relation N-N via `outils_projets` (seule déclarée dans le modèle `Outil`).
@@ -121,19 +125,22 @@ Cette colonne `projet_id` est un vestige : non utilisée par le modèle, source 
 confusion.
 
 ### Actions
-- [ ] Confirmer qu'aucune donnée utile ne dépend de `outils.projet_id`
-      (vérifier en base : y a-t-il des valeurs non nulles ?).
-- [ ] Migration : `remove_reference :outils, :projet, foreign_key: true`.
-- [ ] Nettoyer l'annotation de schéma en tête de `app/models/outil.rb`.
+- [x] Confirmer qu'aucune donnée utile ne dépend de `outils.projet_id`
+      (28 outils, 0 valeur non nulle en base de dev).
+- [x] Migration `RemoveProjetReferenceFromOutils` :
+      `remove_reference :outils, :projet, foreign_key: true, index: true`.
+- [x] Annotation de schéma de `app/models/outil.rb` nettoyée (via `annotate`).
 
 ### Specs (RSpec)
-- [ ] `spec/models/outil_spec.rb` : la relation N-N `projets`/`outils` reste
-      fonctionnelle (via `outils_projets`).
-- [ ] Factory `spec/factories/outils.rb` : retirer toute réf à `projet` direct.
+- [x] `spec/models/outil_spec.rb` : relation N-N `projets`/`outils` fonctionnelle,
+      + assertion « pas de `belongs_to :projet` ».
+- [x] Factory `spec/factories/outils.rb` : plus de réf `projet` directe (trait
+      `:with_projet` sur la vraie N-N).
 
 ### Risque
 Faible à moyen (migration destructive de colonne). Sauvegarder au préalable.
 **Commande destructive → demander confirmation avant `db:migrate` en prod.**
+⚠️ **En prod, la migration reste à appliquer** (elle ne l'a été que sur la base de dev).
 
 ---
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_02_07_221137) do
+ActiveRecord::Schema[8.1].define(version: 2026_07_05_210509) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -89,9 +89,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_07_221137) do
     t.string "icone_url"
     t.string "icone_url_alt"
     t.string "nom"
-    t.bigint "projet_id"
     t.datetime "updated_at", null: false
-    t.index ["projet_id"], name: "index_outils_on_projet_id"
   end
 
   create_table "outils_projets", force: :cascade do |t|
@@ -298,7 +296,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_07_221137) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "outils", "projets"
   add_foreign_key "outils_projets", "outils"
   add_foreign_key "outils_projets", "projets"
   add_foreign_key "solid_queue_blocked_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade

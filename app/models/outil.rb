@@ -7,13 +7,8 @@
 #  description   :text
 #  icone_url     :string
 #  icone_url_alt :string
-#  projet_id     :integer
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
-#
-# Indexes
-#
-#  index_outils_on_projet_id  (projet_id)
 #
 
 class Outil < ApplicationRecord

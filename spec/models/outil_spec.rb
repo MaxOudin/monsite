@@ -7,13 +7,8 @@
 #  description   :text
 #  icone_url     :string
 #  icone_url_alt :string
-#  projet_id     :integer
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
-#
-# Indexes
-#
-#  index_outils_on_projet_id  (projet_id)
 #
 
 require 'rails_helper'
@@ -47,7 +42,7 @@ RSpec.describe Outil, type: :model do
       expect(outil.projets.count).to eq(1)
     end
 
-    it "ne déclare pas de belongs_to :projet (colonne projet_id vestige, cf. branche 2)" do
+    it "ne déclare pas de belongs_to :projet (colonne projet_id supprimée en branche 2)" do
       expect(described_class.reflect_on_association(:projet)).to be_nil
     end
   end
