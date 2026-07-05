@@ -1,5 +1,7 @@
 <div class="mb-4">
-  <%= form.label field, class: "block text-sm font-medium text-gray-700 mb-2" %>
+  <%= form.label field, class: "block text-sm font-medium text-gray-700 mb-2" do %>
+    <%= object.class.human_attribute_name(field) %><%= required_mark(object, field) %>
+  <% end %>
   <% case field_type %>
   <% when :text_area %>
     <%= form.text_area field, class: "w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent", rows: 5 %>

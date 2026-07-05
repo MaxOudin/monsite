@@ -12,6 +12,23 @@ module ApplicationHelper
     "rgba(#{r}, #{g}, #{b}, #{opacity})"
   end
 
+  # Un champ est obligatoire s'il porte une validation de présence
+  # (aligné sur les contraintes NOT NULL en base — cf. documentation/09 branche 3).
+  def required_field?(object, attribute)
+    return false unless object.respond_to?(:class) && object.class.respond_to?(:validators_on)
+
+    object.class.validators_on(attribute).any? do |validator|
+      validator.is_a?(ActiveModel::Validations::PresenceValidator)
+    end
+  end
+
+  # Astérisque rouge signalant un champ obligatoire dans les formulaires.
+  def required_mark(object, attribute)
+    return unless required_field?(object, attribute)
+
+    tag.span(" *", class: "text-red-600", title: "Champ obligatoire", aria: { hidden: true })
+  end
+
   # Valide si une URL ou un asset est valide pour l'affichage
   def valid_url_or_asset?(path)
     return false if path.blank?

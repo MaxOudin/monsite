@@ -11,7 +11,9 @@
           <%= render 'shared/form_field', form: f, field: :theme, field_type: :select, options: Article::THEMES_WITH_COLORS.keys, object: article %>
 
           <div class="mb-4">
-            <%= f.label :content, class: "block text-sm font-medium text-gray-700 mb-2" %>
+            <%= f.label :content, class: "block text-sm font-medium text-gray-700 mb-2" do %>
+              <%= article.class.human_attribute_name(:content) %><%= required_mark(article, :content) %>
+            <% end %>
             <div class="trix-wrapper border border-gray-300 rounded-lg overflow-hidden bg-white">
               <%= f.rich_text_area :content, class: "trix-content" %>
             </div>
