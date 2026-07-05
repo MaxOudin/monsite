@@ -3,8 +3,8 @@
 # Table name: outils
 #
 #  id            :integer          not null, primary key
-#  nom           :string
-#  description   :text
+#  nom           :string           not null
+#  description   :text             not null
 #  icone_url     :string
 #  icone_url_alt :string
 #  created_at    :datetime         not null

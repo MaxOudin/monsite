@@ -3,11 +3,11 @@
 # Table name: articles
 #
 #  id         :integer          not null, primary key
-#  titre      :string
-#  image_url  :string
-#  image_alt  :string
-#  couleur    :string
-#  theme      :string
+#  titre      :string           not null
+#  image_url  :string           not null
+#  image_alt  :string           not null
+#  couleur    :string           not null
+#  theme      :string           not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  slug       :string

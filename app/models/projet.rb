@@ -3,9 +3,9 @@
 # Table name: projets
 #
 #  id            :integer          not null, primary key
-#  titre         :string
-#  type_projet   :string
-#  description   :text
+#  titre         :string           not null
+#  type_projet   :string           not null
+#  description   :text             not null
 #  image_url     :text
 #  image_url_alt :string
 #  date_debut    :date

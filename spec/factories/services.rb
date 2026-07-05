@@ -3,8 +3,8 @@
 # Table name: services
 #
 #  id            :integer          not null, primary key
-#  nom           :string
-#  description   :text
+#  nom           :string           not null
+#  description   :text             not null
 #  icone_url     :text
 #  icone_url_alt :string
 #  couleur       :string

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_07_05_210509) do
+ActiveRecord::Schema[8.1].define(version: 2026_07_05_211656) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -53,13 +53,13 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_05_210509) do
   end
 
   create_table "articles", force: :cascade do |t|
-    t.string "couleur"
+    t.string "couleur", null: false
     t.datetime "created_at", null: false
-    t.string "image_alt"
-    t.string "image_url"
+    t.string "image_alt", null: false
+    t.string "image_url", null: false
     t.string "slug"
-    t.string "theme"
-    t.string "titre"
+    t.string "theme", null: false
+    t.string "titre", null: false
     t.datetime "updated_at", null: false
     t.index ["slug"], name: "index_articles_on_slug", unique: true
   end
@@ -85,10 +85,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_05_210509) do
 
   create_table "outils", force: :cascade do |t|
     t.datetime "created_at", null: false
-    t.text "description"
+    t.text "description", null: false
     t.string "icone_url"
     t.string "icone_url_alt"
-    t.string "nom"
+    t.string "nom", null: false
     t.datetime "updated_at", null: false
   end
 
@@ -107,14 +107,14 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_05_210509) do
     t.datetime "created_at", null: false
     t.date "date_debut"
     t.date "date_fin"
-    t.text "description"
+    t.text "description", null: false
     t.string "github_lien"
     t.text "image_url"
     t.string "image_url_alt"
     t.string "projet_lien"
     t.string "slug"
-    t.string "titre"
-    t.string "type_projet"
+    t.string "titre", null: false
+    t.string "type_projet", null: false
     t.datetime "updated_at", null: false
     t.index ["slug"], name: "index_projets_on_slug", unique: true
   end
@@ -122,10 +122,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_05_210509) do
   create_table "services", force: :cascade do |t|
     t.string "couleur"
     t.datetime "created_at", null: false
-    t.text "description"
+    t.text "description", null: false
     t.text "icone_url"
     t.string "icone_url_alt"
-    t.string "nom"
+    t.string "nom", null: false
     t.datetime "updated_at", null: false
   end
 
@@ -274,11 +274,11 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_05_210509) do
   create_table "sujets", force: :cascade do |t|
     t.string "couleur"
     t.datetime "created_at", null: false
-    t.text "description"
+    t.text "description", null: false
     t.text "icone_url"
     t.string "icone_url_alt"
-    t.string "nom"
-    t.integer "numero"
+    t.string "nom", null: false
+    t.integer "numero", null: false
     t.datetime "updated_at", null: false
   end
 

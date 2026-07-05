@@ -3,9 +3,9 @@
 # Table name: sujets
 #
 #  id            :integer          not null, primary key
-#  nom           :string
-#  description   :text
-#  numero        :integer
+#  nom           :string           not null
+#  description   :text             not null
+#  numero        :integer          not null
 #  couleur       :string
 #  icone_url     :text
 #  icone_url_alt :string

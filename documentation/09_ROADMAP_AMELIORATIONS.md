@@ -40,7 +40,7 @@
 |---|---------|----------|-----------|
 | 1 | `test/rspec-baseline` (supprime Minitest + couverture de base) | ✔️ Terminé | — |
 | 2 | `fix/outils-orphan-fk` | ✔️ Terminé | 1 |
-| 3 | `fix/db-not-null-constraints` | ✅ À intégrer | 2 |
+| 3 | `fix/db-not-null-constraints` | ✔️ Terminé | 2 |
 | 4 | `fix/db-unique-indexes` | ✅ À intégrer | 3 |
 | 5 | `feat/article-publication-status` | ✅ À intégrer | 4 |
 | 6 | `feat/models-position-ordering` | 🕒 Plus tard | 4 |
@@ -148,24 +148,35 @@ Faible à moyen (migration destructive de colonne). Sauvegarder au préalable.
 
 **Décision : ✅ À intégrer** — l'intégrité ne doit pas reposer que sur Ruby.
 
+**✔️ Statut : TERMINÉ (2026-07-05).** Audit dev : **0 NULL** sur les 15 colonnes
+visées. Migration appliquée (dev), `bundle exec rspec` vert (79 exemples).
+Note : `change_column_null(table, col, false)` prend le flag en **positionnel**
+(pas `null: false`, qui est la syntaxe des autres méthodes).
+
 ### Contexte
 Les validations `presence: true` sont applicatives uniquement. La base accepte
 aujourd'hui des `nom`/`titre`/`description` NULL (contournement via SQL direct,
 seeds, imports).
 
 ### Actions
-- [ ] Auditer les colonnes concernées : `services.nom/description`,
-      `sujets.nom/description/numero`, `projets.titre/type_projet/description`,
-      `articles.titre/theme`, `outils.nom/description`.
-- [ ] Migration : `change_column_null` → `false` sur ces colonnes.
-      (Nettoyer d'éventuelles lignes NULL existantes **avant** d'appliquer.)
+- [x] Auditer les colonnes concernées (0 NULL en dev). Périmètre **étendu** aux
+      colonnes `articles.image_url/image_alt/couleur` (validées en présence dans
+      le modèle, absentes de la liste initiale) → alignement DB ↔ validations.
+- [x] Migration `AddNotNullConstraintsToBusinessColumns` :
+      `change_column_null(table, col, false)` sur les 15 colonnes.
+
+### Colonnes contraintes (15)
+`services.nom/description` · `sujets.nom/description/numero` ·
+`projets.titre/type_projet/description` ·
+`articles.titre/theme/image_url/image_alt/couleur` · `outils.nom/description`.
 
 ### Specs (RSpec)
-- [ ] Vérifier que les factories produisent toujours des objets valides.
-- [ ] Les specs de validation existantes restent vertes.
+- [x] Factories produisent toujours des objets valides.
+- [x] Specs de validation existantes vertes (79 exemples).
 
 ### Risque
 Moyen. Si des NULL existent en prod, la migration échoue → prévoir un backfill.
+⚠️ **En prod : auditer les NULL puis appliquer** (migration passée sur dev seulement).
 
 ---
 
