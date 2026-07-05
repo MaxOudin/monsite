@@ -149,7 +149,7 @@ Faible à moyen (migration destructive de colonne). Sauvegarder au préalable.
 **Décision : ✅ À intégrer** — l'intégrité ne doit pas reposer que sur Ruby.
 
 **✔️ Statut : TERMINÉ (2026-07-05).** Audit dev : **0 NULL** sur les 15 colonnes
-visées. Migration appliquée (dev), `bundle exec rspec` vert (79 exemples).
+visées. Migration appliquée (dev), `bundle exec rspec` vert (**98 exemples**).
 Note : `change_column_null(table, col, false)` prend le flag en **positionnel**
 (pas `null: false`, qui est la syntaxe des autres méthodes).
 
@@ -172,7 +172,17 @@ seeds, imports).
 
 ### Specs (RSpec)
 - [x] Factories produisent toujours des objets valides.
-- [x] Specs de validation existantes vertes (79 exemples).
+- [x] Specs de validation existantes vertes.
+- [x] `spec/models/database_constraints_spec.rb` : chaque colonne rejette NULL
+      **au niveau base** (`update_column` → `ActiveRecord::NotNullViolation`), 15 cas.
+
+### Extension — marqueurs de champs obligatoires dans les formulaires
+- [x] Helpers `required_field?` / `required_mark` (`ApplicationHelper`) : astérisque
+      « * » rouge, auto-détectée via les validateurs de présence (couvre aussi le
+      `content` ActionText, requis mais non-colonne).
+- [x] Appliqués aux formulaires `projets` et `articles` (partial partagé
+      `shared/_form_field` + labels inline `description`/`content`).
+- [x] `spec/helpers/application_helper_spec.rb`.
 
 ### Risque
 Moyen. Si des NULL existent en prod, la migration échoue → prévoir un backfill.
