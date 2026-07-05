@@ -38,7 +38,7 @@
 
 | # | Branche | Décision | Dépend de |
 |---|---------|----------|-----------|
-| 1 | `test/rspec-baseline` (supprime Minitest + couverture de base) | ✅ À intégrer | — |
+| 1 | `test/rspec-baseline` (supprime Minitest + couverture de base) | ✔️ Terminé | — |
 | 2 | `fix/outils-orphan-fk` | ✅ À intégrer | 1 |
 | 3 | `fix/db-not-null-constraints` | ✅ À intégrer | 2 |
 | 4 | `fix/db-unique-indexes` | ✅ À intégrer | 3 |
@@ -63,6 +63,10 @@ filet qui rend les migrations DDL (branches 2-4) sûres à réaliser.
 Regroupe deux chantiers liés : passer à RSpec-only (supprimer Minitest) **et**
 écrire une vraie couverture de base.
 
+**✔️ Statut : TERMINÉ (2026-07-05).** `bundle exec rspec` : 79 exemples, 0 échec,
+0 `pending`. Constat initial : la suite était **cassée au chargement** (le DSL
+`permissions` de Pundit n'était pas requis) — corrigé par `require 'pundit/rspec'`.
+
 ### Contexte
 Le projet contient à la fois `spec/` (RSpec) et `test/` (Minitest : quelques
 `*_test.rb` sur modèles/contrôleurs + fixtures YAML) → deux frameworks en
@@ -74,34 +78,35 @@ par les migrations.
 
 ### Actions
 **Partie A — RSpec-only**
-- [ ] Vérifier qu'aucune couverture unique n'existe dans `test/` (les cas
-      `test/models/*_test.rb` et `test/controllers/*_test.rb` sont-ils couverts
-      côté `spec/` ?). Si non, porter le cas manquant en spec **avant** suppression.
-- [ ] Supprimer le dossier `test/` et ses fixtures YAML.
-- [ ] Retirer toute référence Minitest résiduelle (`config/environments`,
-      tâches rake, CI le cas échéant).
+- [x] Vérifier qu'aucune couverture unique n'existe dans `test/` → **tous stubs
+      vides** (`# test "the truth"`), zéro couverture unique.
+- [x] Supprimer le dossier `test/` et ses fixtures YAML (via `git rm`).
+- [x] Retirer toute référence Minitest résiduelle (aucune ref externe, pas de CI).
 
 **Partie B — couverture de base**
-- [ ] Remplacer les stubs `pending`/commentés par de vraies specs sur les
-      modèles : `Service`, `Sujet`, `Article`, `User`, et compléter `Projet`/`Outil`.
-- [ ] Couvrir a minima, par modèle : validations (`presence`, `uniqueness`,
-      `inclusion` pour `type_projet`/`theme`), associations (N-N Projet↔Outil),
-      et helpers métier (`Article#couleur_du_theme`, `Article.count_by_theme`,
-      slugs FriendlyId).
-- [ ] S'appuyer sur `shoulda-matchers` (déjà présent) pour des specs concises
-      (`should validate_presence_of(...)`, `should have_many(...)`).
-- [ ] Vérifier/compléter les factories (`spec/factories/*`) pour tous les modèles
-      (ajouter `articles`, `users` si manquantes).
-- [ ] Retirer les `pending` : la suite doit être verte et significative.
+- [x] Remplacer les stubs `pending`/commentés par de vraies specs sur les
+      modèles : `Service`, `Sujet`, `Article`, `User`, `Projet`, `Outil`.
+- [x] Couvrir validations (`presence`, unicité, `inclusion` `type_projet`/`theme`),
+      associations N-N, helpers (`couleur_du_theme`, `count_by_theme`), slugs.
+- [x] Utiliser `shoulda-matchers` (présence, associations).
+- [x] Créer/compléter les factories : `articles`, `users` (créées) ;
+      `services`, `sujets` (remplies) ; `outils` corrigée (assoc N-N).
+- [x] Retirer tous les `pending`.
 
 ### Specs (RSpec)
-- C'est l'objet même de la branche. Cible : `bundle exec rspec` vert, sans
-  `pending`, avec une couverture de validation/association réelle sur tous les
-  modèles métier.
+- [x] Cible atteinte : `bundle exec rspec` **vert, 0 pending** (79 exemples).
+
+### Travail additionnel constaté (hors périmètre initial mais requis pour le vert)
+- `require 'pundit/rspec'` ajouté (suite cassée au chargement).
+- Config `ViewComponent::TestHelpers` manquante dans `rails_helper` (cassait
+  aussi la spec `card_component` existante) → ajoutée.
+- Specs système `projets` réalignées sur le contenu réel des vues (obsolètes).
+- 🐞 **Bug applicatif corrigé** : `card_component.rb` utilisait
+  `image_path("assets/images/yellow_logo.svg")` (chemin faux → `MissingAssetError`
+  en prod sur le logo par défaut). Corrigé en `image_path("yellow_logo.svg")`.
 
 ### Risque
-Faible (aucune modif de code applicatif ni de schéma). Effort de rédaction.
-Vérifier seulement qu'on ne perd pas un cas de test Minitest non répliqué.
+Faible (le seul code applicatif touché est le fix 1 ligne du logo par défaut).
 
 ---
 
