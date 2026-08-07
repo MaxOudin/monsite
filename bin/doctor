@@ -1,0 +1,217 @@
+#!/usr/bin/env bash
+#
+# bin/doctor — vérifie les invariants de l'infra de production.
+#
+# Contrôle les points qui ont cassé lors de la panne du 2026-08-03, où un
+# redémarrage du démon Docker a corrompu son état réseau : conteneurs détachés
+# de leur réseau, docker-proxy orphelins squattant 80/443, règles iptables
+# manquantes pour le bridge. L'application répondait en 20 ms tout du long,
+# mais plus aucun paquet ne l'atteignait.
+#
+# Usage : bin/doctor
+# Sortie : 0 si tout est vert, 1 si au moins un contrôle échoue.
+
+set -uo pipefail
+
+cd "$(dirname "$0")/.." || exit 1
+DEPLOY_YML="config/deploy.yml"
+
+if [ ! -f "$DEPLOY_YML" ]; then
+  echo "config/deploy.yml introuvable — à lancer depuis la racine du projet." >&2
+  exit 1
+fi
+
+SERVICE="${SERVICE:-$(awk '/^service:/{print $2; exit}' "$DEPLOY_YML")}"
+HOST="${HOST:-$(awk '/^servers:/{f=1} f && /^ *- /{print $2; exit}' "$DEPLOY_YML")}"
+SSH_USER="${SSH_USER:-$(awk '/^ssh:/{f=1} f && /^ *user:/{print $2; exit}' "$DEPLOY_YML")}"
+DOMAIN="${DOMAIN:-$(awk '/^ *DOMAIN:/{print $2; exit}' "$DEPLOY_YML")}"
+
+if [ -t 1 ]; then
+  VERT=$'\033[32m'; ROUGE=$'\033[31m'; JAUNE=$'\033[33m'; GRIS=$'\033[90m'; RAZ=$'\033[0m'
+else
+  VERT=""; ROUGE=""; JAUNE=""; GRIS=""; RAZ=""
+fi
+
+ECHECS=0
+
+# Formate une ligne "STATUT|libellé|détail" émise par les contrôles.
+afficher() {
+  local statut libelle detail marge
+  statut="${1%%|*}"; local reste="${1#*|}"
+  libelle="${reste%%|*}"; detail="${reste#*|}"
+
+  # ${#var} compte les caractères, printf %-Ns compte les octets : sur des
+  # libellés accentués le padding natif décale. On le calcule à la main.
+  marge=$((40 - ${#libelle}))
+  [ "$marge" -lt 1 ] && marge=1
+
+  case "$statut" in
+    PASS) printf "  %s✓%s %s%*s%s%s%s\n" "$VERT" "$RAZ" "$libelle" "$marge" "" "$GRIS" "$detail" "$RAZ" ;;
+    WARN) printf "  %s!%s %s%*s%s\n"     "$JAUNE" "$RAZ" "$libelle" "$marge" "" "$detail" ;;
+    FAIL) printf "  %s✗%s %s%*s%s%s%s\n" "$ROUGE" "$RAZ" "$libelle" "$marge" "" "$ROUGE" "$detail" "$RAZ"
+          ECHECS=$((ECHECS + 1)) ;;
+    *)    printf "  ? %s\n" "$1" ;;
+  esac
+}
+
+echo
+echo "bin/doctor — ${SERVICE} sur ${HOST} (${DOMAIN})"
+echo
+
+# ---------------------------------------------------------------- côté serveur
+echo "Serveur"
+
+if ! ssh -o ConnectTimeout=10 -o BatchMode=yes "${SSH_USER}@${HOST}" true 2>/dev/null; then
+  afficher "FAIL|Accès SSH|injoignable en ${SSH_USER}@${HOST}"
+  echo
+  echo "${ROUGE}Impossible de poursuivre sans SSH.${RAZ}"
+  exit 1
+fi
+afficher "PASS|Accès SSH|${SSH_USER}@${HOST}"
+
+SORTIE_DISTANTE=$(ssh -o ConnectTimeout=10 "${SSH_USER}@${HOST}" bash -s -- "$SERVICE" <<'DISTANT'
+set -uo pipefail
+SERVICE="$1"
+RESEAU="kamal"
+PROXY="kamal-proxy"
+DB="${SERVICE}-db"
+
+dire() { echo "$1|$2|$3"; }
+
+# Le réseau doit exister et exposer un sous-réseau — tout le reste en découle.
+if ! docker network inspect "$RESEAU" >/dev/null 2>&1; then
+  dire FAIL "Réseau ${RESEAU}" "absent"
+  exit 0
+fi
+SOUS_RESEAU=$(docker network inspect "$RESEAU" --format '{{range .IPAM.Config}}{{.Subnet}}{{end}}')
+ID_COURT=$(docker network inspect "$RESEAU" --format '{{.Id}}' | cut -c1-12)
+BRIDGE="br-${ID_COURT}"
+PREFIXE=$(echo "$SOUS_RESEAU" | cut -d. -f1-2).
+dire PASS "Réseau ${RESEAU}" "${SOUS_RESEAU} sur ${BRIDGE}"
+
+# Un seul réseau doit porter ce nom : un doublon signe un état Docker incohérent.
+NB_RESEAUX=$(docker network ls --format '{{.Name}}' | grep -c "^${RESEAU}$")
+if [ "$NB_RESEAUX" -eq 1 ]; then
+  dire PASS "Unicité du réseau" "1 réseau nommé ${RESEAU}"
+else
+  dire FAIL "Unicité du réseau" "${NB_RESEAUX} réseaux nommés ${RESEAU} — état Docker incohérent"
+fi
+
+# L'interface bridge doit exister et être active.
+if ip -br link show "$BRIDGE" 2>/dev/null | grep -q "UP"; then
+  dire PASS "Interface ${BRIDGE}" "UP"
+else
+  dire FAIL "Interface ${BRIDGE}" "absente ou DOWN"
+fi
+
+WEB=$(docker ps --format '{{.Names}}' --filter "label=service=${SERVICE}" --filter "label=role=web" | head -1)
+
+# Chaque conteneur doit tourner ET porter une IP sur le réseau : c'est
+# précisément l'invariant qui a sauté (Networks vide, conteneur isolé).
+for paire in "${PROXY}:proxy" "${DB}:base" "${WEB}:web"; do
+  nom="${paire%:*}"
+  libelle="Conteneur ${paire##*:}"
+  if [ -z "$nom" ]; then
+    dire FAIL "$libelle" "aucun conteneur avec role=web en cours"
+    continue
+  fi
+  if ! docker ps --format '{{.Names}}' | grep -q "^${nom}$"; then
+    dire FAIL "$libelle" "arrêté"
+    continue
+  fi
+  IP=$(docker inspect "$nom" --format "{{range \$k, \$v := .NetworkSettings.Networks}}{{if eq \$k \"${RESEAU}\"}}{{\$v.IPAddress}}{{end}}{{end}}")
+  # Le nom du conteneur web porte le SHA du déploiement : on n'affiche que ses
+  # 7 premiers caractères, le nom complet étant illisible.
+  DETAIL="$IP"
+  [ "$nom" = "$WEB" ] && DETAIL="${IP} · $(echo "${nom##*-}" | cut -c1-7)"
+  if [ -z "$IP" ]; then
+    dire FAIL "$libelle" "détaché du réseau ${RESEAU}"
+  else
+    dire PASS "$libelle" "$DETAIL"
+  fi
+done
+
+# Le proxy doit publier 80 et 443 sur l'hôte.
+PORTS=$(docker ps --format '{{.Ports}}' --filter "name=^${PROXY}$")
+if echo "$PORTS" | grep -q ':80->' && echo "$PORTS" | grep -q ':443->'; then
+  dire PASS "Publication 80/443" "par ${PROXY}"
+else
+  dire FAIL "Publication 80/443" "non publiés — ports probablement squattés"
+fi
+
+# Des docker-proxy pointant hors du sous-réseau courant sont des orphelins :
+# ils tiennent les ports en routant vers des IP mortes.
+ORPHELINS=$(ps -eo args 2>/dev/null | grep '[d]ocker-proxy' | grep -c -v -- "-container-ip ${PREFIXE}")
+if [ "$ORPHELINS" -eq 0 ]; then
+  dire PASS "Orphelins docker-proxy" "aucun"
+else
+  dire FAIL "Orphelins docker-proxy" "${ORPHELINS} processus hors ${PREFIXE}0.0/16"
+fi
+
+# Les règles iptables par bridge : leur absence fait tomber tout le trafic
+# inter-conteneurs dans la politique FORWARD DROP.
+if sudo -n true 2>/dev/null; then
+  REGLES=$(sudo -n iptables-save 2>/dev/null)
+  MANQUANTES=""
+  echo "$REGLES" | grep -q -- "-A DOCKER-FORWARD -i ${BRIDGE} -j ACCEPT" || MANQUANTES="${MANQUANTES} DOCKER-FORWARD"
+  echo "$REGLES" | grep -q -- "-A DOCKER-BRIDGE -o ${BRIDGE} -j DOCKER"  || MANQUANTES="${MANQUANTES} DOCKER-BRIDGE"
+  echo "$REGLES" | grep -q -- "-A DOCKER-CT -o ${BRIDGE}"                || MANQUANTES="${MANQUANTES} DOCKER-CT"
+  if [ -z "$MANQUANTES" ]; then
+    dire PASS "Règles iptables du bridge" "complètes"
+  else
+    dire FAIL "Règles iptables du bridge" "manquantes :${MANQUANTES}"
+  fi
+else
+  dire WARN "Règles iptables du bridge" "non vérifiées (sudo sans mot de passe indisponible)"
+fi
+
+# Connectivité inter-conteneurs réelle, via les conteneurs déjà en place
+# (aucune image à télécharger) : le web doit ouvrir un socket vers la base.
+if [ -n "$WEB" ]; then
+  RES=$(timeout 25 docker exec "$WEB" ruby -rsocket -e '
+    begin
+      Socket.tcp(ENV.fetch("DB_HOST"), 5432, connect_timeout: 8) { print "ok" }
+    rescue => e
+      print "#{e.class}"
+    end' 2>/dev/null)
+  if [ "$RES" = "ok" ]; then
+    dire PASS "Connectivité web → base" "TCP 5432 ouvert"
+  else
+    dire FAIL "Connectivité web → base" "${RES:-échec} — inter-conteneurs rompu"
+  fi
+fi
+DISTANT
+)
+
+while IFS= read -r ligne; do
+  [ -n "$ligne" ] && afficher "$ligne"
+done <<< "$SORTIE_DISTANTE"
+
+# ------------------------------------------------------------------- côté public
+echo
+echo "Public"
+
+verifier_url() {
+  local url="$1" attendu="$2" libelle="$3"
+  local reponse code temps
+  reponse=$(curl -s -o /dev/null -w '%{http_code} %{time_total}' --max-time 25 "$url" 2>/dev/null)
+  code="${reponse%% *}"; temps="${reponse##* }"
+  if [ "$code" = "$attendu" ]; then
+    afficher "PASS|${libelle}|${code} en ${temps}s"
+  else
+    afficher "FAIL|${libelle}|attendu ${attendu}, obtenu ${code:-aucune réponse}"
+  fi
+}
+
+verifier_url "https://${DOMAIN}/up" 200 "Santé applicative (/up)"
+verifier_url "https://${DOMAIN}/"   200 "Page d'accueil"
+verifier_url "http://${DOMAIN}/"    301 "Redirection HTTP → HTTPS"
+
+echo
+if [ "$ECHECS" -eq 0 ]; then
+  echo "${VERT}Tout est vert.${RAZ}"
+  exit 0
+fi
+echo "${ROUGE}${ECHECS} contrôle(s) en échec.${RAZ}"
+echo "${GRIS}Réparation réseau Docker : sudo bash ~/fix-docker-net.sh sur le serveur.${RAZ}"
+exit 1
