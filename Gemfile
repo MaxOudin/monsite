@@ -41,6 +41,8 @@ gem 'devise', '~> 4.9.3'
 gem "pundit", "~> 2.5"
 
 gem 'devise-jwt'
+gem 'devise-two-factor'
+gem 'rqrcode'
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"

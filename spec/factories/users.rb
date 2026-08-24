@@ -10,6 +10,10 @@
 #  reset_password_token   :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
+#  otp_secret             :string
+#  consumed_timestep      :integer
+#  otp_required_for_login :boolean          default(FALSE), not null
+#  otp_backup_codes       :string           is an Array
 #
 # Indexes
 #
@@ -22,5 +26,16 @@ FactoryBot.define do
     sequence(:email) { |n| "user#{n}@example.com" }
     password { "motdepasse-test-123" }
     password_confirmation { "motdepasse-test-123" }
+    otp_required_for_login { false }
+
+    trait :with_two_factor do
+      otp_required_for_login { true }
+      otp_secret { User.generate_otp_secret }
+
+      after(:create) do |user|
+        user.generate_otp_backup_codes!
+        user.save!
+      end
+    end
   end
 end

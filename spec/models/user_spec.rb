@@ -10,15 +10,23 @@
 #  reset_password_token   :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
+#  otp_secret             :string
+#  consumed_timestep      :integer
+#  otp_required_for_login :boolean          default(FALSE), not null
+#  otp_backup_codes       :string           is an Array
 #
 # Indexes
 #
 #  index_users_on_email                 (email) UNIQUE
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #
-require 'rails_helper'
+require "rails_helper"
+require "devise_two_factor/spec_helpers"
 
 RSpec.describe User, type: :model do
+  it_behaves_like "two_factor_authenticatable"
+  it_behaves_like "two_factor_backupable"
+
   it "a une factory valide" do
     expect(build(:user)).to be_valid
   end

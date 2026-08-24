@@ -54,4 +54,9 @@ Rails.application.configure do
 
   # Raise error when a before_action's only/except options reference missing actions.
   config.action_controller.raise_on_missing_callback_actions = true
+
+  # Clés de chiffrement dédiées aux tests (devise-two-factor / otp_secret)
+  config.active_record.encryption.primary_key = "testPrimaryKeyActiveRecordEncryption32"
+  config.active_record.encryption.deterministic_key = "testDeterministicKeyActiveRecordEnc32"
+  config.active_record.encryption.key_derivation_salt = "testKeyDerivationSaltActiveRecord32"
 end

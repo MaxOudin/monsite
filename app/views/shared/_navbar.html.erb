@@ -44,6 +44,8 @@
             <%= link_to "Contact", "#contact-infos", class: "text-white" %>
           <% end %>
           <% if user_signed_in? %>
+            <%= link_to "2FA", two_factor_settings_path,
+                class: "inline-flex items-center justify-center rounded-lg font-semibold transition-all duration-300 px-4 py-2 text-sm text-secondary border border-secondary/30 hover:bg-secondary hover:text-white hover:-translate-y-0.5" %>
             <%= button_to "Déconnexion", destroy_user_session_path,
                 class: "inline-flex items-center justify-center rounded-lg font-semibold transition-all duration-300 px-4 py-2 text-sm text-gray-600 border border-gray-200 hover:bg-gray-100 hover:text-gray-900 hover:-translate-y-0.5",
                 method: :delete, data: { turbo: false } %>
@@ -77,7 +79,10 @@
 
         <!-- Déconnexion (si connecté) -->
         <% if user_signed_in? %>
-          <div class="mt-4">
+          <div class="mt-4 space-y-3">
+            <%= link_to "Double authentification", two_factor_settings_path,
+                class: "block w-full py-3 px-4 rounded-lg text-sm font-semibold text-center text-secondary border border-secondary/30 hover:bg-secondary hover:text-white transition-all duration-300",
+                data: { action: "click->navbar#closeMenu" } %>
             <%= button_to 'Déconnexion', destroy_user_session_path, turbo_method: :delete,
                 class: "w-full py-3 px-4 rounded-lg text-sm font-semibold text-gray-600 border border-gray-200 hover:bg-gray-100 hover:text-gray-900 transition-all duration-300" %>
           </div>

@@ -14,7 +14,9 @@ documentation/
 ├── 05_BREADCRUMBS.md                  ← Fil d'Ariane (implémentation et SEO)
 ├── 06_CHANGELOG.md                    ← Historique des modifications
 ├── 07_SOLID_TRIFECTA.md               ← SolidQueue / SolidCache / SolidCable
-└── 08_MEMORY_AUDIT.md                 ← Audit mémoire web & worker (Scalingo)
+├── 08_MEMORY_AUDIT.md                 ← Audit mémoire web & worker (Scalingo)
+├── 09_ROADMAP_AMELIORATIONS.md        ← Roadmap d'améliorations
+└── 10_DEVISE_TWO_FACTOR.md            ← 2FA TOTP (devise-two-factor)
 ```
 
 ---

@@ -32,12 +32,28 @@ module ApplicationHelper
   # Valide si une URL ou un asset est valide pour l'affichage
   def valid_url_or_asset?(path)
     return false if path.blank?
-    
+
     # Si c'est une URL HTTP/HTTPS, considérer comme valide
     return true if path.starts_with?("http://", "https://")
-    
+
     # Sinon, vérifier que c'est un nom de fichier valide (pas de caractères bizarres)
     # Accepter lettres, chiffres, tirets, underscores, points et slashes
     path.match?(/\A[\w\-\.\/]+\z/)
+  end
+
+  def otp_qr_svg(user, size: 200)
+    return if user.otp_secret.blank?
+
+    uri = user.otp_provisioning_uri(user.email, issuer: user.otp_provisioning_issuer)
+    svg = RQRCode::QRCode.new(uri).as_svg(
+      module_size: 4,
+      standalone: true,
+      use_path: true,
+      viewbox: true,
+      fill: "fff",
+      color: "000"
+    )
+    # La déclaration XML casse le rendu quand le SVG est injecté dans du HTML.
+    svg.sub(/\A<\?xml[^>]*\?>/, "").html_safe
   end
 end

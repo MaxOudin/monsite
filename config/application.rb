@@ -31,6 +31,13 @@ module Cd
 
     ENV["PATH"] = "#{ENV["HOME"]}/.bun/bin:#{ENV["PATH"]}"
 
+    # Active Record encryption (requis pour devise-two-factor / otp_secret)
+    if ENV["ACTIVE_RECORD_ENCRYPTION_PRIMARY_KEY"].present?
+      config.active_record.encryption.primary_key = ENV["ACTIVE_RECORD_ENCRYPTION_PRIMARY_KEY"]
+      config.active_record.encryption.deterministic_key = ENV["ACTIVE_RECORD_ENCRYPTION_DETERMINISTIC_KEY"]
+      config.active_record.encryption.key_derivation_salt = ENV["ACTIVE_RECORD_ENCRYPTION_KEY_DERIVATION_SALT"]
+    end
+
     config.generators do |g|
       g.test_framework(
       :rspec,

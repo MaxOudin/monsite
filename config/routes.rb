@@ -4,6 +4,11 @@ Rails.application.routes.draw do
   post "/csp-violation-report-endpoint", to: "csp_reports#create", as: :csp_violation_report_endpoint
   
   devise_for :users
+
+  resource :two_factor_settings, only: %i[show create destroy], path: "compte/2fa", controller: "two_factor_settings" do
+    post :confirm, on: :member
+    get :backup_codes, on: :member
+  end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
@@ -37,7 +42,8 @@ Rails.application.routes.draw do
   # Routes API
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
-      resources :articles, only: [:index, :show, :update, :create, :destroy]
+      # resources :articles, only: [:index, :show, :update, :create, :destroy]
+      resources :articles, only: %i[index show]
       
       # Routes d'authentification
       devise_scope :user do

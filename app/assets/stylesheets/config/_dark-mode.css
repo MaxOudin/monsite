@@ -23,6 +23,10 @@
 }
 
 /* ---- Global text color overrides ---- */
+[data-theme="dark"] .text-brand-text {
+  color: #f9fafb !important;
+}
+
 [data-theme="dark"] .text-gray-900 {
   color: #f9fafb !important;
 }
@@ -247,6 +251,7 @@
   color: #86efac !important;
 }
 
+[data-theme="dark"] .text-red-700,
 [data-theme="dark"] .text-red-800 {
   color: #fca5a5 !important;
 }

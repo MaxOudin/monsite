@@ -9,6 +9,12 @@
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
+  # Strategies 2FA (avant database_authenticatable ; ne pas charger les deux modules sur User)
+  config.warden do |manager|
+    manager.default_strategies(scope: :user).unshift :two_factor_backupable
+    manager.default_strategies(scope: :user).unshift :two_factor_authenticatable
+  end
+
   # The secret key used by Devise. Devise uses this key to generate
   # random tokens. Changing this key will render invalid all existing
   # confirmation, reset password and unlock tokens in the database.
@@ -228,7 +234,8 @@ Devise.setup do |config|
 
   # When set to false, does not sign a user in automatically after their password is
   # reset. Defaults to true, so a user is signed in automatically after a reset.
-  # config.sign_in_after_reset_password = true
+  # Requis avec le 2FA : sinon le reset contourne l'OTP.
+  config.sign_in_after_reset_password = false
 
   # ==> Configuration for JWT
   config.jwt do |jwt|
