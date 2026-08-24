@@ -13,11 +13,13 @@ class TwoFactorConfirmService
     return Result.new(success?: false, error: :missing_secret) if @user.otp_secret.blank?
     return Result.new(success?: false, error: :invalid_otp) unless @user.validate_and_consume_otp!(@otp_attempt)
 
-    backup_codes = nil
-    @user.transaction do
-      @user.otp_required_for_login = true
-      backup_codes = @user.generate_otp_backup_codes!
-      @user.save!
+    backup_codes = @user.generate_otp_backup_codes!
+    @user.otp_required_for_login = true
+    @user.save!
+    @user.reload
+
+    unless @user.otp_required_for_login? && Array(@user.otp_backup_codes).any?
+      return Result.new(success?: false, error: :persist_failed)
     end
 
     Result.new(success?: true, backup_codes: backup_codes)

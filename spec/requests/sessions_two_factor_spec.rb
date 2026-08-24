@@ -32,6 +32,13 @@ RSpec.describe "Sessions Devise (2FA)", type: :request do
         expect(response).not_to redirect_to(root_path)
       end
 
+      it "refuse une connexion sans OTP" do
+        post user_session_path, params: {
+          user: { email: user.email, password: password }
+        }
+        expect(response).not_to redirect_to(root_path)
+      end
+
       it "accepte un code de secours" do
         codes = user.generate_otp_backup_codes!
         user.save!

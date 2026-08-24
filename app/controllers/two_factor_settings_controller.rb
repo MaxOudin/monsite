@@ -4,14 +4,19 @@ class TwoFactorSettingsController < ApplicationController
   before_action :authenticate_user!
 
   def show
+    current_user.reload
     @pending_setup = current_user.otp_secret.present? && !current_user.otp_required_for_login?
   end
 
   def create
     if TwoFactorSetupService.new(current_user).call
-      redirect_to two_factor_settings_path, notice: "Scannez le QR code puis confirmez avec un code de votre application."
+      redirect_to two_factor_settings_path,
+                  status: :see_other,
+                  notice: "Scannez le QR code puis confirmez avec un code de votre application."
     else
-      redirect_to two_factor_settings_path, alert: "La double authentification est déjà activée."
+      redirect_to two_factor_settings_path,
+                  status: :see_other,
+                  alert: "La double authentification est déjà activée."
     end
   end
 
@@ -55,6 +60,7 @@ class TwoFactorSettingsController < ApplicationController
     when :already_enabled then "La double authentification est déjà activée."
     when :missing_secret then "Démarrez d'abord la configuration."
     when :not_enabled then "La double authentification n'est pas activée."
+    when :persist_failed then "Impossible d'enregistrer l'activation 2FA. Réessayez."
     else "Une erreur est survenue."
     end
   end

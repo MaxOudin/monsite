@@ -16,7 +16,9 @@ RSpec.describe TwoFactorConfirmService do
 
       expect(result.success?).to be true
       expect(result.backup_codes).to be_present
-      expect(user.reload.otp_required_for_login).to be true
+      user.reload
+      expect(user.otp_required_for_login).to be true
+      expect(user.otp_backup_codes).to be_present
     end
 
     it "refuse un OTP invalide" do
@@ -25,6 +27,14 @@ RSpec.describe TwoFactorConfirmService do
       expect(result.success?).to be false
       expect(result.error).to eq(:invalid_otp)
       expect(user.reload.otp_required_for_login).to be false
+    end
+
+    it "empêche de relancer le setup une fois le 2FA activé" do
+      described_class.new(user, otp_attempt: user.current_otp).call
+      user.reload
+
+      expect(user.otp_required_for_login).to be true
+      expect(TwoFactorSetupService.new(user).call).to be false
     end
   end
 end

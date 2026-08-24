@@ -9,12 +9,6 @@
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
-  # Strategies 2FA (avant database_authenticatable ; ne pas charger les deux modules sur User)
-  config.warden do |manager|
-    manager.default_strategies(scope: :user).unshift :two_factor_backupable
-    manager.default_strategies(scope: :user).unshift :two_factor_authenticatable
-  end
-
   # The secret key used by Devise. Devise uses this key to generate
   # random tokens. Changing this key will render invalid all existing
   # confirmation, reset password and unlock tokens in the database.
@@ -170,7 +164,7 @@ Devise.setup do |config|
 
   # ==> Configuration for :rememberable
   # The time the user will be remembered without asking for credentials again.
-  # config.remember_for = 2.weeks
+  config.remember_for = 2.days
 
   # Invalidates all the remember me tokens when the user signs out.
   config.expire_all_remember_me_on_sign_out = true
@@ -299,6 +293,10 @@ Devise.setup do |config|
   #
   config.warden do |manager|
     manager.failure_app = CustomDeviseFailureApp
+    # 2FA en tête : ne pas laisser rememberable/jwt court-circuiter l'OTP.
+    # Unshift dans cet ordre → authenticatable puis backupable en premier.
+    manager.default_strategies(scope: :user).unshift :two_factor_backupable
+    manager.default_strategies(scope: :user).unshift :two_factor_authenticatable
   end
   # config.warden do |manager|
   #   manager.intercept_401 = false

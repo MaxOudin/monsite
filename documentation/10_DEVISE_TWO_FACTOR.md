@@ -87,10 +87,17 @@ Colonnes :
 
 ## Configuration Devise
 
-Dans `config/initializers/devise.rb` :
+Dans `config/initializers/devise.rb` (un seul bloc `config.warden`) :
 
-- Stratégies Warden `:two_factor_authenticatable` et `:two_factor_backupable`
+- `manager.failure_app = CustomDeviseFailureApp`
+- Stratégies Warden en tête : `:two_factor_authenticatable` puis `:two_factor_backupable` (`unshift`)
 - `config.sign_in_after_reset_password = false` (sinon le reset contourne l’OTP)
+
+**Important** : sans `otp_required_for_login == true`, la stratégie 2FA **accepte** le login sans vérifier l’OTP. L’activation doit donc persister ce flag (et les codes de secours) de façon fiable.
+
+### Rememberable et POST login
+
+`config/initializers/devise_rememberable_2fa.rb` désactive la stratégie `:rememberable` lorsqu’un mot de passe est présent dans le POST de connexion. Sinon un cookie « se souvenir de moi » peut authentifier à la place d’un OTP invalide / manquant (cascade Warden laissée ouverte pour les backup codes).
 
 Dans `ApplicationController` :
 
@@ -104,18 +111,26 @@ Les logs filtrent déjà `:otp` → `otp_attempt` est masqué.
 
 ### Connexion
 
-Formulaire `POST /users/sign_in` avec `email`, `password`, `otp_attempt` (optionnel si 2FA non activé).
+Formulaire `POST /users/sign_in` avec `email`, `password`, `otp_attempt` (**obligatoire** si `otp_required_for_login`).
 
 Un code de secours peut remplacer le TOTP dans `otp_attempt`.
+
+Vérifications attendues une fois le 2FA activé :
+
+- sans OTP → refus
+- OTP incorrect → refus
+- TOTP ou code de secours valide → OK
 
 ### Activation (`/compte/2fa`)
 
 1. Se connecter **sans** 2FA (ou après login normal)
 2. Navbar → lien **2FA** → `/compte/2fa`
-3. **Configurer le 2FA** → génère `otp_secret` **sans** activer encore `otp_required_for_login`
+3. **Configurer le 2FA** → génère `otp_secret` **sans** activer encore `otp_required_for_login` (refusé si déjà activé)
 4. Scanner le QR (issuer = `DOMAIN` / `maximeoudin.fr`)
-5. Entrer un premier code TOTP → active le 2FA + génère les codes de secours
+5. Entrer un premier code TOTP → `TwoFactorConfirmService` active le 2FA, génère les codes de secours, puis **recharge** l’user et vérifie la persistance (`otp_required` + codes) sinon erreur `:persist_failed`
 6. Page `/compte/2fa/backup_codes` : codes affichés **une seule fois** (session flash) — à stocker hors ligne
+
+Une fois activé, on ne peut plus relancer « Configurer le 2FA » sans désactiver d’abord.
 
 ### Désactivation
 
@@ -131,6 +146,8 @@ Sur `/compte/2fa` : mot de passe + OTP (ou code de secours).
 | `app/helpers/application_helper.rb` | `#otp_qr_svg` (SVG sans déclaration XML, fond blanc) |
 | `app/views/devise/sessions/new.html.erb` | Champ OTP login |
 | `app/views/two_factor_settings/*` | Écrans 2FA |
+| `config/initializers/devise.rb` | Warden 2FA + failure_app |
+| `config/initializers/devise_rememberable_2fa.rb` | Pas de bypass OTP via remember me |
 | `config/routes.rb` | `resource :two_factor_settings` + API lecture seule |
 | `config/application.rb` | Chargement des clés encryption depuis ENV |
 | `config/deploy.yml` | Secrets Kamal encryption |
@@ -166,11 +183,16 @@ Factory : trait `:with_two_factor`.
 ## Checklist déploiement
 
 1. Générer de **nouvelles** clés encryption (prod) et les mettre dans Kamal secrets
-2. `bundle install` + image Docker rebuild
-3. `rails db:migrate` en prod
-4. Se connecter une fois, activer le 2FA, sauvegarder les codes de secours
-5. Vérifier login avec TOTP puis avec un code de secours
-6. Vérifier qu’un reset password ne reconnecte pas automatiquement
+2. `bundle install` + image Docker rebuild / `kamal deploy`
+3. Migrer en prod (Kamal ne le fait pas tout seul) :
+   ```bash
+   kamal app exec --reuse 'bin/rails db:migrate'
+   ```
+4. Se connecter une fois, activer le 2FA **une seule fois**, sauvegarder les codes de secours
+5. Vérifier en base : `otp_required_for_login == true` et `otp_backup_codes` non vides
+6. Vérifier login : sans OTP → refus ; OTP bidon → refus ; TOTP valide → OK ; code de secours → OK
+7. Vérifier qu’un reset password ne reconnecte pas automatiquement
+8. Vérifier qu’on ne peut pas réactiver le 2FA sans le désactiver d’abord
 
 ## Références
 
