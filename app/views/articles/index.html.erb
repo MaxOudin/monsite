@@ -3,87 +3,16 @@
 <% content_for :meta_description, "Découvrez mes articles sur le développement web et mes expériences" %>
 <% content_for :meta_image, DEFAULT_META["meta_image"] %>
 
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-  <!-- En-tête -->
-  <div class="flex flex-col sm:flex-row justify-between items-center mb-12 gap-4">
-    <div>
-      <h1 class="text-3xl sm:text-4xl font-bold text-gray-900">Mes Articles</h1>
-      <p class="mt-2 text-lg text-gray-600">Découvrez mes articles sur le développement web et mes expériences</p>
-    </div>
-    <% if user_signed_in? %>
-      <%= render ButtonComponent.new(variant: :primary, size: :lg, icon: "fas fa-plus") do %>
-        <%= link_to new_article_path, class: "text-white" do %>
-          Nouvel Article
-        <% end %>
-      <% end %>
-    <% end %>
-  </div>
-
-  <!-- Barre de recherche -->
-  <div class="mb-8 flex justify-center" data-controller="search-input" data-search-input-placeholder-mobile-value="rechercher un article..." data-search-input-placeholder-desktop-value="Renseignez un mot-clé pour rechercher un article...">
-    <%= form_with url: articles_path, method: :get, data: { turbo: false }, class: "flex gap-2 w-full sm:w-2/3" do |f| %>
-      <div class="flex-1 relative">
-        <%= f.text_field :query,
-              value: params[:query],
-              class: "w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary transition-all",
-              placeholder: "Renseignez un mot-clé pour rechercher un article...",
-              id: "search-query",
-              data: { search_input_target: "input" }
-          %>
-      </div>
-      <%= render ButtonComponent.new(variant: :primary, size: :md, icon: "fas fa-search") do %>
-        <%= link_to "Rechercher", articles_path, class: "text-brand-text", method: :get, data: { turbo: false } %>
-      <% end %>
-    <% end %>
-  </div>
-
-  <!-- Résultats de recherche -->
-  <% if params[:query].present? %>
-    <div class="mb-6 flex justify-center">
-      <div class="w-full sm:w-2/3 p-4 bg-blue-50 rounded-lg border border-blue-100 flex justify-between items-center">
-        <p class="text-sm text-blue-800">
-          <% if @articles.any? %>
-            <strong><%= @articles.count %></strong> résultat<%= @articles.count > 1 ? 's' : '' %> pour "<%= params[:query] %>"
-          <% else %>
-            Aucun résultat pour "<%= params[:query] %>"
-          <% end %>
-        </p>
-        <%= link_to articles_path, class: "text-sm text-blue-800 hover:text-blue-700 transition-colors whitespace-nowrap", data: { turbo: false } do %>
-          Effacer
-        <% end %>
-      </div>
-    </div>
-  <% end %>
-
-  <!-- Grille d'articles -->
-  <% if @articles.any? %>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-      <% @articles.each do |article| %>
-        <div class="w-full max-w-full">
-          <%= render CardComponent.new(model: article) %>
-        </div>
-      <% end %>
-    </div>
-  <% else %>
-    <!-- Message si aucun article -->
-    <div class="text-center py-12">
-      <div class="text-gray-400 mb-4">
-        <i class="fas fa-newspaper text-6xl"></i>
-      </div>
-      <h3 class="text-xl font-medium text-gray-900 mb-2">
-        <% if params[:query].present? %>
-          Aucun article trouvé
-        <% else %>
-          Aucun article pour le moment
-        <% end %>
-      </h3>
-      <p class="text-gray-600">
-        <% if params[:query].present? %>
-          Essayez avec d'autres mots-clés.
-        <% else %>
-          Les articles que vous créez apparaîtront ici.
-        <% end %>
-      </p>
-    </div>
-  <% end %>
-</div>
+<%= render "shared/collection_index",
+      label: "Écrits",
+      title: "Mes Articles",
+      subtitle: "Découvrez mes articles sur le développement web et mes expériences",
+      records: @articles,
+      search_path: articles_path,
+      search_placeholder_mobile: "rechercher un article...",
+      search_placeholder_desktop: "Renseignez un mot-clé pour rechercher un article...",
+      empty_icon: "fas fa-newspaper",
+      resource_name: "article",
+      resource_name_plural: "articles",
+      new_path: new_article_path,
+      new_label: "Nouvel article" %>

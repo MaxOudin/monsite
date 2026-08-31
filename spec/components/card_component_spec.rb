@@ -21,9 +21,21 @@ RSpec.describe CardComponent, type: :component do
       expect(rendered.text).to include("Application Web")
     end
 
+    it "affiche un extrait de la description" do
+      rendered = render_inline(described_class.new(model: projet))
+      expect(rendered.css("p").text).to include("Surf.Ai")
+    end
+
     it "génère un lien vers le projet" do
       rendered = render_inline(described_class.new(model: projet))
       expect(rendered.css("a").first["href"]).to eq("/projets/#{projet.slug}")
+    end
+
+    it "affiche l'image du projet" do
+      rendered = render_inline(described_class.new(model: projet))
+      img = rendered.css("img").first
+      expect(img["src"]).to eq(projet.image_url)
+      expect(img["alt"]).to eq(projet.image_url_alt)
     end
 
     context "sans date" do
@@ -40,7 +52,7 @@ RSpec.describe CardComponent, type: :component do
 
       it "utilise le logo par défaut" do
         rendered = render_inline(described_class.new(model: projet))
-        expect(rendered.css("div[style*='background-image']").first["style"]).to include("yellow_logo")
+        expect(rendered.css("img").first["src"]).to include("yellow_logo")
       end
     end
   end
@@ -63,9 +75,21 @@ RSpec.describe CardComponent, type: :component do
       expect(rendered.text).to include("Autour du web")
     end
 
+    it "affiche un extrait du contenu" do
+      rendered = render_inline(described_class.new(model: article))
+      expect(rendered.text).to include("Contenu de l'article de test")
+    end
+
     it "génère un lien vers l'article" do
       rendered = render_inline(described_class.new(model: article))
       expect(rendered.css("a").first["href"]).to eq("/articles/#{article.slug}")
+    end
+
+    it "affiche l'image de l'article" do
+      rendered = render_inline(described_class.new(model: article))
+      img = rendered.css("img").first
+      expect(img["src"]).to eq(article.image_url)
+      expect(img["alt"]).to eq(article.image_alt)
     end
   end
 end

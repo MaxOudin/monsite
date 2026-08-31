@@ -1,0 +1,26 @@
+<%# locals: (number:, label:, icon:, path: nil, featured: false, extra_class: "") %>
+<% card_classes = [
+     "group flex items-start gap-3 rounded-xl p-5 shadow-md border transition-all duration-300 hover:shadow-lg hover:-translate-y-1",
+     featured ? "bg-gradient-to-br from-primary/10 to-primary/20 border-primary" : "bg-white border-gray-200",
+     extra_class
+   ].compact_blank.join(" ") %>
+
+<% body = capture do %>
+  <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/20" aria-hidden="true">
+    <i class="<%= icon %> <%= featured ? "text-accent" : "text-secondary" %>"></i>
+  </span>
+  <div class="min-w-0">
+    <p class="text-2xl sm:text-3xl font-bold text-gray-900 leading-tight"><%= number %></p>
+    <p class="text-xs sm:text-sm text-gray-600 font-medium mt-0.5"><%= label %></p>
+  </div>
+<% end %>
+
+<% if path.present? %>
+  <%= link_to path, class: card_classes do %>
+    <%= body %>
+  <% end %>
+<% else %>
+  <div class="<%= card_classes %>">
+    <%= body %>
+  </div>
+<% end %>

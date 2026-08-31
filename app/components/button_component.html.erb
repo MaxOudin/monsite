@@ -1,6 +1,15 @@
-<button class="<%= classes %>" <%= tag.attributes(@html_options) %>>
-  <% if @icon %>
-    <i class="<%= @icon %> mr-2"></i>
+<% if @href.present? %>
+  <%= link_to @href, { class: classes }.merge(@html_options) do %>
+    <% if @icon %>
+      <i class="<%= @icon %> mr-2"></i>
+    <% end %>
+    <%= content %>
   <% end %>
-  <%= content %>
-</button>
+<% else %>
+  <button class="<%= classes %>" <%= tag.attributes(@html_options) %>>
+    <% if @icon %>
+      <i class="<%= @icon %> mr-2"></i>
+    <% end %>
+    <%= content %>
+  </button>
+<% end %>

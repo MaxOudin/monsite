@@ -1,63 +1,30 @@
 <% if crumbs.present? %>
-  <nav aria-label="Fil d'ariane" class="mb-6" data-controller="breadcrumbs">
-    <!-- Version desktop : chemin complet -->
-    <div class="hidden md:flex items-center flex-wrap gap-2 text-sm text-gray-500">
+  <nav aria-label="Fil d'ariane" class="mb-4" data-controller="breadcrumbs">
+    <ol class="flex items-center flex-wrap gap-3 text-xs font-medium uppercase tracking-[0.14em] text-gray-500">
       <% crumbs.each_with_index do |crumb, index| %>
-        <% if index > 0 %>
-          <i class="fas fa-chevron-right text-xs text-gray-400 mx-1" aria-hidden="true"></i>
-        <% end %>
-
-        <% if index == 0 && crumb[:is_home] && crumb[:path].present? %>
-          <%= link_to crumb[:path],
-              class: "inline-flex items-center gap-1 text-gray-500 font-medium hover:text-secondary transition-colors",
-              title: crumb[:name],
-              "aria-label": crumb[:name],
-              data: { breadcrumbs_target: "link" } do %>
-            <i class="fas fa-home" aria-hidden="true"></i>
-            <span><%= crumb[:name] %></span>
+        <li class="flex items-center gap-3 min-w-0">
+          <% if index.positive? %>
+            <span class="size-1.5 rounded-full bg-primary shrink-0" aria-hidden="true"></span>
           <% end %>
-        <% elsif crumb[:path].present? %>
-          <%= link_to crumb[:name], crumb[:path],
-              class: "text-gray-500 font-medium hover:text-secondary transition-colors",
-              title: crumb[:name],
-              data: { breadcrumbs_target: "link" } %>
-        <% else %>
-          <span class="text-secondary font-semibold" title="<%= crumb[:name] %>" aria-current="page">
-            <%= crumb[:name] %>
-          </span>
-        <% end %>
-      <% end %>
-    </div>
 
-    <!-- Structured Data pour SEO -->
+          <% if crumb[:path].present? %>
+            <%= link_to crumb[:name], crumb[:path],
+                  class: "breadcrumb-link text-gray-500 hover:text-secondary transition-colors duration-300",
+                  title: crumb[:name],
+                  data: { breadcrumbs_target: "link" } %>
+          <% else %>
+            <span class="text-gray-900 normal-case tracking-normal truncate max-w-[16rem] sm:max-w-md"
+                  title="<%= crumb[:name] %>"
+                  aria-current="page">
+              <%= crumb[:name] %>
+            </span>
+          <% end %>
+        </li>
+      <% end %>
+    </ol>
+
     <script type="application/ld+json">
       <%= breadcrumbs_structured_data(crumbs, request.original_url) %>
     </script>
-
-    <!-- Version mobile : Accueil > Parent -->
-    <% if crumbs.length > 1 %>
-      <% home_crumb = crumbs.first %>
-      <% parent = crumbs[-2] %>
-      <div class="md:hidden flex items-center gap-2 text-sm text-gray-500">
-        <% if home_crumb && home_crumb[:path].present? %>
-          <%= link_to home_crumb[:path], 
-              class: "inline-flex items-center gap-1 text-gray-500 font-medium hover:text-secondary transition-colors",
-              title: home_crumb[:name],
-              "aria-label": home_crumb[:name] do %>
-            <i class="fas fa-home" aria-hidden="true"></i>
-            <span><%= home_crumb[:name] %></span>
-          <% end %>
-        <% end %>
-      <% if parent && parent[:path].present? %>
-          <i class="fas fa-chevron-right text-xs text-gray-400" aria-hidden="true"></i>
-          <%= link_to parent[:path], 
-              class: "text-gray-500 font-medium hover:text-secondary transition-colors",
-              title: parent[:name],
-              "aria-label": parent[:name] do %>
-            <span><%= parent[:name] %></span>
-          <% end %>
-          <% end %>
-        </div>
-    <% end %>
   </nav>
 <% end %>

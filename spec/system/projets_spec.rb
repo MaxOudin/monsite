@@ -32,6 +32,10 @@ RSpec.describe "Projets", type: :system do
     # Contenu de la page projet
     expect(page).to have_content("À propos du projet")
 
+    expect(page).to have_css("nav[aria-label=\"Fil d'ariane\"]")
+    expect(page).to have_link("Accueil", href: root_path)
+    expect(page).to have_link("Projets", href: projets_path)
+
     # Bouton retour
     expect(page).to have_content("Retour aux projets")
 

@@ -92,25 +92,39 @@
   border-color: rgba(255, 255, 255, 0.12) !important;
 }
 
-/* ---- Hero CTA secondaire ghost (Nuxt-style) ---- */
-/* Light mode bg = transparent (page bg #F8F9FC passe au travers)     */
-/* Dark mode bg  = transparent (page bg #111827 passe au travers)     */
-/* → "inversion" naturelle sans override de fond nécessaire           */
-[data-theme="dark"] .cta-hero-secondary {
-  color: #f3f4f6 !important;
-  border-color: rgba(255, 255, 255, 0.3) !important;
-}
-[data-theme="dark"] .cta-hero-secondary:hover {
-  border-color: rgba(255, 255, 255, 0.6) !important;
-  background-color: rgba(255, 255, 255, 0.06) !important;
+/* ---- Bouton primary : text-secondary (#004AAD) reste bleu en dark ---- */
+[data-theme="dark"] .bg-primary.text-secondary {
+  color: #004AAD !important;
 }
 
-/* ---- Navbar — secondary (#004AAD) invisible sur fond sombre → blanc ---- */
-[data-theme="dark"] .hover\:text-secondary:hover {
+/* ---- Lien CTA secondaire (variant :link) ---- */
+[data-theme="dark"] .btn-link {
+  color: #d1d5db !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+  background-color: transparent !important;
+}
+[data-theme="dark"] .btn-link:hover {
+  color: #93c5fd !important;
+  border-color: #93c5fd !important;
+  background-color: transparent !important;
+}
+
+/* ---- Titre des cards collection (hover brand lisible sur fond sombre) ---- */
+[data-theme="dark"] a.group:hover .card-title {
+  color: #93c5fd !important;
+}
+
+/* ---- Fil d'Ariane (hover brand, comme btn-link) ---- */
+[data-theme="dark"] .breadcrumb-link:hover {
+  color: #93c5fd !important;
+}
+
+/* ---- Navbar — secondary (#004AAD) invisible sur fond sombre ---- */
+[data-theme="dark"] nav.fixed .hover\:text-secondary:hover {
   color: #f9fafb !important;
 }
 
-[data-theme="dark"] .text-secondary {
+[data-theme="dark"] nav.fixed .text-secondary {
   color: #f9fafb !important;
 }
 

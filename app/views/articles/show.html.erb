@@ -4,8 +4,7 @@
 <% content_for :meta_description, description %>
 <% content_for :meta_image, @article.image_url if @article.image_url.present? %>
 
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-  <!-- Breadcrumbs -->
+<div class="page-container">
   <%= render_breadcrumbs %>
   <!-- En-tête de l'article -->
   <%= render "article", article: @article %>

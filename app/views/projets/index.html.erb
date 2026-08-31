@@ -3,87 +3,16 @@
 <% content_for :meta_description, "Découvrez mes réalisations récentes" %>
 <% content_for :meta_image, DEFAULT_META["meta_image"] %>
 
-<div class="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-12">
-  <!-- En-tête -->
-  <div class="flex flex-col sm:flex-row justify-between items-center mb-12 gap-4">
-    <div>
-      <h1 class="text-3xl sm:text-4xl font-bold text-gray-900">Mes Projets</h1>
-      <p class="mt-2 text-lg text-gray-600">Découvrez mes réalisations récentes</p>
-    </div>
-    <% if user_signed_in? %>
-      <%= render ButtonComponent.new(variant: :primary, size: :lg, icon: "fas fa-plus") do %>
-        <%= link_to new_projet_path, class: "text-white" do %>
-          Nouveau Projet
-        <% end %>
-      <% end %>
-    <% end %>
-  </div>
-
-  <!-- Barre de recherche -->
-  <div class="mb-8 flex justify-center" data-controller="search-input" data-search-input-placeholder-mobile-value="rechercher un projet..." data-search-input-placeholder-desktop-value="Renseignez un mot-clé pour rechercher un projet...">
-    <%= form_with url: projets_path, method: :get, data: { turbo: false }, class: "flex gap-2 w-full sm:w-2/3" do |f| %>
-      <div class="flex-1 relative">
-        <%= f.text_field :query,
-              value: params[:query],
-              class: "w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary transition-all",
-              placeholder: "Renseignez un mot-clé pour rechercher un projet...",
-              id: "search-query",
-              data: { search_input_target: "input" }
-          %>
-      </div>
-      <%= render ButtonComponent.new(variant: :primary, size: :md, icon: "fas fa-search") do %>
-        <%= link_to "Rechercher", projets_path, class: "text-brand-text", method: :get, data: { turbo: false } %>
-      <% end %>
-    <% end %>
-  </div>
-
-  <!-- Résultats de recherche -->
-  <% if params[:query].present? %>
-    <div class="mb-6 flex justify-center">
-      <div class="w-full sm:w-2/3 p-4 bg-blue-50 rounded-lg border border-blue-100 flex justify-between items-center">
-        <p class="text-sm text-blue-800">
-          <% if @projets.any? %>
-            <strong><%= @projets.count %></strong> résultat<%= @projets.count > 1 ? 's' : '' %> pour "<%= params[:query] %>"
-          <% else %>
-            Aucun résultat pour "<%= params[:query] %>"
-          <% end %>
-        </p>
-        <%= link_to projets_path, class: "text-sm text-blue-800 hover:text-blue-700 transition-colors whitespace-nowrap", data: { turbo: false } do %>
-          Effacer
-        <% end %>
-      </div>
-    </div>
-  <% end %>
-
-  <!-- Grille de projets -->
-  <% if @projets.any? %>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-      <% @projets.each do |projet| %>
-        <div class="w-full max-w-full">
-          <%= render CardComponent.new(model: projet) %>
-        </div>
-      <% end %>
-    </div>
-  <% else %>
-    <!-- Message si aucun projet -->
-    <div class="text-center py-12">
-      <div class="text-gray-400 mb-4">
-        <i class="fas fa-folder-open text-6xl"></i>
-      </div>
-      <h3 class="text-xl font-medium text-gray-900 mb-2">
-        <% if params[:query].present? %>
-          Aucun projet trouvé
-        <% else %>
-          Aucun projet pour le moment
-        <% end %>
-      </h3>
-      <p class="text-gray-600">
-        <% if params[:query].present? %>
-          Essayez avec d'autres mots-clés.
-        <% else %>
-          Les projets que vous créez apparaîtront ici.
-        <% end %>
-      </p>
-    </div>
-  <% end %>
-</div>
+<%= render "shared/collection_index",
+      label: "Réalisations",
+      title: "Mes Projets",
+      subtitle: "Découvrez mes réalisations récentes",
+      records: @projets,
+      search_path: projets_path,
+      search_placeholder_mobile: "rechercher un projet...",
+      search_placeholder_desktop: "Renseignez un mot-clé pour rechercher un projet...",
+      empty_icon: "fas fa-folder-open",
+      resource_name: "projet",
+      resource_name_plural: "projets",
+      new_path: new_projet_path,
+      new_label: "Nouveau projet" %>

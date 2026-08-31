@@ -11,16 +11,25 @@ class CardComponent < ViewComponent::Base
     helpers.polymorphic_path(@model)
   end
 
-  def background_image
-    if @model.image_url.present? && helpers.valid_url_or_asset?(@model.image_url)
-      @model.image_url
-    else
-      helpers.image_path("yellow_logo.svg")
-    end
+  def has_custom_image?
+    @model.image_url.present? && helpers.valid_url_or_asset?(@model.image_url)
   end
 
-  def overlay_color
-    DEFAULT_META["card_overlay_color"]
+  def image_src
+    has_custom_image? ? @model.image_url : helpers.image_path("yellow_logo.svg")
+  end
+
+  def image_alt
+    return @model.titre unless has_custom_image?
+
+    case @model
+    when Projet
+      @model.image_url_alt.presence || @model.titre
+    when Article
+      @model.image_alt.presence || @model.titre
+    else
+      @model.titre
+    end
   end
 
   def formatted_date
@@ -39,5 +48,16 @@ class CardComponent < ViewComponent::Base
     when Article
       @model.theme
     end
+  end
+
+  def excerpt
+    text = case @model
+    when Projet
+      @model.description
+    when Article
+      @model.content.to_plain_text
+    end
+
+    helpers.truncate(text.to_s.squish, length: 110)
   end
 end

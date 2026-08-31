@@ -13,4 +13,48 @@
   --color-accent:           #FF007F;
   --color-brand-bg:         #F8F9FC;
   --color-brand-text:       #141414;
+
+  /* Animations hero — arrivée lente, type éditorial */
+  --animate-hero-fade-up: hero-fade-up 1.05s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+@keyframes hero-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(1.75rem);
+    filter: blur(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+.hero-in-1 { animation: hero-fade-up 1.05s cubic-bezier(0.22, 0.61, 0.36, 1) 0.08s both; }
+.hero-in-2 { animation: hero-fade-up 1.05s cubic-bezier(0.22, 0.61, 0.36, 1) 0.2s both; }
+.hero-in-3 { animation: hero-fade-up 1.05s cubic-bezier(0.22, 0.61, 0.36, 1) 0.32s both; }
+.hero-in-4 { animation: hero-fade-up 1.05s cubic-bezier(0.22, 0.61, 0.36, 1) 0.44s both; }
+.hero-in-5 { animation: hero-fade-up 1.05s cubic-bezier(0.22, 0.61, 0.36, 1) 0.56s both; }
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-hero-fade-up,
+  .animate-hero-float,
+  .hero-in-1,
+  .hero-in-2,
+  .hero-in-3,
+  .hero-in-4,
+  .hero-in-5 {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+}
+
+/* Coquille index / show — padding sous la navbar (classes dans un helper Ruby = purgées par Tailwind) */
+@layer utilities {
+  .page-container {
+    @apply max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20;
+  }
 }
