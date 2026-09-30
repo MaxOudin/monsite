@@ -16,7 +16,7 @@ class ToolsController < ApplicationController
     result = ImageProcessor.resize(params[:file], width: width, height: height, mode: mode)
     send_processed_file(result, "resized")
   rescue => e
-    redirect_back fallback_location: tools_resize_path, alert: friendly_error(e)
+    redirect_back_or_to(tools_resize_path, alert: friendly_error(e))
   end
 
   # GET /tools/convert
@@ -25,12 +25,12 @@ class ToolsController < ApplicationController
   # POST /tools/convert
   def process_convert
     format  = params[:format]
-    quality = params[:quality].present? ? params[:quality].to_i : nil
+    quality = params[:quality].presence&.to_i
 
     result = ImageProcessor.convert(params[:file], format: format, quality: quality)
     send_processed_file(result, "converted", format: format)
   rescue => e
-    redirect_back fallback_location: tools_convert_path, alert: friendly_error(e)
+    redirect_back_or_to(tools_convert_path, alert: friendly_error(e))
   end
 
   # GET /tools/remove_bg
@@ -45,7 +45,7 @@ class ToolsController < ApplicationController
               type: "image/png",
               disposition: "attachment"
   rescue => e
-    redirect_back fallback_location: tools_remove_bg_path, alert: friendly_error(e)
+    redirect_back_or_to(tools_remove_bg_path, alert: friendly_error(e))
   ensure
     result&.close! if result.respond_to?(:close!)
   end
@@ -63,13 +63,12 @@ class ToolsController < ApplicationController
 
   def validate_file
     if params[:file].blank?
-      redirect_back fallback_location: tools_path, alert: "Veuillez sélectionner un fichier."
+      redirect_back_or_to(tools_path, alert: "Veuillez sélectionner un fichier.")
       return
     end
 
     if params[:file].respond_to?(:size) && params[:file].size > ImageProcessor::MAX_FILE_SIZE
-      redirect_back fallback_location: tools_path,
-                    alert: "Fichier trop volumineux (max #{ImageProcessor::MAX_FILE_SIZE / 1.megabyte} Mo)."
+      redirect_back_or_to(tools_path, alert: "Fichier trop volumineux (max #{ImageProcessor::MAX_FILE_SIZE / 1.megabyte} Mo).")
       return
     end
   end

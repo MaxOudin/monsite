@@ -1,0 +1,73 @@
+
+inherit_from: .rubocop_todo.yml
+
+plugins:
+  - rubocop-rails
+  - rubocop-performance
+  - rubocop-rspec
+
+AllCops:
+  TargetRubyVersion: 3.4
+  NewCops: enable
+  SuggestExtensions: false
+  Exclude:
+    - "bin/**/*"
+    - "db/**/*"
+    - "vendor/**/*"
+    - "tmp/**/*"
+    - "node_modules/**/*"
+    - "storage/**/*"
+    - "log/**/*"
+    - "public/**/*"
+    - "config/routes.rb"
+    - "config/environments/**/*"
+    - "config/puma.rb"
+    - "config/boot.rb"
+    - "config/application.rb"
+    - "config/ci.rb"
+    - "lib/tasks/**/*"
+
+Style/Documentation:
+  Enabled: false
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Metrics/BlockLength:
+  Exclude:
+    - "spec/**/*"
+    - "config/routes.rb"
+    - "config/initializers/**/*"
+    - "config/sitemap.rb"
+
+Metrics/MethodLength:
+  Max: 20
+  CountAsOne:
+    - array
+    - hash
+    - heredoc
+
+Metrics/ClassLength:
+  Max: 150
+
+Metrics/AbcSize:
+  Max: 25
+
+Rails/UnknownEnv:
+  Environments:
+    - development
+    - test
+    - production
+    - staging
+
+RSpec/ExampleLength:
+  Max: 20
+
+RSpec/MultipleExpectations:
+  Max: 5
+
+RSpec/NestedGroups:
+  Max: 4

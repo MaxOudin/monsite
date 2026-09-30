@@ -18,7 +18,7 @@
 #  index_sujets_on_numero  (numero) UNIQUE
 #
 
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Sujet, type: :model do
   it "a une factory valide" do

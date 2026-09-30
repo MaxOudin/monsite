@@ -4,20 +4,18 @@ module ImageProcessor
   MAX_FILE_SIZE = 50.megabytes
   RASTER_FORMATS = %w[jpg jpeg png webp tiff gif bmp heic].freeze
   ALLOWED_FORMATS = (RASTER_FORMATS + %w[svg ico]).freeze
-  FAVICON_SIZES = [ 16, 32, 48, 64, 128, 256 ].freeze
+  FAVICON_SIZES = [16, 32, 48, 64, 128, 256].freeze
 
   def resize(file, width:, height:, mode: :fit)
     require_vips!
     pipeline = ImageProcessing::Vips.source(file.tempfile)
 
     case mode
-    when :fit
-      pipeline.resize_to_fit(width.presence, height.presence)
     when :fill
       pipeline.resize_to_fill(width, height)
     when :exact
       pipeline.resize_to_limit(width, height)
-    else
+    else # :fit and unknown modes
       pipeline.resize_to_fit(width.presence, height.presence)
     end.call
   end
@@ -40,20 +38,16 @@ module ImageProcessor
 
     case format
     when "png"
-      tempfile = Tempfile.new([ "compressed", ".png" ])
+      tempfile = Tempfile.new(["compressed", ".png"])
       image = image.colourspace("srgb") if image.bands >= 3
       image.pngsave(tempfile.path, compression: 9, palette: true, Q: quality, strip: true)
       tempfile
     when "jpg", "jpeg"
-      tempfile = Tempfile.new([ "compressed", ".jpg" ])
+      tempfile = Tempfile.new(["compressed", ".jpg"])
       image.jpegsave(tempfile.path, Q: quality, strip: true, optimize_coding: true, interlace: true)
       tempfile
-    when "webp"
-      tempfile = Tempfile.new([ "compressed", ".webp" ])
-      image.webpsave(tempfile.path, Q: quality, strip: true)
-      tempfile
-    else
-      tempfile = Tempfile.new([ "compressed", ".webp" ])
+    else # webp and unknown formats
+      tempfile = Tempfile.new(["compressed", ".webp"])
       image.webpsave(tempfile.path, Q: quality, strip: true)
       tempfile
     end
@@ -74,7 +68,7 @@ module ImageProcessor
 
     raise "Remove BG failed: #{response.code}" unless response.is_a?(Net::HTTPSuccess)
 
-    tempfile = Tempfile.new([ "nobg", ".png" ])
+    tempfile = Tempfile.new(["nobg", ".png"])
     tempfile.binmode
     tempfile.write(response.body)
     tempfile.rewind
@@ -88,21 +82,21 @@ module ImageProcessor
     buffer = Zip::OutputStream.write_buffer do |zip|
       FAVICON_SIZES.each do |size|
         result = ImageProcessing::Vips.source(file.tempfile)
-          .resize_to_fill(size, size)
-          .convert("png")
-          .call
+                                      .resize_to_fill(size, size)
+                                      .convert("png")
+                                      .call
 
         zip.put_next_entry("favicon-#{size}x#{size}.png")
         zip.write(File.binread(result.path))
         result.close! if result.respond_to?(:close!)
       end
 
-      ico_sizes = [ 16, 32, 48 ]
+      ico_sizes = [16, 32, 48]
       ico_images = ico_sizes.map do |size|
         ImageProcessing::Vips.source(file.tempfile)
-          .resize_to_fill(size, size)
-          .convert("png")
-          .call
+                             .resize_to_fill(size, size)
+                             .convert("png")
+                             .call
       end
 
       zip.put_next_entry("favicon.ico")
@@ -124,13 +118,13 @@ module ImageProcessor
     buffer = Zip::OutputStream.write_buffer do |zip|
       files.each do |file|
         result = case operation
-        when "resize"
-          resize(file, width: options[:width], height: options[:height], mode: options.fetch(:mode, :fit))
-        when "convert"
-          convert(file, format: options[:format], quality: options[:quality])
-        when "compress"
-          compress(file, quality: options.fetch(:quality, 80))
-        end
+                 when "resize"
+                   resize(file, width: options[:width], height: options[:height], mode: options.fetch(:mode, :fit))
+                 when "convert"
+                   convert(file, format: options[:format], quality: options[:quality])
+                 when "compress"
+                   compress(file, quality: options.fetch(:quality, 80))
+                 end
 
         ext = operation == "convert" ? options[:format] : File.extname(file.original_filename)
         name = File.basename(file.original_filename, ".*")
@@ -177,13 +171,13 @@ module ImageProcessor
     offset = header_size + (dir_entry_size * count)
 
     ico = "".b
-    ico << [ 0, 1, count ].pack("vvv")
+    ico << [0, 1, count].pack("vvv")
 
     entries.each do |png_data|
       vips_img = Vips::Image.new_from_buffer(png_data, "")
       w = vips_img.width
       h = vips_img.height
-      ico << [ w >= 256 ? 0 : w, h >= 256 ? 0 : h, 0, 0, 1, 32, png_data.size, offset ].pack("CCCCvvVV")
+      ico << [w >= 256 ? 0 : w, h >= 256 ? 0 : h, 0, 0, 1, 32, png_data.size, offset].pack("CCCCvvVV")
       offset += png_data.size
     end
 

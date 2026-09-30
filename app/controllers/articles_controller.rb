@@ -45,14 +45,13 @@ class ArticlesController < ApplicationController
     end
   end
 
-
   def destroy
     if @article.destroy
       flash[:notice] = "Article supprimé avec succès"
       redirect_to articles_path, status: :see_other
     else
       flash[:error] = "Article non supprimé, veuillez réessayer"
-      render :show, status: :unprocessable_entity
+      render :show, status: :unprocessable_content
     end
   end
 

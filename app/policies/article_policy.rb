@@ -40,4 +40,3 @@ class ArticlePolicy < ApplicationPolicy
     create?
   end
 end
-

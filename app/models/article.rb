@@ -21,7 +21,8 @@
 class Article < ApplicationRecord
   include PgSearch::Model
   extend FriendlyId
-  friendly_id :titre, use: [:slugged, :history]
+
+  friendly_id :titre, use: %i[slugged history]
 
   THEMES_WITH_COLORS = {
     "Autour du web" => "#18435A",
@@ -45,15 +46,15 @@ class Article < ApplicationRecord
   validates :theme, presence: true, inclusion: { in: THEMES_WITH_COLORS.keys }
 
   pg_search_scope :search_articles,
-    against: [:titre],
-    associated_against: {
-      rich_text_content: [:body]
-    },
-    using: {
-      tsearch: {
-        prefix: true
-      }
-    }
+                  against: [:titre],
+                  associated_against: {
+                    rich_text_content: [:body]
+                  },
+                  using: {
+                    tsearch: {
+                      prefix: true
+                    }
+                  }
 
   # Méthode pour récupérer la couleur associée à un thème
   def couleur_du_theme
@@ -79,5 +80,4 @@ class Article < ApplicationRecord
     excluded_ids = same_theme.map(&:id) + [id]
     same_theme + self.class.where.not(id: excluded_ids).order(created_at: :desc, id: :desc).limit(missing).to_a
   end
-
 end

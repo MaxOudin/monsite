@@ -18,7 +18,7 @@
 #  index_articles_on_titre  (titre) UNIQUE
 #
 
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Article, type: :model do
   it "a une factory valide" do

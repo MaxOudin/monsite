@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe "CspReports", type: :request do
   describe "POST /csp-violation-report-endpoint" do

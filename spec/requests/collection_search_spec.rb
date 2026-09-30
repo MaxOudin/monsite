@@ -54,8 +54,10 @@ RSpec.describe "Recherche des collections", type: :request do
   describe "GET /projets" do
     it "filtre le titre, la description et le type à partir de 2 caractères" do
       by_title = create(:projet, titre: "Atelier céramique", description: "Présentation d'un lieu de création.")
-      by_type = create(:projet, titre: "Plateforme interne", type_projet: "saas", description: "Outil de suivi des commandes clients.")
-      other = create(:projet, titre: "Jardin partagé", type_projet: "autres", description: "Un espace collectif en ville.")
+      by_type = create(:projet, titre: "Plateforme interne", type_projet: "saas",
+                                description: "Outil de suivi des commandes clients.")
+      other = create(:projet, titre: "Jardin partagé", type_projet: "autres",
+                              description: "Un espace collectif en ville.")
 
       get projets_path, params: { query: "Atelier" }
 

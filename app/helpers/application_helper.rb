@@ -1,7 +1,7 @@
 module ApplicationHelper
   def rgba_with_opacity(hex_color, opacity)
     # Supprimer le # si présent
-    hex_color = hex_color.gsub('#', '')
+    hex_color = hex_color.delete("#")
 
     # Convertir les valeurs hex en RGB
     r = hex_color[0..1].to_i(16)
@@ -17,9 +17,7 @@ module ApplicationHelper
   def required_field?(object, attribute)
     return false unless object.respond_to?(:class) && object.class.respond_to?(:validators_on)
 
-    object.class.validators_on(attribute).any? do |validator|
-      validator.is_a?(ActiveModel::Validations::PresenceValidator)
-    end
+    object.class.validators_on(attribute).any?(ActiveModel::Validations::PresenceValidator)
   end
 
   # Astérisque rouge signalant un champ obligatoire dans les formulaires.
@@ -46,7 +44,7 @@ module ApplicationHelper
 
     uri = user.otp_provisioning_uri(user.email, issuer: user.otp_provisioning_issuer)
     svg = RQRCode::QRCode.new(uri).as_svg(
-      module_size: 4,
+      module_size: (size / 50).clamp(1, 10),
       standalone: true,
       use_path: true,
       viewbox: true,

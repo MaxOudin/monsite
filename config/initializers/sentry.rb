@@ -1,17 +1,17 @@
 # frozen_string_literal: true
 
 Sentry.init do |config|
-  config.dsn = ENV['SENTRY_DSN']
+  config.dsn = ENV.fetch("SENTRY_DSN", nil)
 
   # Breadcrumbs
-  config.breadcrumbs_logger = [:active_support_logger, :http_logger]
+  config.breadcrumbs_logger = %i[active_support_logger http_logger]
 
   # Environnement
   config.environment = Rails.env.to_s
   config.enabled_environments = %w[production staging]
 
   # Performance monitoring – ajuste selon le trafic réel (ici 10%)
-  config.traces_sample_rate = ENV.fetch('SENTRY_TRACES_SAMPLE_RATE', '0.1').to_f
+  config.traces_sample_rate = ENV.fetch("SENTRY_TRACES_SAMPLE_RATE", "0.1").to_f
 
   # Ne pas envoyer de données personnelles (cookies, body, IP...)
   config.send_default_pii = false

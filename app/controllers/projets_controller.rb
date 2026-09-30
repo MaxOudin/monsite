@@ -46,14 +46,13 @@ class ProjetsController < ApplicationController
     end
   end
 
-
   def destroy
     if @projet.destroy
       flash[:notice] = "Projet supprimé avec succès"
       redirect_to projets_path, status: :see_other
     else
       flash[:error] = "Projet non supprimé, veuillez réessayer"
-      render :show, status: :unprocessable_entity
+      render :show, status: :unprocessable_content
     end
   end
 
@@ -92,5 +91,4 @@ class ProjetsController < ApplicationController
     @outils_projet = OutilsProjet.new
     @outils = Outil.all.order(:nom => :asc)
   end
-
 end

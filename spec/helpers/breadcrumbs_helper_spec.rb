@@ -18,7 +18,7 @@ RSpec.describe BreadcrumbsHelper, type: :helper do
       allow(helper).to receive(:controller_name).and_return("projets")
       allow(helper).to receive(:action_name).and_return("show")
 
-      expect(helper.breadcrumbs.map { |crumb| crumb[:name] }).to eq(["Accueil", "Projets", projet.titre])
+      expect(helper.breadcrumbs.pluck(:name)).to eq(["Accueil", "Projets", projet.titre])
     end
 
     it "ajoute Articles et le titre sur la show d'un article" do
@@ -27,7 +27,7 @@ RSpec.describe BreadcrumbsHelper, type: :helper do
       allow(helper).to receive(:controller_name).and_return("articles")
       allow(helper).to receive(:action_name).and_return("show")
 
-      expect(helper.breadcrumbs.map { |crumb| crumb[:name] }).to eq(["Accueil", "Articles", "Un article"])
+      expect(helper.breadcrumbs.pluck(:name)).to eq(["Accueil", "Articles", "Un article"])
     end
   end
 

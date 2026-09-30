@@ -2,13 +2,13 @@ module PerformanceHelper
   # Génère un tag img optimisé avec lazy loading et dimensions
   def optimized_image_tag(source, alt_text, options = {})
     default_options = {
-      loading: 'lazy',
+      loading: "lazy",
       width: options[:width] || 1200,
       height: options[:height] || 800,
       alt: alt_text,
       class: options[:class]
     }
-    
+
     image_tag(source, default_options.merge(options))
   end
 
@@ -22,22 +22,21 @@ module PerformanceHelper
     ].join(", ")
 
     default_options = {
-      loading: 'lazy',
+      loading: "lazy",
       srcset: srcset,
       sizes: options[:sizes] || "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 1200px",
       alt: alt_text,
       class: options[:class]
     }
-    
+
     image_tag(source, default_options.merge(options))
   end
 
   # Précharge les ressources critiques
   def preload_critical_assets
     safe_join([
-      tag.link(rel: 'preconnect', href: 'https://fonts.googleapis.com'),
-      tag.link(rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: true)
-    ])
+                tag.link(rel: "preconnect", href: "https://fonts.googleapis.com"),
+                tag.link(rel: "preconnect", href: "https://fonts.gstatic.com", crossorigin: true)
+              ])
   end
 end
-

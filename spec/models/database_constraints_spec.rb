@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 # Vérifie que les contraintes NOT NULL existent bien AU NIVEAU BASE (et pas
 # seulement via les validations applicatives). On contourne les validations avec
@@ -7,10 +7,10 @@ require 'rails_helper'
 RSpec.describe "Contraintes NOT NULL en base de données" do
   {
     Service => %i[nom description],
-    Sujet   => %i[nom description numero],
-    Projet  => %i[titre type_projet description],
+    Sujet => %i[nom description numero],
+    Projet => %i[titre type_projet description],
     Article => %i[titre theme image_url image_alt couleur],
-    Outil   => %i[nom description]
+    Outil => %i[nom description]
   }.each do |model, columns|
     context model.name do
       let(:factory_name) { model.name.underscore.to_sym }

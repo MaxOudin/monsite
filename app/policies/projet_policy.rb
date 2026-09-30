@@ -33,4 +33,3 @@ class ProjetPolicy < ApplicationPolicy
     create?
   end
 end
-

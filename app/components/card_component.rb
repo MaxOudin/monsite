@@ -2,6 +2,7 @@
 
 class CardComponent < ViewComponent::Base
   def initialize(model:)
+    super()
     @model = model
   end
 
@@ -52,11 +53,11 @@ class CardComponent < ViewComponent::Base
 
   def excerpt
     text = case @model
-    when Projet
-      @model.description
-    when Article
-      @model.content.to_plain_text
-    end
+           when Projet
+             @model.description
+           when Article
+             @model.content.to_plain_text
+           end
 
     helpers.truncate(text.to_s.squish, length: 110)
   end

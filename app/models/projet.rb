@@ -28,7 +28,8 @@ class Projet < ApplicationRecord
   include PgSearch::Model
 
   extend FriendlyId
-  friendly_id :titre, use: [:slugged, :history]
+
+  friendly_id :titre, use: %i[slugged history]
 
   TYPE_PROJET = ["application web", "site vitrine", "site e-commerce", "autres", "saas"]
 
@@ -42,12 +43,12 @@ class Projet < ApplicationRecord
   scope :ordered, -> { order(Arel.sql("date_debut DESC NULLS LAST"), created_at: :desc, id: :desc) }
 
   pg_search_scope :search_projets,
-    against: [:titre, :description, :type_projet],
-    using: {
-      tsearch: {
-        prefix: true
-      }
-    }
+                  against: %i[titre description type_projet],
+                  using: {
+                    tsearch: {
+                      prefix: true
+                    }
+                  }
 
   def neighbors
     ids = self.class.ordered.ids
@@ -66,14 +67,13 @@ class Projet < ApplicationRecord
   def normalize_friendly_id(text)
     text.to_s
         .downcase
-        .gsub(/[éèêë]/, 'e')
-        .gsub(/[àâä]/, 'a')
-        .gsub(/[îï]/, 'i')
-        .gsub(/[ôö]/, 'o')
-        .gsub(/[ûüù]/, 'u')
-        .gsub(/[ç]/, 'c')
-        .gsub(/[^a-z0-9]/, '-')
-        .gsub(/-+/, '-')
-        .gsub(/^-|-$/, '')
+        .gsub(/[éèêë]/, "e")
+        .gsub(/[àâä]/, "a")
+        .gsub(/[îï]/, "i")
+        .gsub(/[ôö]/, "o")
+        .gsub(/[ûüù]/, "u")
+        .gsub(/[ç]/, "c")
+        .gsub(/[^a-z0-9]/, "-").squeeze("-")
+        .gsub(/^-|-$/, "")
   end
 end

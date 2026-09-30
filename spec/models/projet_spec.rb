@@ -24,7 +24,7 @@
 #  index_projets_on_titre  (titre) UNIQUE
 #
 
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Projet, type: :model do
   it "a une factory valide" do
@@ -80,8 +80,10 @@ RSpec.describe Projet, type: :model do
     end
 
     it "trouve un projet par son type" do
-      projet = create(:projet, titre: "Plateforme interne", type_projet: "saas", description: "Outil de suivi des commandes clients.")
-      create(:projet, titre: "Site institutionnel", type_projet: "site vitrine", description: "Présentation de l'entreprise.")
+      projet = create(:projet, titre: "Plateforme interne", type_projet: "saas",
+                               description: "Outil de suivi des commandes clients.")
+      create(:projet, titre: "Site institutionnel", type_projet: "site vitrine",
+                      description: "Présentation de l'entreprise.")
 
       expect(Projet.search_projets("saas")).to contain_exactly(projet)
     end
@@ -96,8 +98,10 @@ RSpec.describe Projet, type: :model do
 
   describe ".ordered" do
     it "classe les projets du plus récent au plus ancien, et les dates vides en dernier" do
-      recent = create(:projet, titre: "Récent", description: "Description du projet récent.", date_debut: Date.new(2025, 6, 1))
-      older = create(:projet, titre: "Ancien", description: "Description du projet ancien.", date_debut: Date.new(2024, 1, 1))
+      recent = create(:projet, titre: "Récent", description: "Description du projet récent.",
+                               date_debut: Date.new(2025, 6, 1))
+      older = create(:projet, titre: "Ancien", description: "Description du projet ancien.",
+                              date_debut: Date.new(2024, 1, 1))
       undated = create(:projet, titre: "Sans date", description: "Description sans date.", date_debut: nil)
 
       expect(Projet.ordered).to eq([recent, older, undated])
@@ -106,9 +110,12 @@ RSpec.describe Projet, type: :model do
 
   describe "#neighbors" do
     it "renvoie le projet plus récent puis le projet plus ancien" do
-      recent = create(:projet, titre: "Récent voisin", description: "Description récente voisine.", date_debut: Date.new(2025, 6, 1))
-      current = create(:projet, titre: "Courant", description: "Description du projet courant.", date_debut: Date.new(2024, 6, 1))
-      older = create(:projet, titre: "Ancien voisin", description: "Description ancienne voisine.", date_debut: Date.new(2023, 1, 1))
+      recent = create(:projet, titre: "Récent voisin", description: "Description récente voisine.",
+                               date_debut: Date.new(2025, 6, 1))
+      current = create(:projet, titre: "Courant", description: "Description du projet courant.",
+                                date_debut: Date.new(2024, 6, 1))
+      older = create(:projet, titre: "Ancien voisin", description: "Description ancienne voisine.",
+                              date_debut: Date.new(2023, 1, 1))
 
       expect(current.neighbors).to eq([recent, older])
       expect(recent.neighbors).to eq([nil, current])

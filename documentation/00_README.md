@@ -16,7 +16,8 @@ documentation/
 ├── 07_SOLID_TRIFECTA.md               ← SolidQueue / SolidCache / SolidCable
 ├── 08_MEMORY_AUDIT.md                 ← Audit mémoire web & worker (Scalingo)
 ├── 09_ROADMAP_AMELIORATIONS.md        ← Roadmap d'améliorations
-└── 10_DEVISE_TWO_FACTOR.md            ← 2FA TOTP (devise-two-factor)
+├── 10_DEVISE_TWO_FACTOR.md            ← 2FA TOTP (devise-two-factor)
+└── 11_RUBOCOP.md                      ← RuboCop (lint, style, dette progressive)
 ```
 
 ---
@@ -62,6 +63,12 @@ documentation/
 - Toutes les modifications appliquées
 - Impact attendu
 - Prochaines étapes
+
+### Je veux lint / formater le Ruby (5 minutes)
+👉 **[11_RUBOCOP.md](./11_RUBOCOP.md)**
+- Configuration RuboCop et plugins
+- Auto-correct progressif et dette (`.rubocop_todo.yml`)
+- Intégration `bin/ci`
 
 ---
 

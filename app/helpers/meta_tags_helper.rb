@@ -13,12 +13,12 @@ module MetaTagsHelper
   # Utilise yellow_logo.svg par défaut si l'image n'existe pas
   def meta_image
     meta_image = content_for?(:meta_image) ? content_for(:meta_image) : DEFAULT_META["meta_image"]
-    
+
     # Si l'image est vide, nulle ou invalide, utiliser le logo par défaut
     if meta_image.blank? || !valid_image?(meta_image)
       meta_image = DEFAULT_META["meta_image"]
     end
-    
+
     # Retourner l'URL complète
     if meta_image.starts_with?("http")
       meta_image
@@ -27,7 +27,7 @@ module MetaTagsHelper
     else
       begin
         image_url(meta_image)
-      rescue => e
+      rescue
         # En cas d'erreur (asset non trouvé), retourner le logo par défaut
         image_url(DEFAULT_META["meta_image"])
       end
@@ -56,38 +56,38 @@ module MetaTagsHelper
   # Construit l'URL canonique par défaut
   def build_default_canonical_url
     # Utiliser le domaine canonique depuis ENV pour garantir la cohérence
-    canonical_domain = ENV['DOMAIN'] || 'maximeoudin.fr'
-    canonical_host = canonical_domain.start_with?('www.') ? canonical_domain : canonical_domain
-    
+    canonical_domain = ENV["DOMAIN"] || "maximeoudin.fr"
+    canonical_host = canonical_domain
+
     # SÉCURITÉ : Utiliser HTTPS en production, le schème de la requête en développement
-    scheme = Rails.env.production? ? 'https' : request.scheme
-    
+    scheme = Rails.env.production? ? "https" : request.scheme
+
     # SÉCURITÉ : Nettoyer le chemin
     path = sanitize_url_path(request.path)
-    
+
     # Construire l'URL canonique avec le bon hôte
     query_params = request.query_parameters.except(*ignored_query_params)
     query_string = query_params.any? ? "?#{query_params.to_query}" : ""
-    
+
     "#{scheme}://#{canonical_host}#{path}#{query_string}"
   end
 
   # Valide qu'une URL canonique personnalisée est sûre
   def valid_canonical_url?(url)
     return false if url.blank?
-    
+
     # Vérifier que l'URL commence par http:// ou https://
     return false unless url.match?(/\Ahttps?:\/\//i)
-    
+
     # Extraire le domaine de l'URL
     uri = URI.parse(url) rescue nil
     return false unless uri
-    
+
     # SÉCURITÉ : Vérifier que l'URL pointe vers notre domaine
-    canonical_domain = ENV['DOMAIN'] || 'maximeoudin.fr'
-    canonical_base = canonical_domain.sub(/^www\./, '').downcase
-    url_host = uri.host.to_s.downcase.sub(/^www\./, '')
-    
+    canonical_domain = ENV["DOMAIN"] || "maximeoudin.fr"
+    canonical_base = canonical_domain.sub(/^www\./, "").downcase
+    url_host = uri.host.to_s.downcase.sub(/^www\./, "")
+
     # L'URL doit pointer vers notre domaine
     url_host == canonical_base
   end
@@ -95,13 +95,13 @@ module MetaTagsHelper
   # Nettoie le chemin pour l'URL canonique
   def sanitize_url_path(path)
     # Normaliser le chemin
-    normalized = path.to_s.gsub(%r{/+}, '/').gsub(%r{\.\.}, '')
-    normalized = "/#{normalized}" unless normalized.start_with?('/')
+    normalized = path.to_s.squeeze("/").gsub(%r{\.\.}, "")
+    normalized = "/#{normalized}" unless normalized.start_with?("/")
     # Limiter la longueur
     normalized[0..2000]
   end
 
-   # Keywords SEO (optionnel, peu utilisé par Google mais utile pour d'autres moteurs)
+  # Keywords SEO (optionnel, peu utilisé par Google mais utile pour d'autres moteurs)
   def meta_keywords
     content_for?(:meta_keywords) ? content_for(:meta_keywords) : DEFAULT_META["meta_keywords"]
   end
@@ -132,9 +132,9 @@ module MetaTagsHelper
   def valid_image?(image_path)
     return true if image_path.blank?
     return true if image_path.starts_with?("http")
-    
+
     # Pour les assets locaux, vérifier qu'ils existent
     # On accepte les noms de fichiers valides (lettres, chiffres, -, _, .)
     image_path.match?(/\A[\w\-\.]+\z/)
   end
-end 
+end

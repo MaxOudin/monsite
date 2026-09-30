@@ -16,7 +16,7 @@
 #  index_services_on_nom  (nom) UNIQUE
 #
 
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Service, type: :model do
   it "a une factory valide" do

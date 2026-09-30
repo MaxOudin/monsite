@@ -24,8 +24,8 @@ gem "jsbundling-rails"
 gem "cssbundling-rails"
 
 # Use Tailwind CSS for styling
-gem "tailwindcss-ruby", "~> 4.1"
 gem "tailwindcss-rails", "~> 4.3"
+gem "tailwindcss-ruby", "~> 4.1"
 
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
 gem "turbo-rails"
@@ -37,12 +37,12 @@ gem "stimulus-rails"
 gem "jbuilder"
 
 # Authentification with Devise
-gem 'devise', '~> 4.9.3'
+gem "devise", "~> 4.9.3"
 gem "pundit", "~> 2.5"
 
-gem 'devise-jwt'
-gem 'devise-two-factor'
-gem 'rqrcode'
+gem "devise-jwt"
+gem "devise-two-factor"
+gem "rqrcode"
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
@@ -51,7 +51,7 @@ gem 'rqrcode'
 # gem "bcrypt", "~> 3.1.7"
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
+gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
@@ -59,35 +59,35 @@ gem "bootsnap", require: false
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 gem "image_processing", "~> 1.2"
 
-gem 'aws-sdk-s3', require: false
+gem "aws-sdk-s3", require: false
 
-gem 'friendly_id', '~> 5.5.0'
+gem "friendly_id", "~> 5.5.0"
 
 # Full-text search with PostgreSQL
-gem 'pg_search', '~> 2.3'
+gem "pg_search", "~> 2.3"
 
 # Sitemap generator
-gem 'sitemap_generator'
+gem "sitemap_generator"
 
 # Meta tags
-gem 'meta-tags'
+gem "meta-tags"
 
 # API security
-gem 'rack-attack'
+gem "rack-attack"
 
 gem "view_component"
 
 # solid
-gem 'solid_queue'
-gem 'solid_cable'
-gem 'solid_cache'
+gem "solid_cable"
+gem "solid_cache"
+gem "solid_queue"
 
-gem "sentry-ruby"
 gem "sentry-rails"
+gem "sentry-ruby"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
-  gem "debug", platforms: %i[ mri mingw x64_mingw ]
+  gem "debug", platforms: %i[mri mingw x64_mingw]
 
   # Pry pour débuggage
   # gem "pry-byebug"
@@ -96,9 +96,14 @@ group :development, :test do
 
   gem "letter_opener"
 
+  gem "annotate"
   gem "dotenv-rails"
-  gem 'annotate'
   gem "foreman"
+
+  gem "rubocop", require: false
+  gem "rubocop-performance", require: false
+  gem "rubocop-rails", require: false
+  gem "rubocop-rspec", require: false
 end
 
 group :development do
@@ -112,7 +117,7 @@ group :development do
   # gem "spring"
 
   # Helper pour avoir les informations des modèles dans les fichiers
-  gem 'i18n', '1.14.5'
+  gem "i18n", "1.14.5"
 end
 
 group :test do
@@ -121,9 +126,9 @@ group :test do
   gem "selenium-webdriver"
 
   # Tests + Factory Bot pour les tests
-  gem "rspec-rails"
-  gem "factory_bot_rails"
   gem "database_cleaner"
+  gem "factory_bot_rails"
+  gem "rspec-rails"
 
   # Helper pour les tests Models et Pundit
   gem "shoulda-matchers"

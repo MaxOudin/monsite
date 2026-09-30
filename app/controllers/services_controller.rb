@@ -7,4 +7,3 @@ class ServicesController < ApplicationController
     @featured_projets = policy_scope(Projet).ordered.limit(3)
   end
 end
-

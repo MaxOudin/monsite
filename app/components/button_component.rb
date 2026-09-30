@@ -2,11 +2,11 @@
 
 class ButtonComponent < ViewComponent::Base
   VARIANTS = {
-    primary:   "text-secondary bg-primary hover:bg-primary-hover",
+    primary: "text-secondary bg-primary hover:bg-primary-hover",
     secondary: "text-white bg-secondary border border-secondary hover:bg-secondary-hover hover:border-secondary-hover",
-    dark:      "text-white bg-gray-900 hover:bg-gray-800",
-    danger:    "text-white bg-red-600 hover:bg-red-500",
-    link:      "btn-link w-fit text-gray-600 border-b border-gray-300 pb-0.5 hover:text-secondary hover:border-secondary"
+    dark: "text-white bg-gray-900 hover:bg-gray-800",
+    danger: "text-white bg-red-600 hover:bg-red-500",
+    link: "btn-link w-fit text-gray-600 border-b border-gray-300 pb-0.5 hover:text-secondary hover:border-secondary"
   }.freeze
 
   SIZES = {
@@ -21,7 +21,9 @@ class ButtonComponent < ViewComponent::Base
     lg: "px-8 h-12 text-base"
   }.freeze
 
-  def initialize(variant: :primary, size: :md, shape: :default, icon: nil, full_width: false, href: nil, classes: nil, html_options: {}, **rest)
+  def initialize(variant: :primary, size: :md, shape: :default, icon: nil, full_width: false, href: nil, classes: nil,
+                 html_options: {}, **rest)
+    super()
     @variant = variant.to_sym
     @size = size.to_sym
     @shape = shape.to_sym

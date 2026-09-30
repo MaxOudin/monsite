@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 # Vérifie que les index uniques existent AU NIVEAU BASE (pas seulement via les
 # validations applicatives, qui ne protègent pas des écritures concurrentes).
@@ -6,12 +6,12 @@ require 'rails_helper'
 # une RecordNotUnique. Cf. documentation/09 branche 4.
 RSpec.describe "Index uniques en base de données" do
   [
-    [:service, :nom],
-    [:sujet,   :nom],
-    [:sujet,   :numero],
-    [:projet,  :titre],
-    [:article, :titre],
-    [:outil,   :nom]
+    %i[service nom],
+    %i[sujet nom],
+    %i[sujet numero],
+    %i[projet titre],
+    %i[article titre],
+    %i[outil nom]
   ].each do |factory, column|
     it "rejette un doublon de #{factory}.#{column} au niveau base" do
       original  = create(factory)

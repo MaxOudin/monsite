@@ -15,7 +15,7 @@
 #  index_outils_on_nom  (nom) UNIQUE
 #
 
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Outil, type: :model do
   it "a une factory valide" do

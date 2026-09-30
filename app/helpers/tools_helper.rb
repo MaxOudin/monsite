@@ -33,8 +33,6 @@ module ToolsHelper
       image_tag "tech_logos/gitlab.svg", class: "tool-logo", alt: "GitLab logo"
     when /heroku/i
       image_tag "tech_logos/heroku.svg", class: "tool-logo", alt: "Heroku logo"
-    when /cloudinary/i
-      image_tag "tech_logos/cloudinary.svg", class: "tool-logo", alt: "Cloudinary logo"
     when /shazam/i
       image_tag "tech_logos/shazam.svg", class: "tool-logo", alt: "Shazam logo"
     when /postman/i
