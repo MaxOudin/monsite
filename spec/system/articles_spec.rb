@@ -25,5 +25,7 @@ RSpec.describe "Articles", type: :system do
     expect(page).to have_link("Accueil", href: root_path)
     expect(page).to have_link("Articles", href: articles_path)
     expect(page).to have_content("Mon article de test")
+    expect(page).to have_content("min de lecture")
+    expect(page).to have_link("Retour aux articles", href: articles_path)
   end
 end

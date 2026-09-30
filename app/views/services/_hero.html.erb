@@ -23,11 +23,8 @@
                 variant: :primary,
                 shape: :pill,
                 size: :lg,
-                href: "#contact-infos",
-                html_options: {
-                  data: { tally_open: "mB7p75", tally_hide_title: "1", tally_overlay: "1" },
-                  title: "Contactez-moi pour votre projet web"
-                }
+                href: "#contact",
+                html_options: { title: "Contactez-moi pour votre projet web" }
               ) do %>
             Me contacter
           <% end %>
@@ -62,9 +59,9 @@
 
           <div class="space-y-4 pt-8 sm:pt-12">
             <%= render "services/hero_stat",
-                number: "100%",
-                label: "Satisfaction client",
-                icon: "fas fa-heart",
+                number: "Rails",
+                label: "Ruby on Rails",
+                icon: "fas fa-code",
                 featured: true,
                 extra_class: "hero-in-3" %>
 

@@ -1,0 +1,30 @@
+<% if @featured_projets.any? %>
+  <section class="border-t border-gray-200" aria-labelledby="featured-projets-title">
+    <div class="page-container">
+      <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mb-10">
+        <div>
+          <p class="flex items-center gap-3 text-xs font-medium uppercase tracking-[0.14em] text-gray-500 mb-4">
+            <span class="size-1.5 rounded-full bg-primary shrink-0" aria-hidden="true"></span>
+            Réalisations
+          </p>
+          <h2 id="featured-projets-title" class="text-3xl sm:text-4xl font-medium text-gray-900 tracking-tight">
+            Projets récents
+          </h2>
+          <p class="mt-3 text-base sm:text-lg text-gray-600 max-w-[46ch] leading-relaxed">
+            Une sélection de réalisations, du site vitrine à l'outil sur-mesure.
+          </p>
+        </div>
+
+        <%= render ButtonComponent.new(variant: :link, size: :sm, href: projets_path) do %>
+          Toutes les réalisations
+        <% end %>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+        <% @featured_projets.each do |projet| %>
+          <%= render CardComponent.new(model: projet) %>
+        <% end %>
+      </div>
+    </div>
+  </section>
+<% end %>

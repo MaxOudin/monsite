@@ -4,23 +4,9 @@
 <% content_for :meta_image, DEFAULT_META["meta_image"] %>
 
 <!-- Hero Section -->
-<main class="relative overflow-hidden" role="main">
+<main role="main">
   <!-- Section Hero -->
   <%= render "services/hero" %>
-
-  <!-- Section Perso -->
-  <%# <%= render "pages/perso" %>
-
-  <!-- Section Services -->
-  <%# <%= render "pages/expertise" %>
-
-  <!-- Section Services -->
-  <%# <%= render "pages/services" %>
-
-  <!-- Section Témoignages & Réalisations -->
-  <%# <%= render "pages/testimonials" %>
-
-  <!-- Section Contact -->
-  <%# <%= render "pages/contact" %>
+  <%= render "services/featured_projets" %>
 </main>
 

@@ -1,26 +1,25 @@
 <footer class="bg-gray-900 text-white py-12">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <!-- Section texte de présentation -->
-    <div class="text-center mb-12">
+    <div class="text-center mb-10 md:mb-12">
       <p class="text-xl font-medium mb-4">
         Maxime Oudin, développeur web à Bordeaux et Paris.
       </p>
-      <p class="text-gray-300 text-lg max-w-2xl mx-auto">
-        Indépendant, entrepreneur, TPE/PME ou association je m'engage à offrir la solution adaptée à votre besoin.
+      <p class="text-gray-300 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
+        Indépendant, TPE, PME ou association : je construis la solution adaptée à votre besoin.
       </p>
     </div>
 
-    <!-- Section contact -->
-    <div class="flex flex-col sm:flex-row justify-center items-center gap-6 mb-12" id="contact-infos">
-      <%= link_to "tel:+33664710483", class: "flex items-center gap-3 px-6 py-3 bg-gray-800 hover:bg-gray-700 rounded-xl transition-colors duration-300 text-white" do %>
-        <i class="fa-solid fa-phone text-lg"></i>
-        <span class="font-medium">Téléphone</span>
-      <% end %>
-
-      <%= link_to "mailto:contact@maximeoudin.fr", class: "flex items-center gap-3 px-6 py-3 bg-gray-800 hover:bg-gray-700 rounded-xl transition-colors duration-300 text-white" do %>
-        <i class="fa-solid fa-envelope text-lg"></i>
-        <span class="font-medium">Email</span>
-      <% end %>
+    <div id="contact" class="scroll-mt-24 mb-12">
+      <h2 class="text-center text-xs font-medium uppercase tracking-[0.14em] text-gray-400 mb-6">
+        Contact
+      </h2>
+      <div class="flex justify-center">
+        <%= link_to "mailto:contact@maximeoudin.fr", class: "flex items-center justify-center gap-3 px-6 py-3 bg-gray-800 hover:bg-gray-700 rounded-xl transition-colors duration-300 text-white" do %>
+          <i class="fa-solid fa-envelope text-lg" aria-hidden="true"></i>
+          <span class="font-medium">contact@maximeoudin.fr</span>
+        <% end %>
+      </div>
     </div>
 
     <!-- Section finale -->

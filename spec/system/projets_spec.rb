@@ -30,7 +30,10 @@ RSpec.describe "Projets", type: :system do
     expect(page).to have_content("Test.Ai")
 
     # Contenu de la page projet
-    expect(page).to have_content("À propos du projet")
+    expect(page).to have_content("Le contexte")
+    expect(page).to have_content("Le projet")
+    expect(page).to have_content("La réalisation")
+    expect(page).to have_content("Code source")
 
     expect(page).to have_css("nav[aria-label=\"Fil d'ariane\"]")
     expect(page).to have_link("Accueil", href: root_path)

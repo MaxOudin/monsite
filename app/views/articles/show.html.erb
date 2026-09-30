@@ -9,9 +9,7 @@
   <!-- En-tête de l'article -->
   <%= render "article", article: @article %>
 
-  <div class="mt-6 pt-6 border-t border-gray-200 flex justify-center w-full max-w-full">
-  <%= link_to articles_path, class: "inline-flex items-center justify-center gap-2 px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors whitespace-nowrap" do %>
-      <span>Retour aux articles</span> 
-    <% end %>
+  <div class="mt-10 text-center">
+    <%= link_to "Retour aux articles", articles_path, class: "text-sm font-medium text-secondary hover:text-secondary-hover transition-colors" %>
   </div>
 </div>

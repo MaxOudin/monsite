@@ -16,11 +16,10 @@ Rails.application.configure do
     policy.img_src(*img_sources)
     policy.object_src :none
     policy.base_uri :self
-    policy.form_action :self, "https://tally.so"
+    policy.form_action :self
     policy.style_src :self, "https://fonts.googleapis.com", "https://cdnjs.cloudflare.com"
     policy.script_src :self, :strict_dynamic,
                       "https://kit.fontawesome.com/",
-                      "https://tally.so",
                       "https://unpkg.com/website-carbon-badges@1.1.3/b.min.js"
     policy.style_src_attr :self, "https://ka-f.fontawesome.com/", :unsafe_inline
     policy.style_src_elem :self,

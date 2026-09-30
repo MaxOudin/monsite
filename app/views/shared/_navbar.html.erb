@@ -26,9 +26,9 @@
       <!-- Menu principal (desktop) -->
       <div class="hidden md:flex md:items-center md:space-x-8">
         <%= link_to "Projets", projets_path,
-            class: "text-gray-700 hover:text-secondary px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300 #{current_page?(projets_path) ? 'text-secondary font-semibold' : ''}" %>
+            class: "px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300 #{current_page?(projets_path) ? 'text-secondary font-semibold' : 'text-gray-700 hover:text-secondary'}" %>
         <%= link_to "Articles", articles_path,
-            class: "text-gray-700 hover:text-secondary px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300 #{current_page?(articles_path) ? 'text-secondary font-semibold' : ''}" %>
+            class: "px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300 #{current_page?(articles_path) ? 'text-secondary font-semibold' : 'text-gray-700 hover:text-secondary'}" %>
 
         <!-- Theme toggle (desktop) -->
         <button type="button"
@@ -40,8 +40,8 @@
 
         <!-- CTA Desktop -->
         <div class="ml-4 flex items-center space-x-3">
-          <%= render ButtonComponent.new(variant: :dark, size: :md) do %>
-            <%= link_to "Contact", "#contact-infos", class: "text-white" %>
+          <%= render ButtonComponent.new(variant: :dark, size: :md, href: "#contact") do %>
+            Contact
           <% end %>
           <% if user_signed_in? %>
             <%= link_to "2FA", two_factor_settings_path,
@@ -60,18 +60,18 @@
       <div class="flex flex-col px-6 py-4">
         <!-- Liens de navigation -->
         <%= link_to projets_path,
-            class: "py-4 text-lg font-medium text-gray-900 border-b border-gray-200 hover:text-secondary transition-colors duration-300 #{current_page?(projets_path) ? 'text-secondary font-semibold' : ''}",
+            class: "py-4 text-lg font-medium border-b border-gray-200 transition-colors duration-300 #{current_page?(projets_path) ? 'text-secondary font-semibold' : 'text-gray-900 hover:text-secondary'}",
             data: { action: "click->navbar#closeMenu" } do %>
           Projets
         <% end %>
 
         <%= link_to articles_path,
-            class: "py-4 text-lg font-medium text-gray-900 border-b border-gray-200 hover:text-secondary transition-colors duration-300 #{current_page?(articles_path) ? 'text-secondary font-semibold' : ''}",
+            class: "py-4 text-lg font-medium border-b border-gray-200 transition-colors duration-300 #{current_page?(articles_path) ? 'text-secondary font-semibold' : 'text-gray-900 hover:text-secondary'}",
             data: { action: "click->navbar#closeMenu" } do %>
           Articles
         <% end %>
 
-        <a href="#contact-infos"
+        <a href="#contact"
            class="py-4 text-lg font-medium text-gray-900 border-b border-gray-200 hover:text-secondary transition-colors duration-300"
            data-action="click->navbar#closeMenu">
           Contact

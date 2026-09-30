@@ -36,8 +36,7 @@ module PerformanceHelper
   def preload_critical_assets
     safe_join([
       tag.link(rel: 'preconnect', href: 'https://fonts.googleapis.com'),
-      tag.link(rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: true),
-      tag.link(rel: 'dns-prefetch', href: 'https://tally.so')
+      tag.link(rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: true)
     ])
   end
 end
