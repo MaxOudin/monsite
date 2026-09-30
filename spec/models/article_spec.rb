@@ -67,6 +67,59 @@ RSpec.describe Article, type: :model do
     end
   end
 
+  describe ".search_articles" do
+    it "trouve un article par son titre" do
+      article = create(:article, titre: "PostgreSQL avancé", content: "<p>Texte neutre alpha.</p>")
+      create(:article, titre: "Sujet différent", content: "<p>Texte neutre beta.</p>")
+
+      expect(Article.search_articles("Postgre")).to contain_exactly(article)
+    end
+
+    it "trouve un article par son contenu" do
+      article = create(:article, titre: "Titre neutre un", content: "<p>Un passage sur Tailwind uniquement ici.</p>")
+      create(:article, titre: "Titre neutre deux", content: "<p>Un autre passage.</p>")
+
+      expect(Article.search_articles("Tailwind")).to contain_exactly(article)
+    end
+
+    it "ignore le thème" do
+      create(:article, theme: "Les performances", titre: "Sujet hors thème", content: "<p>Sans le mot recherché.</p>")
+
+      expect(Article.search_articles("performances")).to be_empty
+    end
+  end
+
+  describe "#reading_time_in_minutes" do
+    it "compte au minimum une minute" do
+      article = create(:article, content: "Un seul mot")
+      expect(article.reading_time_in_minutes).to eq(1)
+    end
+
+    it "arrondit à la minute supérieure, à 200 mots par minute" do
+      article = create(:article, content: Array.new(201, "mot").join(" "))
+      expect(article.reading_time_in_minutes).to eq(2)
+    end
+  end
+
+  describe "#related_articles" do
+    it "privilégie le même thème, puis complète avec les plus récents" do
+      current = create(:article, theme: "Autour du web", titre: "Article courant")
+      same_theme = create(:article, theme: "Autour du web", titre: "Même thème")
+      other = create(:article, theme: "Les performances", titre: "Autre thème")
+
+      expect(current.related_articles).to eq([same_theme, other])
+    end
+
+    it "reste sur le même thème quand il y en a assez" do
+      current = create(:article, theme: "Les performances", titre: "Article performances")
+      earlier = create(:article, theme: "Les performances", titre: "Performance ancienne")
+      later = create(:article, theme: "Les performances", titre: "Performance récente")
+      create(:article, theme: "Autour du web", titre: "Hors thème")
+
+      expect(current.related_articles).to eq([later, earlier])
+    end
+  end
+
   describe "slug (FriendlyId)" do
     it "génère un slug à partir du titre" do
       article = create(:article, titre: "Mon Super Article")

@@ -1,13 +1,19 @@
 class ArticlesController < ApplicationController
+  include Searchable
+
   before_action :authenticate_user!, except: %i[index show]
   before_action :set_article, only: %i[edit update destroy show]
 
   def index
     @articles = policy_scope(Article).order(created_at: :desc)
-    @articles = @articles.search_articles(params[:query]) if params[:query].present?
+    query = active_search_query
+    @articles = @articles.search_articles(query) if query
   end
 
   def show
+    return unless @article
+
+    @related_articles = @article.related_articles
   end
 
   def new

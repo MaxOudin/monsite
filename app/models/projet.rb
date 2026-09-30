@@ -39,16 +39,25 @@ class Projet < ApplicationRecord
   has_many :outils_projets
   has_many :outils, through: :outils_projets
 
+  scope :ordered, -> { order(Arel.sql("date_debut DESC NULLS LAST"), created_at: :desc, id: :desc) }
+
   pg_search_scope :search_projets,
     against: [:titre, :description, :type_projet],
-    associated_against: {
-      outils: [:nom]
-    },
     using: {
       tsearch: {
         prefix: true
       }
     }
+
+  def neighbors
+    ids = self.class.ordered.ids
+    index = ids.index(id)
+    return [nil, nil] if index.nil?
+
+    previous_projet = index.positive? ? self.class.find(ids[index - 1]) : nil
+    next_projet = ids[index + 1] ? self.class.find(ids[index + 1]) : nil
+    [previous_projet, next_projet]
+  end
 
   def should_generate_new_friendly_id?
     titre_changed? || slug.blank?

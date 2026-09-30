@@ -32,6 +32,9 @@ class Article < ApplicationRecord
     "Guide : créer son bot IA" => "#2E282A"
   }
 
+  WORDS_PER_MINUTE = 200
+  RELATED_LIMIT = 2
+
   has_rich_text :content
 
   validates :titre, presence: true, uniqueness: true
@@ -42,7 +45,7 @@ class Article < ApplicationRecord
   validates :theme, presence: true, inclusion: { in: THEMES_WITH_COLORS.keys }
 
   pg_search_scope :search_articles,
-    against: [:titre, :theme],
+    against: [:titre],
     associated_against: {
       rich_text_content: [:body]
     },
@@ -60,6 +63,21 @@ class Article < ApplicationRecord
   # Méthode de classe pour compter les articles par thème
   def self.count_by_theme
     group(:theme).count
+  end
+
+  def reading_time_in_minutes
+    words = content&.to_plain_text.to_s.split.size
+    minutes = (words / WORDS_PER_MINUTE.to_f).ceil
+    [minutes, 1].max
+  end
+
+  def related_articles(limit: RELATED_LIMIT)
+    same_theme = self.class.where(theme: theme).where.not(id: id).order(created_at: :desc, id: :desc).limit(limit).to_a
+    missing = limit - same_theme.size
+    return same_theme if missing <= 0
+
+    excluded_ids = same_theme.map(&:id) + [id]
+    same_theme + self.class.where.not(id: excluded_ids).order(created_at: :desc, id: :desc).limit(missing).to_a
   end
 
 end

@@ -27,71 +27,85 @@
     <% end %>
   </div>
 
-  <div class="mb-10"
-       data-controller="search-input"
+  <div data-controller="search-input live-search"
        data-search-input-placeholder-mobile-value="<%= search_placeholder_mobile %>"
-       data-search-input-placeholder-desktop-value="<%= search_placeholder_desktop %>">
-    <%= form_with url: search_path, method: :get, data: { turbo: false }, class: "flex flex-col sm:flex-row sm:items-center gap-3 w-full" do |f| %>
-      <div class="flex-1">
-        <%= f.text_field :query,
-              value: params[:query],
-              class: "w-full px-5 py-3 rounded-xl border border-gray-200 bg-white text-brand-text placeholder:text-gray-400 focus:ring-2 focus:ring-secondary focus:border-secondary transition-all duration-300",
-              placeholder: search_placeholder_desktop,
-              id: "search-query",
-              data: { search_input_target: "input" }
-          %>
-      </div>
-      <%= render ButtonComponent.new(
-            variant: :primary,
-            size: :lg,
-            icon: "fas fa-search",
-            full_width: true,
-            classes: "sm:w-auto",
-            html_options: { type: "submit" }
-          ) do %>
-        Rechercher
+       data-search-input-placeholder-desktop-value="<%= search_placeholder_desktop %>"
+       data-live-search-min-length-value="<%= minimum_search_length %>"
+       data-live-search-max-length-value="<%= maximum_search_length %>">
+    <div class="mb-10">
+      <%= form_with url: search_path, method: :get,
+            data: {
+              live_search_target: "form",
+              turbo_frame: "collection_results",
+              action: "input->live-search#search"
+            },
+            class: "flex flex-col sm:flex-row sm:items-center gap-3 w-full" do |f| %>
+        <div class="flex-1">
+          <%= f.text_field :query,
+                value: active_search_query || params[:query].to_s.first(maximum_search_length),
+                maxlength: maximum_search_length,
+                class: "w-full px-5 py-3 rounded-xl border border-gray-200 bg-white text-brand-text placeholder:text-gray-400 focus:ring-2 focus:ring-secondary focus:border-secondary transition-all duration-300",
+                placeholder: search_placeholder_desktop,
+                id: "search-query",
+                autocomplete: "off",
+                aria: { label: "Recherche", controls: "collection_results" },
+                data: { search_input_target: "input", live_search_target: "input" }
+            %>
+        </div>
+        <%= render ButtonComponent.new(
+              variant: :primary,
+              size: :lg,
+              icon: "fas fa-search",
+              full_width: true,
+              classes: "sm:w-auto",
+              html_options: { type: "submit" }
+            ) do %>
+          Rechercher
+        <% end %>
+      <% end %>
+    </div>
+
+    <%= turbo_frame_tag "collection_results", class: "block" do %>
+      <% if active_search_query %>
+        <div class="mb-8 flex items-center justify-between gap-4 px-5 py-3 rounded-xl bg-primary/10 border border-primary/30">
+          <p class="text-sm text-gray-700">
+            <% if records.any? %>
+              <strong><%= records.size %></strong> résultat<%= records.size > 1 ? "s" : "" %> pour «&nbsp;<%= active_search_query %>&nbsp;»
+            <% else %>
+              Aucun résultat pour «&nbsp;<%= active_search_query %>&nbsp;»
+            <% end %>
+          </p>
+          <%= link_to "Effacer", search_path, class: "text-sm font-medium text-secondary hover:text-secondary-hover transition-colors duration-300 whitespace-nowrap", data: { action: "click->live-search#clear" } %>
+        </div>
+      <% end %>
+
+      <% if records.any? %>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+          <% records.each do |record| %>
+            <%= render CardComponent.new(model: record) %>
+          <% end %>
+        </div>
+      <% else %>
+        <div class="text-center py-16">
+          <div class="text-gray-400 mb-4">
+            <i class="<%= empty_icon %> text-5xl"></i>
+          </div>
+          <h2 class="text-xl font-bold text-gray-900 mb-2">
+            <% if active_search_query %>
+              Aucun <%= resource_name %> trouvé
+            <% else %>
+              Aucun <%= resource_name %> pour le moment
+            <% end %>
+          </h2>
+          <p class="text-sm text-gray-600">
+            <% if active_search_query %>
+              Essayez avec d'autres mots-clés.
+            <% else %>
+              Les <%= resource_name_plural %> que vous créez apparaîtront ici.
+            <% end %>
+          </p>
+        </div>
       <% end %>
     <% end %>
   </div>
-
-  <% if params[:query].present? %>
-    <div class="mb-8 flex items-center justify-between gap-4 px-5 py-3 rounded-xl bg-primary/10 border border-primary/30">
-      <p class="text-sm text-gray-700">
-        <% if records.any? %>
-          <strong><%= records.size %></strong> résultat<%= records.size > 1 ? "s" : "" %> pour «&nbsp;<%= params[:query] %>&nbsp;»
-        <% else %>
-          Aucun résultat pour «&nbsp;<%= params[:query] %>&nbsp;»
-        <% end %>
-      </p>
-      <%= link_to "Effacer", search_path, class: "text-sm font-medium text-secondary hover:text-secondary-hover transition-colors duration-300 whitespace-nowrap", data: { turbo: false } %>
-    </div>
-  <% end %>
-
-  <% if records.any? %>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-      <% records.each do |record| %>
-        <%= render CardComponent.new(model: record) %>
-      <% end %>
-    </div>
-  <% else %>
-    <div class="text-center py-16">
-      <div class="text-gray-400 mb-4">
-        <i class="<%= empty_icon %> text-5xl"></i>
-      </div>
-      <h2 class="text-xl font-bold text-gray-900 mb-2">
-        <% if params[:query].present? %>
-          Aucun <%= resource_name %> trouvé
-        <% else %>
-          Aucun <%= resource_name %> pour le moment
-        <% end %>
-      </h2>
-      <p class="text-sm text-gray-600">
-        <% if params[:query].present? %>
-          Essayez avec d'autres mots-clés.
-        <% else %>
-          Les <%= resource_name_plural %> que vous créez apparaîtront ici.
-        <% end %>
-      </p>
-    </div>
-  <% end %>
 </div>

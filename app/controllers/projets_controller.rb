@@ -1,14 +1,20 @@
 class ProjetsController < ApplicationController
+  include Searchable
+
   before_action :authenticate_user!, except: %i[index show]
   before_action :set_projet, only: %i[show edit update destroy]
   before_action :set_outils, only: %i[new edit create update]
 
   def index
-    @projets = policy_scope(Projet).order(date_debut: :desc)
-    @projets = @projets.search_projets(params[:query]) if params[:query].present?
+    @projets = policy_scope(Projet).ordered
+    query = active_search_query
+    @projets = @projets.search_projets(query) if query
   end
 
   def show
+    return unless @projet
+
+    @previous_projet, @next_projet = @projet.neighbors
   end
 
   def new
@@ -71,7 +77,7 @@ class ProjetsController < ApplicationController
   end
 
   def set_projet
-    @projet = Projet.friendly.find(params[:id])
+    @projet = Projet.includes(:outils).friendly.find(params[:id])
     authorize @projet
   rescue ActiveRecord::RecordNotFound
     flash[:error] = "Projet non trouvé"
