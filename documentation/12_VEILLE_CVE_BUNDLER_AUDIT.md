@@ -55,7 +55,7 @@ Classification rapide (à traiter via le skill `rails-cve-remediation`) :
 
 Lot 1 (2026-10-03) : mises à jour bornées patch/mineure. Specs : 183 exemples, 0 échec.
 
-Lot 2 : montées majeures High. Puma borné `~> 7.2, >= 7.2.1` (pas de glissement vers 8). Rubyzip borné `>= 3.4.0, < 4` (groupe test). Specs : 183 exemples, 0 échec. Smoke : `GET /up` → 200 avec Puma 7.2.1.
+Lot 2 : montées majeures High. Puma borné `~> 7.2, >= 7.2.1` (pas de glissement vers 8). Rubyzip est une gem directe du groupe par défaut (`>= 3.4.0, < 4`), utilisée par `ImageProcessor` ; Selenium ne la fournit pas en production. Specs : 183 exemples, 0 échec. Smoke : `GET /up` → 200 avec Puma 7.2.1.
 
 | Criticité | Avant | Après lot 1 | Après lot 2 |
 |-----------|------:|------------:|------------:|

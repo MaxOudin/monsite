@@ -59,6 +59,9 @@ gem "bootsnap", require: false
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 gem "image_processing", "~> 1.2"
 
+# Archives ZIP (favicon, traitement groupé) — série 3.x corrigée
+gem "rubyzip", ">= 3.4.0", "< 4"
+
 gem "aws-sdk-s3", require: false
 
 gem "friendly_id", "~> 5.5.0"
@@ -124,7 +127,6 @@ end
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
-  gem "rubyzip", ">= 3.4.0", "< 4"
   gem "selenium-webdriver"
 
   # Tests + Factory Bot pour les tests
