@@ -10,7 +10,7 @@ gem "rails", "~> 8.1"
 gem "pg", "~> 1.4"
 
 # Use the Puma web server [https://github.com/puma/puma]
-gem "puma", "~> 6.0"
+gem "puma", "~> 7.2", ">= 7.2.1"
 
 gem "kamal"
 
@@ -124,6 +124,7 @@ end
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
+  gem "rubyzip", ">= 3.4.0", "< 4"
   gem "selenium-webdriver"
 
   # Tests + Factory Bot pour les tests

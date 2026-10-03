@@ -53,27 +53,29 @@ Classification rapide (à traiter via le skill `rails-cve-remediation`) :
 
 ## État après corrections
 
-Lot 1 (2026-10-03) : mises à jour bornées patch/mineure, sans montée majeure. Specs : 183 exemples, 0 échec.
+Lot 1 (2026-10-03) : mises à jour bornées patch/mineure. Specs : 183 exemples, 0 échec.
 
-| Criticité | Avant | Après lot 1 |
-|-----------|------:|------------:|
-| Critical | 0 | 0 |
-| High | 22 | 3 |
-| Medium | 39 | 7 |
-| Low | 11 | 1 |
-| Unknown | 95 | 23 |
-| **Total** | **167** | **34** |
+Lot 2 : montées majeures High. Puma borné `~> 7.2, >= 7.2.1` (pas de glissement vers 8). Rubyzip borné `>= 3.4.0, < 4` (groupe test). Specs : 183 exemples, 0 échec. Smoke : `GET /up` → 200 avec Puma 7.2.1.
 
-Montées de ce lot : nokogiri 1.19.0 → 1.19.4, rack 3.2.4 → 3.2.7, net-imap 0.6.2 → 0.6.7, websocket-driver 0.8.0 → 0.8.2, concurrent-ruby 1.3.6 → 1.3.8, erb 6.0.1 → 6.0.7, jwt 3.1.2 → 3.3.0, view_component 4.4.0 → 4.15.0, addressable 2.8.8 → 2.9.0.
+| Criticité | Avant | Après lot 1 | Après lot 2 |
+|-----------|------:|------------:|------------:|
+| Critical | 0 | 0 | 0 |
+| High | 22 | 3 | 0 |
+| Medium | 39 | 7 | 7 |
+| Low | 11 | 1 | 1 |
+| Unknown | 95 | 23 | 23 |
+| **Total** | **167** | **34** | **31** |
 
-Alertes High restantes (majeures, lot suivant) :
-- **puma** 6.6.1 → 7.2.1 (2 alertes)
-- **rubyzip** 2.4.1 → 3.4.0 (test, via selenium-webdriver)
+Montées lot 1 : nokogiri 1.19.0 → 1.19.4, rack 3.2.4 → 3.2.7, net-imap 0.6.2 → 0.6.7, websocket-driver 0.8.0 → 0.8.2, concurrent-ruby 1.3.6 → 1.3.8, erb 6.0.1 → 6.0.7, jwt 3.1.2 → 3.3.0, view_component 4.4.0 → 4.15.0, addressable 2.8.8 → 2.9.0.
+
+Montées lot 2 : puma 6.6.1 → 7.2.1, rubyzip 2.4.1 → 3.7.0.
+
+Plus aucune alerte High. Reste Medium / Low / Unknown (Rails 8.1.2.x, loofah, devise 5, etc.).
 
 ## Plan de mise en place
 
 1. ✅ Ajouter la gem + wrapper + doc (branche `feat/bundler-audit`)
-2. 🔄 Corriger Critical/High — groupe A fait (patch/mineure) ; reste puma 7 et rubyzip 3
+2. ✅ Corriger Critical/High (lots 1 et 2) — 0 alerte High restante
 3. ⬜ Traiter Medium/Low/Unknown restants ou ignores datés
 4. ⬜ Ajouter le workflow GitHub `.github/workflows/security.yml` — skill `rails-security-ci`
 
