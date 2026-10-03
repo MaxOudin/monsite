@@ -97,6 +97,7 @@ group :development, :test do
   gem "letter_opener"
 
   gem "annotate"
+  gem "bundler-audit", require: false
   gem "dotenv-rails"
   gem "foreman"
 

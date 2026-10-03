@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+# Wrapper bundler-audit avec liste d'ignore documentee.
+# Chaque entree dans IGNORED doit etre justifiee par un commentaire
+# (CVE + raison + exposition dans l'app + sortie prevue + date de revue).
+# Voir documentation/12_VEILLE_CVE_BUNDLER_AUDIT.md.
+
+set -e
+
+IGNORED=(
+  # CVE-AAAA-NNNNN (gem x.y.z, Criticite) — resume de la faille.
+  # Exposition : REELLE / NULLE — preuve dans le code (module, route, config).
+  # Contournement possible sans upgrade : ...
+  # Sortie : gem >= x.y.z (bloque par ...). Revue : AAAA-MM-JJ.
+  # "CVE-AAAA-NNNNN"
+)
+
+IGNORE_ARG=""
+for cve in "${IGNORED[@]}"; do
+  IGNORE_ARG="${IGNORE_ARG} ${cve}"
+done
+
+# Bundle installe (poste dev) : version du Gemfile.lock. Sinon (job CI leger,
+# `gem install bundler-audit` sans `bundle install`) : binaire installe.
+if bundle check >/dev/null 2>&1; then
+  AUDIT=(bundle exec bundler-audit)
+else
+  AUDIT=(bundler-audit)
+fi
+
+if [ -n "${IGNORE_ARG}" ]; then
+  exec "${AUDIT[@]}" check --update --ignore${IGNORE_ARG} "$@"
+else
+  exec "${AUDIT[@]}" check --update "$@"
+fi

@@ -17,7 +17,8 @@ documentation/
 ├── 08_MEMORY_AUDIT.md                 ← Audit mémoire web & worker (Scalingo)
 ├── 09_ROADMAP_AMELIORATIONS.md        ← Roadmap d'améliorations
 ├── 10_DEVISE_TWO_FACTOR.md            ← 2FA TOTP (devise-two-factor)
-└── 11_RUBOCOP.md                      ← RuboCop (lint, style, dette progressive)
+├── 11_RUBOCOP.md                      ← RuboCop (lint, style, dette progressive)
+└── 12_VEILLE_CVE_BUNDLER_AUDIT.md     ← Veille CVE gems (bundler-audit)
 ```
 
 ---
@@ -69,6 +70,11 @@ documentation/
 - Configuration RuboCop et plugins
 - Auto-correct progressif et dette (`.rubocop_todo.yml`)
 - Intégration `bin/ci`
+
+### Je veux suivre les CVE des gems (5 minutes)
+👉 **[12_VEILLE_CVE_BUNDLER_AUDIT.md](./12_VEILLE_CVE_BUNDLER_AUDIT.md)**
+- bundler-audit et wrapper `bin/bundler-audit`
+- État des alertes et procédure
 
 ---
 
