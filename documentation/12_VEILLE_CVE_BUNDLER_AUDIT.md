@@ -53,23 +53,27 @@ Classification rapide (à traiter via le skill `rails-cve-remediation`) :
 
 ## État après corrections
 
-*À remplir après le chantier CVE.*
+Lot 1 (2026-10-03) : mises à jour bornées patch/mineure, sans montée majeure. Specs : 183 exemples, 0 échec.
 
-| Criticité | Avant | Après |
-|-----------|------:|------:|
-| Critical | 0 | — |
-| High | 22 | — |
-| Medium | 39 | — |
-| Low | 11 | — |
-| Unknown | 95 | — |
-| **Total** | **167** | — |
+| Criticité | Avant | Après lot 1 |
+|-----------|------:|------------:|
+| Critical | 0 | 0 |
+| High | 22 | 3 |
+| Medium | 39 | 7 |
+| Low | 11 | 1 |
+| Unknown | 95 | 23 |
+| **Total** | **167** | **34** |
 
-Alertes restantes / blocages : —
+Montées de ce lot : nokogiri 1.19.0 → 1.19.4, rack 3.2.4 → 3.2.7, net-imap 0.6.2 → 0.6.7, websocket-driver 0.8.0 → 0.8.2, concurrent-ruby 1.3.6 → 1.3.8, erb 6.0.1 → 6.0.7, jwt 3.1.2 → 3.3.0, view_component 4.4.0 → 4.15.0, addressable 2.8.8 → 2.9.0.
+
+Alertes High restantes (majeures, lot suivant) :
+- **puma** 6.6.1 → 7.2.1 (2 alertes)
+- **rubyzip** 2.4.1 → 3.4.0 (test, via selenium-webdriver)
 
 ## Plan de mise en place
 
 1. ✅ Ajouter la gem + wrapper + doc (branche `feat/bundler-audit`)
-2. ⬜ Corriger Critical/High (groupe A puis B) — skill `rails-cve-remediation`
+2. 🔄 Corriger Critical/High — groupe A fait (patch/mineure) ; reste puma 7 et rubyzip 3
 3. ⬜ Traiter Medium/Low/Unknown restants ou ignores datés
 4. ⬜ Ajouter le workflow GitHub `.github/workflows/security.yml` — skill `rails-security-ci`
 
