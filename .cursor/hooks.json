@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "hooks": {
+    "beforeShellExecution": [
+      {
+        "command": ".cursor/hooks/block_commit_on_main.sh",
+        "matcher": "git commit",
+        "timeout": 10,
+        "failClosed": true
+      }
+    ]
+  }
+}
