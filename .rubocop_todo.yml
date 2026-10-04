@@ -130,14 +130,6 @@ Rails/HelperInstanceVariable:
   Exclude:
     - 'app/helpers/breadcrumbs_helper.rb'
 
-Rails/I18nLocaleTexts:
-  Exclude:
-    - 'app/controllers/application_controller.rb'
-    - 'app/controllers/articles_controller.rb'
-    - 'app/controllers/projets_controller.rb'
-    - 'app/controllers/tools_controller.rb'
-    - 'app/controllers/two_factor_settings_controller.rb'
-
 Rails/LexicallyScopedActionFilter:
   Exclude:
     - 'app/controllers/api/v1/base_controller.rb'

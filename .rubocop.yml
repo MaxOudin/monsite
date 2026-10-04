@@ -67,6 +67,10 @@ Rails/UnknownEnv:
     - production
     - staging
 
+# Textes français en dur dans les contrôleurs : une seule locale.
+Rails/I18nLocaleTexts:
+  Enabled: false
+
 RSpec/ExampleLength:
   Max: 20
 
