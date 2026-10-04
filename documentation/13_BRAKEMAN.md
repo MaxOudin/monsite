@@ -19,7 +19,7 @@ Le binstub force `--ensure-latest` : si une version plus récente existe sur Rub
 | Documentation (ce fichier) | ✅ |
 | `config/brakeman.ignore` | ❌ inutile (0 warning) |
 | Étape `bin/ci` locale | ✅ |
-| Job CI GitHub Actions | ❌ |
+| Job CI GitHub Actions | ✅ (push `main` et PR, pas le cron) |
 
 ## État initial (2026-10-04)
 
@@ -42,4 +42,4 @@ Motifs revus en plus du scan (Brakeman ne les signale pas toujours) : pas de `co
 
 1. Garder `bin/brakeman --no-pager` vert dans `bin/ci`.
 2. Un nouveau warning se traite dans le code, ou dans `config/brakeman.ignore` avec une note datée (faux positif ou dette).
-3. Le workflow GitHub Actions reste à ajouter, comme pour bundler-audit.
+3. En CI, la commande est `brakeman --no-pager` à la version du `Gemfile.lock`, sans `--ensure-latest`.

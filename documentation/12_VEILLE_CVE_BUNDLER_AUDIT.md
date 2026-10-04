@@ -26,8 +26,9 @@ bundle exec bundler-audit check --update   # sans ignores du wrapper
 | Wrapper `bin/bundler-audit` | ✅ |
 | Documentation (ce fichier) | ✅ |
 | Ignores justifiés / datés | ❌ (aucun pour l'instant) |
-| Job CI GitHub Actions (schedule) | ❌ |
+| Job CI GitHub Actions (schedule) | ✅ |
 | Étape `bin/ci` locale | ✅ |
+| Déploiement déclenché par la CI | ❌ (`kamal deploy` est manuel) |
 
 ## État initial (2026-10-03)
 
@@ -77,7 +78,22 @@ Plus aucune alerte High. Reste Medium / Low / Unknown (Rails 8.1.2.x, loofah, de
 1. ✅ Ajouter la gem + wrapper + doc (branche `feat/bundler-audit`)
 2. ✅ Corriger Critical/High (lots 1 et 2) — 0 alerte High restante
 3. ⬜ Traiter Medium/Low/Unknown restants ou ignores datés
-4. ⬜ Ajouter le workflow GitHub `.github/workflows/security.yml` — skill `rails-security-ci`
+4. ✅ Workflow GitHub [`.github/workflows/security.yml`](../.github/workflows/security.yml)
+
+## Workflow GitHub
+
+Fichier : `.github/workflows/security.yml`.
+
+| Déclencheur | Quand | Jobs |
+|-------------|-------|------|
+| `push` sur `main` | à chaque push | bundler-audit, Brakeman, RuboCop |
+| `pull_request` | à chaque PR | bundler-audit, Brakeman, RuboCop |
+| `schedule` | lundi 05:00 UTC (07:00 Paris en heure d'été, 06:00 en heure d'hiver) | bundler-audit seul |
+| `workflow_dispatch` | Actions → Security → Run workflow | les trois jobs |
+
+Le cron ne déploie pas : il n'existe pas de workflow de déploiement. `kamal deploy` reste une commande lancée à la main.
+
+Un échec du cron notifie l'auteur du dernier commit sur `main`. Le premier passage planifié est le lundi 5 octobre 2026 à 05:00 UTC, ou plus tôt via Run workflow.
 
 ## Procédure en cas d'alerte
 

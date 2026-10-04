@@ -1,0 +1,57 @@
+# Contrôles de config/ci.rb qui ne tournent pas pendant `kamal deploy`.
+# Le cron est en UTC. Aucun workflow de déploiement : ce cron ne redéploie pas.
+name: Security
+
+on:
+  schedule:
+    - cron: "0 5 * * 1" # lundi 05:00 UTC (07:00 Paris, heure d'été)
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  bundler-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: .ruby-version
+          bundler-cache: false
+      - name: Install bundler-audit from Gemfile.lock
+        run: |
+          version=$(sed -n 's/^    bundler-audit (\(.*\))$/\1/p' Gemfile.lock)
+          gem install bundler-audit -v "$version" --no-document
+      - run: bin/bundler-audit
+
+  brakeman:
+    if: github.event_name != 'schedule'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: .ruby-version
+          bundler-cache: false
+      - name: Install Brakeman from Gemfile.lock
+        run: |
+          version=$(sed -n 's/^    brakeman (\(.*\))$/\1/p' Gemfile.lock)
+          gem install brakeman -v "$version" --no-document
+      # Pas bin/brakeman : le binstub force --ensure-latest et une nouvelle
+      # release casserait la pipeline sans changement de code.
+      - run: brakeman --no-pager
+
+  rubocop:
+    if: github.event_name != 'schedule'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: .ruby-version
+          bundler-cache: true
+      - run: bundle exec rubocop
