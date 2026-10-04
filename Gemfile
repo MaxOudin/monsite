@@ -44,12 +44,6 @@ gem "devise-jwt"
 gem "devise-two-factor"
 gem "rqrcode"
 
-# Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
-# gem "kredis"
-
-# Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
-# gem "bcrypt", "~> 3.1.7"
-
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
 
@@ -92,11 +86,6 @@ group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[mri mingw x64_mingw]
 
-  # Pry pour débuggage
-  # gem "pry-byebug"
-  # gem "pry-rails"
-  gem "byebug"
-
   gem "letter_opener"
 
   gem "annotate"
@@ -114,15 +103,6 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
-
-  # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
-  # gem "rack-mini-profiler"
-
-  # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
-  # gem "spring"
-
-  # Helper pour avoir les informations des modèles dans les fichiers
-  gem "i18n", "1.14.5"
 end
 
 group :test do

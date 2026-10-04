@@ -7,6 +7,9 @@
 # Ignore bundler config.
 /.bundle
 
+# Cache local de Ruby LSP (Cursor). Régénéré par l'extension.
+/.ruby-lsp/
+
 # Ignore all logfiles and tempfiles.
 /log/*
 /tmp/*

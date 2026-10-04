@@ -8,7 +8,7 @@ Ce document résume les travaux réalisés pour intégrer le **Solid Trifecta** 
 
 Si après des commandes `db:schema:load:queue`, `db:schema:load:cable` ou `db:schema:load:cache` la base de prod est vide (plus d’articles, projets, etc.) :
 
-1. **Restaurer un backup** : Dashboard Scalingo → Addons → PostgreSQL → **Backups** → restaurer le dernier backup **avant** ces commandes.
+1. **Restaurer un backup** : restaurer un dump PostgreSQL de l’accessoire Kamal `db` pris **avant** ces commandes.
 2. Ne plus jamais lancer ces trois commandes en production lorsque primary, queue, cable et cache utilisent la **même** base (voir §3 ci‑dessous).
 
 ---
@@ -53,11 +53,13 @@ Une **seule base** par environnement ; les 4 rôles (primary, queue, cable, cach
 - **development** : `primary`, `queue`, `cable`, `cache` → `cd_development`
 - **test** : `primary`, `queue`, `cable`, `cache` → `cd_test`
 
-### Production (ex. Scalingo)
+### Production (Kamal)
 
-Une **seule base** également : l’URL est fournie par le PaaS.
+Une **seule base** également. Kamal fournit `DATABASE_URL` (accessoire Postgres `db`).
 
 - **production** : `primary`, `queue`, `cable`, `cache` → `url: ENV["SCALINGO_POSTGRESQL_URL"] || ENV["DATABASE_URL"]`
+
+`SCALINGO_POSTGRESQL_URL` est un repli historique. En déploiement Kamal, seule `DATABASE_URL` est définie.
 
 Aucune création de bases supplémentaires en prod (pas de `cd_production_queue`, etc.).
 
@@ -103,16 +105,12 @@ Aucune création de bases supplémentaires en prod (pas de `cd_production_queue`
 
 ---
 
-## 5. Procfile et worker
+## 5. Processus jobs
 
-- **Procfile** :
-  - `release: bundle exec rails db:migrate` (ou `db:prepare` selon stratégie).
-  - `web: bundle exec puma -C config/puma.rb`
-  - `worker: bundle exec bin/jobs`
+- **Local** : `bin/dev` lit `Procfile.dev`, qui lance `jobs: bin/rails solid_queue:start` à côté du serveur, de CSS et de JS.
+- **Production** : Kamal ne déclare qu’un rôle `web` (`config/deploy.yml`). Le `CMD` de l’image est `rails server`. `config/puma.rb` n’embarque Solid Queue que si `SOLID_QUEUE_IN_PUMA` est défini, et cette variable n’est pas posée.
 
-- **Procfile.dev** (optionnel) : ajout de `worker: bundle exec bin/jobs` pour lancer le worker en local avec `bin/dev`.
-
-Sans process **worker** en production, les jobs et tâches récurrentes ne s’exécutent pas.
+Les jobs et les tâches récurrentes tournent donc en local avec `bin/dev`. Ils ne tournent pas sur le conteneur web Kamal.
 
 ---
 
@@ -129,7 +127,7 @@ Fichier des jobs : `app/jobs/generate_sitemap_job.rb` (appel à la tâche Rake `
 
 ## 7. Vérifications
 
-- **Adapter en prod** (console Scalingo) :
+- **Adapter en prod** (console Kamal, `kamal app exec` ou `bin/rails console` en production) :
   ```ruby
   ActiveJob::Base.queue_adapter
   # => #<ActiveJob::QueueAdapters::SolidQueueAdapter ...>
@@ -145,7 +143,7 @@ Fichier des jobs : `app/jobs/generate_sitemap_job.rb` (appel à la tâche Rake `
   SolidQueue::Job.where(class_name: "GenerateSitemapJob").order(finished_at: :desc).pick(:finished_at)
   ```
 
-- **Logs** : vérifier les logs du process **worker** sur Scalingo pour les exécutions des jobs.
+- **Logs** : en local, le processus `jobs` de `bin/dev`. En production, aucun processus ne consomme la file tant qu’un rôle job ou `SOLID_QUEUE_IN_PUMA` n’est pas ajouté.
 
 ---
 
@@ -163,19 +161,20 @@ Fichier des jobs : `app/jobs/generate_sitemap_job.rb` (appel à la tâche Rake `
 | `config/environments/development.rb`, `test.rb` | queue_adapter, solid_queue.connects_to |
 | `db/queue_schema.rb`, `db/cable_schema.rb`, `db/cache_schema.rb` | Schémas des tables Solid Queue / Cable / Cache |
 | `bin/jobs` | CLI Solid Queue (supervisor + workers) |
-| `Procfile` | release, web, worker |
-| `Procfile.dev` | web, css, js, worker (optionnel) |
+| `Procfile.dev` | web, css, js, jobs — lu par `bin/dev` |
+| `config/deploy.yml` | Rôle Kamal `web` uniquement |
+| `config/puma.rb` | Plugin Solid Queue si `SOLID_QUEUE_IN_PUMA` |
 | `app/jobs/generate_sitemap_job.rb` | Job récurrent sitemap |
 | `app/jobs/heartbeat_check_job.rb` | Job de test (optionnel) |
 | `config/sitemap.rb` | Désactivation du ping Google (déprécié) |
 
 ---
 
-## 9. Production (Scalingo) – Points importants
+## 9. Production (Kamal) – Points importants
 
-1. **Variables d’environnement** : `SCALINGO_POSTGRESQL_URL` (ou `DATABASE_URL`) fournie par l’addon Postgres ; pas besoin de `CD_DATABASE_PASSWORD` si tout passe par l’URL.
+1. **Variables d’environnement** : `DATABASE_URL` est un secret Kamal. Postgres tourne comme accessoire `db` (`config/deploy.yml`).
 2. **Une seule base** : pas de création de bases `cd_production_queue`, etc. ; une seule URL pour primary, queue, cable, cache.
-3. **Worker** : scale à 1 dans le dashboard Scalingo (onglet Scaling) pour que les jobs et le sitemap récurrent tournent.
-4. **Schémas queue/cable/cache** : à charger une fois en prod avec `DISABLE_DATABASE_ENVIRONMENT_CHECK=1` (voir §3).
+3. **Jobs** : pas de rôle worker dans `config/deploy.yml`, et `SOLID_QUEUE_IN_PUMA` n’est pas défini. Le sitemap récurrent et le nettoyage Solid Queue ne s’exécutent pas en production dans cet état.
+4. **Schémas queue/cable/cache** : ne pas lancer `db:schema:load:*` sur la base de production partagée (voir §3).
 
 Ce résumé couvre l’essentiel des travaux pour avoir le Solid Trifecta opérationnel en dev et en prod.

@@ -1,13 +1,15 @@
-# Audit mémoire — Web & Worker (Scalingo)
+# Audit mémoire — Web & Worker (Scalingo, mars 2026)
 
 **Date de l'audit :** 19 mars 2026
-**Contexte :** Mémoire web ~217 Mo, mémoire worker ~240 Mo observées dans le dashboard Scalingo.
+**Contexte :** Mémoire web ~217 Mo, mémoire worker ~240 Mo observées dans le dashboard Scalingo, quand l’app y était hébergée.
+
+**État actuel :** la production est sur Kamal (`config/deploy.yml`), un seul conteneur web. `Procfile`, `.profile.d/` et `bin/with-jemalloc` ont été retirés. jemalloc n’est plus préchargé. Il n’y a pas de processus worker séparé en production. Les chiffres ci-dessous décrivent l’ancien hébergement.
 
 ---
 
 ## Verdict global
 
-Les chiffres observés sont **dans la fourchette haute du normal** pour une app Rails 8 avec ce stack (Devise, Pundit, ActiveStorage + Vips, Sentry, SolidQueue/Cable/Cache, pg_search, ViewComponent…). jemalloc est correctement activé sur les deux processus.
+Les chiffres observés étaient **dans la fourchette haute du normal** pour une app Rails 8 avec ce stack (Devise, Pundit, ActiveStorage + Vips, Sentry, SolidQueue/Cable/Cache, pg_search, ViewComponent…). jemalloc était activé sur les deux processus Scalingo, via `bin/with-jemalloc`. Ce binaire n’existe plus.
 
 **Le vrai signal d'alarme serait une croissance continue dans le temps.** Un plateau stable, même élevé, n'est pas une fuite mémoire — c'est le baseline de l'application.
 
@@ -25,9 +27,9 @@ Les chiffres observés sont **dans la fourchette haute du normal** pour une app 
 | `config/environments/production.rb` | ✅ Correct |
 | `config/initializers/rack_attack.rb` | ⚠️ Voir point 3 |
 | `config/initializers/sentry.rb` | ✅ Correct |
-| `app/jobs/generate_sitemap_job.rb` | ⚠️ Voir point 1 |
-| `bin/with-jemalloc` | ✅ Correct |
-| `Gemfile` | ⚠️ Voir point 2 |
+| `app/jobs/generate_sitemap_job.rb` | ✅ Garde `task_defined?` en place |
+| `bin/with-jemalloc` | Retiré avec le passage à Kamal |
+| `Gemfile` | ✅ `gem "redis"` absent |
 
 ---
 
@@ -37,46 +39,13 @@ Les chiffres observés sont **dans la fourchette haute du normal** pour une app 
 
 **Fichier :** `app/jobs/generate_sitemap_job.rb`
 
-**Problème :** `Rails.application.load_tasks` charge toutes les définitions de tâches Rake dans l'objet global `Rake::Task` à chaque appel. Les objets tâche s'accumulent dans la mémoire du processus worker.
-
-```ruby
-# ⚠️ Actuel
-def perform
-  require "rake"
-  Rails.application.load_tasks  # charge TOUT à chaque exécution
-  Rake::Task["sitemap:refresh:no_ping"].reenable
-  Rake::Task["sitemap:refresh:no_ping"].invoke
-end
-```
-
-**Fix :**
-
-```ruby
-# ✅ Corrigé
-def perform
-  require "rake"
-  Rails.application.load_tasks unless Rake::Task.task_defined?("sitemap:refresh:no_ping")
-  Rake::Task["sitemap:refresh:no_ping"].reenable
-  Rake::Task["sitemap:refresh:no_ping"].invoke
-end
-```
-
-Le job tourne une fois par jour donc l'impact est limité, mais c'est un anti-pattern à corriger.
+**Problème (corrigé) :** `Rails.application.load_tasks` charge toutes les définitions de tâches Rake dans l'objet global `Rake::Task` à chaque appel. Le job garde maintenant l’appel avec `Rake::Task.task_defined?("sitemap:refresh:no_ping")`.
 
 ---
 
 ### 2. `gem "redis"` chargé inutilement
 
-**Fichier :** `Gemfile`
-
-**Problème :** Le gem `redis` est présent dans le Gemfile mais en production l'app utilise :
-- **SolidCable** (PostgreSQL) pour ActionCable — pas Redis
-- **SolidCache** (PostgreSQL) pour le cache — pas Redis
-- **SolidQueue** (PostgreSQL) pour les jobs — pas Redis
-
-Le gem est chargé au boot et alloue de la mémoire sans servir à rien.
-
-**Action :** Vérifier qu'aucun code n'utilise Redis directement (`grep -r "Redis" app/ config/`), puis supprimer la ligne du Gemfile et relancer `bundle install`.
+**Traité.** Le `Gemfile` ne déclare plus `redis`. Action Cable, le cache et les jobs passent par Solid Cable, Solid Cache et Solid Queue (PostgreSQL).
 
 ---
 
@@ -103,15 +72,9 @@ end
 
 ## Ce qui est correct
 
-### jemalloc activé sur les deux processus
+### jemalloc, à l’époque Scalingo
 
-```bash
-# Procfile
-web:    bin/with-jemalloc bundle exec puma -C config/puma.rb
-worker: bin/with-jemalloc bundle exec bin/jobs
-```
-
-jemalloc réduit la fragmentation mémoire de Ruby, particulièrement efficace avec Puma multi-thread. Configuration correcte.
+Le `Procfile` Scalingo lançait le web et le worker via `bin/with-jemalloc`, qui préchargeait `libjemalloc` depuis `/app/.apt`. Ces fichiers ont été supprimés : l’image Docker / Kamal ne précharge pas jemalloc.
 
 ### Pool de connexions bien dimensionné
 
@@ -149,15 +112,15 @@ Charge tout le code au boot, ce qui augmente la mémoire initiale mais évite le
 
 | Priorité | Action | Impact |
 |---|---|---|
-| **Haute** | Corriger `GenerateSitemapJob` avec `task_defined?` | Évite l'accumulation de tâches Rake dans le worker |
-| **Moyenne** | Supprimer `gem "redis"` si inutilisé | Réduit légèrement le footprint mémoire au boot |
-| **Moyenne** | Vérifier la courbe mémoire dans Scalingo (croissance vs plateau) | Distingue une vraie fuite d'un baseline élevé |
-| **Basse** | Ajouter `MALLOC_ARENA_MAX=2` en variable d'env Scalingo | Réduit la fragmentation glibc même avec jemalloc |
+| **Haute** | `GenerateSitemapJob` garde `task_defined?` | Fait |
+| **Moyenne** | `gem "redis"` retiré | Fait |
+| **Moyenne** | Suivre la mémoire du conteneur web Kamal (`docker stats` sur le VPS) | Distingue une vraie fuite d'un baseline élevé |
+| **Basse** | `MALLOC_ARENA_MAX=2` en variable d'environnement du conteneur, si la fragmentation glibc pose problème | jemalloc n’est plus préchargé |
 | **Basse** | Évaluer `puma-worker-killer` si la mémoire croît dans le temps | Force des restarts périodiques pour récupérer la mémoire |
 
 ### Variable `MALLOC_ARENA_MAX=2`
 
-À ajouter dans les variables d'environnement Scalingo. Réduit le nombre d'arènes mémoire de glibc (défaut : 8× le nombre de CPU), ce qui diminue la fragmentation :
+À poser dans les variables d’environnement Kamal seulement si la fragmentation glibc du conteneur web devient un sujet. Réduit le nombre d'arènes mémoire de glibc (défaut : 8× le nombre de CPU) :
 
 ```
 MALLOC_ARENA_MAX=2
@@ -184,9 +147,9 @@ Les 217 Mo web et 240 Mo worker sont donc légèrement au-dessus du baseline bas
 
 ## Comment surveiller
 
-### Via Scalingo
+### Via le VPS
 
-Dans le dashboard Scalingo → **Métriques** → observer la courbe mémoire sur 7 jours :
+`docker stats` sur le conteneur web Kamal, sur plusieurs jours :
 - **Courbe plate** → baseline normal, pas d'action urgente
 - **Courbe croissante** → fuite mémoire réelle, creuser avec les outils ci-dessous
 
@@ -205,4 +168,4 @@ bundle exec derailed bundle:objects
 
 ---
 
-*Dernière mise à jour : 19 mars 2026*
+*Audit du 19 mars 2026. Mise à jour d’octobre 2026 : hébergement Kamal, fichiers Scalingo retirés.*

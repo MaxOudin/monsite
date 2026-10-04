@@ -99,8 +99,8 @@ test:
 # Read https://guides.rubyonrails.org/configuring.html#configuring-a-database
 # for a full overview on how database connection configuration can be specified.
 #
-# En production (ex. Scalingo) : une seule base pour primary, queue, cable, cache.
-# Scalingo injecte SCALINGO_POSTGRESQL_URL (addon Postgres) ; sinon DATABASE_URL.
+# Production (Kamal) : une seule base pour primary, queue, cable, cache.
+# Kamal fournit DATABASE_URL. SCALINGO_POSTGRESQL_URL est un repli historique.
 production:
   primary: &primary_production
     <<: *default
