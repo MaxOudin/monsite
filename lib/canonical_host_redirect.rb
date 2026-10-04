@@ -47,7 +47,7 @@ class CanonicalHostRedirect
   # Nettoie le chemin pour éviter path traversal et autres attaques
   def sanitize_path(path)
     # Normaliser le chemin (supprimer les .., //, etc.)
-    normalized = path.squeeze("/").gsub(%r{\.\.}, "")
+    normalized = path.squeeze("/").gsub("..", "")
     # S'assurer que le chemin commence par /
     normalized = "/#{normalized}" unless normalized.start_with?("/")
     # Limiter la longueur pour éviter les attaques par buffer overflow

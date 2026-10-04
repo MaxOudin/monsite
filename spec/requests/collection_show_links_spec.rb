@@ -7,7 +7,7 @@ RSpec.describe "Liens des index vers les fiches", type: :request do
 
       get articles_path
 
-      document = Nokogiri::HTML(response.body)
+      document = response.parsed_body
       form = document.at_css("form[action='#{articles_path}']")
       expect(form["data-turbo-frame"]).to eq("collection_results")
 
@@ -18,8 +18,7 @@ RSpec.describe "Liens des index vers les fiches", type: :request do
       get link["href"]
 
       expect(response).to have_http_status(:ok)
-      expect(response.body).to include("Mon article de test")
-      expect(response.body).to include("Retour aux articles")
+      expect(response.body).to include("Mon article de test", "Retour aux articles")
     end
   end
 

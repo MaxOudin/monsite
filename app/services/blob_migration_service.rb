@@ -15,16 +15,14 @@ module BlobMigrationService
     bucket_name = ENV.fetch("AWS_BUCKET")
 
     @article.content.body.attachments.each do |blob|
-      begin
-        blob.open(tmpdir: Dir.tmpdir) do |tempfile|
-          object_key = "Blob_#{blob.id}_#{blob.filename}"
-          s3_client.put_object(bucket: bucket_name, key: object_key, body: tempfile, acl: "public-read")
-          blob.update(service_name: "amazon", key: object_key)
-          puts "Blob #{blob.filename} transferred successfully to S3"
-        end
-      rescue ActiveStorage::FileNotFoundError
-        next
+      blob.open(tmpdir: Dir.tmpdir) do |tempfile|
+        object_key = "Blob_#{blob.id}_#{blob.filename}"
+        s3_client.put_object(bucket: bucket_name, key: object_key, body: tempfile, acl: "public-read")
+        blob.update(service_name: "amazon", key: object_key)
+        puts "Blob #{blob.filename} transferred successfully to S3"
       end
+    rescue ActiveStorage::FileNotFoundError
+      next
     end
   end
 

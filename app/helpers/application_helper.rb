@@ -36,7 +36,7 @@ module ApplicationHelper
 
     # Sinon, vérifier que c'est un nom de fichier valide (pas de caractères bizarres)
     # Accepter lettres, chiffres, tirets, underscores, points et slashes
-    path.match?(/\A[\w\-\.\/]+\z/)
+    path.match?(%r{\A[\w\-./]+\z})
   end
 
   def otp_qr_svg(user, size: 200)

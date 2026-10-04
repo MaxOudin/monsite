@@ -15,7 +15,7 @@ class ToolsController < ApplicationController
 
     result = ImageProcessor.resize(params[:file], width: width, height: height, mode: mode)
     send_processed_file(result, "resized")
-  rescue => e
+  rescue StandardError => e
     redirect_back_or_to(tools_resize_path, alert: friendly_error(e))
   end
 
@@ -29,7 +29,7 @@ class ToolsController < ApplicationController
 
     result = ImageProcessor.convert(params[:file], format: format, quality: quality)
     send_processed_file(result, "converted", format: format)
-  rescue => e
+  rescue StandardError => e
     redirect_back_or_to(tools_convert_path, alert: friendly_error(e))
   end
 
@@ -44,7 +44,7 @@ class ToolsController < ApplicationController
               filename: "#{original_name}-sans-fond.png",
               type: "image/png",
               disposition: "attachment"
-  rescue => e
+  rescue StandardError => e
     redirect_back_or_to(tools_remove_bg_path, alert: friendly_error(e))
   ensure
     result&.close! if result.respond_to?(:close!)
@@ -67,10 +67,9 @@ class ToolsController < ApplicationController
       return
     end
 
-    if params[:file].respond_to?(:size) && params[:file].size > ImageProcessor::MAX_FILE_SIZE
-      redirect_back_or_to(tools_path, alert: "Fichier trop volumineux (max #{ImageProcessor::MAX_FILE_SIZE / 1.megabyte} Mo).")
-      return
-    end
+    return unless params[:file].respond_to?(:size) && params[:file].size > ImageProcessor::MAX_FILE_SIZE
+
+    redirect_back_or_to(tools_path, alert: "Fichier trop volumineux (max #{ImageProcessor::MAX_FILE_SIZE / 1.megabyte} Mo).")
   end
 
   def send_processed_file(result, suffix, format: nil)

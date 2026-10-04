@@ -4,9 +4,7 @@ class Rack::Attack
   Rack::Attack.cache.store = Rails.cache
   # En développement/tests, éviter d'utiliser SolidCache (DB) pour Rack::Attack
   # afin d'éviter les erreurs de connexion (select_all on nil) et l'I/O DB inutile.
-  if Rails.env.development? || Rails.env.test?
-    Rack::Attack.cache.store = ActiveSupport::Cache::MemoryStore.new
-  end
+  Rack::Attack.cache.store = ActiveSupport::Cache::MemoryStore.new if Rails.env.local?
 
   # === 2. LISTES BLANCHES (SAFELIST) ===
 
@@ -18,7 +16,7 @@ class Rack::Attack
   # When Rack::Attack blocks a request, Rails tries to render /403.html or /429.html
   # If these are also blocked, it causes an unhandled exception
   safelist("allow error pages") do |req|
-    req.path.match?(/^\/(403|404|422|429|500|502|503)\.html$/)
+    req.path.match?(%r{^/(403|404|422|429|500|502|503)\.html$})
   end
 
   # Avec Devise, warden.user retourne directement le modèle User (pas un wrapper avec .user)
@@ -32,7 +30,7 @@ class Rack::Attack
     # Exclude static assets, health checks, AND error pages from throttling
     # Error pages MUST be excluded to prevent infinite loops when a blocked request tries to render /403.html
     unless req.path.start_with?("/assets", "/packs", "/up") ||
-           req.path.match?(/^\/(403|404|422|429|500|502|503)\.html$/)
+           req.path.match?(%r{^/(403|404|422|429|500|502|503)\.html$})
       req.ip
     end
   end
@@ -45,9 +43,7 @@ class Rack::Attack
 
   # Throttle anti-rafale (web et API)
   throttle("logins/ip/post", limit: 5, period: 1.minute) do |req|
-    if req.post? && (req.path == "/users/sign_in" || req.path == "/api/v1/login")
-      req.ip
-    end
+    req.ip if req.post? && ["/users/sign_in", "/api/v1/login"].include?(req.path)
   end
 
   # --- NIVEAU 1 (Modéré) ---
@@ -87,16 +83,12 @@ class Rack::Attack
   # === 5. PROTECTION AUTRES ENDPOINTS SENSIBLES ===
 
   throttle("password_resets/ip", limit: 5, period: 1.hour) do |req|
-    if req.path == "/users/password" && req.post?
-      req.ip
-    end
+    req.ip if req.path == "/users/password" && req.post?
   end
 
   # Inscription désactivée (User sans :registerable) : cette règle ne matche pas en pratique.
   throttle("registrations/ip", limit: 10, period: 1.hour) do |req|
-    if req.path == "/users" && req.post?
-      req.ip
-    end
+    req.ip if req.path == "/users" && req.post?
   end
 
   # === 6. PROTECTION API ===
@@ -111,8 +103,8 @@ class Rack::Attack
     dangerous_paths = [
       /\.\./,
       /\.env/,
-      /config\/database\.yml/,
-      /config\/credentials/,
+      %r{config/database\.yml},
+      %r{config/credentials},
       /Gemfile\.lock/
     ]
     dangerous_paths.any? { |pattern| pattern.match?(req.path) }
@@ -123,8 +115,8 @@ class Rack::Attack
     path = req.path.to_s
 
     suspicious =
-      path.match?(/(^|\/)wp-[a-z0-9_-]+/i) ||
-      path.match?(/\.php(?:[\/?#]|$)/i)
+      path.match?(%r{(^|/)wp-[a-z0-9_-]+}i) ||
+      path.match?(%r{\.php(?:[/?#]|$)}i)
 
     store = Rack::Attack.cache&.store
     if suspicious && store
@@ -144,7 +136,7 @@ class Rack::Attack
           store.write(stage1_key, true, expires_in: 5.minutes)
           true
         end
-      rescue
+      rescue StandardError
         false
       end
     else
@@ -203,7 +195,7 @@ class Rack::Attack
 
     # Fallback : si exceptions_app n'est pas configuré, on renvoie une page statique
     # (public/403.html, public/429.html, etc.) plutôt que de crasher en 500.
-    public_file = Rails.root.join("public", "#{status}.html")
+    public_file = Rails.public_path.join("#{status}.html")
     body =
       if public_file.exist?
         File.binread(public_file)
@@ -213,35 +205,31 @@ class Rack::Attack
 
     headers = { "Content-Type" => "text/html; charset=utf-8" }
     [status, headers, [body]]
-  rescue => e
+  rescue StandardError => e
     Rails.logger.error("[Rack::Attack] error_response fallback failed: #{e.class} - #{e.message}") if defined?(Rails)
     [status, { "Content-Type" => "text/plain; charset=utf-8" }, ["Access denied (#{status})."]]
   end
 
   # === Helpers Cache Sûrs ===
   def self.cache_read_int(key)
-    begin
-      store = Rack::Attack.cache&.store
-      return 0 unless store
+    store = Rack::Attack.cache&.store
+    return 0 unless store
 
-      value = store.read(key)
-      value.to_i
-    rescue => e
-      Rails.logger.debug("[Rack::Attack] cache_read_int failed for #{key}: #{e.message}") if defined?(Rails)
-      0
-    end
+    value = store.read(key)
+    value.to_i
+  rescue StandardError => e
+    Rails.logger.debug { "[Rack::Attack] cache_read_int failed for #{key}: #{e.message}" } if defined?(Rails)
+    0
   end
 
   def self.cache_increment(key, amount, expires_in: nil)
-    begin
-      store = Rack::Attack.cache&.store
-      return unless store && store.respond_to?(:increment)
+    store = Rack::Attack.cache&.store
+    return unless store && store.respond_to?(:increment)
 
-      store.increment(key, amount, expires_in: expires_in)
-    rescue => e
-      Rails.logger.debug("[Rack::Attack] cache_increment failed for #{key}: #{e.message}") if defined?(Rails)
-      nil
-    end
+    store.increment(key, amount, expires_in: expires_in)
+  rescue StandardError => e
+    Rails.logger.debug { "[Rack::Attack] cache_increment failed for #{key}: #{e.message}" } if defined?(Rails)
+    nil
   end
 
   # === 9. LOGGING ===

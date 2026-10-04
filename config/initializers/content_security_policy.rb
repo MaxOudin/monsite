@@ -12,7 +12,7 @@ Rails.application.configure do
 
     # Configuration img-src avec support Active Storage et Hetzner
     img_sources = [:self, :data, :blob, "https://res.cloudinary.com/dyleaesxc/"]
-    img_sources << "https://#{ENV["DOMAIN"]}" if ENV["DOMAIN"].present?
+    img_sources << "https://#{ENV['DOMAIN']}" if ENV["DOMAIN"].present?
 
     policy.img_src(*img_sources)
     policy.object_src :none
@@ -50,6 +50,6 @@ Rails.application.configure do
   config.content_security_policy_nonce_directives = %w[script-src style-src]
 
   # Report violations without enforcing the policy.
-  config.content_security_policy_report_only = true if !Rails.env.production?
+  config.content_security_policy_report_only = true unless Rails.env.production?
   config.upgrade_insecure_requests = true if Rails.env.production?
 end

@@ -21,6 +21,8 @@ class ArticlesController < ApplicationController
     authorize @article
   end
 
+  def edit; end
+
   def create
     @article = Article.new(article_params)
     authorize @article
@@ -31,9 +33,6 @@ class ArticlesController < ApplicationController
       flash[:error] = "Article non créé, veuillez réessayer"
       render :new
     end
-  end
-
-  def edit
   end
 
   def update

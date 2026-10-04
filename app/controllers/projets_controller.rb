@@ -22,6 +22,8 @@ class ProjetsController < ApplicationController
     authorize @projet
   end
 
+  def edit; end
+
   def create
     @projet = Projet.new(projet_params)
     authorize @projet
@@ -32,9 +34,6 @@ class ProjetsController < ApplicationController
       flash[:error] = "Projet non créé, veuillez réessayer"
       render :new
     end
-  end
-
-  def edit
   end
 
   def update
@@ -84,11 +83,13 @@ class ProjetsController < ApplicationController
   end
 
   def set_outils_projet
-    @outils_projet = OutilsProjet.where(projet_id: @projet.id) if @projet.present? && OutilsProjet.find(@projet).present?
+    return unless @projet.present? && OutilsProjet.find(@projet).present?
+
+    @outils_projet = OutilsProjet.where(projet_id: @projet.id)
   end
 
   def set_outils
     @outils_projet = OutilsProjet.new
-    @outils = Outil.all.order(:nom => :asc)
+    @outils = Outil.all.order(nom: :asc)
   end
 end

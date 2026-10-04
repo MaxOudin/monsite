@@ -17,27 +17,31 @@ SitemapGenerator::Sitemap.create do
   # Pages Projets
   add projets_path, changefreq: "weekly", priority: 0.9
   Projet.find_each do |projet|
-    add projet_path(projet),
-        lastmod: projet.updated_at,
-        changefreq: "monthly",
-        priority: 0.8,
-        images: [{
-          loc: projet.image_url,
-          title: projet.titre
-        }] if projet.image_url.present?
+    if projet.image_url.present?
+      add projet_path(projet),
+          lastmod: projet.updated_at,
+          changefreq: "monthly",
+          priority: 0.8,
+          images: [{
+            loc: projet.image_url,
+            title: projet.titre
+          }]
+    end
   end
 
   # Pages Articles
   add articles_path, changefreq: "weekly", priority: 0.9
   Article.find_each do |article|
-    add article_path(article),
-        lastmod: article.updated_at,
-        changefreq: "monthly",
-        priority: 0.8,
-        images: [{
-          loc: article.image_url,
-          title: article.titre
-        }] if article.image_url.present?
+    if article.image_url.present?
+      add article_path(article),
+          lastmod: article.updated_at,
+          changefreq: "monthly",
+          priority: 0.8,
+          images: [{
+            loc: article.image_url,
+            title: article.titre
+          }]
+    end
   end
 
   # Autres pages importantes

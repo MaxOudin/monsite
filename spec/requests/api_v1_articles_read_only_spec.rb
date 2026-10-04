@@ -16,20 +16,20 @@ RSpec.describe "API articles lecture seule", type: :request do
   end
 
   it "n'expose pas POST create" do
-    expect {
+    expect do
       Rails.application.routes.recognize_path("/api/v1/articles", method: :post)
-    }.to raise_error(ActionController::RoutingError)
+    end.to raise_error(ActionController::RoutingError)
   end
 
   it "n'expose pas PATCH update" do
-    expect {
+    expect do
       Rails.application.routes.recognize_path("/api/v1/articles/#{article.id}", method: :patch)
-    }.to raise_error(ActionController::RoutingError)
+    end.to raise_error(ActionController::RoutingError)
   end
 
   it "n'expose pas DELETE destroy" do
-    expect {
+    expect do
       Rails.application.routes.recognize_path("/api/v1/articles/#{article.id}", method: :delete)
-    }.to raise_error(ActionController::RoutingError)
+    end.to raise_error(ActionController::RoutingError)
   end
 end

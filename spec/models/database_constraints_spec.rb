@@ -19,9 +19,9 @@ RSpec.describe "Contraintes NOT NULL en base de données" do
         it "rejette #{column} NULL au niveau base" do
           record = create(factory_name)
 
-          expect {
+          expect do
             record.update_column(column, nil)
-          }.to raise_error(ActiveRecord::NotNullViolation)
+          end.to raise_error(ActiveRecord::NotNullViolation)
         end
       end
     end

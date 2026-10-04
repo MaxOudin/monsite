@@ -4,9 +4,9 @@ require "rails_helper"
 
 RSpec.describe CardComponent, type: :component do
   describe "avec un Projet" do
-    let(:projet) {
+    let(:projet) do
       create(:projet, titre: "Mon Projet", type_projet: "application web", date_debut: Date.new(2025, 3, 1))
-    }
+    end
 
     it "affiche le titre" do
       rendered = render_inline(described_class.new(model: projet))

@@ -3,7 +3,11 @@ class CspReportsController < ApplicationController
 
   def create
     report = request.body.read
-    parsed_report = JSON.parse(report) rescue {}
+    parsed_report = begin
+      JSON.parse(report)
+    rescue StandardError
+      {}
+    end
 
     # Log détaillé pour debug
     Rails.logger.info("=" * 50)

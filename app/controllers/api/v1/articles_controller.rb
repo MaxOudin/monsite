@@ -7,8 +7,7 @@ class Api::V1::ArticlesController < Api::V1::BaseController
     @articles = policy_scope(Article)
   end
 
-  def show
-  end
+  def show; end
 
   private
 

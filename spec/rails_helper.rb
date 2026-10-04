@@ -61,10 +61,10 @@ RSpec.configure do |config|
   # instead of true.
   # config.use_transactional_fixtures = true
   config.before(:suite) { DatabaseCleaner.clean_with(:truncation) }
-  config.before(:each) { DatabaseCleaner.strategy = :transaction }
-  config.before(:each, js: true) { DatabaseCleaner.strategy = :truncation }
-  config.before(:each) { DatabaseCleaner.start }
-  config.after(:each) { DatabaseCleaner.clean }
+  config.before { DatabaseCleaner.strategy = :transaction }
+  config.before(:each, :js) { DatabaseCleaner.strategy = :truncation }
+  config.before { DatabaseCleaner.start }
+  config.after { DatabaseCleaner.clean }
 
   config.use_active_record = true
 end

@@ -37,9 +37,7 @@ class Api::V1::SessionsController < Devise::SessionsController
     # Récupérer le refresh token
     refresh_token = request.headers["Authorization"]&.split(" ")&.last || params[:refresh_token]
 
-    unless refresh_token
-      return render json: { error: "Refresh token manquant" }, status: :unauthorized
-    end
+    return render json: { error: "Refresh token manquant" }, status: :unauthorized unless refresh_token
 
     begin
       # Décoder le token
@@ -47,9 +45,7 @@ class Api::V1::SessionsController < Devise::SessionsController
       decoded_token = JWT.decode(refresh_token, secret_key, true, { algorithm: "HS256" })
 
       # Vérifier que c'est un refresh token
-      if decoded_token[0]["type"] != "refresh"
-        return render json: { error: "Token invalide" }, status: :unauthorized
-      end
+      return render json: { error: "Token invalide" }, status: :unauthorized if decoded_token[0]["type"] != "refresh"
 
       # Récupérer l'utilisateur
       user_id = decoded_token[0]["sub"]

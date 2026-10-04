@@ -30,7 +30,7 @@ FactoryBot.define do
   factory :projet do
     titre { "Test.Ai" }
     type_projet { "application web" }
-    description {
+    description do
       "Surf.Ai est une plateforme de location de planches de surf entre particuliers.
       Je peux à la fois proposer mes planches à la location et louer des planches de surf.
       En tant qu'utilisateur, je peux donc créer une planche avec un titre, un descriptif, un prix par jour et lui ajouter plusieurs photos pour la proposer à la location.
@@ -41,7 +41,7 @@ FactoryBot.define do
       Vous pourrez y retrouver les détails de votre choix pour vérifier notamment des dates spécifiques et le budget total.
       Surf.Ai offre à chaque utilisateur un espace présentant l'historique de réservations et de locations.
       Cela favorisant l'engagement communautaire grâce aux évaluations et aux avis post-location, améliorant ainsi l'expérience des utilisateurs."
-    }
+    end
     image_url { "https://res.cloudinary.com/dyleaesxc/image/upload/v1698925883/production/66xsp347pg4llarxvcikcys3depg.png" }
     image_url_alt { "Capture ecran du projet Surf.ai" }
     date_debut { "2023-08-21" }

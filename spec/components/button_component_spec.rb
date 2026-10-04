@@ -24,9 +24,9 @@ RSpec.describe ButtonComponent, type: :component do
   end
 
   it "lève une erreur pour un variant inconnu" do
-    expect {
+    expect do
       render_inline(described_class.new(variant: :inconnu)) { "X" }
-    }.to raise_error(KeyError)
+    end.to raise_error(KeyError)
   end
 
   it "applique text-secondary sur le variant primary" do

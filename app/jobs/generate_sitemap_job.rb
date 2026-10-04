@@ -5,9 +5,7 @@ class GenerateSitemapJob < ApplicationJob
 
   def perform
     require "rake"
-    unless Rake::Task.task_defined?("sitemap:refresh:no_ping")
-      Rails.application.load_tasks
-    end
+    Rails.application.load_tasks unless Rake::Task.task_defined?("sitemap:refresh:no_ping")
     Rake::Task["sitemap:refresh:no_ping"].reenable
     Rake::Task["sitemap:refresh:no_ping"].invoke
     Rails.logger.info "[GenerateSitemapJob] Sitemap généré — #{Time.current.iso8601}"

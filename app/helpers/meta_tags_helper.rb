@@ -15,9 +15,7 @@ module MetaTagsHelper
     meta_image = content_for?(:meta_image) ? content_for(:meta_image) : DEFAULT_META["meta_image"]
 
     # Si l'image est vide, nulle ou invalide, utiliser le logo par défaut
-    if meta_image.blank? || !valid_image?(meta_image)
-      meta_image = DEFAULT_META["meta_image"]
-    end
+    meta_image = DEFAULT_META["meta_image"] if meta_image.blank? || !valid_image?(meta_image)
 
     # Retourner l'URL complète
     if meta_image.starts_with?("http")
@@ -27,7 +25,7 @@ module MetaTagsHelper
     else
       begin
         image_url(meta_image)
-      rescue
+      rescue StandardError
         # En cas d'erreur (asset non trouvé), retourner le logo par défaut
         image_url(DEFAULT_META["meta_image"])
       end
@@ -77,10 +75,14 @@ module MetaTagsHelper
     return false if url.blank?
 
     # Vérifier que l'URL commence par http:// ou https://
-    return false unless url.match?(/\Ahttps?:\/\//i)
+    return false unless url.match?(%r{\Ahttps?://}i)
 
     # Extraire le domaine de l'URL
-    uri = URI.parse(url) rescue nil
+    uri = begin
+      URI.parse(url)
+    rescue StandardError
+      nil
+    end
     return false unless uri
 
     # SÉCURITÉ : Vérifier que l'URL pointe vers notre domaine
@@ -95,7 +97,7 @@ module MetaTagsHelper
   # Nettoie le chemin pour l'URL canonique
   def sanitize_url_path(path)
     # Normaliser le chemin
-    normalized = path.to_s.squeeze("/").gsub(%r{\.\.}, "")
+    normalized = path.to_s.squeeze("/").gsub("..", "")
     normalized = "/#{normalized}" unless normalized.start_with?("/")
     # Limiter la longueur
     normalized[0..2000]
@@ -135,6 +137,6 @@ module MetaTagsHelper
 
     # Pour les assets locaux, vérifier qu'ils existent
     # On accepte les noms de fichiers valides (lettres, chiffres, -, _, .)
-    image_path.match?(/\A[\w\-\.]+\z/)
+    image_path.match?(/\A[\w\-.]+\z/)
   end
 end

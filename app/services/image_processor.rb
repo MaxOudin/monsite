@@ -191,7 +191,7 @@ module SvgOptimizer
     content
       .gsub(/<!--.*?-->/m, "")
       .gsub(/\s+/, " ")
-      .gsub(/> </, "><")
+      .gsub("> <", "><")
       .strip
   end
 end

@@ -72,7 +72,7 @@ class Projet < ApplicationRecord
         .gsub(/[îï]/, "i")
         .gsub(/[ôö]/, "o")
         .gsub(/[ûüù]/, "u")
-        .gsub(/[ç]/, "c")
+        .gsub(/ç/, "c")
         .gsub(/[^a-z0-9]/, "-").squeeze("-")
         .gsub(/^-|-$/, "")
   end

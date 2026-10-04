@@ -2,7 +2,7 @@ class SitemapsController < ApplicationController
   # Le sitemap est accessible publiquement, pas besoin d'authentification
 
   def show
-    sitemap_gz_path = Rails.root.join("public", "sitemaps", "sitemap.xml.gz")
+    sitemap_gz_path = Rails.public_path.join("sitemaps/sitemap.xml.gz")
 
     if File.exist?(sitemap_gz_path)
       # Pour un sitemap.xml.gz, on sert le fichier gzip avec les headers appropriés

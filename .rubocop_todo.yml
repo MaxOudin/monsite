@@ -7,13 +7,10 @@
 # versions of RuboCop, may require this file to be generated again.
 
 # This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: TreatCommentsAsGroupSeparators, ConsiderPunctuation.
-# This cop supports safe autocorrection (--autocorrect).
 # Configuration parameters: Max, AllowHeredoc, AllowURI, AllowQualifiedName, URISchemes, AllowRBSInlineAnnotation, AllowCopDirectives, AllowedPatterns, SplitStrings.
 # URISchemes: http, https
 Layout/LineLength:
   Exclude:
-    - 'app/controllers/projets_controller.rb'
     - 'app/controllers/tools_controller.rb'
     - 'config/initializers/devise.rb'
     - 'config/initializers/rack_attack.rb'
@@ -43,7 +40,7 @@ Metrics/CyclomaticComplexity:
 Metrics/MethodLength:
   Exclude:
     - 'app/controllers/api/v1/base_controller.rb'
-    - 'app/controllers/api/v1/sessions_controller.rb'
+    - 'app/controllers/csp_reports_controller.rb'
     - 'app/helpers/tools_helper.rb'
     - 'app/services/image_processor.rb'
 
@@ -93,14 +90,6 @@ RSpec/ExampleLength:
   Exclude:
     - 'spec/requests/home_spec.rb'
 
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: implicit, each, example
-RSpec/HookArgument:
-  Exclude:
-    - 'spec/rails_helper.rb'
-    - 'spec/support/database_cleaner.rb'
-
 # Configuration parameters: AssignmentOnly.
 RSpec/InstanceVariable:
   Exclude:
@@ -111,13 +100,6 @@ RSpec/InstanceVariable:
 RSpec/MessageSpies:
   Exclude:
     - 'spec/jobs/generate_sitemap_job_spec.rb'
-
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: hash, symbol
-RSpec/MetadataStyle:
-  Exclude:
-    - 'spec/rails_helper.rb'
 
 # Configuration parameters: Max.
 RSpec/MultipleExpectations:
@@ -138,31 +120,6 @@ RSpec/NamedSubject:
 RSpec/ReceiveMessages:
   Exclude:
     - 'spec/helpers/breadcrumbs_helper_spec.rb'
-
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: ExpectedOrder.
-# ExpectedOrder: index, show, new, edit, create, update, destroy
-Rails/ActionOrder:
-  Exclude:
-    - 'app/controllers/articles_controller.rb'
-    - 'app/controllers/projets_controller.rb'
-
-# This cop supports safe autocorrection (--autocorrect).
-Rails/EagerEvaluationLogMessage:
-  Exclude:
-    - 'config/initializers/rack_attack.rb'
-
-# This cop supports safe autocorrection (--autocorrect).
-Rails/EnvLocal:
-  Exclude:
-    - 'config/initializers/rack_attack.rb'
-
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: slashes, arguments
-Rails/FilePath:
-  Exclude:
-    - 'app/controllers/sitemaps_controller.rb'
 
 Rails/HasManyOrHasOneDependent:
   Exclude:
@@ -203,12 +160,6 @@ Rails/RedundantActiveRecordAllMethod:
   Exclude:
     - 'app/controllers/projets_controller.rb'
 
-# This cop supports safe autocorrection (--autocorrect).
-Rails/RootPublicPath:
-  Exclude:
-    - 'app/controllers/sitemaps_controller.rb'
-    - 'config/initializers/rack_attack.rb'
-
 # Configuration parameters: ForbiddenMethods, AllowedMethods.
 # ForbiddenMethods: decrement!, decrement_counter, increment!, increment_counter, insert, insert!, insert_all, insert_all!, toggle!, touch, touch_all, update_all, update_attribute, update_column, update_columns, update_counters, upsert, upsert_all
 Rails/SkipsModelValidations:
@@ -230,26 +181,6 @@ Rails/UniqueValidationWithoutIndex:
     - 'app/models/service.rb'
     - 'app/models/sujet.rb'
 
-# This cop supports safe autocorrection (--autocorrect).
-Style/BlockComments:
-  Exclude:
-    - 'spec/spec_helper.rb'
-
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle, ProceduralMethods, FunctionalMethods, AllowedMethods, AllowedPatterns, AllowBracesOnProceduralOneLiners, BracesRequiredMethods.
-# SupportedStyles: line_count_based, semantic, braces_for_chaining, always_braces
-# ProceduralMethods: benchmark, bm, bmbm, create, each_with_object, measure, new, realtime, tap, with_object
-# FunctionalMethods: let, let!, subject, watch
-# AllowedMethods: lambda, proc, it
-Style/BlockDelimiters:
-  Exclude:
-    - 'spec/components/button_component_spec.rb'
-    - 'spec/components/card_component_spec.rb'
-    - 'spec/factories/projets.rb'
-    - 'spec/models/database_constraints_spec.rb'
-    - 'spec/models/unique_indexes_spec.rb'
-    - 'spec/requests/api_v1_articles_read_only_spec.rb'
-
 # This cop supports unsafe autocorrection (--autocorrect-all).
 # Configuration parameters: EnforcedStyle, EnforcedStyleForClasses, EnforcedStyleForModules.
 # SupportedStyles: nested, compact
@@ -267,61 +198,10 @@ Style/CombinableLoops:
   Exclude:
     - 'app/services/image_processor.rb'
 
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle, SingleLineConditionsOnly, IncludeTernaryExpressions.
-# SupportedStyles: assign_to_condition, assign_inside_condition
-Style/ConditionalAssignment:
-  Exclude:
-    - 'spec/support/database_cleaner.rb'
-
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: compact, expanded
-Style/EmptyMethod:
-  Exclude:
-    - 'app/controllers/api/v1/articles_controller.rb'
-    - 'app/controllers/articles_controller.rb'
-    - 'app/controllers/pages_controller.rb'
-    - 'app/controllers/projets_controller.rb'
-
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: MinBodyLength, AllowConsecutiveConditionals.
-Style/GuardClause:
-  Exclude:
-    - 'app/controllers/tools_controller.rb'
-
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle, EnforcedShorthandSyntax, UseHashRocketsWithSymbolValues, PreferHashRocketsForNonAlnumEndingSymbols.
-# SupportedStyles: ruby19, hash_rockets, no_mixed_keys, ruby19_no_mixed_keys
-# SupportedShorthandSyntax: always, never, either, consistent, either_consistent
-Style/HashSyntax:
-  Exclude:
-    - 'app/controllers/projets_controller.rb'
-
 # This cop supports unsafe autocorrection (--autocorrect-all).
 Style/IdenticalConditionalBranches:
   Exclude:
     - 'app/services/image_processor.rb'
-    - 'config/initializers/rack_attack.rb'
-
-# This cop supports safe autocorrection (--autocorrect).
-Style/IfUnlessModifier:
-  Exclude:
-    - 'app/controllers/api/v1/sessions_controller.rb'
-    - 'app/controllers/projets_controller.rb'
-    - 'app/helpers/meta_tags_helper.rb'
-    - 'app/jobs/generate_sitemap_job.rb'
-    - 'config/initializers/rack_attack.rb'
-
-# This cop supports safe autocorrection (--autocorrect).
-Style/MultilineIfModifier:
-  Exclude:
-    - 'config/sitemap.rb'
-
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: AllowMethodComparison, ComparisonsThreshold.
-Style/MultipleComparison:
-  Exclude:
     - 'config/initializers/rack_attack.rb'
 
 # This cop supports unsafe autocorrection (--autocorrect-all).
@@ -332,23 +212,10 @@ Style/MutableConstant:
     - 'app/models/article.rb'
     - 'app/models/projet.rb'
 
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: both, prefix, postfix
-Style/NegatedIf:
-  Exclude:
-    - 'config/initializers/content_security_policy.rb'
-
 # Configuration parameters: AllowedClasses.
 Style/OneClassPerFile:
   Exclude:
     - 'app/services/image_processor.rb'
-
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: PreferredDelimiters.
-Style/PercentLiteralDelimiters:
-  Exclude:
-    - 'config/initializers/friendly_id.rb'
 
 # This cop supports unsafe autocorrection (--autocorrect-all).
 # Configuration parameters: Methods.
@@ -357,59 +224,6 @@ Style/RedundantArgument:
     - 'app/controllers/api/v1/base_controller.rb'
     - 'app/controllers/api/v1/sessions_controller.rb'
 
-# This cop supports safe autocorrection (--autocorrect).
-Style/RedundantBegin:
-  Exclude:
-    - 'app/services/blob_migration_service.rb'
-    - 'config/initializers/rack_attack.rb'
-
-# This cop supports safe autocorrection (--autocorrect).
-Style/RedundantRegexpArgument:
-  Exclude:
-    - 'app/services/image_processor.rb'
-
-# This cop supports safe autocorrection (--autocorrect).
-Style/RedundantRegexpCharacterClass:
-  Exclude:
-    - 'app/models/projet.rb'
-
-# This cop supports safe autocorrection (--autocorrect).
-Style/RedundantRegexpEscape:
-  Exclude:
-    - 'app/helpers/application_helper.rb'
-    - 'app/helpers/meta_tags_helper.rb'
-
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: AllowMultipleReturnValues.
-Style/RedundantReturn:
-  Exclude:
-    - 'app/controllers/tools_controller.rb'
-
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle, AllowInnerSlashes.
-# SupportedStyles: slashes, percent_r, mixed
-Style/RegexpLiteral:
-  Exclude:
-    - 'app/helpers/application_helper.rb'
-    - 'app/helpers/meta_tags_helper.rb'
-    - 'config/initializers/rack_attack.rb'
-    - 'lib/canonical_host_redirect.rb'
-
-# This cop supports safe autocorrection (--autocorrect).
-Style/RescueModifier:
-  Exclude:
-    - 'app/controllers/csp_reports_controller.rb'
-    - 'app/helpers/meta_tags_helper.rb'
-
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: implicit, explicit
-Style/RescueStandardError:
-  Exclude:
-    - 'app/controllers/tools_controller.rb'
-    - 'app/helpers/meta_tags_helper.rb'
-    - 'config/initializers/rack_attack.rb'
-
 # This cop supports unsafe autocorrection (--autocorrect-all).
 # Configuration parameters: ConvertCodeThatCanStartToReturnNil, AllowedMethods, MaxChainLength.
 # AllowedMethods: present?, blank?, presence, try, try!
@@ -417,17 +231,3 @@ Style/SafeNavigation:
   Exclude:
     - 'app/controllers/api/v1/sessions_controller.rb'
     - 'config/initializers/rack_attack.rb'
-
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: single_quotes, double_quotes
-Style/StringLiteralsInInterpolation:
-  Exclude:
-    - 'config/initializers/content_security_policy.rb'
-
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyleForMultiline.
-# SupportedStylesForMultiline: comma, consistent_comma, diff_comma, no_comma
-Style/TrailingCommaInArrayLiteral:
-  Exclude:
-    - 'config/initializers/devise.rb'

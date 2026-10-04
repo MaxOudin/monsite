@@ -17,9 +17,9 @@ RSpec.describe "Index uniques en base de données" do
       original  = create(factory)
       duplicate = build(factory, column => original.public_send(column))
 
-      expect {
+      expect do
         duplicate.save!(validate: false)
-      }.to raise_error(ActiveRecord::RecordNotUnique)
+      end.to raise_error(ActiveRecord::RecordNotUnique)
     end
   end
 end
