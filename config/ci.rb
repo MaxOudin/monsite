@@ -4,6 +4,7 @@ CI.run do
   step "Setup", "bin/setup --skip-server"
 
   step "Style: RuboCop", "bundle exec rubocop"
+  step "Security: Brakeman", "bin/brakeman --no-pager"
   step "Security: bundler-audit", "bin/bundler-audit"
   step "Security: Importmap vulnerability audit", "bin/importmap audit"
   step "Tests: Rails", "bin/rails test"

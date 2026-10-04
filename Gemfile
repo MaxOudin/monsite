@@ -100,6 +100,7 @@ group :development, :test do
   gem "letter_opener"
 
   gem "annotate"
+  gem "brakeman", require: false
   gem "bundler-audit", require: false
   gem "dotenv-rails"
   gem "foreman"

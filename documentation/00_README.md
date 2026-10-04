@@ -18,7 +18,8 @@ documentation/
 ├── 09_ROADMAP_AMELIORATIONS.md        ← Roadmap d'améliorations
 ├── 10_DEVISE_TWO_FACTOR.md            ← 2FA TOTP (devise-two-factor)
 ├── 11_RUBOCOP.md                      ← RuboCop (lint, style, dette progressive)
-└── 12_VEILLE_CVE_BUNDLER_AUDIT.md     ← Veille CVE gems (bundler-audit)
+├── 12_VEILLE_CVE_BUNDLER_AUDIT.md     ← Veille CVE gems (bundler-audit)
+└── 13_BRAKEMAN.md                     ← Analyse statique Brakeman
 ```
 
 ---
@@ -75,6 +76,11 @@ documentation/
 👉 **[12_VEILLE_CVE_BUNDLER_AUDIT.md](./12_VEILLE_CVE_BUNDLER_AUDIT.md)**
 - bundler-audit et wrapper `bin/bundler-audit`
 - État des alertes et procédure
+
+### Je veux l'analyse statique de sécurité (5 minutes)
+👉 **[13_BRAKEMAN.md](./13_BRAKEMAN.md)**
+- Brakeman et binstub `bin/brakeman`
+- État du scan et étape `bin/ci`
 
 ---
 
