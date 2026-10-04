@@ -7,11 +7,21 @@
 set -e
 
 IGNORED=(
-  # CVE-AAAA-NNNNN (gem x.y.z, Criticite) — resume de la faille.
-  # Exposition : REELLE / NULLE — preuve dans le code (module, route, config).
-  # Contournement possible sans upgrade : ...
-  # Sortie : gem >= x.y.z (bloque par ...). Revue : AAAA-MM-JJ.
-  # "CVE-AAAA-NNNNN"
+  # CVE-2026-32700 (devise 4.9.4, Medium) — course Confirmable sur le changement d'email.
+  # Exposition : NULLE — User n'inclut pas :confirmable (app/models/user.rb), pas de colonne unconfirmed_email.
+  # Contournement : ne pas activer :confirmable tant que Devise reste en 4.x.
+  # Sortie : devise >= 5.0.3. Bloqué par une montée majeure (Gemfile ~> 4.9.3). Revue : 2027-01-04.
+  "CVE-2026-32700"
+  # CVE-2026-40295 (devise 4.9.4, Medium) — open redirect via request.referrer dans Timeoutable.
+  # Exposition : NULLE — User n'inclut pas :timeoutable. config.timeout_in est commenté.
+  # Contournement : ne pas activer :timeoutable tant que Devise reste en 4.x.
+  # Sortie : devise >= 5.0.4. Revue : 2027-01-04.
+  "CVE-2026-40295"
+  # CVE-2026-73648 (rails-html-sanitizer 1.6.2, Unknown) — XSS si les balises SVG use ou feImage sont autorisées.
+  # Exposition : NULLE — aucun allowed_tags personnalisé. Action Text n'ajoute que figure, figcaption et la balise d'attachment.
+  # Contournement : ne pas autoriser use ni feImage.
+  # Sortie : rails-html-sanitizer >= 1.7.1, bloqué par actionview 8.1.4 (~> 1.6). Revue : 2027-01-04.
+  "CVE-2026-73648"
 )
 
 IGNORE_ARG=""

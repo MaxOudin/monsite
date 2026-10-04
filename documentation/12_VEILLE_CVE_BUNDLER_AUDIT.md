@@ -25,7 +25,7 @@ bundle exec bundler-audit check --update   # sans ignores du wrapper
 | Gem `bundler-audit` (dev/test) | ✅ |
 | Wrapper `bin/bundler-audit` | ✅ |
 | Documentation (ce fichier) | ✅ |
-| Ignores justifiés / datés | ❌ (aucun pour l'instant) |
+| Ignores justifiés / datés | ✅ (3, revue 2027-01-04) |
 | Job CI GitHub Actions (schedule) | ✅ |
 | Étape `bin/ci` locale | ✅ |
 | Déploiement déclenché par la CI | ❌ (`kamal deploy` est manuel) |
@@ -71,13 +71,24 @@ Montées lot 1 : nokogiri 1.19.0 → 1.19.4, rack 3.2.4 → 3.2.7, net-imap 0.6.
 
 Montées lot 2 : puma 6.6.1 → 7.2.1, rubyzip 2.4.1 → 3.7.0.
 
-Plus aucune alerte High. Reste Medium / Low / Unknown (Rails 8.1.2.x, loofah, devise 5, etc.).
+Plus aucune alerte High.
+
+Lot 3 (2026-10-04) : correctifs restants dans la série. Rails borné `~> 8.1, >= 8.1.3.1` (résolu en 8.1.4). Specs : 183 exemples, 0 échec. Smoke : `Rails.version` → 8.1.4.
+
+Montées lot 3 : rails 8.1.2 → 8.1.4, action_text-trix 2.1.16 → 2.1.19, bcrypt 3.1.21 → 3.1.22, crass 1.0.6 → 1.0.7, json 2.18.1 → 2.21.2, loofah 2.25.0 → 2.25.2, mail 2.9.0 → 2.9.1, msgpack 1.8.0 → 1.8.5, rack-session 2.1.1 → 2.1.2.
+
+Après lot 3, `bin/bundler-audit` est vert. Trois alertes sont ignorées, exposition nulle :
+
+| Alerte | Pourquoi elle reste |
+|--------|---------------------|
+| CVE-2026-32700, CVE-2026-40295 (devise 4.9.4) | `:confirmable` et `:timeoutable` ne sont pas activés. Le correctif est Devise 5, une montée majeure. |
+| CVE-2026-73648 (rails-html-sanitizer 1.6.2) | Action View 8.1.4 impose `~> 1.6`. La faille ne concerne que les balises SVG `use` et `feImage`, absentes de la config. |
 
 ## Plan de mise en place
 
 1. ✅ Ajouter la gem + wrapper + doc (branche `feat/bundler-audit`)
 2. ✅ Corriger Critical/High (lots 1 et 2) — 0 alerte High restante
-3. ⬜ Traiter Medium/Low/Unknown restants ou ignores datés
+3. ✅ Traiter Medium/Low/Unknown (lot 3) et ignores datés pour Devise 5 et le sanitizer
 4. ✅ Workflow GitHub [`.github/workflows/security.yml`](../.github/workflows/security.yml)
 
 ## Workflow GitHub
