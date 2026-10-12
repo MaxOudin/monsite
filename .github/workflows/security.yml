@@ -4,7 +4,7 @@ name: Security
 
 on:
   schedule:
-    - cron: "0 5 * * 1" # lundi 05:00 UTC (07:00 Paris, heure d'été)
+    - cron: "0 5 * * *"
   pull_request:
   push:
     branches: [main]
