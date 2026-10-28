@@ -77,7 +77,9 @@ Lot 3 (2026-10-04) : correctifs restants dans la série. Rails borné `~> 8.1, >
 
 Montées lot 3 : rails 8.1.2 → 8.1.4, action_text-trix 2.1.16 → 2.1.19, bcrypt 3.1.21 → 3.1.22, crass 1.0.6 → 1.0.7, json 2.18.1 → 2.21.2, loofah 2.25.0 → 2.25.2, mail 2.9.0 → 2.9.1, msgpack 1.8.0 → 1.8.5, rack-session 2.1.1 → 2.1.2.
 
-Après lot 3, `bin/bundler-audit` est vert. Trois alertes sont ignorées, exposition nulle :
+Lot 4 (2026-10-28) : net-ssh 7.3.2 → 7.3.8 (patch, contrainte Kamal `~> 7.3`). Sept avis GHSA : injection dans ProxyCommand, épuisement mémoire pré-auth, accès à l'agent SSH via le port forwarding, contournement de l'authentification par certificat d'hôte. Specs : 183 exemples, 0 échec. Smoke : `kamal version` → 2.11.0, gem chargée en 7.3.8.
+
+Après lot 3, puis à nouveau après lot 4, `bin/bundler-audit` est vert. Trois alertes sont ignorées, exposition nulle :
 
 | Alerte | Pourquoi elle reste |
 |--------|---------------------|
