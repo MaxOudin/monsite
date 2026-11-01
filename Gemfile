@@ -37,7 +37,7 @@ gem "stimulus-rails"
 gem "jbuilder"
 
 # Authentification with Devise
-gem "devise", "~> 4.9.3"
+gem "devise", "~> 5.0", ">= 5.0.4"
 gem "pundit", "~> 2.5"
 
 gem "devise-jwt"

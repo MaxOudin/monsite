@@ -25,7 +25,7 @@ bundle exec bundler-audit check --update   # sans ignores du wrapper
 | Gem `bundler-audit` (dev/test) | ✅ |
 | Wrapper `bin/bundler-audit` | ✅ |
 | Documentation (ce fichier) | ✅ |
-| Ignores justifiés / datés | ✅ (3, revue 2027-01-04) |
+| Ignores justifiés / datés | ✅ (aucun en cours) |
 | Job CI GitHub Actions (schedule) | ✅ |
 | Étape `bin/ci` locale | ✅ |
 | Déploiement déclenché par la CI | ❌ (`kamal deploy` est manuel) |
@@ -79,12 +79,9 @@ Montées lot 3 : rails 8.1.2 → 8.1.4, action_text-trix 2.1.16 → 2.1.19, bcry
 
 Lot 4 (2026-10-28) : net-ssh 7.3.2 → 7.3.8 (patch, contrainte Kamal `~> 7.3`). Sept avis GHSA : injection dans ProxyCommand, épuisement mémoire pré-auth, accès à l'agent SSH via le port forwarding, contournement de l'authentification par certificat d'hôte. Specs : 183 exemples, 0 échec. Smoke : `kamal version` → 2.11.0, gem chargée en 7.3.8.
 
-Après lot 3, puis à nouveau après lot 4, `bin/bundler-audit` est vert. Trois alertes sont ignorées, exposition nulle :
+Lot 5 (2026-11-01) : les trois ignores sortent par montée de gems. Devise 4.9.4 → 5.0.4 (Gemfile `~> 5.0, >= 5.0.4`) corrige CVE-2026-32700 et CVE-2026-40295. `devise-jwt` 0.13.0 et `devise-two-factor` 6.4.0 acceptent Devise `< 6`. `rails-html-sanitizer` 1.6.2 → 1.7.1 corrige CVE-2026-73648 : la contrainte Action View `~> 1.6` autorise 1.7.x (`< 2.0`), elle ne bloquait pas le correctif. `Devise::TestHelpers`, retiré en Devise 5, n'était inclus que pour les specs helper qui ne l'utilisent pas.
 
-| Alerte | Pourquoi elle reste |
-|--------|---------------------|
-| CVE-2026-32700, CVE-2026-40295 (devise 4.9.4) | `:confirmable` et `:timeoutable` ne sont pas activés. Le correctif est Devise 5, une montée majeure. |
-| CVE-2026-73648 (rails-html-sanitizer 1.6.2) | Action View 8.1.4 impose `~> 1.6`. La faille ne concerne que les balises SVG `use` et `feImage`, absentes de la config. |
+`bin/bundler-audit` est vert, sans ignore.
 
 ## Plan de mise en place
 
