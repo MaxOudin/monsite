@@ -57,6 +57,8 @@ class ToolsController < ApplicationController
   def process_favicon
     zip_data = ImageProcessor.favicon(params[:file])
     send_data zip_data, filename: "favicon-pack.zip", type: "application/zip", disposition: "attachment"
+  rescue StandardError => e
+    redirect_back_or_to(tools_favicon_path, alert: friendly_error(e))
   end
 
   private

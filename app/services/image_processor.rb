@@ -78,6 +78,7 @@ module ImageProcessor
   def favicon(file)
     require_vips!
     require "zip"
+    allow_svg_loader!
 
     buffer = Zip::OutputStream.write_buffer do |zip|
       FAVICON_SIZES.each do |size|
@@ -151,6 +152,12 @@ module ImageProcessor
 
   def require_vips!
     require "image_processing/vips"
+  end
+
+  # Active Storage appelle Vips.block_untrusted(true) au démarrage. svgload est
+  # marqué non fiable : new_from_file répond alors « not a known file format ».
+  def allow_svg_loader!
+    Vips.block("VipsForeignLoadSvg", false) if Vips.respond_to?(:block)
   end
 
   def normalize_format(format)
