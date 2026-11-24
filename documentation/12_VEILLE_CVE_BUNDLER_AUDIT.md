@@ -98,12 +98,12 @@ Fichier : `.github/workflows/security.yml`.
 |-------------|-------|------|
 | `push` sur `main` | à chaque push | bundler-audit, Brakeman, RuboCop |
 | `pull_request` | à chaque PR | bundler-audit, Brakeman, RuboCop |
-| `schedule` | lundi 05:00 UTC (07:00 Paris en heure d'été, 06:00 en heure d'hiver) | bundler-audit seul |
+| `schedule` | jeudi 08:00 UTC (10:00 Paris en heure d'été, 09:00 en heure d'hiver) | bundler-audit seul |
 | `workflow_dispatch` | Actions → Security → Run workflow | les trois jobs |
 
 Le cron ne déploie pas : il n'existe pas de workflow de déploiement. `kamal deploy` reste une commande lancée à la main.
 
-Un échec du cron notifie l'auteur du dernier commit sur `main`. Le premier passage planifié est le lundi 5 octobre 2026 à 05:00 UTC, ou plus tôt via Run workflow.
+Un échec du cron notifie l'auteur du dernier commit sur `main`. Le passage planifié est chaque jeudi à 08:00 UTC, ou plus tôt via Run workflow.
 
 ## Procédure en cas d'alerte
 

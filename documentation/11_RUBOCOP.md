@@ -69,7 +69,7 @@ bin/ci
 
 L’étape `Style: RuboCop` tourne avant les tests pour un feedback rapide.
 
-GitHub Actions lance le même `bundle exec rubocop` sur les push de `main` et les pull requests (`.github/workflows/security.yml`). Le cron du lundi ne relance pas RuboCop.
+GitHub Actions lance le même `bundle exec rubocop` sur les push de `main` et les pull requests (`.github/workflows/security.yml`). Le cron du jeudi ne relance pas RuboCop.
 
 ## Bonnes pratiques PR
 
